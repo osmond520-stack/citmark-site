@@ -630,9 +630,10 @@
           <span class="hero-tag"><span class="pulse"></span>Now accepting founding members</span>
           <h1>When buyers ask AI, does it name <span class="hl">you</span> — or your competitors?</h1>
           <p class="hero-sub">CitMark checks ChatGPT, Perplexity, Gemini and Claude every week and tells you — in plain English — whether your site gets mentioned, gets cited, or gets skipped. Then it tells you exactly what to fix.</p>
-          <form class="waitlist" data-waitlist novalidate>
+          <form class="waitlist" data-waitlist data-source="hero" novalidate>
             <label class="mono" style="position:absolute;left:-9999px" for="email-hero">Work email</label>
             <input id="email-hero" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
+            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <button class="btn" type="submit">Join the waitlist</button>
           </form>
           <p class="form-msg" role="status"></p>
@@ -733,9 +734,10 @@
               <p>Join the waitlist — founding members lock in 50% off for life. First 100 members only.</p>
             </div>
             <div class="inline-cta-form">
-              <form class="waitlist" data-waitlist novalidate>
+              <form class="waitlist" data-waitlist data-source="inline" novalidate>
                 <label style="position:absolute;left:-9999px" for="email-inline">Work email</label>
                 <input id="email-inline" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
+                <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
                 <button class="btn" type="submit">Join the waitlist</button>
               </form>
               <p class="form-msg" role="status"></p>
@@ -970,9 +972,10 @@
           <div class="final reveal">
             <h2>Find out what AI says about you — before your competitors do.</h2>
             <p>Join the waitlist for first access and founding pricing at 50% off for life — for the first 100 founding members only. One email when we launch. That's it.</p>
-            <form class="waitlist" data-waitlist novalidate style="margin-top: 26px;">
+            <form class="waitlist" data-waitlist data-source="bottom" novalidate style="margin-top: 26px;">
               <label style="position:absolute;left:-9999px" for="email-final">Work email</label>
               <input id="email-final" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
+              <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <button class="btn" type="submit">Join the waitlist</button>
             </form>
             <p class="form-msg" role="status"></p>
@@ -1142,11 +1145,56 @@
         toggle.addEventListener("change", applyPricing);
         applyPricing();
 
-        /* ---------- Waitlist forms (FormSubmit AJAX — no page leave, no mail client) ---------- */
+        /* ---------- Waitlist forms ----------
+           Primary channel: the owner's Google Apps Script endpoint, which
+           appends each signup to a Google Sheet (deduped, source-tagged).
+           Fallback: the original FormSubmit AJAX channel — if the sheet
+           endpoint errors, times out (12s), or returns ok:false, the signup
+           is re-sent through FormSubmit so no signup is ever lost. */
         var CONTACT = "hello@citmark.com";
+        var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxdBYcFBwGF_M-5Sgpc3GxB84Bs6ZTNhDRA4LmsPMyG_5Kc3WN3gjJlgN7Cf7Z6equ6/exec";
         var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        var pendingSource = null; /* set to "sticky" when the sticky bar's button is tapped */
+
+        function postToSheet(payload) {
+          return new Promise(function (resolve, reject) {
+            var ctrl = ("AbortController" in window) ? new AbortController() : null;
+            var timer = setTimeout(function () {
+              if (ctrl) { ctrl.abort(); }
+              reject(new Error("sheet timeout"));
+            }, 12000);
+            fetch(SHEET_ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+              signal: ctrl ? ctrl.signal : undefined
+            }).then(function (r) {
+              return r.json().catch(function () { return null; });
+            }).then(function (data) {
+              clearTimeout(timer);
+              if (data && data.ok) { resolve(data.result || "added"); }
+              else { reject(new Error("sheet rejected")); }
+            }).catch(function (err) {
+              clearTimeout(timer);
+              reject(err);
+            });
+          });
+        }
+
+        function postToFormSubmit(email) {
+          return fetch("https://formsubmit.co/ajax/" + CONTACT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ email: email, _subject: "New waitlist signup", _captcha: "false" })
+          }).then(function (r) {
+            if (!r.ok) { throw new Error("http " + r.status); }
+            return r.json().catch(function () { return {}; });
+          });
+        }
+
         document.querySelectorAll("form[data-waitlist]").forEach(function (form) {
           var input = form.querySelector('input[type="email"]');
+          var honeypot = form.querySelector('input[name="website"]');
           var btn = form.querySelector('button[type="submit"]');
           var msg = form.parentElement.querySelector(".form-msg") || form.nextElementSibling;
           var sending = false;
@@ -1166,24 +1214,37 @@
             input.removeAttribute("aria-invalid");
             sending = true;
             btn.disabled = true;
-            fetch("https://formsubmit.co/ajax/" + CONTACT, {
-              method: "POST",
-              headers: { "Content-Type": "application/json", "Accept": "application/json" },
-              body: JSON.stringify({ email: email, _subject: "New waitlist signup", _captcha: "false" })
-            }).then(function (r) {
-              if (!r.ok) { throw new Error("http " + r.status); }
-              return r.json().catch(function () { return {}; });
-            }).then(function () {
+            var source = pendingSource || form.getAttribute("data-source") || "hero";
+            pendingSource = null;
+            function done(okText) {
               sending = false;
               btn.disabled = false;
-              msg.textContent = "You're on the list! We'll email you at " + email + " when we launch.";
+              msg.textContent = okText;
               msg.classList.add("show", "ok");
               input.value = "";
-            }).catch(function () {
+            }
+            function failed() {
               sending = false;
               btn.disabled = false;
               msg.textContent = "Something went wrong — please try again.";
               msg.classList.add("show", "err");
+            }
+            postToSheet({
+              email: email,
+              source: source,
+              page: location.href,
+              website: honeypot ? honeypot.value : ""
+            }).then(function (result) {
+              if (result === "duplicate") {
+                done("You're already on the list — we'll be in touch.");
+              } else {
+                /* "added" and "ignored" (honeypot) both show the normal success state */
+                done("You're on the list! We'll email you at " + email + " when we launch.");
+              }
+            }).catch(function () {
+              postToFormSubmit(email).then(function () {
+                done("You're on the list! We'll email you at " + email + " when we launch.");
+              }).catch(failed);
             });
           });
           input.addEventListener("input", function () {
@@ -1237,6 +1298,8 @@
         /* ---------- Sticky mobile signup bar ---------- */
         var stickyCta = document.getElementById("stickyCta");
         var stickyLink = stickyCta.querySelector("a");
+        /* the bar jumps to the final form — tag that signup as coming from here */
+        stickyLink.addEventListener("click", function () { pendingSource = "sticky"; });
         var suppressBar = { join: false, footer: false };
         function updateSticky() {
           var show = window.scrollY > window.innerHeight * 0.75 && !suppressBar.join && !suppressBar.footer;
