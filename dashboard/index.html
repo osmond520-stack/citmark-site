@@ -236,6 +236,9 @@ button { font: inherit; }
 .cell.hit { background: var(--good-soft); color: var(--good); border-color: #bfe3cb; }
 .cell.hit.impl { background: var(--warn-soft); color: var(--warn); border-color: #ecd9a8; }
 .cell.miss { background: var(--bg-sink); color: var(--muted); }
+.cell-err { display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; font-weight: 700;
+  background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
 .cell:hover { transform: scale(1.08); }
 .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px;
   color: var(--muted); margin-top: 12px; }
@@ -331,7 +334,7 @@ button { font: inherit; }
           <button data-skin="prism">◆ Prism</button>
         </div>
       </div>
-      <div class="demo-note">Demo build — mock data.<br/>No login required.</div>
+      <div class="demo-note">Real sample — measured 2026-10-24, 3 questions × 4 engines, cap 1200.<br/>No login required.</div>
     </div>
   </aside>
 
@@ -342,7 +345,7 @@ button { font: inherit; }
           <h1 id="pageTitle">Snapshot</h1>
           <span class="sub" id="pageSub">Run a visibility check across AI engines</span>
         </div>
-        <span class="pill">MOCK DEMO</span>
+        <span class="pill">REAL SAMPLE</span>
       </div>
     </div>
 
@@ -353,9 +356,9 @@ button { font: inherit; }
           <div class="card">
             <h2>Brand</h2>
             <p class="desc">The brand this snapshot monitors.</p>
-            <div class="kv"><span>Brand</span><b>TrailWeave</b></div>
-            <div class="kv"><span>Domain</span><b>trailweave.com</b></div>
-            <div class="kv"><span>Competitors tracked</span><b>Darn Tough, Smartwool</b></div>
+            <div class="kv"><span>Brand</span><b>Bombas</b></div>
+            <div class="kv"><span>Domain</span><b>bombas.com</b></div>
+            <div class="kv"><span>Competitors tracked</span><b>Balega, Feetures, Injinji, Darn Tough</b></div>
           </div>
           <div class="card">
             <h2>Engines</h2>
@@ -365,7 +368,7 @@ button { font: inherit; }
         </div>
         <div class="card">
           <h2>Questions</h2>
-          <p class="desc">3-question mix (v1): buy-list, scenario, constrained.</p>
+          <p class="desc">3-question mix (v1): buy-list, buy-list scenario, constrained.</p>
           <div id="questionList"></div>
         </div>
         <div class="card">
@@ -469,8 +472,8 @@ button { font: inherit; }
 <script>
 "use strict";
 /* =====================================================================
-   CitMark dashboard demo — mock data layer.
-   Shapes follow the backend P-006 contract so the mock adapter can be
+   CitMark dashboard demo — data layer (replays real measured data since 2026-10-24).
+   Shapes follow the backend P-006 contract so the replay adapter can be
    swapped for the real HTTP API later (see api.http below).
    ===================================================================== */
 
@@ -481,89 +484,228 @@ const ENGINE_META = {
   claude:     { name: "Claude",     short: "CLD" },
 };
 
+// NOTE: this object replays real measured data (Bombas, 2026-10-24,
+// 3 questions x 4 engines, cap 1200, 11/12 valid). The variable name
+// MOCK is historical; the content is no longer mock data.
 const MOCK = {
-  snapshot: {
-    id: "snap_demo_001",
-    tier: "starter",
-    brand: { name: "TrailWeave", domain: "trailweave.com" },
-    competitors: ["Darn Tough", "Smartwool"],
-    engines: ["chatgpt", "perplexity", "gemini", "claude"],
-    questions: [
-      { id: "q1", slot: "Q1", text: "Best merino wool socks for hiking?",
-        length_band: "L1", intent: "buy_list" },
-      { id: "q2", slot: "Q2", text: "Need durable warm socks for wet weekend hikes, recommendations?",
-        length_band: "L2", intent: "scenario" },
-      { id: "q3", slot: "Q3",
-        text: "I need merino wool hiking socks under $25 per pair, available in size L, that will not slip inside boots on multi-day treks",
-        length_band: "L4", intent: "constrained" },
+  "snapshot": {
+    "id": "snap_bombas_20261024",
+    "tier": "starter",
+    "brand": {
+      "name": "Bombas",
+      "domain": "bombas.com"
+    },
+    "competitors": [
+      "Balega",
+      "Feetures",
+      "Injinji",
+      "Darn Tough"
     ],
-    created_at: "2026-10-24T12:00:00+08:00",
-    status: "done",
+    "engines": [
+      "chatgpt",
+      "perplexity",
+      "gemini",
+      "claude"
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "slot": "Q1",
+        "text": "Best socks for running?",
+        "length_band": "L1",
+        "intent": "buy_list"
+      },
+      {
+        "id": "q2",
+        "slot": "Q2",
+        "text": "Best socks for a runner that needs extra cushioning?",
+        "length_band": "L2",
+        "intent": "buy_list_scenario"
+      },
+      {
+        "id": "q3",
+        "slot": "Q3",
+        "text": "I run marathons with a $100 budget and need socks that are moisture-wicking and blister-proof. What should I buy?",
+        "length_band": "L4",
+        "intent": "constrained"
+      }
+    ],
+    "created_at": "2026-10-24T16:41:58+08:00",
+    "status": "done"
   },
-  score: {
-    value: 58.3, hits: 7, n_valid: 12, ci_low: 32.0, ci_high: 80.7,
-    note: "Small sample — indicative only",
-    by_engine: [
-      { engine: "perplexity", value: 100.0, hits: 3, n_valid: 3 },
-      { engine: "chatgpt",    value: 66.7,  hits: 2, n_valid: 3 },
-      { engine: "gemini",     value: 33.3,  hits: 1, n_valid: 3 },
-      { engine: "claude",     value: 33.3,  hits: 1, n_valid: 3 },
+  "score": {
+    "value": 9.1,
+    "hits": 1,
+    "n_valid": 11,
+    "ci_low": 1.6,
+    "ci_high": 37.7,
+    "note": "Small sample — indicative only. Measured 2026-10-24; 11/12 valid (Gemini Q3 rate-limited).",
+    "by_engine": [
+      {
+        "engine": "perplexity",
+        "value": 0.0,
+        "hits": 0,
+        "n_valid": 3
+      },
+      {
+        "engine": "chatgpt",
+        "value": 0.0,
+        "hits": 0,
+        "n_valid": 3
+      },
+      {
+        "engine": "gemini",
+        "value": 0.0,
+        "hits": 0,
+        "n_valid": 2
+      },
+      {
+        "engine": "claude",
+        "value": 33.3,
+        "hits": 1,
+        "n_valid": 3
+      }
     ],
-    by_question: [
-      { question_id: "q1", value: 75.0, hits: 3, n_valid: 4 },
-      { question_id: "q2", value: 50.0, hits: 2, n_valid: 4 },
-      { question_id: "q3", value: 50.0, hits: 2, n_valid: 4 },
-    ],
+    "by_question": [
+      {
+        "question_id": "q1",
+        "value": 25.0,
+        "hits": 1,
+        "n_valid": 4
+      },
+      {
+        "question_id": "q2",
+        "value": 0.0,
+        "hits": 0,
+        "n_valid": 4
+      },
+      {
+        "question_id": "q3",
+        "value": 0.0,
+        "hits": 0,
+        "n_valid": 3
+      }
+    ]
   },
-  answers: [
-    { question_id: "q1", engine: "perplexity", status: "ok",
-      brand_mentioned: true, mention_type: "explicit", sentiment: "positive", needs_review: false,
-      text: "For hiking, <mark>TrailWeave</mark>'s merino crew socks are a top pick — cushioned, moisture-wicking, and they hold up well on long trails. Darn Tough and Smartwool are solid alternatives with lifetime guarantees." },
-    { question_id: "q1", engine: "chatgpt", status: "ok",
-      brand_mentioned: true, mention_type: "explicit", sentiment: "positive", needs_review: false,
-      text: "I'd recommend <mark>TrailWeave</mark> merino hiking socks for fit and durability, alongside Darn Tough's warranty-backed options. Look for 60%+ merino content and reinforced heels." },
-    { question_id: "q1", engine: "gemini", status: "ok",
-      brand_mentioned: false, mention_type: "none", sentiment: "neutral", needs_review: false,
-      text: "Darn Tough, Smartwool, and Icebreaker make excellent merino hiking socks with good cushioning and arch support. Prioritize fit over brand." },
-    { question_id: "q1", engine: "claude", status: "ok",
-      brand_mentioned: true, mention_type: "implicit", sentiment: "neutral", needs_review: true,
-      text: "Cushioned merino socks in the <mark>TrailWeave</mark> style from newer direct-to-consumer brands are gaining traction among thru-hikers for their price-to-quality ratio." },
-    { question_id: "q2", engine: "perplexity", status: "ok",
-      brand_mentioned: true, mention_type: "explicit", sentiment: "positive", needs_review: false,
-      text: "<mark>TrailWeave</mark>'s full-cushion merino socks handle wet weekends well — the wool retains warmth when damp. Pair with a liner sock for multi-day trips." },
-    { question_id: "q2", engine: "chatgpt", status: "ok",
-      brand_mentioned: false, mention_type: "none", sentiment: "neutral", needs_review: false,
-      text: "For wet conditions, choose merino blends with nylon reinforcement. Darn Tough's hiking line and Smartwool's PhD series both dry reasonably fast." },
-    { question_id: "q2", engine: "gemini", status: "ok",
-      brand_mentioned: true, mention_type: "explicit", sentiment: "neutral", needs_review: false,
-      text: "<mark>TrailWeave</mark> and Darn Tough both offer cushioned options that stay warm when wet. Rotate two pairs on weekend trips." },
-    { question_id: "q2", engine: "claude", status: "ok",
-      brand_mentioned: false, mention_type: "none", sentiment: "neutral", needs_review: false,
-      text: "Look for socks with at least 50% merino, mesh ventilation zones, and a snug (not tight) fit to avoid blisters on wet trails." },
-    { question_id: "q3", engine: "perplexity", status: "ok",
-      brand_mentioned: true, mention_type: "explicit", sentiment: "positive", needs_review: false,
-      text: "<mark>TrailWeave</mark> meets all three constraints: under $25, sizes up to L, and silicone heel grippers that prevent slipping on multi-day treks." },
-    { question_id: "q3", engine: "chatgpt", status: "ok",
-      brand_mentioned: true, mention_type: "implicit", sentiment: "neutral", needs_review: true,
-      text: "Socks matching that spec exist in the budget tier — <mark>one DTC merino label</mark> sells a $22 anti-slip hiking sock in size L, though availability varies." },
-    { question_id: "q3", engine: "gemini", status: "ok",
-      brand_mentioned: false, mention_type: "none", sentiment: "neutral", needs_review: false,
-      text: "Under $25 with anti-slip features, consider Darn Tough's sale section or Smartwool's everyday line, checking size charts carefully for L." },
-    { question_id: "q3", engine: "claude", status: "ok",
-      brand_mentioned: false, mention_type: "none", sentiment: "neutral", needs_review: false,
-      text: "That combination is hard under $25. You may need to compromise on either the merino percentage or the anti-slip feature at this price." },
+  "answers": [
+    {
+      "question_id": "q1",
+      "engine": "chatgpt",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "Best all-around: Balega Hidden Comfort. It’s cushioned, comfortable, and a good choice for everyday runs.<br><br>Other good picks:<br>- Feetures Elite Light Cushion — snug, supportive fit; good if you like a thinner sock.<br>- Smartwool Run Targeted Cushion — merino blend for comfort and temperature regulation.<br>- Injinji Run — toe socks that may help if your toes rub or blister.<br><br>Choose a sock that fits snugly without bunching, and skip cotton. If you tell me your weather, shoe fit, or whether you get blisters, I can narrow it down."
+    },
+    {
+      "question_id": "q1",
+      "engine": "claude",
+      "status": "ok",
+      "brand_mentioned": true,
+      "mention_type": "explicit",
+      "needs_review": false,
+      "text": "The best running socks depend a bit on your climate and foot, but a few brands consistently earn praise:<br><br>- Darn Tough (merino wool, lifetime guarantee): excellent cushioning and blister prevention. Great all-around choice, though they run warm.<br>- Balega (blend of merino/nylon/synthetic): very popular with runners, good moisture control, thinner than Darn Tough.<br>- Feetures (synthetic blends): known for blister protection and a snug fit; good for hot weather.<br>- Smartwool (merino wool): comfortable, odor-resistant, and good for varied conditions.<br>- Injinji (toe socks): a good pick if you get blisters between your toes.<br>- Stance and <mark>Bombas</mark> (cotton blends): comfortable for everyday wear and lighter runs.<br><br>What to look for:<br>- Avoid cotton for longer runs, since it holds moisture and causes blisters.<br>- Merino wool or synthetic blends wick sweat and regulate temperature.<br>- Cushioning on the heel and forefoot if you run on hard surfaces.<br>- Fit: snug without binding, with no seams where they'd rub.<br>- Height: ankle or crew height is common; go higher in cold weather or on trails.<br><br>If you tell me your typical distances, climate, and whether you've had blister problems, I can narrow it down."
+    },
+    {
+      "question_id": "q1",
+      "engine": "perplexity",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "For most runners, the best all-around choice is a lightweight, snug-fitting synthetic or merino-blend running sock—not cotton. Look for a smooth toe seam, a secure heel, and cushioning that suits your shoes.<br><br>- Hot weather or sweaty feet: thin synthetic socks with good ventilation.<br>- Long runs or blister-prone feet: a slightly cushioned merino or synthetic blend; consider toe socks if you often blister between your toes.<br>- Cold weather: merino wool blend for warmth and moisture control.<br>- Low-cut shoes: choose a tab or heel-lock design that won’t slip.<br><br>Fit matters more than brand: try them on with your running shoes, and avoid socks that bunch or feel tight around the toes."
+    },
+    {
+      "question_id": "q1",
+      "engine": "gemini",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "The &quot;best&quot; running sock depends on whether you prefer synthetic materials (cooler, slicker) or Merino wool (temperature regulating, naturally odor-resistant), as well as your preferred cushion level. <br><br>Never run in pure cotton, as it traps moisture and leads to blisters.<br><br>Here are the top-rated running socks currently on the market, categorized by their strengths:<br><br>---<br><br>### 1. The Overall Best: Balega Hidden Comfort<br>* Best for: Everyday training, maximum comfort, runners who like a plush feel.<br>* Material: Synthetic (Drynamix blend)<br>* Profile: No-show (with a high heel tab)<br>* Why they’re great: They are consistently ranked #1 by runners for a reason. They feature a high thread count that makes them feel incredibly soft and pillowy underfoot. The deep heel pocket ensures they never slip down into your shoe.<br>* Keep in mind: They are moderately thick; if your shoes fit very tightly, these might feel snug.<br><br>### 2. The Best Merino Wool (and Most Durable): Darn Tough Run Ultra-Lightweight (or Light Cushion)<br>* Best for: All-weather running, trail running, longevity.<br>* Material: Merino wool blend<br>* Profile: Available in No-Show, 1/4 Crew, and Micro Crew<br>* Why they’re great: Merino wool naturally wicks moisture, keeps feet cool in summer and warm in winter, and doesn't hold odors. Darn Tough socks have an undetectable toe seam and come with an unconditional lifetime guarantee—if they get a hole, the company replaces them for free.<br>* Keep in mind: They have a firmer, more snug fit compared to the plush feel of Balega.<br><br>### 3. The Best Anti-Blister / Snug Fit: Feetures High Performance (or Elite)<br>* Best for: Preventing blisters, runners with high arches, minimalists.<br>* Material: Synthetic (iWick polyester) or Merino wool blends<br>* Profile: No-show, Low Cut, Crew<br>* Why they’re great: Feetures utilizes &quot;Targeted Compression&quot; around the arch, giving them a very supportive, locked-in feel. They are anatomically designed (designated Left and Right socks) so excess fabric doesn't bunch up and cause friction blisters.<br>* Keep in mind: If you dislike compression or tightness around your midfoot, these might feel restrictive.<br><br>### 4. The Best for Toe Blisters: Injinji Run Lightweight No-Show<br>* Best for: Long-distance/ultrarunners, runners prone to blisters *between* their toes.<br>* Material: Synthetic (CoolMax blend)<br>* Why they’re great: By separating each toe, these socks eliminate skin-on-skin friction entirely and allow your toes to splay naturally inside your shoe. <br>* Keep in mind: They take a few extra seconds to put on and feel unusual at first, but they have a cult following among marathon and trail runners.<br><br>### 5. The Best Ultra-Thin: Swiftwick Aspire Zero (or Aspire One)<br>* Best for: Racing, hot summer running, tight-fitting shoes.<br>* Material: Synthetic (Nylon/Olefin blend)<br>* Why they’re great: Exceptionally thin with firm compression. Olefin is one of the fastest-drying fibers in existence, making these great for humid conditions or runs where your feet might get wet.<br>* Keep in mind: Almost zero impact cushioning—strictly a second-skin feel.<br><br>---<br><br>### Quick Buying Advice:<br>* For maximum blister protection: Go with Feetures or Injinji.<br>* For a soft, forgiving ride: Go with Balega Hidden Comfort.<br>* If you want one pair to last 10 years: Buy Darn Tough.<br>* For race day: Go with an ultra-light option like Swiftwick Aspire."
+    },
+    {
+      "question_id": "q2",
+      "engine": "chatgpt",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "For extra cushioning, the Balega Hidden Comfort is a strong all-around pick: it has plush padding underfoot, a smooth toe seam, and a snug heel, while still wicking moisture.<br><br>Other good options:<br>- Feetures Elite Max Cushion — plush underfoot with a more secure, compression-style fit.<br>- Smartwool Run Targeted Cushion — cushioning in key areas, with merino wool for temperature and moisture management.<br><br>Choose a snug fit and avoid cotton. If you’re adding thicker socks, check that your running shoes still have enough room—tight shoes can cause blisters or pressure."
+    },
+    {
+      "question_id": "q2",
+      "engine": "claude",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "For running socks with extra cushioning, these are the most reliable picks:<br><br>- Darn Tough Vermont Run+ or Hiker+ Cushion: Merino wool, very durable, lifetime warranty. Cushioning is generous through the heel and forefoot. Expensive, but many runners keep a few pairs for years.<br>- Balega Hidden Comfort or Balega Enduro: Popular with distance runners and blister-prone feet. The Enduro is more cushioned; the Hidden Comfort is a lower-cut, thinner option. Good moisture management.<br>- Feetures Elite Max Cushion: Strong padding in the heel and ball of the foot, with a snug fit that stays put. Good for long runs.<br>- Smartwool Run Targeted Cushion: Merino blend with cushioning where runners need it most, and a more breathable upper.<br>- Injinji Run Lightweight Crew (toe socks): Not heavily cushioned, but the toe separation prevents blisters, which some runners find matters more than padding.<br><br>Some tips for choosing:<br><br>- Merino wool or synthetic blends beat cotton, which holds moisture and causes blisters.<br>- Check the fit: Too loose and the sock bunches and rubs; too tight and it restricts circulation. The heel should lock in place.<br>- Match the weight to the weather: Heavier cushioning for cold or long runs, lighter for warm-weather speed work.<br>- Buy a few pairs and test them over a couple of runs before committing, since fit varies a lot between brands.<br><br>If you tell me your typical run distance, climate, and whether you're prone to blisters, I can narrow this down further."
+    },
+    {
+      "question_id": "q2",
+      "engine": "perplexity",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "For extra cushioning, look for running socks with padded soles and reinforced heel and toe. A few solid options:<br><br>- Balega Blister Resist — plush cushioning and a smooth fit; a good pick if you’re prone to blisters.<br>- Feetures Elite Max Cushion — targeted cushioning with a snug, supportive fit; comes in different heights.<br>- Darn Tough Run Micro Crew Cushion — durable merino-wool blend with cushioning underfoot; useful in cooler or changeable weather.<br>- Smartwool Run Targeted Cushion — merino blend with padding in high-impact areas and less bulk elsewhere.<br><br>If you want the softest feel, try a full-cushion model; if your shoes already fit snugly, targeted cushioning may be more comfortable. Choose a height that prevents shoe rubbing, and make sure the socks don’t make your shoes feel tight."
+    },
+    {
+      "question_id": "q2",
+      "engine": "gemini",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "When you need extra cushioning for running, you want a sock that provides high-density padding in high-impact areas (heel and ball of the foot) without bunching up, causing blisters, or trapping heat.<br><br>Here are the top-rated running socks with maximum cushioning, broken down by category:<br><br>---<br><br>### 1. The Gold Standard for Max Cushion: Balega Hidden Comfort<br>* Best for: Overall plushness and blister prevention.<br>* Why it’s great: This is the undisputed favorite among runners who want an ultra-soft feel. It uses a high thread count of proprietary &quot;Drynamix&quot; fabric that feels like stepping on tiny pillows. <br>* Details: Seamless toe prevents rubbing; features a deep heel pocket so the sock won’t slide down into your shoe.<br>* Drawback: They can feel a bit warm on high-humidity summer days because the fabric is relatively thick.<br><br>### 2. Best for High-Impact Durability: Thorlos Experia Energy or Thorlos Maximum Cushion JMM<br>* Best for: Runners dealing with joint/foot pain who need heavy-duty shock absorption.<br>* Why it’s great: Thorlos is the king of thick, clinical-level padding. <br>  * The JMM (Classic) is practically a towel wrapped around your foot—ideal for long recovery runs or cold weather.<br>  * The Experia puts thick, targeted padding on the heel and forefoot ball, but uses thin mesh over the instep for breathability.<br>* Drawback: The Classic JMM is *very* thick; make sure your running shoes have enough volume for them.<br><br>### 3. Best Wool Option (All-Weather &amp; Odor-Resistant): Darn Tough Run No Show Tab (Cushion)<br>* Best for: Longevity and year-round temperature regulation.<br>* Why it’s great: Made with fine-gauge Merino wool, these socks keep your feet cool in summer, warm in winter, and wick moisture better than pure synthetics. Darn Tough weaves their cushioning tightly, meaning it won’t flatten out over 10+ miles.<br>* Bonus: They come with an unconditional lifetime guarantee—if they get a hole, they replace them for free.<br><br>### 4. Best Max Cushion with Compression: Feetures Elite Max Cushion<br>* Best for: Runners who want maximum padding combined with an anatomical, locked-in fit.<br>* Why it’s great: Feetures utilizes &quot;Targeted Compression&quot; around the arch. This prevents the sock from shifting (a common issue with thick socks) while concentrating heavy padding under the heel and forefoot. They also make designated Left (L) and Right (R) socks for an exact fit.<br><br>### 5. Best for Trail Running / Blister-Prone Toes: Injinji Run Midweight (Padded)<br>* Best for: Preventing toe-on-toe friction during long runs or technical downhills.<br>* Why it’s great: Injinji makes five-toe socks. The &quot;Midweight&quot; line provides terry cushioning under the sole while keeping toes separated, eliminating blisters caused by friction between damp toes.<br><br>---<br><br>### Quick Buying Advice for Max-Cushion Socks:<br><br>1. Watch Shoe Fit: If your running shoes are already snug, thick socks (like the Thorlos or Balegas) will take up volume and might cramp your toes. You may need to loosen your lacing or consider sizing up a half-size in your next shoe.<br>2. Avoid 100% Cotton: Ensure you never buy cotton gym socks for running. Max-cushion cotton absorbs sweat, loses its shape, turns rough, and is a guaranteed recipe for severe blisters. Stick to Polyester, Nylon, or Merino Wool blends."
+    },
+    {
+      "question_id": "q3",
+      "engine": "chatgpt",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "Buy 4 pairs of Balega Blister Resist socks—choose the height and cushioning that fit your shoes. They’re designed to manage moisture and reduce friction, and four pairs should usually fit within your $100 budget (prices vary). Wear them on long training runs, then race in a pair you’ve already tested.<br><br>No sock is truly blister-proof: shoe fit, heat, and friction matter too. If your blisters are specifically between your toes, consider Injinji Run toe socks instead, and test those before race day. Avoid cotton socks."
+    },
+    {
+      "question_id": "q3",
+      "engine": "claude",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "For marathons, with a $100 budget, you have room to buy a few pairs of good socks and still have money left over. Here's what I'd look for and buy.<br><br>What to look for<br>- Merino wool or synthetic blends (nylon/polyester) for moisture-wicking. Merino stays warm when wet, handles odor well, and tends to be the more comfortable choice. Synthetics dry fastest.<br>- Cushioned sole in the areas that take the most impact: heel and forefoot.<br>- Seamless or flat-seam toe closure. Seams on the toes are a common blister source.<br>- Snug arch and heel fit so the sock doesn't slide inside the shoe. Movement is what causes friction blisters.<br>- Crew or quarter height so the cuff doesn't ride down and rub.<br><br>Good options<br>- Balega Blister Resist (~$15–18/pair): built specifically for blister prevention, with a moisture-wicking blend and a cushioned sole. This is a strong pick for marathons.<br>- Feetures Elite Max Cushion (~$18–20/pair): very popular with distance runners. Excellent moisture management and a reliable fit.<br>- Darn Tough Run Cushion (~$22–25/pair): merino blend with a lifetime guarantee. More expensive, but they last for years.<br>- Injinji Run Lightweight Crew (~$18–20/pair): toe-separator design. Some runners swear by it for preventing blisters between the toes. Try it before race day, since it's a personal preference.<br>- Smartwool Run Targeted Cushion (~$20 each): good cushioning and fit if you prefer Smartwool.<br><br>How to spend the $100<br>- Buy 2–3 pairs of your chosen model, around $50–75. Having a few pairs lets you rotate them and use fresh, dry socks for long runs.<br>- Use the remaining money on a pair of socks for race day or to test a second brand.<br><br>Blister-prevention tips that matter as much as the sock<br>- Break in new socks on several training runs before race day. Never debut a new pair on marathon day.<br>- Apply anti-chafe balm (Body Glide or similar) to your feet, especially the toes and heels, before long runs.<br>- Make sure your shoes fit properly, with a thumbnail of room at the toes. A poor shoe fit causes more blisters than a poor sock does.<br><br>If you tell me your typical weather, whether you sweat heavily, and whether you've had blisters before, I can narrow this down to one specific pair."
+    },
+    {
+      "question_id": "q3",
+      "engine": "perplexity",
+      "status": "ok",
+      "brand_mentioned": false,
+      "mention_type": "none",
+      "needs_review": false,
+      "text": "No sock can guarantee blister-proofing, but for a $100 budget, I’d buy two pairs of Balega Blister Resist crew socks (usually about $15–$20 a pair) and use them on long runs before race day. They’re moisture-managing, cushioned, and designed to reduce friction.<br><br>If you prefer a thinner, snugger fit, try Wrightsock Double Layer (roughly $15–$20 a pair); its two-layer construction is intended to limit skin-on-sock rubbing. Prices vary, so you could get several pairs and stay under budget.<br><br>For best results, choose the right size, keep your shoes comfortably roomy, and test the socks on long training runs. If you’re prone to blisters, a small amount of anti-chafe balm on known hot spots may help too."
+    }
   ],
-  suggestions: [
-    { title: "Constrained questions underperform",
-      body: "<b>Q3 mention rate is 50%</b> — the lowest slot. The $25 + size L + anti-slip combination rarely appears together in indexed content. Consider a buying-guide page that bundles all three constraints." },
-    { title: "Gemini and Claude lag at 33.3%",
-      body: "Both engines favor authoritative review citations. <b>1–2 outdoor-media reviews</b> mentioning TrailWeave would likely lift these two engines first." },
-    { title: "2 implicit mentions need review",
-      body: "Two answers mention the brand implicitly. After manual review they may convert to explicit, which would <b>revise the score upward</b>." },
-  ],
+  "suggestions": [
+    {
+      "title": "Invisible on running questions",
+      "body": "Only <b>1 of 11</b> valid answers mentions Bombas — Claude on Q1, framed as everyday wear and lighter runs. Q2 and Q3 score 0 across all engines. The brand surfaces for comfort, not performance running: running-specific content is the gap."
+    },
+    {
+      "title": "Cross-engine miss, not one engine's quirk",
+      "body": "ChatGPT 0/3, Perplexity 0/3, Gemini 0/2, Claude 1/3. All four engines agree on Q2 and Q3. The competitors that do surface — Balega, Feetures, Darn Tough — own the running conversation."
+    },
+    {
+      "title": "1 call failed (Gemini Q3, HTTP 429)",
+      "body": "Rate limits are part of real measurement. The score uses <b>11 valid answers</b>; the failed call shows as ! in the matrix, not counted as a miss. This is why snapshots run async with retries."
+    }
+  ]
 };
 
-/* ---------------- API client: mock adapter (default) ---------------- */
+/* ---------------- API client: replay adapter (default) ---------------- */
+/* Replays the real measured data in MOCK above; set mode "http" when the backend demo API is publicly deployed. */
 const api = {
   mode: "mock",   // "mock" | "http"
   baseUrl: "",    // set when backend demo API is publicly deployed
@@ -710,7 +852,7 @@ function renderScore() {
   document.getElementById("scoreCi").textContent = s.ci_low.toFixed(1) + "–" + s.ci_high.toFixed(1);
   document.getElementById("scoreN").textContent = s.n_valid;
   document.getElementById("scoreBlurb").textContent =
-    `TrailWeave was mentioned in ${s.hits} of ${s.n_valid} AI answers. ` +
+    `${state.snapshot.brand.name} was mentioned in ${s.hits} of ${s.n_valid} AI answers. ` +
     `The interval reflects a small sample — it tightens as you add questions.`;
   const C = 452.4;
   requestAnimationFrame(() => {
@@ -750,6 +892,10 @@ function renderReport() {
     html += `<tr><td class="q"><b>${q.slot}</b> · ${escapeHtml(trunc(q.text, 64))}</td>`;
     es.forEach(e => {
       const a = byQE[q.id + "|" + e];
+      if (!a || a.status === "error") {
+        html += `<td><span class="cell-err" title="${ENGINE_META[e].name} — ${q.slot}: call failed, excluded from score">!</span></td>`;
+        return;
+      }
       const cls = !a.brand_mentioned ? "miss" : (a.mention_type === "implicit" ? "hit impl" : "hit");
       const glyph = !a.brand_mentioned ? "✕" : (a.mention_type === "implicit" ? "◐" : "✓");
       const idx = state.answers.indexOf(a);
@@ -775,7 +921,7 @@ function openDrawer(i) {
   const ml = a.mention_type === "explicit" ? "Explicit mention" : (a.mention_type === "implicit" ? "Implicit mention" : "Not mentioned");
   document.getElementById("dTags").innerHTML =
     `<span class="tag ${mt}">${ml}</span>` +
-    `<span class="tag ${a.sentiment === "positive" ? "pos" : "neu"}">${a.sentiment}</span>` +
+    (a.sentiment ? `<span class="tag ${a.sentiment === "positive" ? "pos" : "neu"}">${a.sentiment}</span>` : `<span class="tag neu">not classified</span>`) +
     (a.needs_review ? `<span class="tag implicit">needs review</span>` : "");
   document.getElementById("dBody").innerHTML = a.text;
   document.getElementById("drawer").classList.add("open");
