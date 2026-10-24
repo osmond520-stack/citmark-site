@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-skin="base">
+<html lang="en" data-skin="starter">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -47,28 +47,35 @@
   --warn: #9a6b12; --warn-soft: #fbf0da;
   --shadow: 0 1px 2px rgba(20,21,25,.05), 0 8px 24px rgba(20,21,25,.07);
   --radius: 14px;
-  /* skin tokens: base = v1 default */
-  --skin-accent: #e8490f;
-  --skin-accent-deep: #c23a08;
-  --skin-hero-wash: linear-gradient(180deg, rgba(232,73,15,.06), rgba(232,73,15,0) 70%);
-  --skin-badge-bg: #141519;
-  --skin-badge-fg: #f4f4f1;
-}
-[data-skin="spark"] {
+  /* skin tokens: starter = default (ex-Spark; Base retired) */
   --skin-accent: #ff5a1f;
   --skin-accent-deep: #e04a10;
   --skin-hero-wash: linear-gradient(180deg, rgba(255,90,31,.10), rgba(255,90,31,0) 70%);
   --skin-badge-bg: linear-gradient(135deg, #ff5a1f, #c23a08);
   --skin-badge-fg: #ffffff;
 }
-[data-skin="beacon"] {
+[data-skin="teams"] {
+  --skin-accent: #2a2a35;
+  --skin-accent-deep: #17171f;
+  --skin-hero-wash: linear-gradient(180deg, rgba(42,42,53,.14), rgba(42,42,53,0) 70%);
+  --skin-badge-bg: linear-gradient(135deg, #4b4b5e, #17171f);
+  --skin-badge-fg: #ffffff;
+}
+[data-skin="starter"] {
+  --skin-accent: #ff5a1f;
+  --skin-accent-deep: #e04a10;
+  --skin-hero-wash: linear-gradient(180deg, rgba(255,90,31,.10), rgba(255,90,31,0) 70%);
+  --skin-badge-bg: linear-gradient(135deg, #ff5a1f, #c23a08);
+  --skin-badge-fg: #ffffff;
+}
+[data-skin="growth"] {
   --skin-accent: #e8a020;
   --skin-accent-deep: #b97a08;
   --skin-hero-wash: linear-gradient(180deg, rgba(232,160,32,.12), rgba(232,160,32,0) 70%);
   --skin-badge-bg: linear-gradient(135deg, #f2b33d, #b97a08);
   --skin-badge-fg: #ffffff;
 }
-[data-skin="prism"] {
+[data-skin="pro"] {
   --skin-accent: #7c5cff;
   --skin-accent-deep: #5f3de0;
   --skin-hero-wash: linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,0) 70%);
@@ -326,12 +333,12 @@ button { font: inherit; }
     </nav>
     <div class="side-foot">
       <div class="skin-switch">
-        <p>MEMBERSHIP SKIN</p>
+        <p>MEMBERSHIP TIER</p>
         <div class="skin-opts" id="skinOpts">
-          <button data-skin="base" class="active">Base</button>
-          <button data-skin="spark">✦ Spark</button>
-          <button data-skin="beacon">◉ Beacon</button>
-          <button data-skin="prism">◆ Prism</button>
+          <button data-skin="starter" class="active">Starter</button>
+          <button data-skin="growth">◉ Growth</button>
+          <button data-skin="pro">◆ Pro</button>
+          <button data-skin="teams">⬢ Teams</button>
         </div>
       </div>
       <div class="demo-note">Real sample — measured 2026-10-24, 3 questions × 4 engines, cap 1200.<br/>No login required.</div>
@@ -771,7 +778,7 @@ document.querySelectorAll("[data-goto]").forEach(b =>
   b.addEventListener("click", () => go(b.dataset.goto)));
 
 /* ---------------- skin ---------------- */
-const SKIN_TIER = { base: "STARTER", spark: "STARTER", beacon: "GROWTH", prism: "PRO" };
+const SKIN_TIER = { starter: "STARTER", growth: "GROWTH", pro: "PRO", teams: "TEAMS" };
 document.querySelectorAll("#skinOpts button").forEach(b =>
   b.addEventListener("click", () => {
     document.documentElement.dataset.skin = b.dataset.skin;
