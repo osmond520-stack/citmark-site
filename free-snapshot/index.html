@@ -207,9 +207,12 @@ a { color: var(--accent-deep); }
    Free snapshot form + Cloudflare Turnstile (Managed).
    Site key is public by design; the secret NEVER appears here — it lives
    only in the backend environment at deploy time.
-   Backend endpoint (single switch point; backend builds it in parallel):
+   Backend endpoint (single switch point): POST /snapshots/free on the
+   backend API (turnstile.py verified, fail-closed, token never stored).
+   If the backend deploys cross-origin, replace the relative path below
+   with its full URL; the path stays /snapshots/free.
    ===================================================================== */
-var SNAPSHOT_API_URL = "/api/free-snapshot";
+var SNAPSHOT_API_URL = "/snapshots/free";
 var TURNSTILE_SITEKEY = "0x4AAAAAAFjvaQNvLskXz3cB";
 
 var widgetId = null;
