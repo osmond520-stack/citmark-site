@@ -61,6 +61,20 @@
   --skin-badge-bg: linear-gradient(135deg, #ff5a1f, #c23a08);
   --skin-badge-fg: #ffffff;
 }
+[data-skin="beacon"] {
+  --skin-accent: #e8a020;
+  --skin-accent-deep: #b97a08;
+  --skin-hero-wash: linear-gradient(180deg, rgba(232,160,32,.12), rgba(232,160,32,0) 70%);
+  --skin-badge-bg: linear-gradient(135deg, #f2b33d, #b97a08);
+  --skin-badge-fg: #ffffff;
+}
+[data-skin="prism"] {
+  --skin-accent: #7c5cff;
+  --skin-accent-deep: #5f3de0;
+  --skin-hero-wash: linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,0) 70%);
+  --skin-badge-bg: linear-gradient(135deg, #9a86ff, #5f3de0);
+  --skin-badge-fg: #ffffff;
+}
 
 /* ============ base ============ */
 *, *::before, *::after { box-sizing: border-box; }
@@ -98,7 +112,7 @@ button { font: inherit; }
 .skin-switch { border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
 .skin-switch p { margin: 0 0 8px; font-size: 12px; color: var(--muted); font-weight: 600;
   letter-spacing: .04em; }
-.skin-opts { display: flex; gap: 6px; }
+.skin-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .skin-opts button { flex: 1; padding: 8px 0; border-radius: 8px; cursor: pointer;
   border: 1px solid var(--line-strong); background: var(--bg); font-size: 13px;
   font-weight: 700; color: var(--ink-2); }
@@ -313,6 +327,8 @@ button { font: inherit; }
         <div class="skin-opts" id="skinOpts">
           <button data-skin="base" class="active">Base</button>
           <button data-skin="spark">✦ Spark</button>
+          <button data-skin="beacon">◉ Beacon</button>
+          <button data-skin="prism">◆ Prism</button>
         </div>
       </div>
       <div class="demo-note">Demo build — mock data.<br/>No login required.</div>
@@ -613,11 +629,13 @@ document.querySelectorAll("[data-goto]").forEach(b =>
   b.addEventListener("click", () => go(b.dataset.goto)));
 
 /* ---------------- skin ---------------- */
+const SKIN_TIER = { base: "STARTER", spark: "STARTER", beacon: "GROWTH", prism: "PRO" };
 document.querySelectorAll("#skinOpts button").forEach(b =>
   b.addEventListener("click", () => {
     document.documentElement.dataset.skin = b.dataset.skin;
     document.querySelectorAll("#skinOpts button").forEach(x =>
       x.classList.toggle("active", x === b));
+    document.getElementById("tierBadge").textContent = SKIN_TIER[b.dataset.skin];
   }));
 
 /* ---------------- snapshot view ---------------- */
