@@ -317,6 +317,11 @@ button { font: inherit; }
   .ring { width: 140px; height: 140px; }
   .ring .val b { font-size: 36px; }
 }
+/* keyboard focus + reduced motion (quality floor) */
+:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
 </style>
 </head>
 <body>
@@ -335,13 +340,12 @@ button { font: inherit; }
       <div class="skin-switch">
         <p>MEMBERSHIP TIER</p>
         <div class="skin-opts" id="skinOpts">
-          <button data-skin="starter" class="active">Starter</button>
+          <button data-skin="starter" class="active">○ Starter</button>
           <button data-skin="growth">◉ Growth</button>
           <button data-skin="pro">◆ Pro</button>
           <button data-skin="teams">⬢ Teams</button>
         </div>
       </div>
-      <div class="demo-note">Real sample — measured 2026-10-24, 3 questions × 4 engines, cap 1200.<br/>No login required.</div>
     </div>
   </aside>
 
@@ -369,18 +373,17 @@ button { font: inherit; }
           </div>
           <div class="card">
             <h2>Engines</h2>
-            <p class="desc">Starter tier runs 4 engines per question.</p>
             <div id="engineChips" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
           </div>
         </div>
         <div class="card">
           <h2>Questions</h2>
-          <p class="desc">3-question mix (v1): buy-list, buy-list scenario, constrained.</p>
+          <p class="desc">3-question mix: buy-list, buy-list scenario, constrained.</p>
           <div id="questionList"></div>
         </div>
         <div class="card">
           <h2>Run snapshot</h2>
-          <p class="desc">Executes 12 engine calls (3 questions × 4 engines), extracts brand mentions, scores per P-006.</p>
+          <p class="desc">Executes 12 engine calls (3 questions × 4 engines), extracts brand mentions.</p>
           <div id="runArea">
             <button class="btn" id="runBtn" style="width:100%;">▶&nbsp; Run snapshot</button>
           </div>
@@ -438,7 +441,7 @@ button { font: inherit; }
         <div id="reportBody" style="display:none;">
           <div class="card">
             <h2>Question × engine matrix</h2>
-            <p class="desc">Click any cell to read the raw answer. ◐ = implicit mention (needs review).</p>
+            <p class="desc" id="matrixDesc">Click a ✓ or ✕ cell to read the raw answer. ! = no answer recorded (call failed).</p>
             <div style="overflow-x:auto;">
               <table class="matrix" id="matrixTable"></table>
             </div>
@@ -797,8 +800,7 @@ function renderSnapshotStatic() {
       <span class="slot">${q.slot} · ${q.length_band}</span>
       <p>${escapeHtml(q.text)}</p>
       <div class="meta">
-        <span class="chip">${q.intent.replace("_", " ")}</span>
-        <span class="chip">${s.engines.length} engines</span>
+        <span class="chip">${q.intent.replace(/_/g, " ")}</span>
       </div>
     </div>`).join("");
 }
@@ -859,18 +861,18 @@ function renderScore() {
   document.getElementById("scoreCi").textContent = s.ci_low.toFixed(1) + "–" + s.ci_high.toFixed(1);
   document.getElementById("scoreN").textContent = s.n_valid;
   document.getElementById("scoreBlurb").textContent =
-    `${state.snapshot.brand.name} was mentioned in ${s.hits} of ${s.n_valid} AI answers. ` +
-    `The interval reflects a small sample — it tightens as you add questions.`;
+    `${state.snapshot.brand.name} was mentioned in ${s.hits} of ${s.n_valid} AI answers.`;
   const C = 452.4;
   requestAnimationFrame(() => {
     document.getElementById("ringFg").style.transition = "stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)";
     document.getElementById("ringFg").style.strokeDashoffset = C * (1 - s.value / 100);
   });
-  document.getElementById("engineBars").innerHTML = s.by_engine.map(b => `
+  const engineOrder = MOCK.snapshot.engines;
+  document.getElementById("engineBars").innerHTML = [...s.by_engine].sort((a, b) => engineOrder.indexOf(a.engine) - engineOrder.indexOf(b.engine)).map(b => `
     <div class="bar-row">
       <div class="nm">${ENGINE_META[b.engine].name}</div>
       <div class="bar-track"><div class="bar-fill" style="width:0%" data-w="${b.value}"></div></div>
-      <div class="pc">${b.value.toFixed(1)}</div>
+      <div class="pc">${b.value.toFixed(1)}%</div>
     </div>`).join("");
   document.getElementById("questionBars").innerHTML = s.by_question.map(b => {
     const q = MOCK.snapshot.questions.find(x => x.id === b.question_id);
@@ -878,7 +880,7 @@ function renderScore() {
     <div class="bar-row">
       <div class="nm">${q.slot}</div>
       <div class="bar-track"><div class="bar-fill" style="width:0%" data-w="${b.value}"></div></div>
-      <div class="pc">${b.value.toFixed(1)}</div>
+      <div class="pc">${b.value.toFixed(1)}%</div>
     </div>`;
   }).join("");
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -896,7 +898,7 @@ function renderReport() {
   let html = `<thead><tr><th>Question</th>${es.map(e =>
     `<th>${ENGINE_META[e].name}</th>`).join("")}</tr></thead><tbody>`;
   qs.forEach(q => {
-    html += `<tr><td class="q"><b>${q.slot}</b> · ${escapeHtml(trunc(q.text, 64))}</td>`;
+    html += `<tr><td class="q" title="${escapeHtml(q.text)}"><b>${q.slot}</b> · ${escapeHtml(trunc(q.text, 64))}</td>`;
     es.forEach(e => {
       const a = byQE[q.id + "|" + e];
       if (!a || a.status === "error") {
@@ -911,6 +913,8 @@ function renderReport() {
     html += `</tr>`;
   });
   document.getElementById("matrixTable").innerHTML = html + "</tbody>";
+  const hasImplicit = state.answers.some(a => a.mention_type === "implicit");
+  document.getElementById("matrixDesc").textContent = "Click a ✓ or ✕ cell to read the raw answer." + (hasImplicit ? " ◐ = implicit mention (needs review)." : "") + " ! = no answer recorded (call failed).";
   document.querySelectorAll(".cell").forEach(c =>
     c.addEventListener("click", () => openDrawer(+c.dataset.idx)));
   document.getElementById("sugList").innerHTML = MOCK.suggestions.map((s, i) => `
