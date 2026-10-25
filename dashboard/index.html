@@ -125,7 +125,6 @@ button { font: inherit; }
   font-weight: 700; color: var(--ink-2); }
 .skin-opts button.active { border-color: var(--skin-accent); color: var(--skin-accent-deep);
   background: var(--bg-raise); box-shadow: 0 0 0 1px var(--skin-accent); }
-.demo-note { font-size: 12px; color: var(--muted); padding: 0 4px; }
 
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--bg);
@@ -300,13 +299,15 @@ button { font: inherit; }
   .grid2 { grid-template-columns: 1fr; }
   .score-hero { flex-direction: column; text-align: center; gap: 20px; }
   .tabbar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    overflow-x: auto; scrollbar-width: none;
     background: var(--bg-raise); border-top: 1px solid var(--line);
     padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); }
-  .tabbar button { flex: 1; border: 0; background: transparent; padding: 8px 0 6px;
+  .tabbar button { flex: 0 0 auto; min-width: 68px; border: 0; background: transparent; padding: 8px 6px 6px;
     font-size: 11px; font-weight: 700; color: var(--muted); cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 3px; }
   .tabbar button .ico { font-size: 19px; }
   .tabbar button.active { color: var(--skin-accent-deep); }
+  .tabbar::-webkit-scrollbar { display: none; }
   .content { padding: 20px 16px 110px; }
   .topbar-in { padding: 14px 16px; }
   .matrix td.q { max-width: 150px; font-size: 12.5px; }
@@ -390,6 +391,58 @@ button { font: inherit; }
 .week-item { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; }
 .week-item:last-child { border-bottom: 0; }
 .week-item .n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--skin-accent); color: #fff; font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; }
+
+/* ============ 5A+6A integration (local, scoped to the 5 new views) ============ */
+#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+#view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{margin:0 0 4px;font-size:20px}
+#view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{margin:0 0 8px;font-size:16px}
+#view-questions .desc, #view-competitors .desc, #view-sources .desc, #view-tools .desc, #view-settings .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-questions .empty, #view-competitors .empty, #view-sources .empty, #view-tools .empty, #view-settings .empty{color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:14px;font-size:14px}
+#view-questions .sample-tag, #view-competitors .sample-tag, #view-sources .sample-tag, #view-tools .sample-tag, #view-settings .sample-tag{font-size:11px;font-weight:700;color:#6b7280;border:1px solid var(--line);border-radius:999px;padding:1px 7px;vertical-align:middle}
+#view-questions .badge-soon, #view-competitors .badge-soon, #view-sources .badge-soon, #view-tools .badge-soon, #view-settings .badge-soon{display:inline-block;background:#f3f4f6;color:#6b7280;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+#view-questions .badge-ok, #view-competitors .badge-ok, #view-sources .badge-ok, #view-tools .badge-ok, #view-settings .badge-ok{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+#view-questions .table-wrap, #view-competitors .table-wrap, #view-sources .table-wrap, #view-tools .table-wrap, #view-settings .table-wrap{overflow-x:auto;margin:0 -4px;padding:0 4px}
+#view-questions table, #view-competitors table, #view-sources table, #view-tools table, #view-settings table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+#view-questions th, #view-competitors th, #view-sources th, #view-tools th, #view-settings th, #view-questions td, #view-competitors td, #view-sources td, #view-tools td, #view-settings td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+#view-questions th, #view-competitors th, #view-sources th, #view-tools th, #view-settings th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+#view-questions td.q, #view-competitors td.q, #view-sources td.q, #view-tools td.q, #view-settings td.q{max-width:340px}
+#view-questions tbody tr.clickable, #view-competitors tbody tr.clickable, #view-sources tbody tr.clickable, #view-tools tbody tr.clickable, #view-settings tbody tr.clickable{cursor:pointer}
+#view-questions tbody tr.clickable:hover, #view-competitors tbody tr.clickable:hover, #view-sources tbody tr.clickable:hover, #view-tools tbody tr.clickable:hover, #view-settings tbody tr.clickable:hover{background:var(--bg)}
+#view-questions .bar-row, #view-competitors .bar-row, #view-sources .bar-row, #view-tools .bar-row, #view-settings .bar-row{display:flex;align-items:center;gap:10px;margin:8px 0}
+#view-questions .bar-row .nm, #view-competitors .bar-row .nm, #view-sources .bar-row .nm, #view-tools .bar-row .nm, #view-settings .bar-row .nm{width:110px;flex:none;font-weight:600}
+#view-questions .bar, #view-competitors .bar, #view-sources .bar, #view-tools .bar, #view-settings .bar{height:10px;border-radius:999px;background:var(--bg);flex:1;overflow:hidden}
+#view-questions .bar i, #view-competitors .bar i, #view-sources .bar i, #view-tools .bar i, #view-settings .bar i{display:block;height:100%;background:var(--skin-accent);border-radius:999px}
+#view-questions .bar-row .val, #view-competitors .bar-row .val, #view-sources .bar-row .val, #view-tools .bar-row .val, #view-settings .bar-row .val{width:90px;flex:none;text-align:right;font-size:13px;color:var(--muted)}
+#view-questions .btn, #view-competitors .btn, #view-sources .btn, #view-tools .btn, #view-settings .btn{display:inline-block;border:0;background:var(--ink);color:#fff;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer}
+#view-questions .btn.ghost, #view-competitors .btn.ghost, #view-sources .btn.ghost, #view-tools .btn.ghost, #view-settings .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#view-questions .btn.small, #view-competitors .btn.small, #view-sources .btn.small, #view-tools .btn.small, #view-settings .btn.small{padding:6px 12px;font-size:13px}
+#view-questions input[type=text], #view-competitors input[type=text], #view-sources input[type=text], #view-tools input[type=text], #view-settings input[type=text], #view-questions input[type=password], #view-competitors input[type=password], #view-sources input[type=password], #view-tools input[type=password], #view-settings input[type=password], #view-questions select, #view-competitors select, #view-sources select, #view-tools select, #view-settings select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--ink)}
+#view-questions .field, #view-competitors .field, #view-sources .field, #view-tools .field, #view-settings .field{margin-bottom:12px}
+#view-questions .field label, #view-competitors .field label, #view-sources .field label, #view-tools .field label, #view-settings .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+#view-questions .row, #view-competitors .row, #view-sources .row, #view-tools .row, #view-settings .row{display:flex;gap:12px;flex-wrap:wrap}
+#view-questions .row > *, #view-competitors .row > *, #view-sources .row > *, #view-tools .row > *, #view-settings .row > *{flex:1;min-width:200px}
+#view-questions .switch-row, #view-competitors .switch-row, #view-sources .switch-row, #view-tools .switch-row, #view-settings .switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+#view-questions .switch-row:last-child, #view-competitors .switch-row:last-child, #view-sources .switch-row:last-child, #view-tools .switch-row:last-child, #view-settings .switch-row:last-child{border-bottom:0}
+#view-questions .switch-row p, #view-competitors .switch-row p, #view-sources .switch-row p, #view-tools .switch-row p, #view-settings .switch-row p{margin:2px 0 0;color:var(--muted);font-size:13px}
+#view-questions .switch-row b, #view-competitors .switch-row b, #view-sources .switch-row b, #view-tools .switch-row b, #view-settings .switch-row b{font-size:14px}
+#view-questions a, #view-competitors a, #view-sources a, #view-tools a, #view-settings a{color:var(--skin-accent-deep)}
+@media (max-width:900px){#view-questions .bar-row .nm, #view-competitors .bar-row .nm, #view-sources .bar-row .nm, #view-tools .bar-row .nm, #view-settings .bar-row .nm}{width:88px}
+@media (max-width:380px){#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card}{padding:14px}
+@media (max-width:380px){.tabbar button{min-width:62px;font-size:10px}}
+.qdrawer{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:92vw;background:#fff;border-left:1px solid var(--line);z-index:60;transform:translateX(105%);transition:transform .25s ease;overflow-y:auto;padding:20px}
+.qdrawer.open{transform:translateX(0)}
+.qdrawer .close{float:right;border:0;background:transparent;font-size:20px;cursor:pointer}
+.qdrawer h3{margin-top:6px}
+.qdrawer .eng-row{border-bottom:1px solid var(--line);padding:10px 0}
+.qdrawer .eng-row:last-child{border-bottom:0}
+.qdrawer .eng-row b{font-size:14px}
+.qdrawer .eng-row p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.qdrawer .tag{display:inline-block;border-radius:999px;padding:1px 8px;font-size:12px;font-weight:700;background:#f3f4f6;color:#6b7280}
+.qdrawer .tag.pos{background:#dcfce7;color:#166534}
+@media (max-width:900px){.qdrawer{left:0;width:auto;top:auto;max-height:72vh;border-left:0;border-top:1px solid var(--line);transform:translateY(105%)}.qdrawer.open{transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.qdrawer{transition:none}}
+@media (max-width:900px){.tabbar-mask{display:block;position:fixed;right:0;bottom:0;width:56px;z-index:41;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),var(--bg-raise));opacity:1;transition:opacity .2s}.tabbar-mask.at-end{opacity:0}}
+.tabbar-mask{display:none}
 </style>
 </head>
 <body>
@@ -581,49 +634,206 @@ button { font: inherit; }
         </div>
       </section>
       <!-- ============ VIEW: QUESTIONS (shell, Phase 3) ============ -->
-      <section class="view" id="view-questions">
-        <div class="card">
-          <h2>Questions</h2>
-          <p class="desc">Questions your snapshots ask, plus templates and suggestions.</p>
-          <p class="ov-empty">This page arrives in Phase 3.</p>
-        </div>
-      </section>
+      <section class="view" id="view-questions"><div class="card">
+<h2>Questions</h2>
+<p class="desc">Questions your snapshots ask, plus templates and suggestions.</p>
+<div class="row" style="margin-bottom:14px">
+<div><input type="text" placeholder="Add a question… (demo input, not submitted)" aria-label="Add a question"></div>
+<div style="flex:none"><button class="btn" type="button">Add question</button></div>
+</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Question</th><th>Mentioned on</th><th>Sentiment</th><th>Visibility</th><th>Tags</th></tr></thead>
+<tbody>
+<tr class="clickable" data-q="q1"><td class="q"><b>Best socks for running?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts</span></td><td>Claude</td><td><span class="tag">Not classified</span></td><td>25% (1/4)</td><td>—</td></tr>
+<tr class="clickable" data-q="q2"><td class="q"><b>Best socks for a runner that needs extra cushioning?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts</span></td><td>—</td><td><span class="tag">Not classified</span></td><td>0% (0/4)</td><td>—</td></tr>
+<tr class="clickable" data-q="q3"><td class="q"><b>I run marathons with a $100 budget and need socks that are moisture-wicking and blister-proof. What should I buy?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts · Gemini 1 answer missing (Phase 0 record: 429)</span></td><td>—</td><td><span class="tag">Not classified</span></td><td>0% (0/3)</td><td>—</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="card">
+<h3>Template library</h3>
+<p class="desc">No metrics, templates only (Phase 0 scope).</p>
+<div class="empty">Current mock has no template text; template content to be added (no invented text). Template creation and editing are depth actions; use desktop.</div>
+</div>
+
+<div class="card">
+<h3>Suggested questions</h3>
+<p class="desc">Accept / reject are UI states, not connected to P-024 backend (Phase 0 scope).</p>
+<div class="empty">Current mock has no suggested questions; suggested items with one-click accept / reject appear here once suggestion logic connects (no invented suggestion text).</div>
+</div></section>
 
       <!-- ============ VIEW: COMPETITORS (shell, Phase 3) ============ -->
-      <section class="view" id="view-competitors">
-        <div class="card">
-          <h2>Competitors</h2>
-          <p class="desc">Your visibility vs tracked competitors.</p>
-          <p class="ov-empty">This page arrives in Phase 3.</p>
-        </div>
-      </section>
+      <section class="view" id="view-competitors"><div class="card">
+<h2>Competitors</h2>
+<p class="desc">Your visibility vs tracked competitors.</p>
+<div class="bar-row"><span class="nm">Bombas</span><span class="bar"><i style="width:9.1%"></i></span><span class="val">9.1 · 1/11</span></div>
+<div class="bar-row"><span class="nm">Balega</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
+<div class="bar-row"><span class="nm">Feetures</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
+<div class="bar-row"><span class="nm">Injinji</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
+<div class="bar-row"><span class="nm">Darn Tough</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
+</div>
+
+<div class="card">
+<h3>Trend</h3>
+<p class="desc">Single-point brand shell: latest point 9.1 (2026-10-24) is measured; trend appears after the second run — no invented line.</p>
+<div class="bar-row"><span class="nm">2026-10-24</span><span class="bar"><i style="width:9.1%"></i></span><span class="val">9.1</span></div>
+</div>
+
+<div class="card">
+<h3>Overtaking alerts</h3>
+<div class="empty">No data: without competitor mention data this is an empty-state note; no invented “who overtook you”.</div>
+</div>
+
+<div class="card">
+<h3>Recommended instead of you</h3>
+<div class="empty">No data: current MOCK only contains own-brand mentions (matrix’s only ✓ is Claude × Q1); competitor recommendation frequency has no data — nothing invented.</div>
+</div></section>
 
       <!-- ============ VIEW: SOURCES (shell, Phase 3) ============ -->
-      <section class="view" id="view-sources">
-        <div class="card">
-          <h2>Sources</h2>
-          <p class="desc">Where AI answers cite from.</p>
-          <p class="ov-empty">This page arrives in Phase 3.</p>
-        </div>
-      </section>
+      <section class="view" id="view-sources"><div class="card">
+<h2>Sources</h2>
+<p class="desc">Where AI answers cite from.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Cited domain</th><th>Cited URL</th><th>Domain type</th></tr></thead>
+<tbody><tr><td colspan="3"><div class="empty" style="margin:0">Shown once citation data connects. Current MOCK has no citation fields; no invented domains or URLs.</div></td></tr></tbody>
+</table></div>
+<h3 style="margin-top:18px">Domain type legend (categories only, not data)</h3>
+<p><span class="tag" style="background:#dbeafe;color:#1e40af">Brand site</span> <span class="tag" style="background:#fef3c7;color:#92400e">News media</span> <span class="tag" style="background:#dcfce7;color:#166534">Community forums</span> <span class="tag" style="background:#ede9fe;color:#5b21b6">Encyclopedia &amp; Q&amp;A</span> <span class="tag">Other</span></p>
+<p style="color:var(--muted);font-size:13px">Domain types use color + text dual encoding, not color alone.</p>
+</div>
+
+<div class="card">
+<h3>URL-level outreach <span class="badge-soon">Coming soon</span></h3>
+<p class="desc">P2, after MVP. Gated entry; no uncommitted promises.</p>
+<button class="btn ghost small" type="button" disabled style="opacity:.55;cursor:not-allowed">View outreach targets (after MVP)</button>
+</div>
+
+<div class="card">
+<h3>Third-party outranking alerts</h3>
+<div class="empty">No data: without citation data, third-party vs own citation volume can’t be compared; alerts appear here once citation data connects.</div>
+</div></section>
 
       <!-- ============ VIEW: TOOLS (shell, Phase 3) ============ -->
-      <section class="view" id="view-tools">
-        <div class="card">
-          <h2>Tools</h2>
-          <p class="desc">Tools by tier.</p>
-          <p class="ov-empty">This page arrives in Phase 3.</p>
-        </div>
-      </section>
+      <section class="view" id="view-tools"><div class="card">
+<h2>Tools</h2>
+<p class="desc">Tools by tier.</p>
+</div>
+
+<div class="card"><h3>P0 因果追踪展示层 <span class="badge-soon">Coming soon</span></h3>
+<p>展示全档：一页归因（变化值 + 依据，扣波动 + 置信区间）；复测配额按档递增（次数待定）。看与测分离：量尺不能专属。</p>
+<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
+<p style="color:var(--muted);font-size:13px"><b>Starter：</b>展示全档：一页归因（变化值 + 依据，扣波动 + 置信区间）；复测配额最低档（次数待定）。不含多轮趋势、页面级归因、多品牌总览。为什么：单店最需要“改了有没有用”的直接答案；量尺不能专属。</p>
+<p style="color:var(--muted);font-size:13px"><b>Growth：</b>展示全档 + 多轮趋势与变化值；复测配额上台阶。不含页面/问题级归因、多品牌总览。为什么：Growth 痛点是“在变好”，单次归因证明不了一段时间的投入值得。</p>
+<p style="color:var(--muted);font-size:13px"><b>Pro：</b>展示全档 + 归因落到具体页面/问题（与 P1 联动）；复测高频。不含多品牌总览。为什么：Pro 付深度价，痛点是“为什么丢分”，总分归因改不动。</p>
+<p style="color:var(--muted);font-size:13px"><b>Teams：</b>展示全档 + 10 品牌归因总览与异常品牌提醒；复测最高频（按账号聚合）。为什么：Teams 痛点是掌控多品牌，单品牌归因回答不了“哪个品牌出问题”。假设：未经 Teams 访谈验证。</p>
+<p style="color:var(--muted);font-size:13px">复测配额具体次数待 Must #8 落库 + 财务签字后填；上限账户级（按 team/品牌聚合），非按席位。</p></div>
+
+<div class="card"><h3>P1 内容诊断器 <span class="badge-soon">Coming soon</span></h3>
+<p>核心页（首页 / 主产品页）诊断 + 给写手的 brief。不含多页批量、竞品原文 diff。</p>
+<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese): Growth：+ 品类页批量诊断与改写前后对照。不含竞品 diff。／ Pro：+ 竞品被引页原文 diff 与优先级排序（Gap Score 方法参照 Peec)。（单次诊断成本待测算，Pro 全量边界需财务签字。）／ Teams：同 Pro，按 10 品牌复用模板与 brief。不含代写。</p></div>
+
+<div class="card"><h3>P2 外联包 <span class="badge-soon">Coming soon</span></h3>
+<p>缺口引用源清单展示（已有我无 / 双方都无分层）全档；不含常驻模板库与执行跟踪（假设版，待实验）。</p>
+<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
+<p style="color:var(--muted);font-size:13px"><b>Starter：</b>缺口引用源清单展示（已有我无 / 双方都无分层）全档；模板与跟踪分批开放实验对象（先量清单使用率，再对部分 Starter 用户开放模板量执行率，定档后再定是否常驻）。不含常驻模板库与执行跟踪（假设版，待实验）。为什么：清单本身已回答“去哪”；站外执行率存疑，不预支重型投入；低档更缺引用源的反向可能成立，所以不永久锁死。</p>
+<p style="color:var(--muted);font-size:13px"><b>Growth：</b>清单 + pitch 模板（英主版 + B 群中文说明）与投稿入口。不含执行跟踪（假设版）。为什么：Growth 卡点是“不知道写什么、投哪”，模板解卡点而不代投。</p>
+<p style="color:var(--muted);font-size:13px"><b>Pro：</b>清单 + 模板 + 执行跟踪（发了没回提醒）与 Gap 排序。为什么：Pro 买的是闭环，模板坟场是已知失败形态，跟踪把“发了”变成“走完”。</p>
+<p style="color:var(--muted);font-size:13px"><b>Teams：</b>同 Pro + 多品牌缺口总览与按品牌分发清单。不含代投、不碰付费提及。为什么：Teams 同时管 10 个品牌的外联缺口，单品牌清单会被淹没。假设：未经访谈。</p></div>
+
+<div class="card"><h3>P3 AI 可读性诊断 <span class="badge-soon">Coming soon</span></h3>
+<p>基础 4 项检查结果（以 P5 附带形态呈现，不独立成工具）；不含独立审计报告、扩展检查、历史 diff。</p>
+<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
+<p style="color:var(--muted);font-size:13px"><b>Starter：</b>基础 4 项检查结果（以 P5 附带形态呈现，不独立成工具）。不含独立审计报告、扩展检查、历史 diff。为什么：单店技术痛点是“转交给建站的一句话”，独立报告若无人接等于闲置；痛点不清的独立版直接砍。</p>
+<p style="color:var(--muted);font-size:13px"><b>Growth：</b>独立一键审计 + 一句话给建站 + 模板链接。不含多站批量、扩展、历史 diff。为什么：Growth 开始有建站协作，痛点从“不知道缺什么”变为“能转交的清单”。假设版，验证线转交率 <20% 降级（待拍板）。</p>
+<p style="color:var(--muted);font-size:13px"><b>Pro：</b>+ 扩展检查（爬虫放行 / FAQ schema / freshness）与历史 diff。为什么：Pro 要的是技术债定位，基础 4 项不够解释“某页为什么抽不出来”。caveat：扩展项需先定义，否则不拆。</p>
+<p style="color:var(--muted);font-size:13px"><b>Teams：</b>+ 10 品牌技术总览（哪个品牌地基最差）。为什么：Teams 痛点是多品牌技术地基参差，单站报告无法排优先级。假设。</p></div>
+
+<div class="card"><h3>P4 负面处理 playbook <span class="badge-soon">Coming soon</span></h3>
+<p>应急一页清单（申诉模板 1 份 + 源头联系话术）全档；不含稀释日历、事实库、D7 联动。触发后下游工具，不是按档预售的常驻卖点。</p>
+<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
+<p style="color:var(--muted);font-size:13px"><b>Starter：</b>应急一页清单（申诉模板 1 份 + 源头联系话术）全档。不含稀释日历、事实库、D7 联动。为什么：负面低频高痛，Starter 遇上时无工具是纯 A 的最大伤害，应急版保底线而不做重型手册。</p>
+<p style="color:var(--muted);font-size:13px"><b>Growth：</b>+ 稀释内容日历（短期）。不含事实库。为什么：Growth 痛点是负面出现后“不知道先干哪件”，日历给顺序而非只给模板。假设版，需 D7 触发率分布后定。</p>
+<p style="color:var(--muted);font-size:13px"><b>Pro：</b>+ 事实库定义（什么是真）与 D7 预警联动。为什么：Pro 痛点是“AI 说的坏话是真是假”，无事实基准申诉无依据；方法论参照 CitePulse Fact Integrity（输入差距）。caveat：需先定 D7 事件定义（情感负向 ≠ 事实错误）。</p>
+<p style="color:var(--muted);font-size:13px"><b>Teams：</b>+ 多品牌负面总览与按品牌分发 playbook。为什么：Teams 一个品牌负面会波及品牌群，痛点是“哪个品牌先灭火”。假设。注：P4 是触发后下游工具，不是按档预售的常驻卖点；若某档触发率极低，该档不挂 P4 当卖点。</p></div>
+
+<div class="card"><h3>P5 llms.txt 生成器 <span class="badge-soon">Coming soon</span></h3>
+<p>单品牌一键生成 llms.txt / robots.txt / sitemap 指向（定价段用户自填）；生成文件用自家 checker 验 5/5。三档无差异（有意为之）；Teams 加批量。不是升级驱动器，是留存地基。</p>
+<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
+<p style="color:var(--muted);font-size:13px"><b>Starter：</b>单品牌一键生成 llms.txt / robots.txt / sitemap 指向（定价段用户自填，绝不内置旧 $19/$29）；生成文件用自家 checker 验 5/5。三档无差异（有意为之）。为什么：一次性地基工具锁档只会把用户推向免费 checker，无法成为升级理由；单品牌地基上三档无可分档痛点差异，硬分档是填表行为。</p>
+<p style="color:var(--muted);font-size:13px"><b>Growth：</b>同 Starter（单品牌）。为什么：同上，Growth 与 Starter 在单品牌地基上没有可分档的痛点差异。</p>
+<p style="color:var(--muted);font-size:13px"><b>Pro：</b>同 Starter（单品牌）。为什么：同上，Pro 的升级理由应来自 P1/P2 深度而非一个一次性文件。</p>
+<p style="color:var(--muted);font-size:13px"><b>Teams：</b>+ 10 品牌批量生成与版本对照。为什么：Teams 唯一增量是批量，痛点是重复劳动而非文件本身更高级。假设。注：P5 不是升级驱动器，是留存地基；不进付费差异化叙事，直到部署后提及率变化验证通过。</p></div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings">
-        <div class="card">
-          <h2>Settings</h2>
-          <p class="desc">Brand, members, billing, connections.</p>
-          <p class="ov-empty">This page arrives in Phase 3.</p>
-        </div>
-      </section>
+      <section class="view" id="view-settings"><div class="card">
+<h2>Settings</h2>
+<p class="desc">Brand, members, billing, connections.</p>
+</div>
+
+<div class="card"><h3>Brand profile</h3>
+<div class="row"><div class="field"><label>Brand name</label><input type="text" value="Bombas"></div>
+<div class="field"><label>Domain</label><input type="text" value="bombas.com"></div></div>
+<button class="btn small" type="button">Save brand profile (demo)</button></div>
+
+<div class="card"><h3>Members &amp; roles</h3>
+<p>Seats: <b>1 seat (Starter, read from TIER_FEATURES)</b>. Current mock has no member data; no invented names. Member list appears once real data connects.</p>
+<div class="row"><div class="field"><label>Invite member email</label><input type="text" placeholder="teammate@example.com (demo input)"></div>
+<div class="field"><label>Role</label><select><option>Member (can edit)</option><option>Read-only (view only)</option></select></div></div>
+<p style="color:var(--muted);font-size:13px">P-014 matrix: Owner invites / removes; Growth / Pro members have the same capabilities, only seat counts differ; MVP first gets single-user flow working.</p>
+<button class="btn small" type="button">Send invite (demo)</button></div>
+
+<div class="card"><h3>Billing</h3>
+<p>Current tier: <b>Starter</b> <span class="sample-tag">Sample amounts</span> · Promo $19/mo · Standard $30/mo · switches to standard price at expiry (founding / promo rules: see final pricing).</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+<button class="btn small" type="button">Upgrade (demo)</button>
+<button class="btn small ghost" type="button">Downgrade (demo)</button>
+<button class="btn small ghost" type="button" id="cancelBtn">Cancel subscription</button>
+</div>
+<div id="cancelBox" style="display:none;border:1px solid var(--line);border-radius:8px;padding:12px">
+<p style="margin:0 0 8px"><b>Before you cancel:</b> canceling means losing the watchdog (no more monitoring, alerts, or weekly reports) — not a silent pause. The rest of the current period remains usable; renewal stops at period end.</p>
+<button class="btn small" type="button">I understand, cancel anyway (demo)</button>
+<button class="btn small ghost" type="button" id="cancelKeep">Keep subscription</button>
+</div>
+<table style="min-width:0;margin-top:12px"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th></tr></thead>
+<tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td>$19</td><td><span class="badge-ok">Paid</span></td></tr>
+<tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td>$19</td><td><span class="badge-ok">Paid</span></td></tr></tbody></table>
+<p style="color:var(--muted);font-size:13px">Billing / subscription management is an Owner capability; renewal status and invoice downloads appear once real billing connects.</p></div>
+
+<div class="card"><h3>Connections</h3>
+<div class="switch-row"><div><b>Google Search Console</b><p>Scope added at login; connection entry follows P-016 schedule.</p></div><button class="btn small ghost" type="button">Connect (demo)</button></div>
+<div class="switch-row"><div><b>WooCommerce / Wix / Squarespace</b><p>Gated entry, after MVP.</p></div><button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">After MVP</button></div></div>
+
+<div class="card"><h3>Notification switches</h3>
+<div class="switch-row"><div><b>Negative alerts</b><p>Notify when negative signals appear.</p></div><input type="checkbox" checked></div>
+<div class="switch-row"><div><b>Rescan complete</b><p>Notify when a rescan finishes.</p></div><input type="checkbox" checked></div>
+<div class="switch-row"><div><b>Weekly report</b><p>One weekly digest, no repeated alerts.</p></div><input type="checkbox" checked></div>
+<p style="color:var(--muted);font-size:13px">Switches = preferences; notification center = inbox — both are needed.</p></div>
+
+<div class="card"><h3>API <span class="badge-soon">Pro / Teams</span></h3>
+<p class="desc">Gated on lower tiers + upgrade guidance. Key generation / revocation / usage arrive with API launch (P-034).</p>
+<button class="btn small ghost" type="button">Upgrade to Pro to unlock API (demo)</button></div>
+
+<div class="card"><h3>White-label reports <span class="badge-soon">Teams only</span></h3>
+<p class="desc">Gated on lower tiers + upgrade guidance. Mainly for chains / multi-brand direct customers.</p>
+<button class="btn small ghost" type="button">Upgrade to Teams to unlock white-label (demo)</button></div>
+
+<div class="card"><h3>Security &amp; login</h3>
+<div class="row"><div class="field"><label>New password</label><input type="password" placeholder="Demo input, not submitted"></div>
+<div class="field"><label>Confirm new password</label><input type="password" placeholder="Demo input, not submitted"></div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn small" type="button">Change password (demo)</button>
+<button class="btn small ghost" type="button">Unbind / rebind Google (demo)</button>
+<button class="btn small ghost" type="button">Unbind / rebind Shopify (demo)</button>
+</div>
+<table style="min-width:0;margin-top:12px"><thead><tr><th>Login history</th><th>Time</th></tr></thead>
+<tbody><tr><td>Chrome · macOS <span class="sample-tag">Sample</span></td><td>2026-10-25 09:12</td></tr>
+<tr><td>Safari · iPhone <span class="sample-tag">Sample</span></td><td>2026-10-24 21:40</td></tr></tbody></table>
+<p style="color:var(--muted);font-size:13px">2FA is not bundled here; pending Tao Yu’s confirmation.</p></div>
+
+<div class="card"><h3>Account &amp; data</h3>
+<p class="desc">GDPR self-serve export / deletion are placeholders here (buttons disabled, after MVP; required before paid users arrive). Cards go through Creem; CitMark never touches card details.</p>
+<button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">Export my data (after MVP)</button>
+<button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">Delete account (after MVP)</button></div></section>
     </div>
   </div>
 
@@ -631,6 +841,11 @@ button { font: inherit; }
     <button data-view="overview" class="active"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
     <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Score</button>
     <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Report</button>
+    <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Questions</button>
+    <button data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
+    <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Sources</button>
+    <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+    <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
   </nav>
 </div>
 
@@ -687,6 +902,13 @@ button { font: inherit; }
     </div>
   </div>
 </div>
+<aside class="qdrawer" id="qDrawer" aria-hidden="true">
+<button class="close" id="qDrawerClose" type="button">✕</button>
+<h3 id="qDrawerTitle">Question details</h3>
+<p id="qDrawerMeta" style="color:var(--muted);font-size:13px"></p>
+<div id="qDrawerBody"></div>
+<p style="color:var(--muted);font-size:13px">Top / Region / Time: not in current mock; shown as — until real data connects.</p>
+</aside>
 <script>
 "use strict";
 /* =====================================================================
@@ -1345,6 +1567,79 @@ function trunc(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
 state.snapshot = MOCK.snapshot; state.score = MOCK.score; state.answers = MOCK.answers;
 renderOverview(); renderScore(); renderReport();
+</script>
+
+<script>
+/* 5A+6A integration 20261025: shell 5 views + 8-item tabbar + P0 scroll hint (local, not pushed) */
+var ANSWERS = {
+  q1: { title: "Best socks for running?", meta: "Visibility 25% (1/4) · Mentioned on Claude · Sentiment Not classified · Tags —", rows: [
+    { e: "ChatGPT", m: false, t: "Best all-around: Balega Hidden Comfort. It’s cushioned, comfortable, and a good choice for everyday runs.…" },
+    { e: "Claude", m: true, t: "The best running socks depend a bit on your climate and foot, but a few brands consistently earn praise: …" },
+    { e: "Perplexity", m: false, t: "For most runners, the best all-around choice is a lightweight, snug-fitting synthetic or merino-blend running sock…" },
+    { e: "Gemini", m: false, t: "The “best” running sock depends on whether you prefer synthetic materials (cooler, slicker) or Merino wool…" } ] },
+  q2: { title: "Best socks for a runner that needs extra cushioning?", meta: "Visibility 0% (0/4) · Mentioned on — · Sentiment Not classified · Tags —", rows: [
+    { e: "ChatGPT", m: false, t: "For extra cushioning, the Balega Hidden Comfort is a strong all-around pick: it has plush padding underfoot…" },
+    { e: "Claude", m: false, t: "For running socks with extra cushioning, these are the most reliable picks: …" },
+    { e: "Perplexity", m: false, t: "For extra cushioning, look for running socks with padded soles and reinforced heel and toe. A few solid options…" },
+    { e: "Gemini", m: false, t: "When you need extra cushioning for running, you want a sock that provides high-density padding in high-impact…" } ] },
+  q3: { title: "I run marathons with a $100 budget and need socks that are moisture-wicking and blister-proof. What should I buy?", meta: "Visibility 0% (0/3) · Mentioned on — · Sentiment Not classified · Tags — · Gemini 1 answer missing (Phase 0 record: 429)", rows: [
+    { e: "ChatGPT", m: false, t: "Buy 4 pairs of Balega Blister Resist socks—choose the height and cushioning that fit your shoes. They’re designed…" },
+    { e: "Claude", m: false, t: "For marathons, with a $100 budget, you have room to buy a few pairs of good socks and still have money left over…" },
+    { e: "Perplexity", m: false, t: "No sock can guarantee blister-proofing, but for a $100 budget, I’d buy two pairs of Balega Blister Resist crew…" },
+    { e: "Gemini", m: null, t: "No answer returned this time (1 missing, Phase 0 record: 429)." } ] }
+};
+
+function openQDrawer(q) {
+  var d = ANSWERS[q]; if (!d) return;
+  document.getElementById("qDrawerTitle").textContent = d.title;
+  document.getElementById("qDrawerMeta").textContent = d.meta;
+  document.getElementById("qDrawerBody").innerHTML = d.rows.map(function (r) {
+    var badge = r.m === null ? '<span class="tag">Missing</span>' : (r.m ? '<span class="tag pos">Mentioned \u2713</span>' : '<span class="tag">Not mentioned \u2715</span>');
+    return '<div class="eng-row"><b>' + r.e + '</b> ' + badge + '<p>' + r.t + '</p></div>';
+  }).join("");
+  var dr = document.getElementById("qDrawer");
+  dr.classList.add("open"); dr.setAttribute("aria-hidden", "false");
+}
+function closeQDrawer() {
+  var dr = document.getElementById("qDrawer");
+  if (dr) { dr.classList.remove("open"); dr.setAttribute("aria-hidden", "true"); }
+}
+document.querySelectorAll("#view-questions tbody tr.clickable").forEach(function (tr) {
+  tr.addEventListener("click", function () { openQDrawer(tr.getAttribute("data-q")); });
+});
+document.getElementById("qDrawerClose").addEventListener("click", closeQDrawer);
+var cb = document.getElementById("cancelBtn");
+if (cb) { cb.addEventListener("click", function () { document.getElementById("cancelBox").style.display = "block"; }); }
+var ck = document.getElementById("cancelKeep");
+if (ck) { ck.addEventListener("click", function () { document.getElementById("cancelBox").style.display = "none"; }); }
+/* 6A P0 scroll hint: gradient mask hides when tabbar is scrolled to the end */
+var tabMask = document.createElement("div");
+tabMask.className = "tabbar-mask"; tabMask.id = "tabbarMask"; tabMask.setAttribute("aria-hidden", "true");
+document.body.appendChild(tabMask);
+function syncTabbarHint() {
+  var tb = document.getElementById("tabbar"); if (!tb) return;
+  tabMask.style.height = tb.offsetHeight + "px";
+  var atEnd = tb.scrollLeft + tb.clientWidth >= tb.scrollWidth - 2;
+  tabMask.classList.toggle("at-end", atEnd);
+}
+(function () {
+  var tb = document.getElementById("tabbar"); if (!tb) return;
+  tb.addEventListener("scroll", syncTabbarHint);
+  window.addEventListener("resize", syncTabbarHint);
+  syncTabbarHint();
+})();
+/* view switch: close qDrawer + scroll active tabbar button into view (after go()) */
+document.querySelectorAll("[data-view]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    closeQDrawer();
+    setTimeout(function () {
+      var tb = document.getElementById("tabbar"); if (!tb) return;
+      var act = tb.querySelector("button.active");
+      if (act && typeof act.scrollIntoView === "function") { act.scrollIntoView({ inline: "nearest", block: "nearest" }); }
+      syncTabbarHint();
+    }, 0);
+  });
+});
 </script>
 </body>
 </html>
