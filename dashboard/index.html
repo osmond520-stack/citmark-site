@@ -375,6 +375,21 @@ button { font: inherit; }
   .ov-head .btn { width: 100%; }
   .tabbar button { padding: 10px 0 8px; }
 }
+
+/* ============ Phase 2: score matrix + report actions ============ */
+.matrix th b { display: block; font-size: 13px; }
+.matrix th span { display: block; font-weight: 400; font-size: 12px; color: var(--muted); letter-spacing: 0; margin-top: 2px; }
+.matrix td.mrow b { display: block; }
+.matrix td.mrow span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.cell-gap { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;
+  border-radius: 10px; background: #fef9e7; border: 1px dashed #fcd34d; color: #92400e; font-weight: 800; font-size: 15px; }
+.sug-tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.neg-item { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.6; }
+.neg-item:last-child { border-bottom: 0; }
+.week-sum { font-size: 14px; margin: 0 0 12px; color: var(--ink-2); line-height: 1.6; }
+.week-item { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; }
+.week-item:last-child { border-bottom: 0; }
+.week-item .n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--skin-accent); color: #fff; font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
@@ -490,6 +505,7 @@ button { font: inherit; }
             <div class="ring">
               <svg width="168" height="168" viewBox="0 0 168 168">
                 <circle cx="84" cy="84" r="72" fill="none" stroke="var(--bg-sink)" stroke-width="14"/>
+                <circle id="ciArc" cx="84" cy="84" r="80" fill="none" stroke="var(--muted)" stroke-width="3" stroke-dasharray="502.7" stroke-dashoffset="502.7"><title>95% Wilson CI</title></circle>
                 <circle id="ringFg" cx="84" cy="84" r="72" fill="none" stroke="var(--skin-accent)"
                   stroke-width="14" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="452.4"/>
               </svg>
@@ -500,6 +516,19 @@ button { font: inherit; }
               <div><span class="note-badge" id="scoreNote">–</span></div>
               <p class="ci">95% Wilson CI <b id="scoreCi">–</b> · <span id="scoreN">–</span> valid answers</p>
               <p class="desc" style="margin:0;" id="scoreBlurb"></p>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Question × engine matrix</h2>
+            <p class="desc" id="matrixDesc">Click a ✓ or ✕ cell to read the raw answer. ! = no answer recorded (call failed).</p>
+            <div style="overflow-x:auto;">
+              <table class="matrix" id="matrixTable"></table>
+            </div>
+            <div class="legend">
+              <span><i style="background:var(--good-soft);border:1px solid #bfe3cb;"></i>explicit mention</span>
+              <span><i style="background:var(--warn-soft);border:1px solid #ecd9a8;"></i>implicit · needs review</span>
+              <span><i style="background:var(--bg-sink);"></i>not mentioned</span>
+              <span><i class="cell-gap"></i>unknown · gap</span>
             </div>
           </div>
           <div class="card" style="margin-top:18px;">
@@ -524,21 +553,30 @@ button { font: inherit; }
         </div>
         <div id="reportBody" style="display:none;">
           <div class="card">
-            <h2>Question × engine matrix</h2>
-            <p class="desc" id="matrixDesc">Click a ✓ or ✕ cell to read the raw answer. ! = no answer recorded (call failed).</p>
-            <div style="overflow-x:auto;">
-              <table class="matrix" id="matrixTable"></table>
-            </div>
-            <div class="legend">
-              <span><i style="background:var(--good-soft);border:1px solid #bfe3cb;"></i>explicit mention</span>
-              <span><i style="background:var(--warn-soft);border:1px solid #ecd9a8;"></i>implicit · needs review</span>
-              <span><i style="background:var(--bg-sink);"></i>not mentioned</span>
-            </div>
+            <h2>Optimization suggestions</h2>
+            <p class="desc">Ranked by impact × effort.</p>
+            <div id="sugList"></div>
           </div>
           <div class="card">
-            <h2>Optimization suggestions</h2>
-            <p class="desc">Generated from this snapshot's gaps.</p>
-            <div id="sugList"></div>
+            <h2>Negative signals</h2>
+            <p class="desc">What drags the score down, with the numbers behind each.</p>
+            <div id="negList"></div>
+          </div>
+          <div class="card">
+            <h2>This week's actions</h2>
+            <p class="desc">The action list your weekly report carries.</p>
+            <div id="weekList"></div>
+          </div>
+          <div class="card">
+            <h2>Rescan</h2>
+            <p class="desc">Re-run the same questions and engines, then compare against this snapshot.</p>
+            <div id="rescanArea">
+              <button class="btn" id="rescanBtn">Mark for rescan</button>
+            </div>
+            <div id="rescanState" style="display:none;">
+              <p class="ov-empty" id="rescanNote"></p>
+              <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview →</button>
+            </div>
           </div>
         </div>
       </section>
@@ -871,14 +909,17 @@ const MOCK = {
   "suggestions": [
     {
       "title": "Invisible on running questions",
+      "impact": "high", "effort": "medium",
       "body": "Only <b>1 of 11</b> valid answers mentions Bombas — Claude on Q1, framed as everyday wear and lighter runs. Q2 and Q3 score 0 across all engines. The brand surfaces for comfort, not performance running: running-specific content is the gap."
     },
     {
       "title": "Cross-engine miss, not one engine's quirk",
+      "impact": "high", "effort": "medium",
       "body": "ChatGPT 0/3, Perplexity 0/3, Gemini 0/2, Claude 1/3. All four engines agree on Q2 and Q3. The competitors that do surface — Balega, Feetures, Darn Tough — own the running conversation."
     },
     {
       "title": "1 call failed (Gemini Q3, HTTP 429)",
+      "impact": "low", "effort": "low",
       "body": "Rate limits are part of real measurement. The score uses <b>11 valid answers</b>; the failed call shows as ! in the matrix, not counted as a miss. This is why snapshots run async with retries."
     }
   ]
@@ -1167,6 +1208,39 @@ function renderScore() {
     document.getElementById("ringFg").style.transition = "stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)";
     document.getElementById("ringFg").style.strokeDashoffset = C * (1 - s.value / 100);
   });
+  // CI arc: thin outer arc spanning [ci_low, ci_high] (r=80, full band visible).
+  const C2 = 2 * Math.PI * 80;
+  const ca = s.ci_low / 100, cb = s.ci_high / 100;
+  const ciLen = C2 * (cb - ca);
+  const ciArc = document.getElementById("ciArc");
+  ciArc.style.strokeDasharray = `${ciLen} ${C2}`;
+  ciArc.style.strokeDashoffset = C2 * (1 + cb - 2 * ca);
+  // Matrix (score hero): rows = engines, columns = questions.
+  const qs = MOCK.snapshot.questions, es = MOCK.snapshot.engines;
+  const byQE = {};
+  state.answers.forEach(a => { byQE[a.question_id + "|" + a.engine] = a; });
+  let mhtml = `<thead><tr><th>Engine</th>${qs.map(q =>
+    `<th title="${escapeHtml(q.text)}"><b>${q.slot}</b><span>${escapeHtml(trunc(q.text, 28))}</span></th>`).join("")}</tr></thead><tbody>`;
+  es.forEach(e => {
+    mhtml += `<tr><td class="mrow"><b>${ENGINE_META[e].short}</b><span>${ENGINE_META[e].name}</span></td>`;
+    qs.forEach(q => {
+      const a = byQE[q.id + "|" + e];
+      if (!a || a.status === "error") {
+        mhtml += `<td><span class="cell-err" title="${ENGINE_META[e].name} — ${q.slot}: call failed, excluded from score">!</span></td>`;
+      } else {
+        const cls = !a.brand_mentioned ? "miss" : (a.mention_type === "implicit" ? "hit impl" : "hit");
+        const glyph = !a.brand_mentioned ? "✕" : (a.mention_type === "implicit" ? "◐" : "✓");
+        const idx = state.answers.indexOf(a);
+        mhtml += `<td><span class="cell ${cls}" data-idx="${idx}" title="${ENGINE_META[e].name} — ${q.slot}">${glyph}</span></td>`;
+      }
+    });
+    mhtml += `</tr>`;
+  });
+  document.getElementById("matrixTable").innerHTML = mhtml + "</tbody>";
+  const hasImplicit = state.answers.some(a => a.mention_type === "implicit");
+  document.getElementById("matrixDesc").textContent = "Click a ✓ or ✕ cell to read the raw answer." + (hasImplicit ? " ◐ = implicit mention (needs review)." : "") + " ! = no answer recorded (call failed).";
+  document.querySelectorAll(".cell").forEach(c =>
+    c.addEventListener("click", () => openDrawer(+c.dataset.idx)));
   const engineOrder = MOCK.snapshot.engines;
   document.getElementById("engineBars").innerHTML = [...s.by_engine].sort((a, b) => engineOrder.indexOf(a.engine) - engineOrder.indexOf(b.engine)).map(b => `
     <div class="bar-row">
@@ -1192,35 +1266,55 @@ function renderScore() {
 function renderReport() {
   document.getElementById("reportEmpty").style.display = "none";
   document.getElementById("reportBody").style.display = "block";
-  const qs = MOCK.snapshot.questions, es = MOCK.snapshot.engines;
-  const byQE = {};
-  state.answers.forEach(a => { byQE[a.question_id + "|" + a.engine] = a; });
-  let html = `<thead><tr><th>Question</th>${es.map(e =>
-    `<th>${ENGINE_META[e].name}</th>`).join("")}</tr></thead><tbody>`;
-  qs.forEach(q => {
-    html += `<tr><td class="q" title="${escapeHtml(q.text)}"><b>${q.slot}</b> · ${escapeHtml(trunc(q.text, 64))}</td>`;
-    es.forEach(e => {
-      const a = byQE[q.id + "|" + e];
-      if (!a || a.status === "error") {
-        html += `<td><span class="cell-err" title="${ENGINE_META[e].name} — ${q.slot}: call failed, excluded from score">!</span></td>`;
-        return;
-      }
-      const cls = !a.brand_mentioned ? "miss" : (a.mention_type === "implicit" ? "hit impl" : "hit");
-      const glyph = !a.brand_mentioned ? "✕" : (a.mention_type === "implicit" ? "◐" : "✓");
-      const idx = state.answers.indexOf(a);
-      html += `<td><span class="cell ${cls}" data-idx="${idx}" title="${ENGINE_META[e].name} — ${q.slot}">${glyph}</span></td>`;
-    });
-    html += `</tr>`;
-  });
-  document.getElementById("matrixTable").innerHTML = html + "</tbody>";
-  const hasImplicit = state.answers.some(a => a.mention_type === "implicit");
-  document.getElementById("matrixDesc").textContent = "Click a ✓ or ✕ cell to read the raw answer." + (hasImplicit ? " ◐ = implicit mention (needs review)." : "") + " ! = no answer recorded (call failed).";
-  document.querySelectorAll(".cell").forEach(c =>
-    c.addEventListener("click", () => openDrawer(+c.dataset.idx)));
-  document.getElementById("sugList").innerHTML = MOCK.suggestions.map((s, i) => `
+  const s = state.score, snap = state.snapshot;
+  // Suggestions: sorted by impact desc, effort asc (mock sort fields).
+  const rank = { high: 3, medium: 2, low: 1 };
+  const cap = w => w.charAt(0).toUpperCase() + w.slice(1);
+  const sorted = [...MOCK.suggestions].sort((a, b) =>
+    (rank[b.impact] - rank[a.impact]) || (rank[a.effort] - rank[b.effort]));
+  document.getElementById("sugList").innerHTML = sorted.map((sg, i) => `
     <div class="sug"><div class="n">${i + 1}</div>
-      <div><b>${escapeHtml(s.title)}</b><p>${s.body}</p></div></div>`).join("");
+      <div><b>${escapeHtml(sg.title)}</b><p>${sg.body}</p>
+      <div class="sug-tags"><span class="tag neu">${cap(sg.impact)} impact</span><span class="tag neu">${cap(sg.effort)} effort</span></div></div></div>`).join("");
+  // Negative signals, computed from data (no invented counts).
+  const neg = [];
+  const zeroQ = s.by_question.filter(b => b.value === 0);
+  if (zeroQ.length) {
+    const slots = zeroQ.map(b => MOCK.snapshot.questions.find(x => x.id === b.question_id).slot).join(" and ");
+    const nValid = state.answers.filter(a => zeroQ.some(b => b.question_id === a.question_id) && a.status !== "error").length;
+    neg.push(`<b>${slots} score 0</b> — 0 mentions in ${nValid} valid answers.`);
+  }
+  const engineOrder = MOCK.snapshot.engines;
+  const zeroE = s.by_engine.filter(b => b.value === 0)
+    .sort((a, b) => engineOrder.indexOf(a.engine) - engineOrder.indexOf(b.engine))
+    .map(b => ENGINE_META[b.engine].name);
+  if (zeroE.length) {
+    neg.push(`<b>${zeroE.length} of ${s.by_engine.length} engines at 0%</b> — ${zeroE.join(", ")}.`);
+  }
+  // Failed calls = (question, engine) pairs with no valid answer (missing or error).
+  const byQE2 = {};
+  state.answers.forEach(a => { byQE2[a.question_id + "|" + a.engine] = a; });
+  MOCK.snapshot.questions.forEach(q => MOCK.snapshot.engines.forEach(e => {
+    const a = byQE2[q.id + "|" + e];
+    if (!a || a.status === "error") {
+      neg.push(`<b>${ENGINE_META[e].name} ${q.slot} call failed</b> — excluded from score, not counted as a miss.`);
+    }
+  }));
+  document.getElementById("negList").innerHTML = neg.map(t => `<div class="neg-item">⚠ ${t}</div>`).join("");
+  // Weekly actions: condensed one-line actions + score context.
+  document.getElementById("weekList").innerHTML =
+    `<p class="week-sum">Score <b>${s.value.toFixed(1)}</b> · ${s.hits} of ${s.n_valid} answers mention ${escapeHtml(snap.brand.name)} · Week of ${snap.created_at.slice(0, 10)}</p>` +
+    sorted.map((sg, i) => `<div class="week-item"><span class="n">${i + 1}</span>${escapeHtml(sg.title)}</div>`).join("");
+  // Rescan entry: UI state only (not wired to backend outcomes).
+  document.getElementById("rescanArea").style.display = "block";
+  document.getElementById("rescanState").style.display = "none";
+  document.getElementById("rescanNote").textContent =
+    `✓ Marked in this demo. Run a new snapshot from Overview to compare against this snapshot (${s.value.toFixed(1)}, ${snap.created_at.slice(0, 10)}).`;
 }
+document.getElementById("rescanBtn").addEventListener("click", () => {
+  document.getElementById("rescanArea").style.display = "none";
+  document.getElementById("rescanState").style.display = "block";
+});
 
 /* ---------------- drawer ---------------- */
 function openDrawer(i) {
