@@ -322,6 +322,59 @@ button { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ============ Phase 1: overview + nav ============ */
+.sidebar { overflow-y: auto; }
+.nav button .ico { width: 22px; height: 22px; flex: none; display: inline-flex; }
+.nav button .ico svg { width: 22px; height: 22px; display: block; }
+.nav button.active { background: var(--bg-sink); color: var(--skin-accent-deep); font-weight: 800; }
+.tabbar button .ico { display: inline-flex; }
+.tabbar button .ico svg { width: 24px; height: 24px; display: block; }
+.tabbar button.active { font-weight: 800; }
+.ico .fill { opacity: 0; }
+.active .ico .fill { opacity: .16; }
+.ico .chk { opacity: 0; }
+.active .ico .chk { opacity: 1; }
+.ico .ring-full { display: none; }
+.active .ico .ring-full { display: block; }
+.active .ico .ring-gap { display: none; }
+.ov-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.ov-brand b { font-family: "Bricolage Grotesque", sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -.01em; }
+.ov-brand span { color: var(--muted); font-size: 14px; margin-left: 10px; }
+.ov-fresh { color: var(--muted); font-size: 13px; margin: 2px 0 0; }
+.ov-done { background: var(--good-soft); border: 1px solid #bfe3cb; color: var(--good);
+  border-radius: 12px; padding: 12px 16px; font-size: 14px; font-weight: 600; margin-bottom: 18px; }
+.ov-col { display: flex; flex-direction: column; }
+.ov-sug { margin-top: 18px; }
+.ring.lg { width: 188px; height: 188px; margin: 10px auto 16px; }
+.ring.lg .val b { font-size: 52px; }
+.ci { font-size: 14px; color: var(--ink-2); margin: 8px 0; }
+.ci b { font-size: 17px; }
+.ov-rate { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.ov-rate b { font-family: "Bricolage Grotesque", sans-serif; font-size: 34px; font-weight: 800; }
+.ov-rate span { color: var(--muted); font-size: 13.5px; }
+.trend-svg { width: 100%; height: auto; display: block; }
+.ov-empty { color: var(--muted); font-size: 13.5px; margin: 12px 0 0; }
+.pc-note { flex: none; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.sug-click { cursor: pointer; }
+.run-summary { background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 16px; font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.cfg-label { font-weight: 800; font-size: 14px; margin: 0 0 10px; }
+.cfg-field { display: block; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.cfg-field input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px;
+  border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg);
+  color: var(--ink); font: inherit; font-size: 14.5px; }
+.cfg-check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0;
+  border-bottom: 1px solid var(--line); font-size: 14px; cursor: pointer; }
+.cfg-check:last-child { border-bottom: 0; }
+.cfg-check input { margin-top: 3px; flex: none; accent-color: var(--skin-accent); }
+.cfg-nav { display: flex; gap: 10px; margin-top: 18px; }
+.cfg-nav .btn { flex: 1; }
+@media (max-width: 900px) {
+  .ov-head { flex-direction: column; }
+  .ov-head .btn { width: 100%; }
+  .tabbar button { padding: 10px 0 8px; }
+}
 </style>
 </head>
 <body>
@@ -332,9 +385,14 @@ button { font: inherit; }
       <span class="tier-badge" id="tierBadge">STARTER</span>
     </div>
     <nav class="nav" id="sideNav">
-      <button data-view="snapshot" class="active"><span class="ico">◉</span>Snapshot</button>
-      <button data-view="score"><span class="ico">◎</span>Score</button>
-      <button data-view="report"><span class="ico">▤</span>Report</button>
+      <button data-view="overview" class="active"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
+      <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Score</button>
+      <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Report</button>
+      <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Questions</button>
+      <button data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
+      <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Sources</button>
+      <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+      <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
     </nav>
     <div class="side-foot">
       <div class="skin-switch">
@@ -353,44 +411,70 @@ button { font: inherit; }
     <div class="topbar">
       <div class="topbar-in">
         <div>
-          <h1 id="pageTitle">Snapshot</h1>
-          <span class="sub" id="pageSub">Run a visibility check across AI engines</span>
+          <h1 id="pageTitle">Overview</h1>
+          <span class="sub" id="pageSub">Your brand's AI visibility at a glance</span>
         </div>
         <span class="pill">REAL SAMPLE</span>
       </div>
     </div>
 
     <div class="content">
-      <!-- ============ VIEW: SNAPSHOT ============ -->
-      <section class="view active" id="view-snapshot">
+      <!-- ============ VIEW: OVERVIEW ============ -->
+      <section class="view active" id="view-overview">
+        <div class="ov-head">
+          <div>
+            <div class="ov-brand"><b id="ovBrandName">–</b><span id="ovBrandDomain">–</span></div>
+            <p class="ov-fresh" id="ovFresh">–</p>
+          </div>
+          <button class="btn" id="ovRunBtn">▶&nbsp; Run new snapshot</button>
+        </div>
+        <div id="ovDone" class="ov-done" style="display:none;">✓ Snapshot complete — your overview is up to date.</div>
         <div class="grid2">
-          <div class="card">
-            <h2>Brand</h2>
-            <p class="desc">The brand this snapshot monitors.</p>
-            <div class="kv"><span>Brand</span><b>Bombas</b></div>
-            <div class="kv"><span>Domain</span><b>bombas.com</b></div>
-            <div class="kv"><span>Competitors tracked</span><b>Balega, Feetures, Injinji, Darn Tough</b></div>
+          <div class="ov-col">
+            <div class="card">
+              <h2>Overall visibility</h2>
+              <div class="ring lg">
+                <svg width="188" height="188" viewBox="0 0 188 188">
+                  <circle cx="94" cy="94" r="80" fill="none" stroke="var(--bg-sink)" stroke-width="14"/>
+                  <circle id="ovRingFg" cx="94" cy="94" r="80" fill="none" stroke="var(--skin-accent)"
+                    stroke-width="14" stroke-linecap="round" stroke-dasharray="502.7" stroke-dashoffset="502.7"/>
+                </svg>
+                <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
+              </div>
+              <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
+              <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
+            </div>
+            <div class="card">
+              <h2>Mention rate</h2>
+              <p class="desc">Share of AI answers that mention the brand.</p>
+              <div class="ov-rate"><b id="ovRateVal">–</b><span id="ovRateText">–</span></div>
+              <div class="bar-track"><div class="bar-fill" id="ovRateBar" style="width:0%"></div></div>
+            </div>
+            <div class="card">
+              <h2>Trend</h2>
+              <p class="desc">Snapshot scores over time.</p>
+              <div id="ovTrend"></div>
+              <p class="ov-empty">Run a second snapshot to see your trend.</p>
+            </div>
           </div>
-          <div class="card">
-            <h2>Engines</h2>
-            <div id="engineChips" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+          <div class="ov-col">
+            <div class="card">
+              <h2>By engine</h2>
+              <p class="desc">Mention rate per AI engine.</p>
+              <div id="ovEngineBars"></div>
+            </div>
+            <div class="card">
+              <h2>Competitors</h2>
+              <p class="desc">Mention rate vs tracked competitors.</p>
+              <div id="ovCompBars"></div>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <h2>Questions</h2>
-          <p class="desc">3-question mix: buy-list, buy-list scenario, constrained.</p>
-          <div id="questionList"></div>
-        </div>
-        <div class="card">
-          <h2>Run snapshot</h2>
-          <p class="desc">Executes 12 engine calls (3 questions × 4 engines), extracts brand mentions.</p>
-          <div id="runArea">
-            <button class="btn" id="runBtn" style="width:100%;">▶&nbsp; Run snapshot</button>
-          </div>
-          <div id="runProgress" style="display:none;">
-            <div id="runRows"></div>
-            <div class="progress"><i id="progFill"></i></div>
-          </div>
+        <div class="card ov-sug">
+          <h2>Top suggestions</h2>
+          <p class="desc">Highest-impact actions from this snapshot.</p>
+          <div id="ovSugList"></div>
+          <button class="btn ghost" data-goto="report" style="margin-top:12px;">See full report →</button>
         </div>
       </section>
 
@@ -399,7 +483,7 @@ button { font: inherit; }
         <div id="scoreEmpty" class="empty">
           <div class="big">◎</div>
           <p><b>No snapshot yet.</b><br/>Run a snapshot first to see your visibility score.</p>
-          <button class="btn ghost" data-goto="snapshot" style="margin-top:12px;">Go to Snapshot</button>
+          <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview</button>
         </div>
         <div id="scoreBody" style="display:none;">
           <div class="score-hero">
@@ -436,7 +520,7 @@ button { font: inherit; }
         <div id="reportEmpty" class="empty">
           <div class="big">▤</div>
           <p><b>No report yet.</b><br/>Run a snapshot first to generate the report.</p>
-          <button class="btn ghost" data-goto="snapshot" style="margin-top:12px;">Go to Snapshot</button>
+          <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview</button>
         </div>
         <div id="reportBody" style="display:none;">
           <div class="card">
@@ -458,13 +542,57 @@ button { font: inherit; }
           </div>
         </div>
       </section>
+      <!-- ============ VIEW: QUESTIONS (shell, Phase 3) ============ -->
+      <section class="view" id="view-questions">
+        <div class="card">
+          <h2>Questions</h2>
+          <p class="desc">Questions your snapshots ask, plus templates and suggestions.</p>
+          <p class="ov-empty">This page arrives in Phase 3.</p>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: COMPETITORS (shell, Phase 3) ============ -->
+      <section class="view" id="view-competitors">
+        <div class="card">
+          <h2>Competitors</h2>
+          <p class="desc">Your visibility vs tracked competitors.</p>
+          <p class="ov-empty">This page arrives in Phase 3.</p>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: SOURCES (shell, Phase 3) ============ -->
+      <section class="view" id="view-sources">
+        <div class="card">
+          <h2>Sources</h2>
+          <p class="desc">Where AI answers cite from.</p>
+          <p class="ov-empty">This page arrives in Phase 3.</p>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: TOOLS (shell, Phase 3) ============ -->
+      <section class="view" id="view-tools">
+        <div class="card">
+          <h2>Tools</h2>
+          <p class="desc">Tools by tier.</p>
+          <p class="ov-empty">This page arrives in Phase 3.</p>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
+      <section class="view" id="view-settings">
+        <div class="card">
+          <h2>Settings</h2>
+          <p class="desc">Brand, members, billing, connections.</p>
+          <p class="ov-empty">This page arrives in Phase 3.</p>
+        </div>
+      </section>
     </div>
   </div>
 
   <nav class="tabbar" id="tabbar">
-    <button data-view="snapshot" class="active"><span class="ico">◉</span>Snapshot</button>
-    <button data-view="score"><span class="ico">◎</span>Score</button>
-    <button data-view="report"><span class="ico">▤</span>Report</button>
+    <button data-view="overview" class="active"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
+    <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Score</button>
+    <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Report</button>
   </nav>
 </div>
 
@@ -477,6 +605,48 @@ button { font: inherit; }
     <p class="qtext" id="dQuestion">–</p>
     <div style="margin-bottom:12px;" id="dTags"></div>
     <div class="answer-body" id="dBody">–</div>
+  </div>
+</div>
+
+<!-- run drawer -->
+<div class="drawer" id="runDrawer">
+  <div class="scrim" id="runScrim"></div>
+  <div class="panel">
+    <button class="close" id="runClose">✕</button>
+    <div id="runConfirm">
+      <h3>Run new snapshot</h3>
+      <p class="qtext">Runs with your last configuration. Change it any time.</p>
+      <div class="run-summary" id="runSummary"></div>
+      <div id="runErr"></div>
+      <button class="btn" id="runBtn" style="width:100%;">▶&nbsp; Run snapshot</button>
+      <button class="btn ghost" id="runConfigBtn" style="width:100%;margin-top:10px;">Change configuration</button>
+    </div>
+    <div id="runConfig" style="display:none;">
+      <h3>Configure snapshot</h3>
+      <div class="cfg-step" id="cfgStep1">
+        <p class="cfg-label">1 · Brand</p>
+        <label class="cfg-field">Brand name<input id="cfgBrand"></label>
+        <label class="cfg-field">Domain<input id="cfgDomain"></label>
+      </div>
+      <div class="cfg-step" id="cfgStep2" style="display:none;">
+        <p class="cfg-label">2 · Competitors</p>
+        <div id="cfgCompList"></div>
+      </div>
+      <div class="cfg-step" id="cfgStep3" style="display:none;">
+        <p class="cfg-label">3 · Questions</p>
+        <div id="cfgQList"></div>
+      </div>
+      <div class="cfg-nav">
+        <button class="btn ghost" id="cfgBack">← Back</button>
+        <button class="btn" id="cfgNext">Next →</button>
+        <button class="btn" id="cfgDone" style="display:none;">Done</button>
+      </div>
+    </div>
+    <div id="runProgress" style="display:none;">
+      <h3>Running snapshot</h3>
+      <div id="runRows"></div>
+      <div class="progress"><i id="progFill"></i></div>
+    </div>
   </div>
 </div>
 <script>
@@ -762,9 +932,14 @@ const state = { snapshot: null, score: null, answers: null, running: false };
 
 /* ---------------- router ---------------- */
 const TITLES = {
-  snapshot: ["Snapshot", "Run a visibility check across AI engines"],
-  score:    ["Score", "Your brand's AI visibility, with confidence intervals"],
-  report:   ["Report", "Per-question results, raw answers, suggestions"],
+  overview:    ["Overview", "Your brand's AI visibility at a glance"],
+  score:       ["Score", "Your brand's AI visibility, with confidence intervals"],
+  report:      ["Report", "Per-question results, raw answers, suggestions"],
+  questions:   ["Questions", "Questions your snapshots ask"],
+  competitors: ["Competitors", "Your visibility vs tracked competitors"],
+  sources:     ["Sources", "Where AI answers cite from"],
+  tools:       ["Tools", "Tools by tier"],
+  settings:    ["Settings", "Brand, members, billing, connections"],
 };
 function go(view) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
@@ -790,31 +965,149 @@ document.querySelectorAll("#skinOpts button").forEach(b =>
     document.getElementById("tierBadge").textContent = SKIN_TIER[b.dataset.skin];
   }));
 
-/* ---------------- snapshot view ---------------- */
-function renderSnapshotStatic() {
-  const s = MOCK.snapshot;
-  document.getElementById("engineChips").innerHTML = s.engines.map(e =>
-    `<span class="chip"><span class="dotok"></span>${ENGINE_META[e].name}</span>`).join("");
-  document.getElementById("questionList").innerHTML = s.questions.map(q => `
-    <div class="q-item">
-      <span class="slot">${q.slot} · ${q.length_band}</span>
-      <p>${escapeHtml(q.text)}</p>
-      <div class="meta">
-        <span class="chip">${q.intent.replace(/_/g, " ")}</span>
-      </div>
+/* ---------------- overview view ---------------- */
+function renderOverview() {
+  const s = state.score, snap = state.snapshot;
+  if (!s || !snap) return;
+  document.getElementById("ovBrandName").textContent = snap.brand.name;
+  document.getElementById("ovBrandDomain").textContent = snap.brand.domain;
+  document.getElementById("ovFresh").textContent = "Last updated " + snap.created_at.slice(0, 10);
+  document.getElementById("ovScoreVal").textContent = s.value.toFixed(1);
+  document.getElementById("ovScoreCi").textContent = s.ci_low.toFixed(1) + "–" + s.ci_high.toFixed(1);
+  document.getElementById("ovScoreN").textContent = s.n_valid;
+  document.getElementById("ovScoreBlurb").textContent =
+    snap.brand.name + " was mentioned in " + s.hits + " of " + s.n_valid + " AI answers.";
+  const C = 502.7;
+  requestAnimationFrame(() => {
+    const fg = document.getElementById("ovRingFg");
+    fg.style.transition = "stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)";
+    fg.style.strokeDashoffset = C * (1 - s.value / 100);
+  });
+  const rate = (s.hits / s.n_valid * 100);
+  document.getElementById("ovRateVal").textContent = rate.toFixed(1) + "%";
+  document.getElementById("ovRateText").textContent =
+    s.hits + " of " + s.n_valid + " AI answers mentioned " + snap.brand.name;
+  document.getElementById("ovRateBar").style.width = rate.toFixed(1) + "%";
+  // Trend: single measured point only — no line, no invented history.
+  const y = 100 - (s.value / 10) * 80;
+  document.getElementById("ovTrend").innerHTML = `
+    <svg viewBox="0 0 320 120" class="trend-svg" role="img" aria-label="Trend: latest score ${s.value.toFixed(1)}">
+      <line x1="36" y1="20" x2="300" y2="20" style="stroke:var(--line)" stroke-dasharray="3 4"/>
+      <line x1="36" y1="60" x2="300" y2="60" style="stroke:var(--line)" stroke-dasharray="3 4"/>
+      <line x1="36" y1="20" x2="36" y2="100" style="stroke:var(--line-strong)"/>
+      <line x1="36" y1="100" x2="300" y2="100" style="stroke:var(--line-strong)"/>
+      <text x="30" y="24" text-anchor="end" style="font-size:11px;fill:var(--muted)">10</text>
+      <text x="30" y="64" text-anchor="end" style="font-size:11px;fill:var(--muted)">5</text>
+      <text x="30" y="104" text-anchor="end" style="font-size:11px;fill:var(--muted)">0</text>
+      <circle cx="280" cy="${y.toFixed(1)}" r="10" style="fill:var(--skin-accent)" opacity=".18"/>
+      <circle cx="280" cy="${y.toFixed(1)}" r="5" style="fill:var(--skin-accent)"/>
+      <text x="280" y="${(y - 14).toFixed(1)}" text-anchor="middle" style="font-size:13px;font-weight:800;fill:var(--ink)">${s.value.toFixed(1)}</text>
+      <text x="280" y="116" text-anchor="middle" style="font-size:11px;fill:var(--muted)">Latest</text>
+    </svg>`;
+  document.getElementById("ovEngineBars").innerHTML = [...s.by_engine].sort((a, b) =>
+    snap.engines.indexOf(a.engine) - snap.engines.indexOf(b.engine)).map(b => `
+    <div class="bar-row">
+      <div class="nm">${ENGINE_META[b.engine].name}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${b.value.toFixed(1)}%"></div></div>
+      <div class="pc">${b.value.toFixed(1)}%</div>
     </div>`).join("");
+  document.getElementById("ovCompBars").innerHTML = `
+    <div class="bar-row">
+      <div class="nm">${escapeHtml(snap.brand.name)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${rate.toFixed(1)}%"></div></div>
+      <div class="pc">${rate.toFixed(1)}%</div>
+    </div>` + snap.competitors.map(c => `
+    <div class="bar-row comp-empty">
+      <div class="nm">${escapeHtml(c)}</div>
+      <div class="bar-track"></div>
+      <div class="pc-note">No data yet</div>
+    </div>`).join("");
+  document.getElementById("ovSugList").innerHTML = MOCK.suggestions.map((sg, i) => `
+    <div class="sug sug-click"><div class="n">${i + 1}</div>
+      <div><b>${escapeHtml(sg.title)}</b><p>${sg.body}</p></div></div>`).join("");
+  document.querySelectorAll("#ovSugList .sug").forEach(el =>
+    el.addEventListener("click", () => go("report")));
 }
+
+/* ---------------- run drawer + config ---------------- */
+const cfg = {
+  brand: { name: MOCK.snapshot.brand.name, domain: MOCK.snapshot.brand.domain },
+  competitors: new Set(MOCK.snapshot.competitors),
+  questions: new Set(MOCK.snapshot.questions.map(q => q.id)),
+};
+function renderRunSummary() {
+  document.getElementById("runSummary").innerHTML =
+    "<b>Brand:</b> " + escapeHtml(cfg.brand.name) + " (" + escapeHtml(cfg.brand.domain) + ")<br>" +
+    "<b>Competitors:</b> " + cfg.competitors.size + " tracked<br>" +
+    "<b>Questions:</b> " + cfg.questions.size + " questions";
+}
+function buildCfgLists() {
+  document.getElementById("cfgCompList").innerHTML = MOCK.snapshot.competitors.map(c => `
+    <label class="cfg-check"><input type="checkbox" data-comp="${escapeHtml(c)}" ${cfg.competitors.has(c) ? "checked" : ""}><span>${escapeHtml(c)}</span></label>`).join("");
+  document.getElementById("cfgQList").innerHTML = MOCK.snapshot.questions.map(q => `
+    <label class="cfg-check"><input type="checkbox" data-q="${q.id}" ${cfg.questions.has(q.id) ? "checked" : ""}><span><b>${q.slot}</b> · ${escapeHtml(q.text)}</span></label>`).join("");
+}
+function applyCfg() {
+  cfg.brand.name = document.getElementById("cfgBrand").value.trim() || MOCK.snapshot.brand.name;
+  cfg.brand.domain = document.getElementById("cfgDomain").value.trim() || MOCK.snapshot.brand.domain;
+  cfg.competitors = new Set([...document.querySelectorAll("#cfgCompList input:checked")].map(i => i.dataset.comp));
+  cfg.questions = new Set([...document.querySelectorAll("#cfgQList input:checked")].map(i => i.dataset.q));
+  renderRunSummary();
+}
+let cfgStep = 1;
+function showCfgStep(n) {
+  cfgStep = n;
+  [1, 2, 3].forEach(k => { document.getElementById("cfgStep" + k).style.display = k === n ? "block" : "none"; });
+  document.getElementById("cfgBack").style.visibility = n === 1 ? "hidden" : "visible";
+  document.getElementById("cfgNext").style.display = n === 3 ? "none" : "block";
+  document.getElementById("cfgDone").style.display = n === 3 ? "block" : "none";
+}
+function openRunDrawer() {
+  if (state.running) return;
+  document.getElementById("runConfirm").style.display = "block";
+  document.getElementById("runConfig").style.display = "none";
+  document.getElementById("runProgress").style.display = "none";
+  renderRunSummary();
+  document.getElementById("runDrawer").classList.add("open");
+}
+function closeRunDrawer() {
+  if (state.running) return;
+  document.getElementById("runDrawer").classList.remove("open");
+}
+document.getElementById("ovRunBtn").addEventListener("click", openRunDrawer);
+document.getElementById("runClose").addEventListener("click", closeRunDrawer);
+document.getElementById("runScrim").addEventListener("click", closeRunDrawer);
+document.getElementById("runConfigBtn").addEventListener("click", () => {
+  document.getElementById("cfgBrand").value = cfg.brand.name;
+  document.getElementById("cfgDomain").value = cfg.brand.domain;
+  buildCfgLists();
+  showCfgStep(1);
+  document.getElementById("runConfirm").style.display = "none";
+  document.getElementById("runConfig").style.display = "block";
+});
+document.getElementById("cfgBack").addEventListener("click", () => showCfgStep(cfgStep - 1));
+document.getElementById("cfgNext").addEventListener("click", () => showCfgStep(cfgStep + 1));
+document.getElementById("cfgDone").addEventListener("click", () => {
+  applyCfg();
+  document.getElementById("runConfig").style.display = "none";
+  document.getElementById("runConfirm").style.display = "block";
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeRunDrawer(); });
 
 async function runSnapshot() {
   if (state.running) return;
   state.running = true;
   const btn = document.getElementById("runBtn");
   btn.disabled = true; btn.textContent = "Running…";
+  const errBox = document.getElementById("runErr");
+  errBox.className = ""; errBox.textContent = "";
+  document.getElementById("runConfirm").style.display = "none";
+  document.getElementById("runConfig").style.display = "none";
   const prog = document.getElementById("runProgress");
   const rows = document.getElementById("runRows");
   const fill = document.getElementById("progFill");
-  document.getElementById("runArea").style.display = "none";
   prog.style.display = "block";
+  fill.style.width = "0%";
 
   const engines = MOCK.snapshot.engines;
   const n = MOCK.snapshot.questions.length;
@@ -826,7 +1119,7 @@ async function runSnapshot() {
     </div>`).join("");
 
   try {
-    await api.createSnapshot({ tier: "starter", brand: MOCK.snapshot.brand });
+    await api.createSnapshot({ tier: document.documentElement.dataset.skin || "starter", brand: MOCK.snapshot.brand });
     for (let i = 0; i < engines.length; i++) {
       const e = engines[i];
       const row = document.getElementById("rr-" + e);
@@ -838,15 +1131,22 @@ async function runSnapshot() {
     const [score, answers] = await Promise.all([
       api.getScore(MOCK.snapshot.id), api.getAnswers(MOCK.snapshot.id)]);
     state.snapshot = MOCK.snapshot; state.score = score; state.answers = answers;
-    renderScore(); renderReport();
-    setTimeout(() => go("score"), 500);
+    renderOverview(); renderScore(); renderReport();
+    state.running = false;
+    closeRunDrawer();
+    go("overview");
+    const done = document.getElementById("ovDone");
+    done.style.display = "block";
+    setTimeout(() => { done.style.display = "none"; }, 4000);
   } catch (err) {
-    prog.insertAdjacentHTML("afterend",
-      `<div class="state-err" style="margin-top:12px;">Snapshot failed: ${escapeHtml(err.message)}. Please retry.</div>`);
-    btn.disabled = false; btn.textContent = "▶  Run snapshot";
-    document.getElementById("runArea").style.display = "block";
+    prog.style.display = "none";
+    document.getElementById("runConfirm").style.display = "block";
+    errBox.className = "state-err";
+    errBox.style.marginBottom = "12px";
+    errBox.textContent = "Snapshot failed: " + err.message + ". Please retry.";
   } finally {
     state.running = false;
+    btn.disabled = false; btn.textContent = "▶  Run snapshot";
   }
 }
 document.getElementById("runBtn").addEventListener("click", runSnapshot);
@@ -949,7 +1249,8 @@ function escapeHtml(s) {
 }
 function trunc(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
-renderSnapshotStatic();
+state.snapshot = MOCK.snapshot; state.score = MOCK.score; state.answers = MOCK.answers;
+renderOverview(); renderScore(); renderReport();
 </script>
 </body>
 </html>
