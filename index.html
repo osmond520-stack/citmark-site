@@ -778,7 +778,7 @@
             <button class="btn" type="submit">Join the waitlist</button>
           </form>
           <p class="form-msg" role="status"></p>
-          <p class="form-note">Founding pricing — <strong>50% off for life</strong> — is limited to the <strong>first 100 founding members</strong>. One email at launch, no spam, ever. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
+          <p class="form-note">Founding pricing — <strong>50% off for 12 months</strong> — is limited to the <strong>first 50 founding members</strong>. One email at launch, no spam, ever. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
           <div class="hero-chips">
             <span><b>4</b> AI engines tracked</span>
             <span><b>Weekly</b> checks, not one-off scans</span>
@@ -872,7 +872,7 @@
           <div class="inline-cta">
             <div class="inline-cta-copy">
               <h3>Want this report for your own site?</h3>
-              <p>Join the waitlist — founding members lock in 50% off for life. First 100 members only.</p>
+              <p>Join the waitlist — founding members lock in 50% off for 12 months. First 50 members only.</p>
             </div>
             <div class="inline-cta-form">
               <form class="waitlist" data-waitlist data-source="inline" novalidate>
@@ -987,20 +987,20 @@
           <div class="sec-head reveal">
             <p class="sec-kicker">Pricing</p>
             <h2>Priced for the sites the enterprise tools ignore</h2>
-            <p>Two plans, in USD, cancel anytime. Founding pricing — half price — is limited to the first 100 founding members, and lasts for as long as they stay subscribed.</p>
+            <p>Two plans, in USD, cancel anytime. Founding pricing — half price — is limited to the first 50 founding members, and lasts for 12 months, then renews at the standard price.</p>
           </div>
           <div class="price-toggle reveal">
             <input type="checkbox" id="foundingToggle" class="switch-input" checked aria-label="Toggle founding member pricing" />
             <span>Founding member pricing</span>
-            <span class="save-tag">−50% FOR LIFE</span>
-            <span class="cap-note">First 100 members only</span>
+            <span class="save-tag">−50% FOR 12 MONTHS</span>
+            <span class="cap-note">First 50 members only</span>
           </div>
           <div class="plans reveal" id="plans">
             <div class="plan">
               <p class="pname">Starter</p>
               <p class="pdesc">For blogs, indie products and local businesses that need to know where they stand in AI answers.</p>
               <div class="price"><span class="amt" data-regular="19" data-founding="9.50">$9.50</span><span class="per">/ month</span><span class="was">$19</span></div>
-              <p class="price-note" data-note>Founding price — locked for life.</p>
+              <p class="price-note" data-note>Founding price — locked for 12 months.</p>
               <ul>
                 <li><b>1</b> website</li>
                 <li><b>25</b> tracked buyer questions</li>
@@ -1016,7 +1016,7 @@
               <p class="pname">Growth</p>
               <p class="pdesc">For stores and small teams actively competing for AI recommendations in their category.</p>
               <div class="price"><span class="amt" data-regular="29" data-founding="14.50">$14.50</span><span class="per">/ month</span><span class="was">$29</span></div>
-              <p class="price-note" data-note>Founding price — locked for life.</p>
+              <p class="price-note" data-note>Founding price — locked for 12 months.</p>
               <ul>
                 <li><b>3</b> websites</li>
                 <li><b>100</b> tracked buyer questions</li>
@@ -1028,7 +1028,7 @@
               <a class="btn" href="#join">Join the waitlist</a>
             </div>
           </div>
-          <p class="pricing-foot reveal">Regular prices at launch: Starter $19/mo, Growth $29/mo. Founding pricing is limited to the first 100 founding members on the waitlist and never expires while your subscription stays active. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
+          <p class="pricing-foot reveal">Regular prices at launch: Starter $19/mo, Growth $29/mo. Founding pricing is limited to the first 50 founding members on the waitlist and lasts for 12 months, then renews at the standard price. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
         </div>
       </section>
 
@@ -1073,7 +1073,7 @@
         <div class="wrap">
           <div class="final reveal">
             <h2>Find out what AI says about you — before your competitors do.</h2>
-            <p>Join the waitlist for first access and founding pricing at 50% off for life — for the first 100 founding members only. One email when we launch. That's it.</p>
+            <p>Join the waitlist for first access and founding pricing at 50% off for 12 months — for the first 50 founding members only. One email when we launch. That's it.</p>
             <form class="waitlist" data-waitlist data-source="bottom" novalidate style="margin-top: 26px;">
               <label style="position:absolute;left:-9999px" for="email-final">Work email</label>
               <input id="email-final" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
@@ -1100,7 +1100,7 @@
     </footer>
 
     <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-      <p><b>Founding pricing:</b> 50% off for life — first 100 only.</p>
+      <p><b>Founding pricing:</b> 50% off for 12 months — first 50 only.</p>
       <a class="btn small" href="#join" tabindex="-1"><span class="cta-full">Join the waitlist</span><span class="cta-short">Join waitlist</span></a>
     </div>
 
@@ -1275,7 +1275,7 @@
             el.textContent = "$" + (founding ? el.getAttribute("data-founding") : el.getAttribute("data-regular"));
           });
           plans.querySelectorAll("[data-note]").forEach(function (el) {
-            el.textContent = founding ? "Founding price — locked for life." : "Regular launch price.";
+            el.textContent = founding ? "Founding price — locked for 12 months." : "Regular launch price.";
           });
         }
         toggle.addEventListener("change", applyPricing);
