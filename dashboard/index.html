@@ -443,6 +443,16 @@ button { font: inherit; }
 @media (prefers-reduced-motion:reduce){.qdrawer{transition:none}}
 @media (max-width:900px){.tabbar-mask{display:block;position:fixed;right:0;bottom:0;width:56px;z-index:41;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),var(--bg-raise));opacity:1;transition:opacity .2s}.tabbar-mask.at-end{opacity:0}}
 .tabbar-mask{display:none}
+
+/* Connections subpage 20261026 */
+#view-connections .conn-back{margin-bottom:12px}
+#view-connections .conn-account{font-size:13px;color:var(--muted)}
+#view-connections .conn-account:empty{display:none}
+#view-connections .conn-status{font-size:13px;color:var(--muted)}
+#view-connections .conn-status[data-state="connected"]{color:var(--good)}
+#view-connections .conn-status[data-state="error"]{color:var(--bad)}
+#view-connections .conn-error{font-size:13px;color:var(--bad)}
+#view-connections .conn-error:empty{display:none}
 </style>
 </head>
 <body>
@@ -716,53 +726,27 @@ button { font: inherit; }
       <!-- ============ VIEW: TOOLS (shell, Phase 3) ============ -->
       <section class="view" id="view-tools"><div class="card">
 <h2>Tools</h2>
-<p class="desc">Tools by tier.</p>
+<p class="desc">Tools for your brand.</p>
 </div>
 
-<div class="card"><h3>P0 因果追踪展示层 <span class="badge-soon">Coming soon</span></h3>
-<p>展示全档：一页归因（变化值 + 依据，扣波动 + 置信区间）；复测配额按档递增（次数待定）。看与测分离：量尺不能专属。</p>
-<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
-<p style="color:var(--muted);font-size:13px"><b>Starter：</b>展示全档：一页归因（变化值 + 依据，扣波动 + 置信区间）；复测配额最低档（次数待定）。不含多轮趋势、页面级归因、多品牌总览。为什么：单店最需要“改了有没有用”的直接答案；量尺不能专属。</p>
-<p style="color:var(--muted);font-size:13px"><b>Growth：</b>展示全档 + 多轮趋势与变化值；复测配额上台阶。不含页面/问题级归因、多品牌总览。为什么：Growth 痛点是“在变好”，单次归因证明不了一段时间的投入值得。</p>
-<p style="color:var(--muted);font-size:13px"><b>Pro：</b>展示全档 + 归因落到具体页面/问题（与 P1 联动）；复测高频。不含多品牌总览。为什么：Pro 付深度价，痛点是“为什么丢分”，总分归因改不动。</p>
-<p style="color:var(--muted);font-size:13px"><b>Teams：</b>展示全档 + 10 品牌归因总览与异常品牌提醒；复测最高频（按账号聚合）。为什么：Teams 痛点是掌控多品牌，单品牌归因回答不了“哪个品牌出问题”。假设：未经 Teams 访谈验证。</p>
-<p style="color:var(--muted);font-size:13px">复测配额具体次数待 Must #8 落库 + 财务签字后填；上限账户级（按 team/品牌聚合），非按席位。</p></div>
+<div class="card"><h3>P0 Causal attribution view <span class="badge-soon">Coming soon</span></h3>
+<p>One-page attribution for all tiers: change value plus evidence, net of fluctuation, with confidence interval. Retest quota grows by tier.</p></div>
 
-<div class="card"><h3>P1 内容诊断器 <span class="badge-soon">Coming soon</span></h3>
-<p>核心页（首页 / 主产品页）诊断 + 给写手的 brief。不含多页批量、竞品原文 diff。</p>
-<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese): Growth：+ 品类页批量诊断与改写前后对照。不含竞品 diff。／ Pro：+ 竞品被引页原文 diff 与优先级排序（Gap Score 方法参照 Peec)。（单次诊断成本待测算，Pro 全量边界需财务签字。）／ Teams：同 Pro，按 10 品牌复用模板与 brief。不含代写。</p></div>
+<div class="card"><h3>P1 Content diagnoser <span class="badge-soon">Coming soon</span></h3>
+<p>Diagnosis for core pages (home / main product page) plus a brief for your writer. No multi-page batch, no competitor source diff.</p></div>
 
-<div class="card"><h3>P2 外联包 <span class="badge-soon">Coming soon</span></h3>
-<p>缺口引用源清单展示（已有我无 / 双方都无分层）全档；不含常驻模板库与执行跟踪（假设版，待实验）。</p>
-<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
-<p style="color:var(--muted);font-size:13px"><b>Starter：</b>缺口引用源清单展示（已有我无 / 双方都无分层）全档；模板与跟踪分批开放实验对象（先量清单使用率，再对部分 Starter 用户开放模板量执行率，定档后再定是否常驻）。不含常驻模板库与执行跟踪（假设版，待实验）。为什么：清单本身已回答“去哪”；站外执行率存疑，不预支重型投入；低档更缺引用源的反向可能成立，所以不永久锁死。</p>
-<p style="color:var(--muted);font-size:13px"><b>Growth：</b>清单 + pitch 模板（英主版 + B 群中文说明）与投稿入口。不含执行跟踪（假设版）。为什么：Growth 卡点是“不知道写什么、投哪”，模板解卡点而不代投。</p>
-<p style="color:var(--muted);font-size:13px"><b>Pro：</b>清单 + 模板 + 执行跟踪（发了没回提醒）与 Gap 排序。为什么：Pro 买的是闭环，模板坟场是已知失败形态，跟踪把“发了”变成“走完”。</p>
-<p style="color:var(--muted);font-size:13px"><b>Teams：</b>同 Pro + 多品牌缺口总览与按品牌分发清单。不含代投、不碰付费提及。为什么：Teams 同时管 10 个品牌的外联缺口，单品牌清单会被淹没。假设：未经访谈。</p></div>
+<div class="card"><h3>P2 Outreach pack <span class="badge-soon">Coming soon</span></h3>
+<p>Gap citation-source list (have / both-missing tiers) for all tiers. No standing template library, no execution tracking.</p></div>
 
-<div class="card"><h3>P3 AI 可读性诊断 <span class="badge-soon">Coming soon</span></h3>
-<p>基础 4 项检查结果（以 P5 附带形态呈现，不独立成工具）；不含独立审计报告、扩展检查、历史 diff。</p>
-<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
-<p style="color:var(--muted);font-size:13px"><b>Starter：</b>基础 4 项检查结果（以 P5 附带形态呈现，不独立成工具）。不含独立审计报告、扩展检查、历史 diff。为什么：单店技术痛点是“转交给建站的一句话”，独立报告若无人接等于闲置；痛点不清的独立版直接砍。</p>
-<p style="color:var(--muted);font-size:13px"><b>Growth：</b>独立一键审计 + 一句话给建站 + 模板链接。不含多站批量、扩展、历史 diff。为什么：Growth 开始有建站协作，痛点从“不知道缺什么”变为“能转交的清单”。假设版，验证线转交率 <20% 降级（待拍板）。</p>
-<p style="color:var(--muted);font-size:13px"><b>Pro：</b>+ 扩展检查（爬虫放行 / FAQ schema / freshness）与历史 diff。为什么：Pro 要的是技术债定位，基础 4 项不够解释“某页为什么抽不出来”。caveat：扩展项需先定义，否则不拆。</p>
-<p style="color:var(--muted);font-size:13px"><b>Teams：</b>+ 10 品牌技术总览（哪个品牌地基最差）。为什么：Teams 痛点是多品牌技术地基参差，单站报告无法排优先级。假设。</p></div>
+<div class="card"><h3>P3 AI readability check <span class="badge-soon">Coming soon</span></h3>
+<p>Base 4-item check results (shown as part of P5, not a standalone tool). No standalone audit report, no extended checks, no history diff.</p></div>
 
-<div class="card"><h3>P4 负面处理 playbook <span class="badge-soon">Coming soon</span></h3>
-<p>应急一页清单（申诉模板 1 份 + 源头联系话术）全档；不含稀释日历、事实库、D7 联动。触发后下游工具，不是按档预售的常驻卖点。</p>
-<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
-<p style="color:var(--muted);font-size:13px"><b>Starter：</b>应急一页清单（申诉模板 1 份 + 源头联系话术）全档。不含稀释日历、事实库、D7 联动。为什么：负面低频高痛，Starter 遇上时无工具是纯 A 的最大伤害，应急版保底线而不做重型手册。</p>
-<p style="color:var(--muted);font-size:13px"><b>Growth：</b>+ 稀释内容日历（短期）。不含事实库。为什么：Growth 痛点是负面出现后“不知道先干哪件”，日历给顺序而非只给模板。假设版，需 D7 触发率分布后定。</p>
-<p style="color:var(--muted);font-size:13px"><b>Pro：</b>+ 事实库定义（什么是真）与 D7 预警联动。为什么：Pro 痛点是“AI 说的坏话是真是假”，无事实基准申诉无依据；方法论参照 CitePulse Fact Integrity（输入差距）。caveat：需先定 D7 事件定义（情感负向 ≠ 事实错误）。</p>
-<p style="color:var(--muted);font-size:13px"><b>Teams：</b>+ 多品牌负面总览与按品牌分发 playbook。为什么：Teams 一个品牌负面会波及品牌群，痛点是“哪个品牌先灭火”。假设。注：P4 是触发后下游工具，不是按档预售的常驻卖点；若某档触发率极低，该档不挂 P4 当卖点。</p></div>
+<div class="card"><h3>P4 Negative handling playbook <span class="badge-soon">Coming soon</span></h3>
+<p>One-page emergency checklist (1 appeal template + source contact script) for all tiers. No dilution calendar, no fact base, no D7 linkage. A downstream tool after an incident, not a standing per-tier selling point.</p></div>
 
-<div class="card"><h3>P5 llms.txt 生成器 <span class="badge-soon">Coming soon</span></h3>
-<p>单品牌一键生成 llms.txt / robots.txt / sitemap 指向（定价段用户自填）；生成文件用自家 checker 验 5/5。三档无差异（有意为之）；Teams 加批量。不是升级驱动器，是留存地基。</p>
-<p style="color:var(--muted);font-size:13px">Tier ranges (approved mapping, quoted in original Chinese):</p>
-<p style="color:var(--muted);font-size:13px"><b>Starter：</b>单品牌一键生成 llms.txt / robots.txt / sitemap 指向（定价段用户自填，绝不内置旧 $19/$29）；生成文件用自家 checker 验 5/5。三档无差异（有意为之）。为什么：一次性地基工具锁档只会把用户推向免费 checker，无法成为升级理由；单品牌地基上三档无可分档痛点差异，硬分档是填表行为。</p>
-<p style="color:var(--muted);font-size:13px"><b>Growth：</b>同 Starter（单品牌）。为什么：同上，Growth 与 Starter 在单品牌地基上没有可分档的痛点差异。</p>
-<p style="color:var(--muted);font-size:13px"><b>Pro：</b>同 Starter（单品牌）。为什么：同上，Pro 的升级理由应来自 P1/P2 深度而非一个一次性文件。</p>
-<p style="color:var(--muted);font-size:13px"><b>Teams：</b>+ 10 品牌批量生成与版本对照。为什么：Teams 唯一增量是批量，痛点是重复劳动而非文件本身更高级。假设。注：P5 不是升级驱动器，是留存地基；不进付费差异化叙事，直到部署后提及率变化验证通过。</p></div></section>
+<div class="card"><h3>P5 llms.txt generator <span class="badge-soon">Coming soon</span></h3>
+<p>One-click llms.txt / robots.txt / sitemap pointers for a single brand (you fill in your own values); generated files verified 5/5 with our own checker. Same across three tiers by design; Teams adds batch. A retention foundation, not an upgrade driver.</p></div>
+</section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
       <section class="view" id="view-settings"><div class="card">
@@ -783,7 +767,7 @@ button { font: inherit; }
 <button class="btn small" type="button">Send invite (demo)</button></div>
 
 <div class="card"><h3>Billing</h3>
-<p>Current tier: <b>Starter</b> <span class="sample-tag">Sample amounts</span> · Promo $19/mo · Standard $30/mo · switches to standard price at expiry (founding / promo rules: see final pricing).</p>
+<p>Current tier: <b>Starter</b> <span class="sample-tag">Sample amounts</span> · $19/mo for the first 12 months, then $30/mo.</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
 <button class="btn small" type="button">Upgrade (demo)</button>
 <button class="btn small ghost" type="button">Downgrade (demo)</button>
@@ -800,13 +784,12 @@ button { font: inherit; }
 <p style="color:var(--muted);font-size:13px">Billing / subscription management is an Owner capability; renewal status and invoice downloads appear once real billing connects.</p></div>
 
 <div class="card"><h3>Connections</h3>
-<div class="switch-row"><div><b>Google Search Console</b><p>Scope added at login; connection entry follows P-016 schedule.</p></div><button class="btn small ghost" type="button">Connect (demo)</button></div>
-<div class="switch-row"><div><b>WooCommerce / Wix / Squarespace</b><p>Gated entry, after MVP.</p></div><button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">After MVP</button></div></div>
+<div class="switch-row"><div><b>Data connections</b><p class="desc" style="margin:2px 0 0">Shopify, Google Search Console</p><p class="desc" style="margin:2px 0 0"><span data-conn-summary></span></p></div><button class="btn small" type="button" data-goto="connections">Manage</button></div></div>
 
 <div class="card"><h3>Notification switches</h3>
-<div class="switch-row"><div><b>Negative alerts</b><p>Notify when negative signals appear.</p></div><input type="checkbox" checked></div>
-<div class="switch-row"><div><b>Rescan complete</b><p>Notify when a rescan finishes.</p></div><input type="checkbox" checked></div>
-<div class="switch-row"><div><b>Weekly report</b><p>One weekly digest, no repeated alerts.</p></div><input type="checkbox" checked></div>
+<div class="switch-row"><div><b>Negative alerts</b></div><input type="checkbox" checked></div>
+<div class="switch-row"><div><b>Rescan complete</b></div><input type="checkbox" checked></div>
+<div class="switch-row"><div><b>Weekly report</b></div><input type="checkbox" checked></div>
 <p style="color:var(--muted);font-size:13px">Switches = preferences; notification center = inbox — both are needed.</p></div>
 
 <div class="card"><h3>API <span class="badge-soon">Pro / Teams</span></h3>
@@ -831,9 +814,24 @@ button { font: inherit; }
 <p style="color:var(--muted);font-size:13px">2FA is not bundled here; pending Tao Yu’s confirmation.</p></div>
 
 <div class="card"><h3>Account &amp; data</h3>
-<p class="desc">GDPR self-serve export / deletion are placeholders here (buttons disabled, after MVP; required before paid users arrive). Cards go through Creem; CitMark never touches card details.</p>
+<p class="desc">GDPR self-serve export / deletion are placeholders here (buttons disabled, after MVP; required before paid users arrive). Card payments go through our payment provider; CitMark never touches card details.</p>
 <button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">Export my data (after MVP)</button>
 <button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">Delete account (after MVP)</button></div></section>
+<section class="view" id="view-connections">
+<button class="btn small ghost conn-back" type="button" data-goto="settings">← Back to Settings</button>
+<div class="card"><h2>Connections</h2>
+<p class="desc">Connect data sources. Each row shows its live status. Disconnect removes the connection and its stored credential.</p>
+<div class="switch-row" data-conn-row="shopify">
+<div><b>Shopify</b><div class="conn-account" data-conn-account></div><div class="conn-status" data-conn-status data-state="not_connected">Not connected</div><div class="conn-error" data-conn-error></div></div>
+<div><button class="btn small" type="button" data-conn-connect="shopify">Connect</button><button class="btn small ghost" type="button" data-conn-disconnect="shopify" style="display:none">Disconnect</button></div>
+</div>
+<div class="switch-row" data-conn-row="search_console">
+<div><b>Google Search Console</b><div class="conn-account" data-conn-account></div><div class="conn-status" data-conn-status data-state="not_connected">Not connected</div><div class="conn-error" data-conn-error></div></div>
+<div><button class="btn small" type="button" data-conn-connect="search_console">Connect</button><button class="btn small ghost" type="button" data-conn-disconnect="search_console" style="display:none">Disconnect</button></div>
+</div>
+<p class="desc" style="margin:12px 0 0">Connection status comes from the backend. Nothing is shown as connected until the backend confirms it.</p>
+</div>
+</section>
     </div>
   </div>
 
@@ -1203,6 +1201,7 @@ const TITLES = {
   sources:     ["Sources", "Where AI answers cite from"],
   tools:       ["Tools", "Tools by tier"],
   settings:    ["Settings", "Brand, members, billing, connections"],
+  connections: ["Connections", "Manage data connections"],
 };
 function go(view) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
@@ -1640,6 +1639,112 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     }, 0);
   });
 });
+</script>
+<script>
+/* ---------------- connections (Settings -> Connections subpage) ---------------- */
+/* First batch: Shopify + Google Search Console only (Wix/Squarespace rows are
+   not built yet; they arrive with their live-connection tier, hidden meanwhile).
+   Wiring only: talks to the real backend endpoints. No state is invented:
+   rows start Not connected; Connected appears only after GET /connections
+   (or a later authorize/disconnect round-trip) confirms it. A failed load
+   stays silent (rows remain Not connected, which is accurate pre-live);
+   failures surface on the action the user took, with an HTTP reason code.
+   Secrets are never rendered: GET /connections returns public views only. */
+(function () {
+  var API = ""; // same-origin, same convention as the snapshot api client
+  var PROVIDERS = ["shopify", "search_console"];
+  function row(p) { return document.querySelector('[data-conn-row="' + p + '"]'); }
+  function setState(p, state, account, err) {
+    var r = row(p); if (!r) return;
+    var st = r.querySelector('[data-conn-status]');
+    var ac = r.querySelector('[data-conn-account]');
+    var er = r.querySelector('[data-conn-error]');
+    var cb = r.querySelector('[data-conn-connect]');
+    var db = r.querySelector('[data-conn-disconnect]');
+    var texts = { not_connected: "Not connected", connecting: "Connecting\u2026", connected: "Connected", expired: "Expired \u2014 reconnect", error: "Connection failed" };
+    st.textContent = texts[state] || state;
+    st.setAttribute("data-state", state);
+    ac.textContent = account ? account : "";
+    er.textContent = err ? err : "";
+    var connected = (state === "connected");
+    cb.style.display = connected ? "none" : "";
+    db.style.display = connected ? "" : "none";
+    cb.disabled = (state === "connecting");
+    db.disabled = (state === "connecting");
+  }
+  function errText(e) {
+    if (!e || typeof e.http !== "number") return "Connection failed \u2014 authorization service unreachable (code: network).";
+    if (e.http === 500) return "Not connected \u2014 provider not configured yet (code: 500).";
+    if (e.http === 502) return "Connection failed \u2014 please try again (code: 502).";
+    if (e.http === 400) return "Connection failed \u2014 please try again (code: 400).";
+    if (e.http === 401 || e.http === 403) return "Authorization failed \u2014 please try again (code: " + e.http + ").";
+    return "Connection failed (code: " + e.http + ").";
+  }
+  function summary() {
+    var el = document.querySelector('[data-conn-summary]');
+    if (!el) return;
+    var n = 0;
+    PROVIDERS.forEach(function (p) {
+      var r = row(p);
+      var st = r && r.querySelector('[data-conn-status]');
+      if (st && st.getAttribute("data-state") === "connected") n++;
+    });
+    el.textContent = n > 0 ? n + " connected" : "Not connected";
+  }
+  async function refresh() {
+    try {
+      var r = await fetch(API + "/connections");
+      if (!r.ok) return;
+      var list = await r.json();
+      var byProvider = {};
+      (Array.isArray(list) ? list : []).forEach(function (c) { byProvider[c.provider] = c; });
+      PROVIDERS.forEach(function (p) {
+        var c = byProvider[p];
+        if (c && c.status === "connected") setState(p, "connected", c.account || "", "");
+        else if (c && c.status === "expired") setState(p, "expired", c.account || "", "");
+        else setState(p, "not_connected", "", "");
+      });
+      summary();
+    } catch (e) { /* backend not deployed yet: rows stay Not connected, no noise */ }
+  }
+  async function connect(p) {
+    setState(p, "connecting", "", "");
+    try {
+      if (p === "shopify") { window.location.href = API + "/auth/shopify/login"; return; }
+      var r = await fetch(API + "/connections/" + p + "/authorize", { method: "POST" });
+      var data = await r.json().catch(function () { return {}; });
+      if (!r.ok) throw { http: r.status };
+      if (data && data.authorize_url) { window.location.href = data.authorize_url; return; }
+      throw { http: 0 };
+    } catch (e) {
+      if (e && e.http === 0) setState(p, "error", "", "Connection failed \u2014 no authorization URL returned.");
+      else setState(p, "error", "", errText(e));
+    }
+  }
+  async function disconnect(p) {
+    var r0 = row(p);
+    var prevAccount = r0 ? r0.querySelector('[data-conn-account]').textContent : "";
+    var cb = r0 && r0.querySelector('[data-conn-connect]');
+    var db = r0 && r0.querySelector('[data-conn-disconnect]');
+    if (cb) cb.disabled = true;
+    if (db) db.disabled = true;
+    try {
+      var r = await fetch(API + "/connections/" + p, { method: "DELETE" });
+      if (!r.ok) throw { http: r.status };
+      setState(p, "not_connected", "", "");
+      summary();
+    } catch (e) {
+      setState(p, "connected", prevAccount, errText(e));
+    }
+  }
+  PROVIDERS.forEach(function (p) {
+    var cb = document.querySelector('[data-conn-connect="' + p + '"]');
+    var db = document.querySelector('[data-conn-disconnect="' + p + '"]');
+    if (cb) cb.addEventListener("click", function () { connect(p); });
+    if (db) db.addEventListener("click", function () { disconnect(p); });
+  });
+  refresh();
+})();
 </script>
 </body>
 </html>

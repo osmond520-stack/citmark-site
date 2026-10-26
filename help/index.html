@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help Center — CitMark</title>
+<style>
+  /* Preview only. Visual tokens match the dashboard / landing light theme. */
+  :root{
+    --bg:#f4f4f1; --raise:#ffffff; --sink:#ececea;
+    --ink:#141519; --ink-2:#3c4048; --muted:#62666e;
+    --line:#dcdad2; --line-strong:#c6c3b8; --accent:#ff5a1f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6}
+  .wrap{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+  header h1{font-size:32px;line-height:1.2;margin:8px 0}
+  header p{color:var(--muted);margin:0 0 20px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+  .chips a{border:1px solid var(--line-strong);background:var(--raise);color:var(--ink);
+    border-radius:99px;padding:6px 12px;font-size:13px;font-weight:700;text-decoration:none}
+  .card{background:var(--raise);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 16px}
+  .card h2{font-size:20px;margin:0 0 8px}
+  .card h3{font-size:16px;margin:16px 0 4px}
+  .card p{margin:0 0 10px}
+  .card ul{margin:0 0 10px;padding-left:20px}
+  .card li{margin:0 0 6px}
+  .muted{color:var(--muted)}
+  .small{font-size:14px}
+  .founding{border:2px solid var(--accent)}
+  .founding .tag{display:inline-block;background:var(--accent);color:#fff;
+    font-size:12px;font-weight:800;letter-spacing:.06em;border-radius:99px;padding:3px 10px;margin-bottom:8px}
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .tier{border:1px solid var(--line);border-radius:12px;padding:14px}
+  .tier .name{font-weight:800}
+  .tier .promo{font-size:24px;font-weight:800;margin:2px 0}
+  .tier .promo span{font-size:14px;font-weight:600;color:var(--muted)}
+  .tier .std{color:var(--muted);font-size:14px}
+  .tier .std s{margin-right:4px}
+  .tier .badge{display:inline-block;background:#fff1e9;color:#c23a08;
+    font-size:11px;font-weight:800;letter-spacing:.05em;border-radius:99px;padding:2px 8px}
+  .tier p{font-size:14px;color:var(--muted);margin:6px 0 0}
+  details{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 10px;background:var(--raise)}
+  details summary{font-weight:700;cursor:pointer}
+  details p{margin:8px 0 0}
+  details ul{margin:8px 0 0;padding-left:20px}
+  a{color:var(--ink)}
+  footer{color:var(--muted);font-size:14px;margin-top:28px}
+  footer a{margin-right:14px}
+  @media (max-width:520px){
+    .price-grid{grid-template-columns:1fr}
+    header h1{font-size:26px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Help Center</h1>
+  <p>Straight answers about CitMark — pricing, measurement, refunds, and data.</p>
+  <nav class="chips">
+    <a href="#founding">Founding offer</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#how">How it works</a>
+    <a href="#faq">FAQ</a>
+    <a href="#refunds">Refunds</a>
+    <a href="#privacy">Privacy &amp; data</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- Source: 子页面-pricing-终版文案-20261024.md（唯一终版） -->
+<section class="card founding" id="founding">
+  <span class="tag">FOUNDING OFFER</span>
+  <h2>Founding offer — first 50 members, 50% off for 12 months</h2>
+  <p>Join as a founding member and get <strong>50% off for 12 months</strong>: Starter $9.50/mo, Growth $24.50/mo, Pro $64.50/mo, Teams $99.50/mo. After 12 months, your plan renews at the standard price. Founding spots are limited to the first 50 members — once they're gone, they're gone.</p>
+</section>
+
+<section class="card" id="pricing">
+  <h2>Pricing</h2>
+  <p>Simple pricing, no surprises. Every plan includes the full product — measurement across AI engines, weekly reports, and 3 actions every week. Plans differ only in scale: more brands, more questions, more engines, longer history.</p>
+  <div class="price-grid">
+    <div class="tier">
+      <div class="name">Starter</div>
+      <div class="promo">$19<span>/mo</span></div>
+      <div class="std"><s>$30</s> standard price</div>
+      <span class="badge">LAUNCH OFFER</span>
+      <p>For one brand getting started with AI visibility. Weekly full measurement + daily core-question alerts. 4 AI engines.</p>
+    </div>
+    <div class="tier">
+      <div class="name">Growth</div>
+      <div class="promo">$49<span>/mo</span></div>
+      <div class="std"><s>$70</s> standard price</div>
+      <span class="badge">LAUNCH OFFER</span>
+      <p>For growing brands tracking more questions and competitors. Everything in Starter, plus more brands and questions. 5 AI engines.</p>
+    </div>
+    <div class="tier">
+      <div class="name">Pro</div>
+      <div class="promo">$129<span>/mo</span></div>
+      <div class="std"><s>$170</s> standard price</div>
+      <span class="badge">LAUNCH OFFER</span>
+      <p>For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more brands and questions. 6 AI engines.</p>
+    </div>
+    <div class="tier">
+      <div class="name">Teams</div>
+      <div class="promo">$199<span>/mo</span></div>
+      <div class="std"><s>$300</s> standard price</div>
+      <span class="badge">LAUNCH OFFER</span>
+      <p>For multi-brand teams and agencies. Everything in Pro, plus the most brands and questions. 7 AI engines.</p>
+    </div>
+  </div>
+  <p class="small muted">Launch pricing is limited to the first 100 paying members across the whole site (the founding 50 included). Join during the launch pricing period and your promo price is locked for 12 months; after that, your plan renews at the standard price. Founding members' 50% discount also lasts 12 months, then renews at the standard price. Once the 100 spots are gone, new signups pay the standard price.</p>
+  <p class="small">Cancel anytime — your access continues until the end of the current billing period. See our <a href="/terms">Terms</a> for the refund policy.</p>
+</section>
+
+<!-- Source: 子页面六页终审包-20261024.md /methodology -->
+<section class="card" id="how">
+  <h2>How it works</h2>
+  <p><strong>The short version:</strong> we ask AI assistants the questions your buyers actually ask, and record whether your brand gets mentioned in the answers. Measured, not modeled.</p>
+  <ul>
+    <li><strong>Organic visibility only</strong> — whether AI assistants name your brand on their own in answers to real buying questions. Paid placements are never counted in your score.</li>
+    <li><strong>Buyer-intent questions</strong> — “best X for Y” lists, comparisons, scenario advice. We deliberately don't pad scores with branded questions.</li>
+    <li><strong>The engines</strong> — every full check runs across 4 AI engines: ChatGPT, Perplexity, Gemini, and Claude. Growth adds Grok, Pro adds DeepSeek, Teams adds Mistral.</li>
+    <li><strong>The rhythm</strong> — a full measurement runs weekly; between full runs, we watch your core questions daily and alert you to sudden moves.</li>
+    <li><strong>What counts</strong> — visibility score = answers mentioning your brand ÷ valid answers × 100. Failed or timed-out runs don't count toward the score — they're reported separately as an error rate.</li>
+    <li><strong>What you get</strong> — every week: your score change, what drove it, and 3 concrete actions — on-site, off-site, and technical.</li>
+  </ul>
+  <p class="small muted">We don't guarantee AI recommendations or rankings — no honest tool can. We measure credibly, explain plainly, and help you improve.</p>
+</section>
+
+<section id="faq">
+  <h2 style="font-size:20px;margin:24px 0 12px">FAQ</h2>
+
+  <details>
+    <summary>How do the checks actually work?</summary>
+    <p>Each week we send your question set to each engine and capture the answers. We extract brand mentions and the sources cited, aggregate citations by site, and compute your visibility score. If an engine fails or times out, that run is excluded from the score and flagged as an error — we never silently fill gaps.</p>
+  </details>
+
+  <details>
+    <summary>Which AI engines are covered?</summary>
+    <p>ChatGPT, Perplexity, Gemini, and Claude on every plan. Growth adds Grok, Pro adds DeepSeek, Teams adds Mistral. Every engine runs the same questions, so scores stay comparable across engines and over time.</p>
+  </details>
+
+  <details>
+    <summary>Do I need to install anything or share analytics access?</summary>
+    <p>No. There's nothing to install, and we don't need access to your analytics. If you later choose to connect Google Search Console, that's a separate, explicit authorization — always your call.</p>
+  </details>
+
+  <!-- Source: landing page FAQ (live copy, price-free) -->
+  <details>
+    <summary>I already have an SEO tool. Why do I need this?</summary>
+    <p>SEO tools optimise for Google rankings — but AI answers don't show rankings, they cite sources. You can rank #1 and still never be mentioned when a buyer asks ChatGPT. CitMark monitors the thing SEO tools can't see: whether AI actually names and cites you. Same for Google Search Console: it shows how Google sees your site; CitMark shows how AI engines see it.</p>
+  </details>
+
+  <!-- Source: landing page FAQ (live copy, price-free) -->
+  <details>
+    <summary>What if my first report finds nothing useful?</summary>
+    <p>Then you shouldn't pay for it. If your first report finds nothing useful, we'll refund you — no questions asked. Just email us and it's done.</p>
+  </details>
+
+  <details>
+    <summary>How is this different from Profound or AthenaHQ?</summary>
+    <p>Three differences. <strong>Who it's built for:</strong> they're built for enterprise teams with sales-led contracts (around $299+/month); CitMark is self-serve — you sign up yourself, no sales calls. <strong>How it measures:</strong> <em>measured, not modeled</em> — real buyer questions sent to real AI engines, counting actual mentions, instead of black-box estimates. <strong>What you get:</strong> not just a score, but 3 actions every week — because a number without a next step is just anxiety.</p>
+  </details>
+
+  <!-- Source: 子页面-pricing-终版文案-20261024.md FAQ -->
+  <details>
+    <summary>What happens when my 12-month founding discount ends?</summary>
+    <p>Your plan renews automatically at the standard price of your plan — $30, $70, $170, or $300 per month. You don't need to take any action. We'll email you 30 days before so there's no surprise. If you'd like to change or cancel your plan, please contact our support team.</p>
+  </details>
+
+  <details>
+    <summary>What is the founding member price?</summary>
+    <p>Founding members pay 50% off the launch special price for their first 12 months: Starter $9.50/month (special $19; standard $30), Growth $24.50/month (special $49; standard $70), Pro $64.50/month (special $129; standard $170), Teams $99.50/month (special $199; standard $300).</p>
+  </details>
+
+  <details>
+    <summary>Who can get the founding price?</summary>
+    <p>The first 50 eligible signups. Spots are limited and allocated on a first-come, first-served basis — once all 50 are taken, the founding price is no longer available.</p>
+  </details>
+
+  <details>
+    <summary>How are the first 50 counted?</summary>
+    <p>By deduplicated signups with a valid email address, in the order they come in. Duplicate or invalid signups don't count toward the 50.</p>
+  </details>
+
+  <details>
+    <summary>What happens when my 12-month promo price lock ends?</summary>
+    <p>Same thing: your plan renews at the standard price, and we'll email you 30 days before.</p>
+  </details>
+
+  <details>
+    <summary>Can I upgrade or downgrade later?</summary>
+    <p>Yes. Please contact our support team and we'll sort it out with you.</p>
+  </details>
+
+  <details>
+    <summary>What if I cancel?</summary>
+    <p>You keep access until the end of the current billing period, and you won't be charged again. Your data is handled per our <a href="/privacy">Privacy Policy</a>.</p>
+  </details>
+</section>
+
+<!-- Source: 子页面六页终审包-20261024.md /terms §4（判定矩阵口径） -->
+<section class="card" id="refunds">
+  <h2>Refunds</h2>
+  <ul>
+    <li><strong>Within 7 days of purchase:</strong> full refund, no questions asked — except: one no-questions refund per domain and per payment method (a second signup with the same domain or card doesn't get another one), and if you've already run 2 or more full snapshots, the refund is prorated instead.</li>
+    <li><strong>Days 8–30:</strong> prorated refund for the unused period. Annual plans: refund for remaining whole months, with used months billed at the monthly rate.</li>
+    <li><strong>After 30 days:</strong> monthly plans — no refund for the current period; cancel anytime and keep access until the period ends. Annual plans — prorated refund for remaining whole months.</li>
+    <li><strong>Usage already consumed</strong> (e.g., overage re-runs that already ran) is non-refundable.</li>
+    <li><strong>Billing errors</strong> (duplicate or wrong charges) are always fixed: tell us and we'll sort it out within 24 hours.</li>
+    <li>Founding-member spots don't go back into the pool after a refund. Accounts terminated for fraud or abuse aren't eligible for refunds.</li>
+    <li>Refunds go to your original payment method. We initiate within <strong>3 business days</strong>; banks usually take <strong>5–10 business days</strong> to show it.</li>
+  </ul>
+  <p class="small">Full policy: <a href="/terms">Terms of Service</a>.</p>
+</section>
+
+<!-- Source: 子页面六页终审包-20261024.md /privacy -->
+<section class="card" id="privacy">
+  <h2>Privacy &amp; data</h2>
+  <ul>
+    <li><strong>Your data is yours.</strong> Workspaces are strictly isolated. We never sell data. Every employee access is audited. Cancel means delete.</li>
+    <li><strong>Where it lives:</strong> your data lives in Singapore (primary database). The website itself is served globally. Email delivery (Resend) and payment processing (Creem) run in the United States under Standard Contractual Clauses.</li>
+    <li><strong>What we never collect:</strong> payment card details. Payments go through Creem, our merchant of record — card data never touches our systems.</li>
+    <li><strong>Export:</strong> download all your personal data as JSON from your account settings, anytime.</li>
+    <li><strong>Delete:</strong> delete your account and we remove your personal data from our live systems within 30 days. Encrypted backups rotate out within ~90 days and are never used for anything else.</li>
+  </ul>
+  <p class="small">Full policy: <a href="/privacy">Privacy Policy</a>. Security issues: <a href="mailto:security@citmark.com">security@citmark.com</a>.</p>
+</section>
+
+<section class="card" id="contact">
+  <h2>Contact</h2>
+  <p><strong>General questions, billing, and privacy requests:</strong> <a href="mailto:support@citmark.com">support@citmark.com</a><br>
+  <strong>Security issues:</strong> <a href="mailto:security@citmark.com">security@citmark.com</a></p>
+  <p class="small muted">If you write in about a problem, it helps to include: the email address on your CitMark workspace; what happened, and what you expected to happen; steps to reproduce it, or a screenshot if you have one.</p>
+</section>
+
+<footer>
+  <a href="/pricing">Pricing</a>
+  <a href="/methodology">Methodology</a>
+  <a href="/terms">Terms</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <p style="margin-top:12px">CitMark — measured, not modeled.</p>
+</footer>
+
+</div>
+</body>
+</html>
