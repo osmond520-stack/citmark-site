@@ -505,6 +505,85 @@ button { font: inherit; }
 #view-auth .toast{ display: none; background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 10px; font-size: 14px; text-align: center; margin-top: 16px; }
 #view-auth .toast.show{ display: block; }
 </style>
+
+<style>
+/* Settings redo v2 20261026: menu rows, subpages, toggles, Help nav links. New styles only in this block. */
+.set-row{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;cursor:pointer;color:var(--ink);font-size:15px;font-weight:700}
+.set-row .sub{display:block;font-size:13px;color:var(--muted);font-weight:400;margin-top:2px}
+.set-row .arr{color:var(--muted);flex:none;font-size:18px}
+.set-row.locked{opacity:.6;cursor:not-allowed}
+/* Settings redo v3 20261026: avatar menu, vertical list only, no grid. */
+.acct-wrap{position:relative;flex:none}
+.acct-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg-raise);color:var(--ink);font-weight:800;font-size:16px;cursor:pointer;flex:none}
+.acct-menu{display:none;position:absolute;top:52px;right:0;width:260px;max-width:calc(100vw - 32px);background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:8px;z-index:40}
+.acct-menu.open{display:flex;flex-direction:column}
+.acct-menu .acct-row{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:44px;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 8px;cursor:pointer;color:var(--ink);font-size:15px;font-weight:700;text-decoration:none}
+.acct-menu .acct-row:last-child{border-bottom:0}
+.acct-menu .acct-row .arr{color:var(--muted);flex:none;font-size:18px}
+
+#view-brand-edit .card,#view-billing .card,#view-invoices .card,#view-invoice-detail .card,#view-security .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+#view-brand-edit .card h2,#view-billing .card h2,#view-invoices .card h2,#view-invoice-detail .card h2,#view-security .card h2{margin:0 0 4px;font-size:20px}
+#view-brand-edit .card h3,#view-billing .card h3,#view-invoices .card h3,#view-invoice-detail .card h3,#view-security .card h3{margin:0 0 8px;font-size:16px}
+#view-brand-edit .desc,#view-billing .desc,#view-invoices .desc,#view-invoice-detail .desc,#view-security .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-brand-edit .btn,#view-billing .btn,#view-invoices .btn,#view-invoice-detail .btn,#view-security .btn{display:inline-block;border:0;background:var(--ink);color:#fff;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer}
+#view-brand-edit .btn.ghost,#view-billing .btn.ghost,#view-invoices .btn.ghost,#view-invoice-detail .btn.ghost,#view-security .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#view-brand-edit .btn.small,#view-billing .btn.small,#view-invoices .btn.small,#view-invoice-detail .btn.small,#view-security .btn.small{padding:6px 12px;font-size:13px}
+#view-brand-edit input[type=text],#view-billing input[type=text],#view-invoices input[type=text],#view-invoice-detail input[type=text],#view-security input[type=text]{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--ink)}
+#view-brand-edit .field,#view-billing .field,#view-invoices .field,#view-invoice-detail .field,#view-security .field{margin-bottom:12px}
+#view-brand-edit .field label,#view-billing .field label,#view-invoices .field label,#view-invoice-detail .field label,#view-security .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+#view-brand-edit .row,#view-billing .row,#view-invoices .row,#view-invoice-detail .row,#view-security .row{display:flex;gap:12px;flex-wrap:wrap}
+#view-brand-edit .row > *,#view-billing .row > *,#view-invoices .row > *,#view-invoice-detail .row > *,#view-security .row > *{flex:1;min-width:200px}
+#view-brand-edit .switch-row,#view-billing .switch-row,#view-invoices .switch-row,#view-invoice-detail .switch-row,#view-security .switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+#view-brand-edit .switch-row:last-child,#view-billing .switch-row:last-child,#view-invoices .switch-row:last-child,#view-invoice-detail .switch-row:last-child,#view-security .switch-row:last-child{border-bottom:0}
+#view-brand-edit .switch-row p,#view-billing .switch-row p,#view-invoices .switch-row p,#view-invoice-detail .switch-row p,#view-security .switch-row p{margin:2px 0 0;color:var(--muted);font-size:13px}
+#view-brand-edit .switch-row b,#view-billing .switch-row b,#view-invoices .switch-row b,#view-invoice-detail .switch-row b,#view-security .switch-row b{font-size:14px}
+#view-brand-edit .badge-ok,#view-billing .badge-ok,#view-invoices .badge-ok,#view-invoice-detail .badge-ok,#view-security .badge-ok{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+#view-brand-edit .sample-tag,#view-billing .sample-tag,#view-invoices .sample-tag,#view-invoice-detail .sample-tag,#view-security .sample-tag{font-size:11px;font-weight:700;color:#6b7280;border:1px solid var(--line);border-radius:999px;padding:1px 7px;vertical-align:middle}
+#view-brand-edit a,#view-billing a,#view-invoices a,#view-invoice-detail a,#view-security a{color:var(--skin-accent-deep)}
+#view-settings .notif-toggle{width:52px;height:30px;border-radius:999px;background:#d1d5db;border:0;position:relative;flex:none;cursor:pointer;padding:0}
+#view-settings .notif-toggle .knob{position:absolute;left:3px;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s}
+#view-settings .notif-toggle[aria-checked="true"]{background:#ff5a1f}
+#view-settings .notif-toggle[aria-checked="true"] .knob{left:25px}
+.inv-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}
+.inv-row:last-child{border-bottom:0}
+.inv-row .inv-date{flex:1;min-width:140px;font-weight:700}
+.inv-row .inv-amount{font-weight:700;white-space:nowrap}
+.nav a.nav-link{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:10px;background:transparent;color:var(--ink-2);font-weight:600;font-size:14.5px;text-decoration:none;text-align:left}
+.nav a.nav-link:hover{background:var(--bg-sink)}
+.nav a.nav-link .ico{width:22px;height:22px;flex:none;display:inline-flex}
+.nav a.nav-link .ico svg{width:22px;height:22px;display:block}
+.tabbar a.nav-link{flex:0 0 auto;min-width:68px;border:0;background:transparent;padding:8px 6px 6px;font-size:11px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none}
+.tabbar a.nav-link .ico{display:inline-flex}
+.tabbar a.nav-link .ico svg{width:24px;height:24px;display:block}
+@media (max-width:380px){#view-brand-edit .card,#view-billing .card,#view-invoices .card,#view-invoice-detail .card,#view-security .card{padding:14px}.tabbar a.nav-link{min-width:62px;font-size:10px}}
+</style>
+
+<style>
+/* Mobile rollback 20261026 (audit of unified 026bef89): desktop single-token unification REMOVED
+   (suspended per Tao Yu: single-ended unification creates desktop-vs-mobile inconsistency; needs
+   both-ends order). Remaining in this file are today decisions only: topbar restore (bell/avatar/
+   notifications + blank-click return), menu 4 items, TIER pure text + gate note, Google G mark.
+   Auth form unchanged. .set-row / .acct-row are navigation rows, not buttons. */
+/* Topbar restore: bell 32, avatar 44 (5px padding + 32px svg + 1px border = 44), pill no longer pushes. */
+.topbar-in .bell-btn{margin-left:auto !important}
+.topbar-in .pill{margin-left:0 !important}
+.bell-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;border:1px solid #e3e1d9;background:#fff;border-radius:999px;cursor:pointer;color:#141519}
+.bell-btn:hover{background:#ececea}
+.bell-btn svg{width:20px;height:20px;display:block}
+.bell-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#e8490f;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.acct-btn{display:inline-flex;align-items:center;justify-content:center;padding:5px}
+.acct-btn svg{width:32px;height:32px;display:block}
+.notif-item{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:0;border-bottom:1px solid #e3e1d9;background:transparent;padding:12px 0;cursor:pointer;color:#141519}
+.notif-item:last-child{border-bottom:0}
+.notif-dot{flex:none;width:8px;height:8px;border-radius:50%;margin-top:6px;background:transparent}
+.notif-item.unread .notif-dot{background:#e8490f}
+.notif-item.unread .notif-title{font-weight:700}
+.notif-main{display:block}
+.notif-title{display:block;font-size:15px}
+.notif-meta{display:block;color:#62666e;font-size:13px;margin-top:2px}
+.skin-opts button.active::before{content:"\25CF";margin-right:6px}
+@media (max-width:400px){.topbar-in .pill{display:none}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -520,7 +599,8 @@ button { font: inherit; }
       <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Questions</button>
       <button data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
       <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Sources</button>
-      <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+      <!-- Tools entry hidden until Batch 1 lands: view-tools retained, restore by removing display:none --><button data-view="tools" style="display:none"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+      <a class="nav-link" href="https://citmark.com/help/" target="_blank" rel="noopener" aria-label="Help center"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M9.5 9a2.5 2.5 0 0 1 4.5 1.5c0 1.5-2.5 1.5-2.5 3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg></span>Help</a>
       <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
       <button data-view="auth"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h5v16h-5"/><path d="M3 12h11"/><path d="M11 8l4 4-4 4"/></svg></span>Log in</button>
     </nav>
@@ -528,11 +608,12 @@ button { font: inherit; }
       <div class="skin-switch">
         <p>MEMBERSHIP TIER</p>
         <div class="skin-opts" id="skinOpts">
-          <button data-skin="starter" class="active">○ Starter</button>
-          <button data-skin="growth">◉ Growth</button>
-          <button data-skin="pro">◆ Pro</button>
-          <button data-skin="teams">⬢ Teams</button>
+          <button data-tier="starter" class="active">Starter</button>
+          <button data-tier="growth">Growth</button>
+          <button data-tier="pro">Pro</button>
+          <button data-tier="teams">Teams</button>
         </div>
+        <p class="tier-gate-note" id="tierGateNote" style="display:none;color:var(--muted);font-size:13px;margin:8px 0 0;"></p>
       </div>
     </div>
   </aside>
@@ -545,6 +626,15 @@ button { font: inherit; }
           <span class="sub" id="pageSub">Your brand's AI visibility at a glance</span>
         </div>
         <span class="pill">REAL SAMPLE</span>
+        <button class="bell-btn" id="bellBtn" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="bell-badge" id="bellBadge">4</span></button>
+        <div class="acct-wrap">
+        <button class="acct-btn" type="button" id="acctBtn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></button>
+        <div class="acct-menu" id="acctMenu" role="menu">
+          <button class="acct-row" type="button" role="menuitem" data-view="billing"><span>My plan</span><span class="arr">›</span></button>
+          <a class="acct-row" role="menuitem" href="https://citmark.com/help/" target="_blank" rel="noopener" aria-label="Help center"><span>Help center</span><span class="arr">›</span></a>
+          <button class="acct-row" type="button" role="menuitem" data-view="auth"><span>Log out</span><span class="arr">›</span></button>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -801,74 +891,87 @@ button { font: inherit; }
 </section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><div class="card">
-<h2>Settings</h2>
-<p class="desc">Brand, members, billing, connections.</p>
-</div>
-
-<div class="card"><h3>Brand profile</h3>
-<div class="row"><div class="field"><label>Brand name</label><input type="text" value="Bombas"></div>
-<div class="field"><label>Domain</label><input type="text" value="bombas.com"></div></div>
-<button class="btn small" type="button">Save brand profile (demo)</button></div>
-
-<div class="card"><h3>Members &amp; roles</h3>
-<p>Seats: <b>1 seat (Starter, read from TIER_FEATURES)</b>. Current mock has no member data; no invented names. Member list appears once real data connects.</p>
-<div class="row"><div class="field"><label>Invite member email</label><input type="text" placeholder="teammate@example.com (demo input)"></div>
-<div class="field"><label>Role</label><select><option>Member (can edit)</option><option>Read-only (view only)</option></select></div></div>
-<p style="color:var(--muted);font-size:13px">P-014 matrix: Owner invites / removes; Growth / Pro members have the same capabilities, only seat counts differ; MVP first gets single-user flow working.</p>
-<button class="btn small" type="button">Send invite (demo)</button></div>
-
-<div class="card"><h3>Billing</h3>
-<p>Current tier: <b>Starter</b> <span class="sample-tag">Sample amounts</span> · $19/mo for the first 12 months, then $30/mo.</p>
+      <section class="view" id="view-settings"><h2>Settings</h2>
+<button class="set-row" type="button" data-view="brand-edit"><span>Brand<span class="sub" id="brandSummary">Bombas · bombas.com</span></span><span class="arr">›</span></button>
+<button class="set-row" type="button" data-view="connections"><span>Connections<span class="sub">Shopify, Google Search Console</span></span><span class="arr">›</span></button>
+<button class="set-row" type="button" data-view="invoices"><span>Invoices<span class="sub">Monthly invoices, compact list</span></span><span class="arr">›</span></button>
+<button class="set-row" type="button" data-view="billing"><span>Billing<span class="sub">Starter · $19/mo for the first 12 months, then $30/mo</span></span><span class="arr">›</span></button>
+<div class="card"><h3>Team &amp; Developer</h3>
+<div class="switch-row"><div><b>Team</b><p>Available on Growth and above</p></div><span style="color:var(--muted);font-size:13px;font-weight:700">🔒 Locked</span></div>
+<div class="switch-row"><div><b>Developer</b><p>Available on Pro and above</p></div><span style="color:var(--muted);font-size:13px;font-weight:700">🔒 Locked</span></div></div>
+<div class="card"><h3>Notifications</h3>
+<div class="switch-row"><div><b>Negative alerts</b><p>Email me when a negative signal appears</p></div><button class="notif-toggle" type="button" role="switch" aria-checked="true" aria-label="Negative alerts" data-notif="negative"><span class="knob"></span></button></div>
+<div class="switch-row"><div><b>Rescan complete</b><p>Email me when a rescan finishes</p></div><button class="notif-toggle" type="button" role="switch" aria-checked="true" aria-label="Rescan complete" data-notif="rescan"><span class="knob"></span></button></div>
+<div class="switch-row"><div><b>Weekly report</b><p>Email me a weekly summary</p></div><button class="notif-toggle" type="button" role="switch" aria-checked="true" aria-label="Weekly report" data-notif="weekly"><span class="knob"></span></button></div>
+<p class="desc" style="margin-top:10px">Notification settings are saved in this browser. Backend sync is pending.</p></div>
+<div class="card"><h3>Account &amp; security</h3>
+<div class="switch-row"><div><b>Password, sign-in, and your data</b><p>Review sign-in history and your data options</p></div><button class="btn small" type="button" data-view="security">Open</button></div></div>
+</section>
+<section class="view" id="view-brand-edit"><button class="btn small ghost" type="button" data-goto="settings">← Back to Settings</button>
+<div class="card"><h2>Brand</h2>
+<div class="row"><div class="field"><label>Brand name</label><input type="text" id="brandNameInput" value="Bombas"></div>
+<div class="field"><label>Domain</label><input type="text" id="brandDomainInput" value="bombas.com"></div></div>
+<button class="btn small" type="button" id="brandSaveBtn">Save brand</button>
+<p class="desc" id="brandSaved" style="display:none;margin-top:10px">Saved in this browser. Backend sync is pending.</p></div></section>
+<section class="view" id="view-billing"><button class="btn small ghost" type="button" data-goto="settings">← Back to Settings</button>
+<div class="card"><h2>Billing</h2>
+<p>Current plan: <b>Starter</b> · $19/mo for the first 12 months, then $30/mo.</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
-<button class="btn small" type="button">Upgrade (demo)</button>
-<button class="btn small ghost" type="button">Downgrade (demo)</button>
+<button class="btn small" type="button" data-plan="growth">Change to Growth</button>
+<button class="btn small ghost" type="button" data-plan="pro">Change to Pro</button>
+<button class="btn small ghost" type="button" data-plan="teams">Change to Teams</button>
+</div>
+<div id="planGate" style="display:none;border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:12px">
+<p style="margin:0 0 8px"><b id="planGateTitle">Change plan</b></p>
+<p style="margin:0 0 8px">Your current plan is Starter. Checkout is not connected in this preview, so the plan is not changed here.</p>
+<button class="btn small ghost" type="button" id="planGateClose">Close</button></div></div>
+<div class="card"><h3>Payment method</h3>
+<p class="desc">Card payments go through our payment provider; CitMark never touches card details.</p></div>
+<div class="card"><h3>Cancel subscription</h3>
 <button class="btn small ghost" type="button" id="cancelBtn">Cancel subscription</button>
+<div id="cancelBox" style="display:none;border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:12px">
+<p style="margin:0 0 8px"><b>Before you cancel:</b> canceling means losing monitoring, alerts, and weekly reports — not a silent pause. The rest of the current period remains usable; renewal stops at period end.</p>
+<p style="margin:0 0 8px">Refunds: within 7 days, full refund; 8–30 days, pro-rated refund; after 30 days, monthly plans are not refunded and annual plans are refunded pro-rated.</p>
+<p style="margin:0 0 8px">Self-serve cancellation is not available yet. To cancel, contact CitMark Support.</p>
+<a class="btn small ghost" href="https://citmark.com/contact" target="_blank" rel="noopener">Contact CitMark Support</a>
+<button class="btn small ghost" type="button" id="cancelKeep" style="margin-left:8px">Keep subscription</button></div></div></section>
+<section class="view" id="view-invoices"><button class="btn small ghost" type="button" data-goto="settings">← Back to Settings</button>
+<div class="card"><h2>Invoices</h2>
+<div class="inv-row"><span class="inv-date">2026-10 · Starter <span class="sample-tag">Sample</span></span><span class="inv-amount">$19</span><span class="badge-ok">Paid</span><button class="btn small ghost" type="button" data-inv-view="2026-10">View</button></div>
+<div class="inv-row"><span class="inv-date">2026-09 · Starter <span class="sample-tag">Sample</span></span><span class="inv-amount">$19</span><span class="badge-ok">Paid</span><button class="btn small ghost" type="button" data-inv-view="2026-09">View</button></div>
+<p class="desc" style="margin-top:10px">Invoice download is not available yet.</p></div></section>
+<section class="view" id="view-invoice-detail"><button class="btn small ghost" type="button" data-goto="invoices">← Back to Invoices</button>
+<div class="card"><h2>Invoice <span id="invDetailDate"></span></h2>
+<p>Plan: <b>Starter</b> <span class="sample-tag">Sample</span></p>
+<p>Amount: <b>$19</b></p>
+<p>Status: <span class="badge-ok">Paid</span></p>
+<p class="desc">This is the invoice record for the month shown. No additional invoice data is available in this preview.</p></div></section>
+<section class="view" id="view-security"><button class="btn small ghost" type="button" data-goto="settings">← Back to Settings</button>
+<div class="card"><h3>Sign-in methods</h3>
+<div class="switch-row"><div><b>Google sign-in</b><p>Sign in with your Google account</p></div></div>
+<div class="switch-row"><div><b>Shopify sign-in</b><p>Sign in with your Shopify store</p></div></div>
+<p class="desc" style="margin-top:10px">Password reset is available from the login page.</p>
+<button class="btn small ghost" type="button" data-view="auth">Go to login</button></div>
+<div class="card"><h3>Login history</h3>
+<table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th style="text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)">Login history</th><th style="text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)">Time</th></tr></thead>
+<tbody><tr><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Chrome · macOS <span class="sample-tag">Sample</span></td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">2026-10-25 09:12</td></tr>
+<tr><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Safari · iPhone <span class="sample-tag">Sample</span></td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">2026-10-24 21:40</td></tr></tbody></table></div>
+<div class="card"><h3>Your data</h3>
+<p class="desc">Data export and account deletion are not available yet.</p></div></section>
+<section class="view" id="view-notifications"><div class="card">
+<h2>Notifications</h2>
+<p class="desc">Snapshot, score, report and alert updates for Bombas. Sample notifications only.</p>
+<button class="btn small ghost" type="button" id="notifBack">← Back</button>
 </div>
-<div id="cancelBox" style="display:none;border:1px solid var(--line);border-radius:8px;padding:12px">
-<p style="margin:0 0 8px"><b>Before you cancel:</b> canceling means losing the watchdog (no more monitoring, alerts, or weekly reports) — not a silent pause. The rest of the current period remains usable; renewal stops at period end.</p>
-<button class="btn small" type="button">I understand, cancel anyway (demo)</button>
-<button class="btn small ghost" type="button" id="cancelKeep">Keep subscription</button>
-</div>
-<table style="min-width:0;margin-top:12px"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th></tr></thead>
-<tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td>$19</td><td><span class="badge-ok">Paid</span></td></tr>
-<tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td>$19</td><td><span class="badge-ok">Paid</span></td></tr></tbody></table>
-<p style="color:var(--muted);font-size:13px">Billing / subscription management is an Owner capability; renewal status and invoice downloads appear once real billing connects.</p></div>
-
-<div class="card"><h3>Connections</h3>
-<div class="switch-row"><div><b>Data connections</b><p class="desc" style="margin:2px 0 0">Shopify, Google Search Console</p><p class="desc" style="margin:2px 0 0"><span data-conn-summary></span></p></div><button class="btn small" type="button" data-goto="connections">Manage</button></div></div>
-
-<div class="card"><h3>Notification switches</h3>
-<div class="switch-row"><div><b>Negative alerts</b></div><input type="checkbox" checked></div>
-<div class="switch-row"><div><b>Rescan complete</b></div><input type="checkbox" checked></div>
-<div class="switch-row"><div><b>Weekly report</b></div><input type="checkbox" checked></div>
-<p style="color:var(--muted);font-size:13px">Switches = preferences; notification center = inbox — both are needed.</p></div>
-
-<div class="card"><h3>API <span class="badge-soon">Pro / Teams</span></h3>
-<p class="desc">Gated on lower tiers + upgrade guidance. Key generation / revocation / usage arrive with API launch (P-034).</p>
-<button class="btn small ghost" type="button">Upgrade to Pro to unlock API (demo)</button></div>
-
-<div class="card"><h3>White-label reports <span class="badge-soon">Teams only</span></h3>
-<p class="desc">Gated on lower tiers + upgrade guidance. Mainly for chains / multi-brand direct customers.</p>
-<button class="btn small ghost" type="button">Upgrade to Teams to unlock white-label (demo)</button></div>
-
-<div class="card"><h3>Security &amp; login</h3>
-<div class="row"><div class="field"><label>New password</label><input type="password" placeholder="Demo input, not submitted"></div>
-<div class="field"><label>Confirm new password</label><input type="password" placeholder="Demo input, not submitted"></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn small" type="button">Change password (demo)</button>
-<button class="btn small ghost" type="button">Unbind / rebind Google (demo)</button>
-<button class="btn small ghost" type="button">Unbind / rebind Shopify (demo)</button>
-</div>
-<table style="min-width:0;margin-top:12px"><thead><tr><th>Login history</th><th>Time</th></tr></thead>
-<tbody><tr><td>Chrome · macOS <span class="sample-tag">Sample</span></td><td>2026-10-25 09:12</td></tr>
-<tr><td>Safari · iPhone <span class="sample-tag">Sample</span></td><td>2026-10-24 21:40</td></tr></tbody></table>
-<p style="color:var(--muted);font-size:13px">2FA is not bundled here; pending Tao Yu’s confirmation.</p></div>
-
-<div class="card"><h3>Account &amp; data</h3>
-<p class="desc">GDPR self-serve export / deletion are placeholders here (buttons disabled, after MVP; required before paid users arrive). Card payments go through our payment provider; CitMark never touches card details.</p>
-<button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">Export my data (after MVP)</button>
-<button class="btn small ghost" type="button" disabled style="opacity:.55;cursor:not-allowed">Delete account (after MVP)</button></div></section>
+<div class="card">
+<button class="notif-item unread" type="button" data-cat="snapshot"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Snapshot finished for Bombas</span><span class="notif-meta">Snapshot · Today, 09:12</span></span></button>
+<button class="notif-item unread" type="button" data-cat="score"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Visibility score is 9.1 in the latest snapshot</span><span class="notif-meta">Score · Today, 09:12</span></span></button>
+<button class="notif-item unread" type="button" data-cat="report"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Weekly report is ready</span><span class="notif-meta">Report · Monday, 08:00</span></span></button>
+<button class="notif-item unread" type="button" data-cat="alert"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">A tracked question has no mentions in the latest snapshot</span><span class="notif-meta">Alert · Today, 09:12</span></span></button>
+<button class="notif-item" type="button" data-cat="snapshot"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Snapshot finished for Bombas</span><span class="notif-meta">Snapshot · Yesterday, 09:05</span></span></button>
+<button class="notif-item" type="button" data-cat="report"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Weekly report is ready</span><span class="notif-meta">Report · Last Monday, 08:00</span></span></button>
+<button class="notif-item" type="button" data-cat="alert"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">A tracked question has no mentions in the previous snapshot</span><span class="notif-meta">Alert · Yesterday, 09:05</span></span></button>
+</div></section>
 <section class="view" id="view-connections">
 <button class="btn small ghost conn-back" type="button" data-goto="settings">← Back to Settings</button>
 <div class="card"><h2>Connections</h2>
@@ -892,7 +995,7 @@ button { font: inherit; }
   <section class="auth-view active" id="view-login">
     <div class="card">
       <h2>Log in</h2>
-      <div class="btn-row"><button class="btn ghost" type="button" id="googleBtn">Continue with Google</button></div>
+      <div class="btn-row"><button class="btn ghost" type="button" id="googleBtn"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg>Continue with Google</button></div>
       <div class="divider"><span>or</span></div>
       <form id="loginForm" novalidate>
         <div class="field">
@@ -1008,7 +1111,8 @@ button { font: inherit; }
     <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Questions</button>
     <button data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
     <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Sources</button>
-    <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+    <!-- Tools entry hidden until Batch 1 lands: view-tools retained, restore by removing display:none --><button data-view="tools" style="display:none"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+    <a class="nav-link" href="https://citmark.com/help/" target="_blank" rel="noopener" aria-label="Help center"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M9.5 9a2.5 2.5 0 0 1 4.5 1.5c0 1.5-2.5 1.5-2.5 3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg></span>Help</a>
     <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
     <button data-view="auth"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h5v16h-5"/><path d="M3 12h11"/><path d="M11 8l4 4-4 4"/></svg></span>Log in</button>
   </nav>
@@ -1367,8 +1471,14 @@ const TITLES = {
   competitors: ["Competitors", "Your visibility vs tracked competitors"],
   sources:     ["Sources", "Where AI answers cite from"],
   tools:       ["Tools", "Tools by tier"],
-  settings:    ["Settings", "Brand, members, billing, connections"],
+  settings:    ["Settings", "Brand, notifications, and account security"],
+  "brand-edit": ["Brand", "Edit your brand name and domain"],
+  billing:     ["Billing", "Your plan, payment method, and cancellation"],
+  invoices:    ["Invoices", "Monthly invoices, compact list"],
+  "invoice-detail": ["Invoice", "Invoice record"],
+  security:    ["Account & security", "Sign-in, login history, and your data"],
   connections: ["Connections", "Manage data connections"],
+  notifications: ["Notifications", "Snapshot, score, report and alert updates"],
   auth:        ["Log in", "Sign in with Google, email, or Shopify"],
 };
 function go(view) {
@@ -1386,13 +1496,18 @@ document.querySelectorAll("[data-goto]").forEach(b =>
   b.addEventListener("click", () => go(b.dataset.goto)));
 
 /* ---------------- skin ---------------- */
-const SKIN_TIER = { starter: "STARTER", growth: "GROWTH", pro: "PRO", teams: "TEAMS" };
+const CURRENT_TIER = "starter";
 document.querySelectorAll("#skinOpts button").forEach(b =>
   b.addEventListener("click", () => {
-    document.documentElement.dataset.skin = b.dataset.skin;
-    document.querySelectorAll("#skinOpts button").forEach(x =>
-      x.classList.toggle("active", x === b));
-    document.getElementById("tierBadge").textContent = SKIN_TIER[b.dataset.skin];
+    const note = document.getElementById("tierGateNote");
+    if (b.dataset.tier === CURRENT_TIER) {
+      if (note) note.style.display = "none";
+      return;
+    }
+    if (note) {
+      note.textContent = "Current tier: Starter. This does not change your tier or charge you.";
+      note.style.display = "block";
+    }
   }));
 
 /* ---------------- overview view ---------------- */
@@ -2083,6 +2198,138 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     go('overview');
   });
   showView(viewFromHash());
+})();
+</script>
+
+<script>
+"use strict";
+(function(){
+  var NOTIF_KEY = 'citmark-notifications-v2';
+  var BRAND_KEY = 'citmark-brand-v2';
+  function loadNotif(){
+    try {
+      var raw = localStorage.getItem(NOTIF_KEY);
+      if (!raw) return {negative:true, rescan:true, weekly:true};
+      var v = JSON.parse(raw);
+      return {negative: v.negative !== false, rescan: v.rescan !== false, weekly: v.weekly !== false};
+    } catch(e) { return {negative:true, rescan:true, weekly:true}; }
+  }
+  function saveNotif(v){ try { localStorage.setItem(NOTIF_KEY, JSON.stringify(v)); } catch(e) {} }
+  var notif = loadNotif();
+  document.querySelectorAll('#view-settings .notif-toggle').forEach(function(btn){
+    var key = btn.getAttribute('data-notif');
+    btn.setAttribute('aria-checked', notif[key] ? 'true' : 'false');
+    btn.addEventListener('click', function(){
+      var on = btn.getAttribute('aria-checked') === 'true';
+      btn.setAttribute('aria-checked', on ? 'false' : 'true');
+      notif[key] = !on; saveNotif(notif);
+    });
+  });
+  function loadBrand(){
+    try {
+      var raw = localStorage.getItem(BRAND_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch(e) { return null; }
+  }
+  var savedBrand = loadBrand();
+  if (savedBrand && savedBrand.name && savedBrand.domain) {
+    document.getElementById('brandNameInput').value = savedBrand.name;
+    document.getElementById('brandDomainInput').value = savedBrand.domain;
+    document.getElementById('brandSummary').textContent = savedBrand.name + ' · ' + savedBrand.domain;
+  }
+  var sb = document.getElementById('brandSaveBtn');
+  if (sb) sb.addEventListener('click', function(){
+    var name = document.getElementById('brandNameInput').value.trim();
+    var domain = document.getElementById('brandDomainInput').value.trim();
+    if (!name || !domain) return;
+    try { localStorage.setItem(BRAND_KEY, JSON.stringify({name:name, domain:domain})); } catch(e) {}
+    document.getElementById('brandSummary').textContent = name + ' · ' + domain;
+    document.getElementById('brandSaved').style.display = 'block';
+  });
+  var PLAN_NAMES = {growth:'Growth', pro:'Pro', teams:'Teams'};
+  document.querySelectorAll('[data-plan]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.getElementById('planGateTitle').textContent = 'Change to ' + PLAN_NAMES[b.getAttribute('data-plan')];
+      document.getElementById('planGate').style.display = 'block';
+    });
+  });
+  var pgc = document.getElementById('planGateClose');
+  if (pgc) pgc.addEventListener('click', function(){ document.getElementById('planGate').style.display = 'none'; });
+  document.querySelectorAll('[data-inv-view]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.getElementById('invDetailDate').textContent = b.getAttribute('data-inv-view');
+      go('invoice-detail');
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('acctBtn');
+  var menu = document.getElementById('acctMenu');
+  if (!btn || !menu) return;
+  function closeMenu(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', function(e){
+    if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+  menu.querySelectorAll('.acct-row').forEach(function(r){
+    r.addEventListener('click', closeMenu);
+    if (r.dataset && r.dataset.view) {
+      r.addEventListener('click', function(){ go(r.dataset.view); });
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var bell = document.getElementById('bellBtn');
+  var badge = document.getElementById('bellBadge');
+  if (!bell) return;
+  var notifReturn = 'overview';
+  function updateBadge(){
+    if (!badge) return;
+    var n = document.querySelectorAll('.notif-item.unread').length;
+    badge.textContent = n;
+    badge.style.display = n ? '' : 'none';
+  }
+  bell.addEventListener('click', function(){
+    var cur = document.querySelector('.view.active');
+    var curId = cur ? cur.id.replace('view-', '') : 'overview';
+    if (curId === 'notifications') { go(notifReturn || 'overview'); }
+    else { notifReturn = curId || 'overview'; go('notifications'); }
+  });
+  var back = document.getElementById('notifBack');
+  if (back) back.addEventListener('click', function(){ go(notifReturn || 'overview'); });
+  document.querySelectorAll('.notif-item').forEach(function(b){
+    b.addEventListener('click', function(){ b.classList.remove('unread'); updateBadge(); });
+  });
+  /* Item 6 (merged from noacct line): blank click inside the notifications view returns to the previous view.
+     Capture phase so the menu-open guard reads the menu before the bubble-phase menu-close handler runs:
+     a blank click while the avatar menu is open only closes the menu, it does not exit notifications.
+     Excluded (keep their own action): notification items, buttons, links, form controls,
+     navigation ([data-view]/[data-goto]), topbar, sidebar, tabbar, and the avatar menu. */
+  document.addEventListener('click', function(e){
+    var v = document.getElementById('view-notifications');
+    if (!v || !v.classList.contains('active')) return;
+    var menu = document.getElementById('acctMenu');
+    if (menu && menu.classList.contains('open')) return;
+    var t = e.target;
+    if (!t || !t.closest) return;
+    if (t.closest('.topbar') || t.closest('aside') || t.closest('.tabbar') || t.closest('.acct-menu')) return;
+    if (t.closest('[data-view]') || t.closest('[data-goto]')) return;
+    if (t.closest('.notif-item') || t.closest('button') || t.closest('a') || t.closest('input') || t.closest('select') || t.closest('textarea')) return;
+    go(notifReturn || 'overview');
+  }, true);
+  updateBadge();
 })();
 </script>
 </body>
