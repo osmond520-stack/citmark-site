@@ -208,10 +208,10 @@ button { font: inherit; }
   border: 1px solid var(--line); border-radius: var(--radius);
   box-shadow: var(--shadow); padding: 30px 28px;
   display: flex; gap: 32px; align-items: center; }
-.ring { position: relative; width: 168px; height: 168px; flex: none; }
-.ring svg { transform: rotate(-90deg); }
-.ring .val { position: absolute; inset: 0; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; }
+.ring { position: relative; width: 168px; min-height: 168px; height: auto; flex: none; display: grid; place-items: center; }
+.ring svg { transform: rotate(-90deg); grid-area: 1 / 1; display: block; }
+.ring .val { position: static; grid-area: 1 / 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; }
 .ring .val b { font-family: "Bricolage Grotesque", sans-serif; font-size: 44px;
   font-weight: 800; letter-spacing: -.02em; line-height: 1; }
 .ring .val span { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 4px; }
@@ -315,7 +315,7 @@ button { font: inherit; }
 }
 @media (max-width: 380px) {
   .score-hero { padding: 22px 16px; }
-  .ring { width: 140px; height: 140px; }
+  .ring { width: 140px; min-height: 140px; height: auto; }
   .ring .val b { font-size: 36px; }
 }
 /* keyboard focus + reduced motion (quality floor) */
@@ -347,7 +347,7 @@ button { font: inherit; }
   border-radius: 12px; padding: 12px 16px; font-size: 14px; font-weight: 600; margin-bottom: 18px; }
 .ov-col { display: flex; flex-direction: column; }
 .ov-sug { margin-top: 18px; }
-.ring.lg { width: 188px; height: 188px; margin: 10px auto 16px; }
+.ring.lg { width: 188px; min-height: 188px; height: auto; margin: 10px auto 20px; }
 .ring.lg .val b { font-size: 52px; }
 .ci { font-size: 14px; color: var(--ink-2); margin: 8px 0; }
 .ci b { font-size: 17px; }
@@ -572,7 +572,7 @@ button { font: inherit; }
                 <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
               </div>
               <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
-              <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
+              <p class="desc" style="margin:8px 0 0;" id="ovScoreBlurb"></p>
             </div>
             <div class="card">
               <h2>Mention rate</h2>
