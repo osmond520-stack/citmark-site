@@ -544,6 +544,9 @@
       .why-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 44px; }
       .why h2 { margin-bottom: 14px; }
       .why p.lede { color: var(--ink-2); font-size: 17.5px; margin: 0 0 16px; }
+      .ds-item { margin: 0 0 10px; }
+      .ds-item b { margin-right: 8px; }
+      .ds-src a { white-space: nowrap; }
       .fact { border-left: 3px solid var(--accent); padding: 2px 0 2px 16px; margin-bottom: 18px; }
       .fact p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
       .fact .src { font-size: 13px; color: var(--muted); }
@@ -579,14 +582,14 @@
       @media (max-width: 760px) { .plans { grid-template-columns: 1fr; } }
 
       /* ---------- FAQ ---------- */
-      .faq { max-width: 780px; }
+      .faq { max-width: 700px; }
       .faq-item { border-bottom: 1px solid var(--line-strong); }
       .faq-item:first-child { border-top: 1px solid var(--line-strong); }
       .faq-q {
         width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px;
         background: none; border: none; cursor: pointer; text-align: left;
         font: inherit; font-weight: 600; font-size: 17px; color: var(--ink);
-        padding: 18px 12px 18px 4px;
+        padding: 14px 12px 14px 4px;
       }
       .faq-q .chev { font-family: "IBM Plex Mono", monospace; color: var(--accent-deep); font-size: 20px; transition: transform .2s; flex: none; }
       .faq-item.open .faq-q .chev { transform: rotate(45deg); }
@@ -605,8 +608,10 @@
       .final .form-msg.ok { background: color-mix(in srgb, var(--bg) 12%, transparent); border-color: var(--good); color: var(--bg); }
       @media (max-width: 560px) { .final { padding: 36px 24px; } }
       footer { padding: 40px 0 56px; }
-      .foot-in { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; }
+      .foot-in { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; justify-content: space-between; }
       footer p { margin: 0; font-size: 14px; color: var(--muted); }
+      .foot-group { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; }
+      footer a { color: var(--ink-2); }
       footer .fineprint { width: 100%; font-size: 13px; }
 
       /* ---------- sticky mobile signup bar ---------- */
@@ -817,7 +822,7 @@
           <div class="sec-head reveal" style="margin-top: 56px;">
             <p class="sec-kicker">Sample report</p>
             <h2>…and this is what lands in your inbox every Monday</h2>
-            <p>A visibility score per engine, the exact buyer questions you won or lost, the health of your llms.txt file, and fixes written like advice from a colleague — not a data dump. Switch engines to see how the picture changes.</p>
+            <p>Scores per engine, questions won or lost, llms.txt health, and fixes like advice from a colleague — not a data dump. Switch engines to compare.</p>
           </div>
 
           <div class="dash" aria-label="Sample CitMark weekly report">
@@ -966,8 +971,10 @@
           <div class="reveal">
             <p class="sec-kicker">Why now</p>
             <h2>Search is moving into AI answers. Small sites are flying blind.</h2>
-            <p class="lede">Your customers increasingly get recommendations from ChatGPT, Perplexity, Gemini and Claude instead of a list of blue links. If AI never mentions you, you don't exist in that conversation — and today, almost no small site can even see whether it's happening.</p>
-            <p class="lede">Enterprise brands buy Profound or AthenaHQ. Everyone else gets one-off free checkers that generate a file once and never look again. CitMark is the missing middle: ongoing monitoring and plain-English fixes at a price a small site can justify.</p>
+            <p class="lede">Your customers increasingly get recommendations from ChatGPT, Perplexity, Gemini and Claude instead of a list of blue links.</p>
+            <p class="lede">If AI never mentions you, you don't exist in that conversation — and today, almost no small site can even see whether it's happening.</p>
+            <p class="lede">Enterprise brands buy Profound or AthenaHQ. Everyone else gets one-off free checkers that generate a file once and never look again.</p>
+            <p class="lede">CitMark is the missing middle: ongoing monitoring and plain-English fixes at a price a small site can justify.</p>
           </div>
           <div class="reveal">
             <div class="datastrip">
@@ -1015,7 +1022,7 @@
               <span class="pop-badge">MOST POPULAR</span>
               <p class="pname">Growth</p>
               <p class="pdesc">For stores and small teams actively competing for AI recommendations in their category.</p>
-              <div class="price"><span class="amt" data-regular="29" data-founding="14.50">$14.50</span><span class="per">/ month</span><span class="was">$29</span></div>
+              <div class="price"><span class="amt" data-regular="49" data-founding="24.50">$24.50</span><span class="per">/ month</span><span class="was">$49</span></div>
               <p class="price-note" data-note>Founding price — locked for 12 months.</p>
               <ul>
                 <li><b>3</b> websites</li>
@@ -1028,7 +1035,7 @@
               <a class="btn" href="#join">Join the waitlist</a>
             </div>
           </div>
-          <p class="pricing-foot reveal">Regular prices at launch: Starter $19/mo, Growth $29/mo. Founding pricing is limited to the first 50 founding members on the waitlist and lasts for 12 months, then renews at the standard price. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
+          <p class="pricing-foot reveal">Launch prices: Starter $19/mo, Growth $49/mo. Standard prices: Starter $30/mo, Growth $70/mo. Founding pricing is limited to the first 50 founding members on the waitlist and lasts for 12 months, then renews at the standard price. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
         </div>
       </section>
 
@@ -1054,7 +1061,7 @@
             </div>
             <div class="faq-item">
               <button class="faq-q" aria-expanded="false">How is this different from Profound or AthenaHQ?<span class="chev">+</span></button>
-              <div class="faq-a"><p>They're built — and priced — for enterprise brand teams. CitMark is built for the long tail they don't serve: small sites, bloggers, indie makers and local businesses, at $19–29/mo, with fixes written in plain English instead of dashboards built for analysts. Free tools like Yoast's or Firecrawl's generators create an llms.txt once; they don't monitor anything week to week.</p></div>
+              <div class="faq-a"><p>They're built — and priced — for enterprise brand teams. CitMark is built for the long tail they don't serve: small sites, bloggers, indie makers and local businesses, at $19–49/mo, with fixes written in plain English instead of dashboards built for analysts. Free tools like Yoast's or Firecrawl's generators create an llms.txt once; they don't monitor anything week to week.</p></div>
             </div>
             <div class="faq-item">
               <button class="faq-q" aria-expanded="false">I already have an SEO tool. Why do I need this?<span class="chev">+</span></button>
@@ -1090,11 +1097,15 @@
 
     <footer>
       <div class="wrap foot-in">
-        <a class="wordmark" href="#top" style="font-size: 18px;">CitMark<span class="dot">.</span></a>
-        <p>AI search visibility monitoring for small sites.</p>
-        <p>CitMark is in private preview — founding members join the waitlist above.</p>
-        <p>Contact: <a href="mailto:hello@citmark.com">hello@citmark.com</a></p>
-        <p><a href="#privacy" class="privacy-link">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/">Terms of Service</a></p>
+        <div class="foot-group">
+          <a class="wordmark" href="#top" style="font-size: 18px;">CitMark<span class="dot">.</span></a>
+          <p>AI search visibility monitoring for small sites.</p>
+        </div>
+        <div class="foot-group">
+          <p>CitMark is in private preview — founding members join the waitlist above.</p>
+          <p>Contact: <a href="mailto:hello@citmark.com">hello@citmark.com</a></p>
+          <p><a href="#privacy" class="privacy-link">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/">Terms of Service</a></p>
+        </div>
         <p class="fineprint">The weekly report shown on this page uses a fictional site and sample data to illustrate the product. Operated by Tao Yu.</p>
       </div>
     </footer>
@@ -1275,7 +1286,7 @@
             el.textContent = "$" + (founding ? el.getAttribute("data-founding") : el.getAttribute("data-regular"));
           });
           plans.querySelectorAll("[data-note]").forEach(function (el) {
-            el.textContent = founding ? "Founding price — locked for 12 months." : "Regular launch price.";
+            el.textContent = founding ? "Founding price — locked for 12 months." : "Launch price — locked for 12 months.";
           });
         }
         toggle.addEventListener("change", applyPricing);
