@@ -7,6 +7,7 @@
 <title>Free AI Visibility Snapshot — CitMark</title>
 <meta name="description" content="Get a free snapshot of how AI engines see your brand. One email, one report." />
 <link rel="canonical" href="https://citmark.com/free-snapshot/" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" async defer></script>
 <style>
 @font-face {
         font-family: "Bricolage Grotesque";
@@ -174,6 +175,16 @@ a { color: var(--accent-deep); }
       <div class="err" id="errEmail">Please enter a valid email address.</div>
     </div>
 
+    <div class="ts-wrap">
+      <div class="ts-loading" id="tsLoading">Loading verification…</div>
+      <div id="turnstile-widget"></div>
+      <div class="ts-failed" id="tsFailed">Verification failed to load. Please check your connection and refresh the page — you can still submit the form without it.</div>
+      <div class="ts-hint" id="tsHint">Please complete the verification above if it loads — it helps keep the free check fair.</div>
+    </div>
+
+    <!-- Filled by the Turnstile callback; sent with the request. -->
+    <input type="hidden" id="turnstileToken" name="turnstile_token" value="" />
+
     <button class="btn" id="submitBtn" type="submit">Get my free snapshot</button>
     <p class="privacy">One email = one report. We email your snapshot and add you to the CitMark waitlist. No spam, unsubscribe anytime.</p>
 
@@ -188,23 +199,92 @@ a { color: var(--accent-deep); }
   <div class="step"><div class="n">3</div><h2>Read your report</h2><p>Your visibility score plus every raw answer, by email.</p></div>
 </div>
 
-<p class="foot">This check is free and rate-limited to keep it fair — one snapshot per email per day.</p>
+<p class="foot">This check is free and rate-limited to keep it fair — one snapshot per email per day. Abuse protection by Cloudflare Turnstile.</p>
 
 <script>
 "use strict";
 /* =====================================================================
-   Free snapshot form (no bot-check widget for launch, decision A 2026-10-25).
+   Free snapshot form + Cloudflare Turnstile (Managed) — widget restored
+   2026-10-28 (Tao Yu restart decision; the 2025-10-25 decision A removal
+   is superseded). Site key is public by design; the secret NEVER appears
+   here — it lives only in the backend environment.
    Backend endpoint (single switch point): POST /snapshots/free on the
    Cloud Run API (absolute URL below; the page is on citmark.com, the API
    is cross-origin, so the backend allows CORS for citmark.com).
-   Abuse guard lives on the backend: P-013 limits (email 24h×1, IP 24h×3,
-   successes counted, over limit 429). Turnstile code is kept in the
-   backend behind CITMARK_TURNSTILE_ENFORCED, off for launch.
+   Current enforcement posture: the backend flag CITMARK_TURNSTILE_ENFORCED
+   is still OFF, so this page never blocks a submission on the widget —
+   the token is attached when the check succeeds and the form submits
+   either way. Gating arrives only with the later enforced flip.
+   Abuse guard also lives on the backend: P-013 limits (email 24h×1,
+   IP 24h×3, successes counted, over limit 429).
    ===================================================================== */
 var SNAPSHOT_API_URL = "https://citmark-backend-216307200415.asia-northeast1.run.app/snapshots/free";
 
 var form = document.getElementById("snapForm");
 var submitBtn = document.getElementById("submitBtn");
+
+/* ---------------- Turnstile (restored 2026-10-28) ----------------
+   Enforcement is OFF on the backend for now: nothing here may block a
+   submission. setToken only records the token; the submit button is
+   never disabled by token state, and the submit handler never checks
+   for a token. */
+var TURNSTILE_SITEKEY = "0x4AAAAAAFjvaQNvLskXz3cB";
+var widgetId = null;
+var currentToken = "";
+var tokenInput = document.getElementById("turnstileToken");
+
+function setToken(token) {
+  currentToken = token || "";
+  tokenInput.value = currentToken;
+  document.getElementById("tsHint").classList.remove("show");
+}
+
+function onTurnstileCallback(token) {
+  /* Verification passed — token is single-use and short-lived. */
+  setToken(token);
+}
+
+function onTurnstileExpired() {
+  /* Token expired — clear it and offer a fresh check. Never submit stale tokens. */
+  setToken("");
+  if (widgetId !== null && window.turnstile) {
+    try { window.turnstile.reset(widgetId); } catch (e) { /* widget gone */ }
+  }
+  document.getElementById("tsHint").textContent = "Verification expired — a fresh check is ready above.";
+  document.getElementById("tsHint").classList.add("show");
+}
+
+function onTurnstileError() {
+  setToken("");
+  document.getElementById("tsFailed").textContent = "Verification hit an error. You can still submit the form — please try again in a moment if it does not recover.";
+  document.getElementById("tsFailed").classList.add("show");
+}
+
+/* Called by the Turnstile script (onload param) once the API is ready. */
+function onloadTurnstileCallback() {
+  document.getElementById("tsLoading").style.display = "none";
+  try {
+    widgetId = window.turnstile.render("#turnstile-widget", {
+      sitekey: TURNSTILE_SITEKEY,
+      callback: onTurnstileCallback,
+      "expired-callback": onTurnstileExpired,
+      "error-callback": onTurnstileError,
+      theme: "light",
+      size: "normal"
+    });
+  } catch (e) {
+    document.getElementById("tsFailed").classList.add("show");
+  }
+}
+
+/* Graceful degradation: if the Cloudflare script never arrives, say so
+   plainly. The form stays submittable — no silent failure, no dead form. */
+setTimeout(function () {
+  if (widgetId === null) {
+    document.getElementById("tsLoading").style.display = "none";
+    document.getElementById("tsFailed").classList.add("show");
+  }
+}, 10000);
 
 /* ---------------- validation ---------------- */
 function cleanDomain(raw) {
@@ -245,7 +325,8 @@ form.addEventListener("submit", function (ev) {
   if (!values) return;
   var payload = {
     brand: { name: values.brand, domain: values.domain },
-    email: values.email
+    email: values.email,
+    turnstile_token: currentToken
   };
   submitBtn.disabled = true;
   submitBtn.textContent = "Running your snapshot…";
@@ -272,6 +353,11 @@ form.addEventListener("submit", function (ev) {
   }).finally(function () {
     submitBtn.disabled = false;
     submitBtn.textContent = "Get my free snapshot";
+    /* Tokens are single-use: refresh after an attempt (best effort). */
+    if (widgetId !== null && window.turnstile) {
+      try { window.turnstile.reset(widgetId); } catch (e) {}
+    }
+    setToken("");
   });
 });
 
