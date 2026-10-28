@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Turnstile test</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; margin: 24px; color: #141519; background: #fff; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p { font-size: 14px; color: #3c4048; margin: 0 0 16px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin: 18px 0 6px; }
+  textarea { width: 100%; max-width: 560px; box-sizing: border-box; font: 12px/1.5 ui-monospace, monospace; padding: 10px; border: 1px solid #c6c3b8; border-radius: 8px; background: #f7f7f4; }
+  #meta { font-size: 13px; color: #3c4048; margin-top: 10px; white-space: pre-line; }
+</style>
+<script>
+  function fmtTime(d) {
+    function p(n) { return String(n).padStart(2, "0"); }
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " " +
+           p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
+  }
+  function onTsToken(token) {
+    document.getElementById("token").value = token;
+    document.getElementById("meta").textContent =
+      "Token generated: " + fmtTime(new Date()) + "\nStatus: ready — long-press the token to copy it.";
+  }
+  function onTsExpired() {
+    document.getElementById("token").value = "";
+    document.getElementById("meta").textContent = "Status: token expired — complete the check again.";
+  }
+  function onTsError() {
+    document.getElementById("meta").textContent = "Status: the check hit an error — reload the page and try again.";
+  }
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+<h1>Turnstile test</h1>
+<p>Complete the check below. Your token will appear in the box — long-press it to copy, then send it back right away (tokens expire in about 5 minutes).</p>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAFjvaQNvLskXz3cB" data-callback="onTsToken" data-expired-callback="onTsExpired" data-error-callback="onTsError"></div>
+<label for="token">Token</label>
+<textarea id="token" rows="6" readonly placeholder="The token will appear here after the check."></textarea>
+<div id="meta">Status: waiting for the check.</div>
+</body>
+</html>
