@@ -2226,11 +2226,17 @@
           if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
           showDemoToast();
         }
+        /* Google sign-in (wired 2026-10-28): full-page navigation; state and
+           PKCE are handled server-side. The Terms gate covers this path too. */
+        function gatedGoogleNav() {
+          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
+          window.location.href = "https://citmark.com/auth/google/login";
+        }
         if (termsCheck) termsCheck.addEventListener("change", syncTermsGate);
         syncTermsGate();
         ["authCardGoogleBtn", "authCardShopifyBtn"].forEach(function (id) {
           var btn = document.getElementById(id);
-          if (btn) btn.addEventListener("click", gatedDemoToast);
+          if (btn) btn.addEventListener("click", id === "authCardGoogleBtn" ? gatedGoogleNav : gatedDemoToast);
         });
         var forgotBtn = document.getElementById("authCardForgotBtn");
         if (forgotBtn) forgotBtn.addEventListener("click", function () { showDemoToast(); });
