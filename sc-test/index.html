@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Search Console query — live result</title>
+<style>
+  body { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.55; padding: 24px; white-space: pre-wrap; word-break: break-word; background: #ffffff; color: #111111; }
+</style>
+</head>
+<body>Running Search Console query…</body>
+<script>
+fetch('/connections/search_console/query', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({site_url: 'sc-domain:citmark.com', start_date: '2026-09-01', end_date: '2026-10-25', dimensions: ['query']})})
+  .then(async r => { document.body.innerText = 'POST /connections/search_console/query\nHTTP ' + r.status + '\n\n' + (await r.text()); })
+  .catch(e => { document.body.innerText = 'FETCH ERROR: ' + e; });
+</script>
+</html>
