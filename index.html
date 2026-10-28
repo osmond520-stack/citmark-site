@@ -565,6 +565,7 @@
       .plan.featured { border-color: var(--accent); border-width: 2px; padding: 27px; }
       .plan .pname { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
       .plan.featured .pname { color: var(--accent-deep); }
+      .plan .soon-static { opacity: .55; pointer-events: none; cursor: default; }
       .plan .pdesc { font-size: 15.5px; color: var(--ink-2); margin: 0 0 18px; }
       .price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
       .price .amt { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -.02em; }
@@ -1078,7 +1079,7 @@
           <div class="sec-head reveal">
             <p class="sec-kicker">Pricing</p>
             <h2>Priced for the sites the enterprise tools ignore</h2>
-            <p>Two plans, in USD, cancel anytime. Founding pricing — half price — is limited to the first 50 founding members, and lasts for 12 months, then renews at the standard price.</p>
+            <p>Four plans, in USD, cancel anytime. Founding pricing — half price — is limited to the first 50 founding members, and lasts for 12 months, then renews at the standard price.</p>
           </div>
           <div class="price-toggle reveal">
             <input type="checkbox" id="foundingToggle" class="switch-input" checked aria-label="Toggle founding member pricing" />
@@ -1118,8 +1119,36 @@
               </ul>
               <a class="btn" href="#join">Join the waitlist</a>
             </div>
+            <div class="plan">
+              <p class="pname">Pro</p>
+              <p class="pdesc">For brands that live on AI answers and need deeper coverage.</p>
+              <div class="price"><span class="amt" data-regular="129" data-founding="64.50">$64.50</span><span class="per">/ month</span><span class="was">$129</span></div>
+              <p class="price-note" data-note>Founding price — locked for 12 months.</p>
+              <ul>
+                <li><b>1</b> website</li>
+                <li><b>300</b> tracked buyer questions</li>
+                <li>Everything in Growth</li>
+                <li><b>6</b> AI engines — adds Grok &amp; DeepSeek</li>
+                <li>Competitor tracking — up to <b>5</b> rivals</li>
+                <li>Fix-it briefs ranked by impact</li>
+              </ul>
+              <a class="btn ghost" href="#join">Join the waitlist</a>
+            </div>
+            <div class="plan">
+              <p class="pname">Teams</p>
+              <p class="pdesc">For multi-brand teams and agencies.</p>
+              <div class="price"><span class="amt" data-regular="199">$199</span><span class="per">/ month</span><span class="was">$300</span></div>
+              <p class="price-note">Coming soon</p>
+              <ul>
+                <li><b>10</b> websites</li>
+                <li>Everything in Pro</li>
+                <li><b>7</b> AI engines — adds Mistral</li>
+                <li>White-label reports</li>
+              </ul>
+              <span class="btn ghost soon-static" aria-disabled="true">Coming soon</span>
+            </div>
           </div>
-          <p class="pricing-foot reveal">Launch prices: Starter $19/mo, Growth $49/mo. Standard prices: Starter $30/mo, Growth $70/mo. Founding pricing is limited to the first 50 founding members on the waitlist and lasts for 12 months, then renews at the standard price. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
+          <p class="pricing-foot reveal">Launch prices: Starter $19/mo, Growth $49/mo, Pro $129/mo, Teams $199/mo. Standard prices: Starter $30/mo, Growth $70/mo, Pro $169/mo, Teams $300/mo. Founding pricing is limited to the first 50 founding members on the waitlist, applies to the Starter, Growth and Pro plans, and lasts for 12 months, then renews at the standard price. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
         </div>
       </section>
 
@@ -1367,7 +1396,7 @@
           var founding = toggle.checked;
           plans.classList.toggle("founding-on", founding);
           plans.querySelectorAll(".amt").forEach(function (el) {
-            el.textContent = "$" + (founding ? el.getAttribute("data-founding") : el.getAttribute("data-regular"));
+            var v = founding ? el.getAttribute("data-founding") : el.getAttribute("data-regular"); if (v !== null) { el.textContent = "$" + v; }
           });
           plans.querySelectorAll("[data-note]").forEach(function (el) {
             el.textContent = founding ? "Founding price — locked for 12 months." : "Launch price — locked for 12 months.";
