@@ -972,7 +972,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="sec-head reveal">
             <p class="sec-kicker">Free check</p>
             <h2>Check your own site — right now, for real</h2>
-            <p>Enter your domain and we'll fetch your actual llms.txt — a small file that tells AI what your site is about — and grade it on the spot. No signup, no email needed. Takes a few seconds.</p>
+            <p>Enter your domain — we'll fetch your llms.txt, the small file that tells AI what your site is about, and grade it on the spot. No signup, no email. <span style="white-space:nowrap">Done in seconds.</span></p>
           </div>
 
           <div class="checker" aria-label="Live llms.txt checker">
@@ -1278,15 +1278,29 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
 
     <footer>
       <div class="wrap foot-in">
-        <div class="foot-group">
+        <div class="foot-brand">
           <a class="wordmark" href="#top" style="font-size: 18px;">CitMark<span class="dot">.</span></a>
           <p>AI search visibility monitoring for small sites.</p>
-        </div>
-        <div class="foot-group">
           <p>CitMark is in private preview — founding members join the waitlist above.</p>
           <p>Contact: <a href="/cdn-cgi/l/email-protection#f098959c9c9fb09399849d91829bde939f9d"><span class="__cf_email__" data-cfemail="3058555c5c5f705359445d51425b1e535f5d">[email&#160;protected]</span></a></p>
-          <p><a href="#privacy" class="privacy-link">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/">Terms of Service</a></p>
         </div>
+        <nav class="foot-nav" aria-label="Product">
+          <p class="foot-h">Product</p>
+          <a href="/#report">Sample report</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/#faq">FAQ</a>
+        </nav>
+        <nav class="foot-nav" aria-label="Company">
+          <p class="foot-h">Company</p>
+          <a href="/about/">About</a>
+          <a href="/methodology/">Methodology</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+        <nav class="foot-nav" aria-label="Legal">
+          <p class="foot-h">Legal</p>
+          <a href="#privacy" class="privacy-link">Privacy Policy</a>
+          <a href="/terms/">Terms of Service</a>
+        </nav>
         <p class="fineprint">The sample report on this page is a real CitMark run from Oct 28, 2026, shown to illustrate the product. Operated by Tao Yu.</p>
       </div>
     </footer>
@@ -2419,5 +2433,35 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
   startAuto();
 })();
 </script>
+
+<style>
+/* P1-2 WHY NOW timeline form (scoped to #why; markup and copy untouched) */
+#why .ds-item { display: grid; grid-template-columns: 104px 12px 1fr; column-gap: 12px; align-items: start; margin: 0 0 18px; position: relative; }
+#why .ds-item:last-child { margin-bottom: 0; }
+#why .ds-item b { margin: 0; white-space: nowrap; font-family: var(--mono); font-size: 13px; letter-spacing: .04em; padding-top: 3px; }
+#why .ds-item::before { content: ""; grid-column: 2; grid-row: 1; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2.5px solid var(--accent); margin-top: 3px; z-index: 1; box-sizing: border-box; }
+#why .ds-item::after { content: ""; position: absolute; left: 121px; top: 10px; bottom: -18px; width: 2px; background: var(--line-strong); }
+#why .ds-item:last-child::after { bottom: auto; height: 0; }
+#why .ds-item span { grid-column: 3; }
+#why .ds-src { margin-top: 22px; }
+@media (max-width: 560px) {
+  #why .ds-item { grid-template-columns: 92px 12px 1fr; }
+  #why .ds-item::after { left: 109px; }
+}
+</style>
+
+<style>
+/* P1-3 footer navigation (scoped to footer; all original footer sentences kept verbatim) */
+footer .foot-in { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 28px 40px; align-items: start; }
+footer .foot-brand p { margin-top: 10px; }
+footer .foot-nav { display: flex; flex-direction: column; gap: 9px; }
+footer .foot-h { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 2px 0 4px; }
+footer .foot-nav a { font-size: 14.5px; }
+footer .fineprint { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+  footer .foot-in { grid-template-columns: 1fr 1fr; }
+  footer .foot-brand { grid-column: 1 / -1; }
+}
+</style>
 </body>
 </html>
