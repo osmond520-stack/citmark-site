@@ -2218,11 +2218,19 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
           window.location.href = "https://citmark.com/auth/google/login";
         }
+        /* Shopify sign-in (intent routing 2026-10-29): Terms gate first,
+           then straight to the intent entry; the backend routes by
+           intent=login (bound store -> session, unbound store -> email
+           step, someone else's store -> 409 guard). */
+        function gatedShopifyNav() {
+          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
+          window.location.href = "https://citmark.com/auth/shopify/login?intent=login";
+        }
         if (termsCheck) termsCheck.addEventListener("change", syncTermsGate);
         syncTermsGate();
         ["authCardGoogleBtn", "authCardShopifyBtn"].forEach(function (id) {
           var btn = document.getElementById(id);
-          if (btn) btn.addEventListener("click", id === "authCardGoogleBtn" ? gatedGoogleNav : gatedDemoToast);
+          if (btn) btn.addEventListener("click", id === "authCardGoogleBtn" ? gatedGoogleNav : gatedShopifyNav);
         });
         var forgotBtn = document.getElementById("authCardForgotBtn");
         if (forgotBtn) forgotBtn.addEventListener("click", function () { showDemoToast(); });
