@@ -797,6 +797,24 @@
         @media (prefers-color-scheme: dark) { .auth-card .btn-capsule { border-color: rgba(255,255,255,.40); background: rgba(255,255,255,.10); box-shadow: 0 1px 2px rgba(0,0,0,.25); } }
       .auth-card-brandline { font-size: 14px; color: var(--ink); font-weight: 600; margin: 30px 0 0; text-align: center; }
       .auth-card-foot { font-size: 14px; color: var(--ink-2); margin: 20px 0 0; text-align: center; }
+        .auth-card-msg { font-size: 13px; line-height: 18px; color: var(--muted); text-align: center; margin: 12px 0 0; }
+        .auth-card-msg.is-error { color: var(--accent-deep); }
+        .auth-card.mode-reset .auth-card-oauth-row, .auth-card.mode-reset .auth-card-divider, .auth-card.mode-reset .pw-field, .auth-card.mode-reset .auth-card-terms { display: none; }
+        .auth-card.mode-register #authCardForgotBtn { display: none; }
+        .auth-card-reset-head { display: none; margin: 0 0 14px; text-align: center; }
+        .auth-card.mode-reset .auth-card-reset-head { display: block; }
+        .auth-card-reset-head h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
+        .auth-card-reset-head p { font-size: 13.5px; line-height: 19px; color: var(--ink-2); margin: 0; }
+        /* R0 entry relocation: the 16-char "Forgot password?" cannot share the
+           password field with the eye at 320 (pill alone measures 125px and
+           overlaps the eye by 49px; shifting eye+padding leaves <10px of
+           text room). The entry becomes a link row under the field; the eye
+           returns to the field edge and the text room is restored. */
+        .auth-card-forgot-row { text-align: right; margin: 8px 2px 0; }
+        .auth-card.mode-reset .auth-card-forgot-row { display: none; }
+        .auth-card-forgot-link { background: none; border: 0; padding: 0; font: inherit; font-size: 13px; color: var(--accent-deep); text-decoration: underline; cursor: pointer; }
+        .auth-card .capsule-eye { right: 12px; }
+        .auth-card .capsule-field input#authCardLoginPassword { padding-right: 52px; }
       .auth-card-foot a { color: var(--accent); font-weight: 600; }
       @media (prefers-color-scheme: light) {
         .auth-card-foot { color: #2a2d32; }
@@ -2097,20 +2115,25 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         <button class="btn-capsule" type="button" id="authCardShopifyBtn" aria-disabled="true"><svg width="11.5" height="11.5" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path fill="#95BF47" d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg><span class="btn-capsule-label">Continue with Shopify</span></button>
         </div>
         <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
+        <div class="auth-card-reset-head" aria-hidden="true">
+          <h3>Reset your password</h3>
+          <p>Enter the email you signed up with. If an account exists for it, we'll email you a reset link.</p>
+        </div>
         <form id="authCardLoginForm" novalidate>
           <div class="capsule-field">
             <label class="sr-only" for="authCardLoginEmail">Email</label>
             <span class="capsule-chip" aria-hidden="true"><span class="capsule-chip-glyph">@</span></span>
             <input type="email" id="authCardLoginEmail" name="email" autocomplete="email" placeholder="e-mail address">
           </div>
-          <div class="capsule-field">
+          <div class="capsule-field pw-field">
             <label class="sr-only" for="authCardLoginPassword">Password</label>
             <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4"/><path d="M11.2 11.2 20 20"/><path d="M16 16l2.6-2.6"/><path d="M13.5 18.5 16 16"/></svg></span>
             <input type="password" id="authCardLoginPassword" name="password" autocomplete="current-password" placeholder="password">
             <button class="capsule-eye" type="button" id="authCardEyeBtn" aria-label="Show password" aria-pressed="false"><svg class="eye-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
-            <button class="capsule-forgot" type="button" id="authCardForgotBtn"><span class="btn-capsule-label">I forgot</span></button>
+            
           </div>
-          <div class="auth-card-terms">
+          <div class="auth-card-forgot-row"><button type="button" id="authCardForgotBtn" class="auth-card-forgot-link">Forgot password?</button></div>
+        <div class="auth-card-terms">
             <input type="checkbox" id="authCardTermsCheck">
             <label for="authCardTermsCheck">I agree to the <a href="/terms/">Terms of Service</a> and <a href="#privacy" class="privacy-link">Privacy Policy</a>.</label>
           </div>
@@ -2118,11 +2141,12 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             
             <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="true" aria-label="Log in"><span class="capsule-submit-arrow" aria-hidden="true"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" aria-hidden="true" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
           </div>
+                  <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
-        <p class="auth-card-foot">New to CitMark? <a href="#join" id="authCardWaitlist">Sign up</a></p>
+        <p class="auth-card-foot"><span id="authCardFootText">New to CitMark?</span> <a href="#" id="authCardModeToggle">Sign up</a></p>
       </div>
     </div>
-    <div class="auth-card-demo-toast" id="authCardDemoToast" role="status" aria-live="polite">Login isn't available yet — join the waitlist below.</div>
+    <div class="auth-card-demo-toast" id="authCardDemoToast" role="status" aria-live="polite">That action isn't available yet.</div>
         <script>
       (function () {
         var overlay = document.getElementById("authCardOverlay");
@@ -2185,10 +2209,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         overlay.addEventListener("click", function (ev) {
           if (ev.target === overlay) { closeCard(); }
         });
-        /* Demo stage honesty gate: the login backend is not live, so no POST,
-           no account, no success state, no real OAuth redirect. Demo clicks
-           only show an honest toast. All real OAuth routes, callbacks, and
-           error states are pending backend confirmation. */
+        /* Auth paths: Google, email login/register and password reset are
+           wired to the live backend (2026-10-29). The Shopify button still
+           shows an honest toast: its hint copy is pending final wording. */
         var demoToast = document.getElementById("authCardDemoToast");
         var demoToastDefault = demoToast ? demoToast.textContent : "";
         function showDemoToast(message) {
@@ -2233,7 +2256,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           if (btn) btn.addEventListener("click", id === "authCardGoogleBtn" ? gatedGoogleNav : gatedShopifyNav);
         });
         var forgotBtn = document.getElementById("authCardForgotBtn");
-        if (forgotBtn) forgotBtn.addEventListener("click", function () { showDemoToast(); });
+        if (forgotBtn) forgotBtn.addEventListener("click", function () { setAuthMode("reset"); });
         var eyeBtn = document.getElementById("authCardEyeBtn");
         var pwInput = document.getElementById("authCardLoginPassword");
         if (eyeBtn && pwInput) eyeBtn.addEventListener("click", function () {
@@ -2242,11 +2265,111 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           eyeBtn.setAttribute("aria-pressed", show ? "true" : "false");
           eyeBtn.setAttribute("aria-label", show ? "Hide password" : "Show password");
         });
-        document.getElementById("authCardLoginForm").addEventListener("submit", function (ev) { ev.preventDefault(); gatedDemoToast(); });
-        /* Join waitlist: close the card first, then let the anchor jump to
-           #join. Focus is not returned to the topbar trigger on this path,
-           because the user intentionally navigated away. */
-        document.getElementById("authCardWaitlist").addEventListener("click", function () { closeCard({ returnFocus: false }); });
+        /* Email login, register and password reset (wired 2026-10-29).
+           Login/register set the citmark_session cookie server-side and
+           success navigates to the dashboard, the same destination as the
+           Google and Shopify callbacks. Register signs the user in at once;
+           the activation email verifies the address, it does not gate use.
+           Reset asks the backend to email a link to the set-new-password
+           page; the reply never reveals whether the address has an account.
+           The Terms gate covers login/register; reset is account recovery
+           for existing users and is not terms-gated. */
+        var RESET_REQUEST_URL = "https://citmark.com/auth/forgot-password";
+        var authMode = "login";
+        var authBusy = false;
+        var resetSent = false;
+        var msgEl = document.getElementById("authCardMsg");
+        var footText = document.getElementById("authCardFootText");
+        var modeToggle = document.getElementById("authCardModeToggle");
+        var submitBtn = document.getElementById("authCardLoginSubmit");
+        var emailInput = document.getElementById("authCardLoginEmail");
+        function showMsg(text, isError) {
+          if (!msgEl) return;
+          msgEl.textContent = text || "";
+          msgEl.hidden = !text;
+          msgEl.classList.toggle("is-error", !!isError);
+        }
+        function setAuthMode(mode) {
+          authMode = mode;
+          card.classList.toggle("mode-register", mode === "register");
+          card.classList.toggle("mode-reset", mode === "reset");
+          if (pwInput) { pwInput.value = ""; pwInput.setAttribute("autocomplete", mode === "register" ? "new-password" : "current-password"); }
+          if (mode === "register") {
+            showMsg("At least 10 characters, with a letter and a number.", false);
+            if (submitBtn) submitBtn.setAttribute("aria-label", "Create account");
+            if (footText) footText.textContent = "Already have an account?";
+            if (modeToggle) modeToggle.textContent = "Log in";
+            syncTermsGate();
+          } else if (mode === "reset") {
+            resetSent = false;
+            showMsg("", false);
+            if (submitBtn) { submitBtn.setAttribute("aria-label", "Send reset link"); submitBtn.setAttribute("aria-disabled", "false"); }
+            if (footText) footText.textContent = "Remembered it?";
+            if (modeToggle) modeToggle.textContent = "Log in";
+            if (emailInput) emailInput.focus();
+          } else {
+            showMsg("", false);
+            if (submitBtn) submitBtn.setAttribute("aria-label", "Log in");
+            if (footText) footText.textContent = "New to CitMark?";
+            if (modeToggle) modeToggle.textContent = "Sign up";
+            syncTermsGate();
+          }
+        }
+        if (modeToggle) modeToggle.addEventListener("click", function (ev) {
+          ev.preventDefault();
+          setAuthMode(authMode === "login" ? "register" : "login");
+        });
+        document.getElementById("authCardLoginForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          if (authBusy) return;
+          var email = (emailInput.value || "").trim();
+          if (authMode === "reset") {
+            if (resetSent) return;
+            if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
+            authBusy = true;
+            if (submitBtn) submitBtn.setAttribute("aria-disabled", "true");
+            fetch(RESET_REQUEST_URL, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email }) })
+              .then(function (resp) {
+                if (resp.ok) {
+                  resetSent = true;
+                  showMsg("Check your email — if an account exists for that address, a reset link is on its way. Links expire in 1 hour.", false);
+                } else if (resp.status === 400) { showMsg("That email address doesn't look right.", true); }
+                else { showMsg("Something went wrong. Please try again.", true); }
+              })
+              .catch(function () { showMsg("Something went wrong. Please try again.", true); })
+              .then(function () {
+                authBusy = false;
+                if (submitBtn) submitBtn.setAttribute("aria-disabled", resetSent ? "true" : "false");
+              });
+            return;
+          }
+          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
+          var password = pwInput ? pwInput.value : "";
+          if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
+          if (!password) { showMsg(authMode === "register" ? "Choose a password — at least 10 characters, with a letter and a number." : "Enter your password.", true); return; }
+          authBusy = true;
+          if (submitBtn) submitBtn.setAttribute("aria-disabled", "true");
+          showMsg("", false);
+          var url = authMode === "register" ? "https://citmark.com/auth/register" : "https://citmark.com/auth/login";
+          fetch(url, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email, password: password }) })
+            .then(function (resp) {
+              if (resp.ok) { window.location.href = "https://citmark.com/dashboard/"; return null; }
+              return resp.json().catch(function () { return null; }).then(function (body) {
+                var detail = body && body.detail ? String(body.detail) : "";
+                if (resp.status === 401) showMsg("Email or password doesn't match our records.", true);
+                else if (resp.status === 409) showMsg("That email already has an account. Switch to Log in below.", true);
+                else if (resp.status === 429) showMsg("Too many attempts. Please wait a few minutes and try again.", true);
+                else if (resp.status === 400 && detail === "invalid_email") showMsg("That email address doesn't look right.", true);
+                else if (resp.status === 400 && detail) showMsg(detail, true);
+                else showMsg("Something went wrong. Please try again.", true);
+              });
+            })
+            .catch(function () { showMsg("Something went wrong. Please try again.", true); })
+            .then(function () {
+              authBusy = false;
+              if (submitBtn) submitBtn.setAttribute("aria-disabled", termsAgreed() ? "false" : "true");
+            });
+        });
         /* Terms-row Privacy link: the page-level .privacy-link binding runs
            before this card's markup is parsed, so bind the card's own link here. */
         card.querySelectorAll(".privacy-link").forEach(function (link) {
