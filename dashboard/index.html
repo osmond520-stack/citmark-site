@@ -1936,7 +1936,7 @@ const MOCK = {
 /* ---------------- API client: replay adapter (default) ---------------- */
 /* Replays the real measured data in MOCK above; set mode "http" when the backend demo API is publicly deployed. */
 const api = {
-  mode: "mock",   // "mock" | "http"
+  mode: "http",   // "mock" | "http"
   baseUrl: "",    // set when backend demo API is publicly deployed
   _delay(ms) { return new Promise(r => setTimeout(r, ms)); },
 
@@ -2105,7 +2105,9 @@ function renderOverview() {
       <div class="bar-track"></div>
       <div class="pc-note">No data yet</div>
     </div>`).join("");
-  document.getElementById("ovSugList").innerHTML = MOCK.suggestions.map((sg, i) => `
+  const ovSugs = api.mode === "http" ? [] : MOCK.suggestions;
+  document.querySelector(".ov-sug").style.display = ovSugs.length ? "" : "none";
+  document.getElementById("ovSugList").innerHTML = ovSugs.map((sg, i) => `
     <div class="sug sug-click"><div class="n">${i + 1}</div>
       <div><b>${escapeHtml(sg.title)}</b><p>${sg.body}</p></div></div>`).join("");
   document.querySelectorAll("#ovSugList .sug").forEach(el =>
@@ -2313,7 +2315,9 @@ function renderReport() {
   // Suggestions: sorted by impact desc, effort asc (mock sort fields).
   const rank = { high: 3, medium: 2, low: 1 };
   const cap = w => w.charAt(0).toUpperCase() + w.slice(1);
-  const sorted = [...MOCK.suggestions].sort((a, b) =>
+  const repSugs = api.mode === "http" ? [] : MOCK.suggestions;
+  document.getElementById("sugList").closest(".card").style.display = repSugs.length ? "" : "none";
+  const sorted = [...repSugs].sort((a, b) =>
     (rank[b.impact] - rank[a.impact]) || (rank[a.effort] - rank[b.effort]));
   document.getElementById("sugList").innerHTML = sorted.map((sg, i) => `
     <div class="sug"><div class="n">${i + 1}</div>
