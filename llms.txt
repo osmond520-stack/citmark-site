@@ -1,0 +1,24 @@
+# CitMark
+
+> CitMark is a weekly AI visibility monitor for small websites. It asks ChatGPT, Perplexity, Gemini and Claude the questions your buyers ask, records whether your brand is mentioned, whether your pages are cited as sources, and which competitors appear instead — then sends a plain-English report every Monday with exactly what to fix.
+
+## Product
+
+- [CitMark home](https://citmark.com/): What CitMark measures, a sample report from real brand data, and how weekly monitoring works.
+- [Pricing](https://citmark.com/pricing/): Plans and prices — Starter, Growth, Pro and Teams — with a full feature comparison.
+
+## How it works
+
+- [Methodology](https://citmark.com/methodology/): Exactly how the visibility score is calculated — the questions asked, the engines covered, and how mentions and citations are counted. No black box.
+- [Help](https://citmark.com/help/): Answers about plans, billing, the free snapshot, and how monitoring is set up.
+
+## Company
+
+- [About](https://citmark.com/about/): Who builds CitMark and why it focuses on small sites that enterprise tools ignore.
+- [Contact](https://citmark.com/contact/): How to reach the CitMark team for support, billing and privacy requests.
+
+## Trust and legal
+
+- [Security](https://citmark.com/security/): How CitMark handles data, accounts and connected services.
+- [Terms](https://citmark.com/terms/): Terms of service for using CitMark.
+- [Privacy](https://citmark.com/privacy/): Privacy policy — what is collected, why, and your rights.
