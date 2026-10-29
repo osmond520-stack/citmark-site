@@ -140,8 +140,8 @@ button { font: inherit; }
 .content { max-width: 1080px; width: 100%; margin: 0 auto; padding: 28px;
   padding-bottom: 96px; }
 .view { display: none; }
-.view.active { display: block; animation: fadein .35s ease; }
-@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.view.active { display: block; animation: fadein .15s ease; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 
 /* ============ cards & components ============ */
 .card { background: var(--bg-raise); border: 1px solid var(--line);
@@ -399,6 +399,7 @@ button { font: inherit; }
 #view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
 #view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{margin:0 0 4px;font-size:20px}
 #view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{margin:0 0 8px;font-size:16px}
+#view-tools .tk-tier{color:var(--muted);font-size:12px;margin:0 0 10px}
 #view-questions .desc, #view-competitors .desc, #view-sources .desc, #view-tools .desc, #view-settings .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
 #view-questions .empty, #view-competitors .empty, #view-sources .empty, #view-tools .empty, #view-settings .empty{color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:14px;font-size:14px}
 #view-questions .sample-tag, #view-competitors .sample-tag, #view-sources .sample-tag, #view-tools .sample-tag, #view-settings .sample-tag, #view-billing .sample-tag, #view-team .sample-tag, #view-connections .sample-tag, #view-developer .sample-tag{font-size:11px;font-weight:700;color:#6b7280;border:1px solid var(--line);border-radius:999px;padding:1px 7px;vertical-align:middle;white-space:nowrap}
@@ -569,7 +570,7 @@ button { font: inherit; }
 }
 /* Rollback 20261026: only Brand page + invoice actions changed, v12 otherwise untouched */
 #view-brand-edit .row{flex-wrap:nowrap;gap:8px}
-/* Brand fix 20261026 (Tao Yu: Brand still vertical): root cause - #view-brand-edit .row never had display:flex, so fields stacked as block; later .field margin-bottom:12px also overrode margin-bottom:0; input width 100% + padding without box-sizing overflowed field. Fix scoped to Brand edit only. */
+/* Brand fix 20261026 (Brand still vertical): root cause - #view-brand-edit .row never had display:flex, so fields stacked as block; later .field margin-bottom:12px also overrode margin-bottom:0; input width 100% + padding without box-sizing overflowed field. Fix scoped to Brand edit only. */
 #view-brand-edit .row{display:flex !important;flex-wrap:nowrap !important;gap:8px !important}
 #view-brand-edit .row > *{min-width:0 !important;flex:1 1 0 !important}
 #view-brand-edit .field{margin-bottom:0 !important}
@@ -671,7 +672,7 @@ button { font: inherit; }
 /* Settings menu 20261026: menu row label never truncates, status ellipsizes if too long (fixes Brand/Team label truncation at 320). */
 #view-settings .set-link-label{flex:none !important;white-space:nowrap !important}
 #view-settings .set-link-status{overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important;min-width:0 !important}
- Tao Yu small button system, no 44px. Primary orange / secondary white / danger white-red / disabled gray, same size, only color differs. Exceptions unchanged: .inv-action (invoice row), .back-btn/.set-link/.sec-row/.tier-row/.danger-row/tabbar (navigation/rows), .notif-toggle (switch). */
+/* Small button system, no 44px. Primary orange / secondary white / danger white-red / disabled gray, same size, only color differs. Exceptions unchanged: .inv-action (invoice row), .back-btn/.set-link/.sec-row/.tier-row/.danger-row/tabbar (navigation/rows), .notif-toggle (switch). */
 .btn,.btn.small,.btn.brand-save,.btn.brand-cancel{display:inline-flex !important;align-items:center !important;justify-content:center !important;height:auto !important;font-size:12px !important;font-weight:700 !important;line-height:1.4 !important;border-radius:8px !important;padding:6px 10px !important;white-space:nowrap !important;box-sizing:border-box !important;flex:none !important;width:auto !important}
 .btn.brand-save,.btn.brand-cancel{margin-top:8px !important}
 .btn.brand-save{background:var(--skin-accent) !important;color:#fff !important;border:1px solid var(--skin-accent) !important}
@@ -686,8 +687,8 @@ button { font: inherit; }
 
 .bell-btn{width:32px!important;height:32px!important;margin-left:auto!important}
 .id-avatar-btn{padding:2px!important}
-.view.active{animation:fadein .35s ease!important}
-@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.view.active{animation:fadein .15s ease!important}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
 /* Overall demo overrides only */
 .pill{font-size:10px!important;font-weight:600!important;background:#f0f0ec!important;color:#5f5f5a!important;border-color:#e3e1d9!important;padding:3px 8px!important}
 #view-settings .set-links{margin:0 0 18px}
@@ -708,7 +709,7 @@ button { font: inherit; }
 #view-settings .switch-row{padding:12px 0!important}
 #view-settings .switch-row b{font-size:14px!important}
 /* v2: Add question -> orange primary, not pure black */
-#view-questions .btn[data-demo="addq"]{background:var(--skin-accent)!important;border:1px solid var(--skin-accent)!important;border-radius:10px!important}
+#view-questions .btn[data-demo="addq"]{background:var(--skin-accent)!important;border:1px solid var(--skin-accent)!important;border-radius:8px!important}
 /* v3: acct-menu rows like v3 sheet */
 .acct-menu .acct-item{padding:13px 4px!important;font-size:15px!important;border-bottom:1px solid #eee!important;border-radius:0!important;height:auto!important;min-height:44px!important}
 .acct-menu .acct-head{padding:10px 4px 12px!important}
@@ -877,7 +878,240 @@ button { font: inherit; }
 /* (7) badge unification: flat orange bg, white text, both positions, all tiers */
 .tier-badge{background:#ff5a1f!important;background-image:none!important;color:#fff!important}
 #acctMenu .id-badge{background:#ff5a1f!important;background-image:none!important;color:#fff!important}
-</style> </head>
+</style> <style>
+/* ===== merge1 port: toolkit subpages (from subpages-r1 e87012a5), selectors pruned to #view-tools-pN / .tk- ; D12 margin set to 18px (S1) ===== */
+#view-tools-p0 .card,
+#view-tools-p1 .card,
+#view-tools-p2 .card,
+#view-tools-p3 .card,
+#view-tools-p4 .card,
+#view-tools-p5 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+#view-tools-p0 .card h3,
+#view-tools-p1 .card h3,
+#view-tools-p2 .card h3,
+#view-tools-p3 .card h3,
+#view-tools-p4 .card h3,
+#view-tools-p5 .card h3{margin:0 0 8px;font-size:16px}
+#view-tools-p0 .desc,
+#view-tools-p1 .desc,
+#view-tools-p2 .desc,
+#view-tools-p3 .desc,
+#view-tools-p4 .desc,
+#view-tools-p5 .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-tools-p0 .btn,
+#view-tools-p1 .btn,
+#view-tools-p2 .btn,
+#view-tools-p3 .btn,
+#view-tools-p4 .btn,
+#view-tools-p5 .btn{display:inline-block;border:0;background:var(--ink);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
+#view-tools-p0 .back-btn,
+#view-tools-p1 .back-btn,
+#view-tools-p2 .back-btn,
+#view-tools-p3 .back-btn,
+#view-tools-p4 .back-btn,
+#view-tools-p5 .back-btn{background:transparent!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:999px!important;padding:6px 12px!important;font-size:13px!important;font-weight:700!important;margin-bottom:12px!important}
+/* Toolkit UI demo restructure r2 (footnote fix) (20261027): action zone first + grouped details. Base = finalized fix7. All rules scoped to #view-tools. */
+#view-tools .tk-foot,
+#view-tools-p0 .tk-foot,
+#view-tools-p1 .tk-foot,
+#view-tools-p2 .tk-foot,
+#view-tools-p3 .tk-foot,
+#view-tools-p4 .tk-foot,
+#view-tools-p5 .tk-foot{font-size:12px;color:var(--muted);line-height:1.45;margin:8px 0 0}
+#view-tools .tk-reason,
+#view-tools-p0 .tk-reason,
+#view-tools-p1 .tk-reason,
+#view-tools-p2 .tk-reason,
+#view-tools-p3 .tk-reason,
+#view-tools-p4 .tk-reason,
+#view-tools-p5 .tk-reason{font-size:14px;font-weight:700;margin:12px 0 0}
+#view-tools .tk-state-row,
+#view-tools-p0 .tk-state-row,
+#view-tools-p1 .tk-state-row,
+#view-tools-p2 .tk-state-row,
+#view-tools-p3 .tk-state-row,
+#view-tools-p4 .tk-state-row,
+#view-tools-p5 .tk-state-row{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
+#view-tools .tk-state,
+#view-tools-p0 .tk-state,
+#view-tools-p1 .tk-state,
+#view-tools-p2 .tk-state,
+#view-tools-p3 .tk-state,
+#view-tools-p4 .tk-state,
+#view-tools-p5 .tk-state{border:1px solid var(--line-strong);background:var(--bg-raise);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:700;color:var(--ink-2);cursor:pointer}
+#view-tools .tk-state.active,
+#view-tools-p0 .tk-state.active,
+#view-tools-p1 .tk-state.active,
+#view-tools-p2 .tk-state.active,
+#view-tools-p3 .tk-state.active,
+#view-tools-p4 .tk-state.active,
+#view-tools-p5 .tk-state.active{background:var(--ink);color:var(--bg-raise);border-color:var(--ink)}
+#view-tools .tk-meter,
+#view-tools-p0 .tk-meter,
+#view-tools-p1 .tk-meter,
+#view-tools-p2 .tk-meter,
+#view-tools-p3 .tk-meter,
+#view-tools-p4 .tk-meter,
+#view-tools-p5 .tk-meter{margin:12px 0}
+#view-tools .tk-meter-top,
+#view-tools-p0 .tk-meter-top,
+#view-tools-p1 .tk-meter-top,
+#view-tools-p2 .tk-meter-top,
+#view-tools-p3 .tk-meter-top,
+#view-tools-p4 .tk-meter-top,
+#view-tools-p5 .tk-meter-top{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+#view-tools-p0 .bar,
+#view-tools-p1 .bar,
+#view-tools-p2 .bar,
+#view-tools-p3 .bar,
+#view-tools-p4 .bar,
+#view-tools-p5 .bar{height:10px;background:var(--bg);border-radius:999px;overflow:hidden;margin-top:6px}
+#view-tools-p0 .bar i,
+#view-tools-p1 .bar i,
+#view-tools-p2 .bar i,
+#view-tools-p3 .bar i,
+#view-tools-p4 .bar i,
+#view-tools-p5 .bar i{display:block;height:100%;background:var(--skin-accent);border-radius:999px}
+#view-tools .tk-row,
+#view-tools-p0 .tk-row,
+#view-tools-p1 .tk-row,
+#view-tools-p2 .tk-row,
+#view-tools-p3 .tk-row,
+#view-tools-p4 .tk-row,
+#view-tools-p5 .tk-row{padding:10px 0;border-bottom:1px solid var(--line)}
+#view-tools .tk-row-top,
+#view-tools-p0 .tk-row-top,
+#view-tools-p1 .tk-row-top,
+#view-tools-p2 .tk-row-top,
+#view-tools-p3 .tk-row-top,
+#view-tools-p4 .tk-row-top,
+#view-tools-p5 .tk-row-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:700}
+#view-tools .tk-note,
+#view-tools-p0 .tk-note,
+#view-tools-p1 .tk-note,
+#view-tools-p2 .tk-note,
+#view-tools-p3 .tk-note,
+#view-tools-p4 .tk-note,
+#view-tools-p5 .tk-note{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+#view-tools .tk-badge-notconn,
+#view-tools-p0 .tk-badge-notconn,
+#view-tools-p1 .tk-badge-notconn,
+#view-tools-p2 .tk-badge-notconn,
+#view-tools-p3 .tk-badge-notconn,
+#view-tools-p4 .tk-badge-notconn,
+#view-tools-p5 .tk-badge-notconn{border:1px dashed var(--line-strong);color:var(--muted);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+#view-tools .tk-badge-note,
+#view-tools-p0 .tk-badge-note,
+#view-tools-p1 .tk-badge-note,
+#view-tools-p2 .tk-badge-note,
+#view-tools-p3 .tk-badge-note,
+#view-tools-p4 .tk-badge-note,
+#view-tools-p5 .tk-badge-note{border:1px solid var(--line-strong);color:var(--muted);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+#view-tools .tk-badge-lock,
+#view-tools-p0 .tk-badge-lock,
+#view-tools-p1 .tk-badge-lock,
+#view-tools-p2 .tk-badge-lock,
+#view-tools-p3 .tk-badge-lock,
+#view-tools-p4 .tk-badge-lock,
+#view-tools-p5 .tk-badge-lock{background:var(--ink);color:#fff;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+#view-tools .tk-badge-warn,
+#view-tools-p0 .tk-badge-warn,
+#view-tools-p1 .tk-badge-warn,
+#view-tools-p2 .tk-badge-warn,
+#view-tools-p3 .tk-badge-warn,
+#view-tools-p4 .tk-badge-warn,
+#view-tools-p5 .tk-badge-warn{background:var(--warn-soft);color:var(--warn);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+#view-tools .tk-badge-stop,
+#view-tools-p0 .tk-badge-stop,
+#view-tools-p1 .tk-badge-stop,
+#view-tools-p2 .tk-badge-stop,
+#view-tools-p3 .tk-badge-stop,
+#view-tools-p4 .tk-badge-stop,
+#view-tools-p5 .tk-badge-stop{background:var(--bad-soft);color:var(--bad);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+#view-tools .tk-mono,
+#view-tools-p0 .tk-mono,
+#view-tools-p1 .tk-mono,
+#view-tools-p2 .tk-mono,
+#view-tools-p3 .tk-mono,
+#view-tools-p4 .tk-mono,
+#view-tools-p5 .tk-mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+#view-tools .tk-sugg,
+#view-tools-p0 .tk-sugg,
+#view-tools-p1 .tk-sugg,
+#view-tools-p2 .tk-sugg,
+#view-tools-p3 .tk-sugg,
+#view-tools-p4 .tk-sugg,
+#view-tools-p5 .tk-sugg{margin:8px 0 0;padding-left:18px}
+#view-tools .tk-sugg li,
+#view-tools-p0 .tk-sugg li,
+#view-tools-p1 .tk-sugg li,
+#view-tools-p2 .tk-sugg li,
+#view-tools-p3 .tk-sugg li,
+#view-tools-p4 .tk-sugg li,
+#view-tools-p5 .tk-sugg li{margin-bottom:10px;font-size:14px;line-height:1.55}
+#view-tools .tk-sugg .tk-runid,
+#view-tools-p0 .tk-sugg .tk-runid,
+#view-tools-p1 .tk-sugg .tk-runid,
+#view-tools-p2 .tk-sugg .tk-runid,
+#view-tools-p3 .tk-sugg .tk-runid,
+#view-tools-p4 .tk-sugg .tk-runid,
+#view-tools-p5 .tk-sugg .tk-runid{margin-left:8px;font-size:12px;color:var(--muted)}
+#view-tools .tk-sugg .tk-superseded,
+#view-tools-p0 .tk-sugg .tk-superseded,
+#view-tools-p1 .tk-sugg .tk-superseded,
+#view-tools-p2 .tk-sugg .tk-superseded,
+#view-tools-p3 .tk-sugg .tk-superseded,
+#view-tools-p4 .tk-sugg .tk-superseded,
+#view-tools-p5 .tk-sugg .tk-superseded{color:var(--muted)}
+#view-tools .tk-gate-blocked,
+#view-tools-p0 .tk-gate-blocked,
+#view-tools-p1 .tk-gate-blocked,
+#view-tools-p2 .tk-gate-blocked,
+#view-tools-p3 .tk-gate-blocked,
+#view-tools-p4 .tk-gate-blocked,
+#view-tools-p5 .tk-gate-blocked{border:1px dashed var(--line-strong);border-radius:8px;padding:12px;margin:12px 0}
+#view-tools .tk-gate-blocked p,
+#view-tools-p0 .tk-gate-blocked p,
+#view-tools-p1 .tk-gate-blocked p,
+#view-tools-p2 .tk-gate-blocked p,
+#view-tools-p3 .tk-gate-blocked p,
+#view-tools-p4 .tk-gate-blocked p,
+#view-tools-p5 .tk-gate-blocked p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+#view-tools .tk-action,
+#view-tools-p0 .tk-action,
+#view-tools-p1 .tk-action,
+#view-tools-p2 .tk-action,
+#view-tools-p3 .tk-action,
+#view-tools-p4 .tk-action,
+#view-tools-p5 .tk-action{border-left:4px solid var(--skin-accent)}
+#view-tools .tk-details .card,
+#view-tools-p0 .tk-details .card,
+#view-tools-p1 .tk-details .card,
+#view-tools-p2 .tk-details .card,
+#view-tools-p3 .tk-details .card,
+#view-tools-p4 .tk-details .card,
+#view-tools-p5 .tk-details .card{margin-bottom:18px}
+kept apart from the gate-row pill set. */
+#view-tools .tk-entry-badge{border:1px solid var(--line-strong);color:var(--muted);background:transparent;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap;flex:none}
+/* merge1: badge-ok scoped to subpages (candidate rule covers #view-tools only; declarations copied verbatim) */
+#view-tools-p0 .badge-ok,#view-tools-p1 .badge-ok,#view-tools-p2 .badge-ok,#view-tools-p3 .badge-ok,#view-tools-p4 .badge-ok,#view-tools-p5 .badge-ok{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+/* merge1 S3: state-preview chips demoted (never black-filled) */
+#view-tools-p0 .tk-state,#view-tools-p1 .tk-state,#view-tools-p2 .tk-state,#view-tools-p3 .tk-state,#view-tools-p4 .tk-state,#view-tools-p5 .tk-state{background:transparent;color:var(--ink-2)}
+#view-tools-p0 .tk-state.active,#view-tools-p1 .tk-state.active,#view-tools-p2 .tk-state.active,#view-tools-p3 .tk-state.active,#view-tools-p4 .tk-state.active,#view-tools-p5 .tk-state.active{background:transparent;color:var(--skin-accent-deep);border-color:var(--skin-accent)}
+
+/* merge3 unification: tk-action edge + tk-row grammar aligned to card paradigm */
+#view-tools-p0 .card.tk-action,#view-tools-p1 .card.tk-action,#view-tools-p2 .card.tk-action,#view-tools-p3 .card.tk-action,#view-tools-p4 .card.tk-action,#view-tools-p5 .card.tk-action{border-left:1px solid var(--line)}
+#view-tools-p0 .card .tk-row,#view-tools-p1 .card .tk-row,#view-tools-p2 .card .tk-row,#view-tools-p3 .card .tk-row,#view-tools-p4 .card .tk-row,#view-tools-p5 .card .tk-row{padding:0;border-bottom:none}
+#view-tools-p0 .card .tk-row-top,#view-tools-p1 .card .tk-row-top,#view-tools-p2 .card .tk-row-top,#view-tools-p3 .card .tk-row-top,#view-tools-p4 .card .tk-row-top,#view-tools-p5 .card .tk-row-top{font-size:16px}
+
+/* merge4: title-head badge-soon scoped to subpages (declarations copied from candidate rule) */
+#view-tools-p0 h2 .badge-soon,#view-tools-p1 h2 .badge-soon,#view-tools-p2 h2 .badge-soon,#view-tools-p3 h2 .badge-soon,#view-tools-p4 h2 .badge-soon,#view-tools-p5 h2 .badge-soon{display:inline-block;background:#f3f4f6;color:#6b7280;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+/* subpages5 theme alignment: chips follow skin tokens (above); note badges take the file's filled neutral-badge grammar */
+#view-tools-p0 .tk-badge-note,#view-tools-p1 .tk-badge-note,#view-tools-p2 .tk-badge-note,#view-tools-p3 .tk-badge-note,#view-tools-p4 .tk-badge-note,#view-tools-p5 .tk-badge-note{background:#f3f4f6;color:#6b7280;border-color:transparent}
+/* cardorder-orange 20261028: Toolkit action buttons take the file's primary spec (skin-accent family, same tokens as the base .btn / Overview CTA). Scoped to the Preview entries and p0's Re-run; back buttons and state chips untouched. */
+#view-tools .btn[data-go], #view-tools-p0 #tkRunBtn { background: var(--skin-accent); border-color: var(--skin-accent); color: #fff; }
+#view-tools .btn[data-go]:hover, #view-tools-p0 #tkRunBtn:hover { background: var(--skin-accent-deep); border-color: var(--skin-accent-deep); }</style>
+</head>
 <body>
 
 <div class="app">
@@ -888,26 +1122,15 @@ button { font: inherit; }
     </div>
     <nav class="nav" id="sideNav">
       <button data-view="overview" class="active" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
-      <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Score</button>
-      <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Report</button>
-      <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Questions</button>
+      <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Visibility score</button>
+      <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Weekly report</button>
+      <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Prompts</button>
       <button data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
-      <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Sources</button>
-      <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+      <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Citations</button>
+      <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Toolkit</button>
       <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
     </nav>
-    <div class="side-foot">
-      <div class="skin-switch">
-        <p>MEMBERSHIP TIER</p>
-        <div class="skin-opts" id="skinOpts">
-          <button data-skin="starter" class="active">Starter</button>
-          <button data-skin="growth">Growth</button>
-          <button data-skin="pro">Pro</button>
-          <button data-skin="teams">Teams</button>
-        </div>
-      </div>
-    </div>
-  </aside>
+    </aside>
 
   <div class="main">
     <div class="topbar">
@@ -933,7 +1156,7 @@ button { font: inherit; }
         <button class="acct-item" role="menuitem" type="button" data-acct="plan">My plan</button>
         <button class="acct-item" role="menuitem" type="button" data-acct="help">Help center</button>
         <div class="acct-sep" role="separator"></div>
-        <button class="acct-item" role="menuitem" type="button" data-acct="logout">Log out<span class="demo-tag">(demo)</span></button>
+        <button class="acct-item" role="menuitem" type="button" data-acct="logout">Log out</button>
       </div>
     </div>
 
@@ -962,7 +1185,7 @@ button { font: inherit; }
                 <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
               </div>
               <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
-              <p class="ci-note">The true mention rate is 95% likely to fall in this interval.</p>
+              <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
               <p class="def-note">Score 9.1 is based on this snapshot: 1 mention in 11 valid answers (9.1%).</p>
               <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
             </div>
@@ -994,7 +1217,7 @@ button { font: inherit; }
           </div>
         </div>
         <div class="card ov-sug">
-          <h2>Top suggestions</h2>
+          <h2>Top actions</h2>
           <p class="desc">Highest-impact actions from this snapshot.</p>
           <div id="ovSugList"></div>
           <button class="btn ghost" data-goto="report" style="margin-top:12px;">See full report →</button>
@@ -1020,18 +1243,18 @@ button { font: inherit; }
               <div class="val"><b id="scoreVal">–</b><span>VISIBILITY</span></div>
             </div>
             <div class="score-meta">
-              <h2>Score</h2>
+              <h2>Visibility score</h2>
               <p class="desc">Overall visibility</p>
               <div><span class="note-badge" id="scoreNote">–</span></div>
               <p class="ci">95% Wilson CI <b id="scoreCi">–</b> · <span id="scoreN">–</span> valid answers</p>
-              <p class="ci-note">The true mention rate is 95% likely to fall in this interval.</p>
+              <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
               <p class="def-note">Score 9.1 is based on this snapshot: 1 mention in 11 valid answers (9.1%).</p>
               <p class="desc" style="margin:0;" id="scoreBlurb"></p>
             </div>
           </div>
           <div class="card">
-            <h2>Question × engine matrix</h2>
-            <p class="desc" id="matrixDesc">Click a ✓ or ✕ cell to read the raw answer. ! = no answer recorded (call failed).</p>
+            <h2>Score matrix</h2>
+            <p class="desc" id="matrixDesc">Every question × every engine. Click a ✓ or ✕ cell to read the raw answer. ! = no answer recorded (call failed).</p>
             <div style="overflow-x:auto;">
               <table class="matrix" id="matrixTable"></table>
             </div>
@@ -1065,12 +1288,12 @@ button { font: inherit; }
         </div>
         <div id="reportBody" style="display:none;">
           <div class="card">
-            <h2>Report</h2>
+            <h2>Weekly report</h2>
             <p class="desc">Optimization suggestions, ranked by impact × effort.</p>
             <div id="sugList"></div>
           </div>
           <div class="card">
-            <h2>Negative signals</h2>
+            <h2>Negative mentions</h2>
             <p class="desc">What drags the score down, with the numbers behind each.</p>
             <div id="negList"></div>
           </div>
@@ -1080,10 +1303,10 @@ button { font: inherit; }
             <div id="weekList"></div>
           </div>
           <div class="card">
-            <h2>Rescan</h2>
+            <h2>Re-check</h2>
             <p class="desc">Re-run the same questions and engines, then compare against this snapshot.</p>
             <div id="rescanArea">
-              <button class="btn" id="rescanBtn">Mark for rescan</button>
+              <button class="btn" id="rescanBtn">Mark for re-check</button>
             </div>
             <div id="rescanAnim" style="display:none;padding:12px 0">
               <div class="ring" style="margin:0 auto">
@@ -1091,7 +1314,7 @@ button { font: inherit; }
                 <div class="val"><b id="rescanScore">9.1</b><span>VISIBILITY</span></div>
               </div>
               <div class="bar-track" style="margin-top:12px"><div class="bar-fill" id="rescanBar" style="width:0%"></div></div>
-              <p class="ov-empty">Rescanning… mention rate 9.1%</p>
+              <p class="ov-empty">Re-checking… mention rate 9.1%</p>
             </div>
             <div id="rescanState" style="display:none;">
               <p class="ov-empty" id="rescanNote"></p>
@@ -1103,8 +1326,8 @@ button { font: inherit; }
       </section>
       <!-- ============ VIEW: QUESTIONS (shell, Phase 3) ============ -->
       <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
-<h2>Questions</h2>
-<p class="desc">Questions your snapshots ask, plus templates and suggestions.</p>
+<h2>Prompts</h2>
+<p class="desc">Questions you track, plus templates and suggestions.</p>
 <div class="row" style="margin-bottom:14px">
 <div><input type="text" placeholder="Add a question…" aria-label="Add a question"></div>
 <div style="flex:none"><button class="btn" type="button" data-demo="addq">Add question</button></div>
@@ -1120,7 +1343,7 @@ button { font: inherit; }
 </div>
 
 <div class="card">
-<h3>Template library</h3>
+<h3>Question templates</h3>
 <p class="desc">No metrics, templates only.</p>
 <div class="empty">No templates yet. Create and edit templates on desktop.</div>
 </div>
@@ -1144,7 +1367,7 @@ button { font: inherit; }
 
 <div class="card">
 <h3>Trend</h3>
-<p class="desc">Single-point brand shell: latest point 9.1 (2026-10-24) is measured; trend appears after the second run — no invented line.</p>
+<p class="desc">One snapshot so far (9.1, 2026-10-24). Your trend line starts with the second snapshot.</p>
 <div class="bar-row"><span class="nm">2026-10-24</span><span class="bar"><i style="width:9.1%"></i></span><span class="val">9.1</span></div>
 </div>
 
@@ -1160,51 +1383,94 @@ button { font: inherit; }
 
       <!-- ============ VIEW: SOURCES (shell, Phase 3) ============ -->
       <section class="view" id="view-sources"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
-<h2>Sources</h2>
-<p class="desc">Where AI answers cite from.</p>
+<h2>Citations</h2>
+<p class="desc">Where AI gets its answers.</p>
 <div class="table-wrap"><table>
 <thead><tr><th>Cited domain</th><th>Cited URL</th><th>Domain type</th></tr></thead>
 <tbody><tr><td colspan="3"><div class="empty" style="margin:0">No cited sources yet. Run a new snapshot to gather cited sources.</div></td></tr></tbody>
 </table></div>
-<h3 style="margin-top:18px">Domain type legend (categories only, not data)</h3>
+<h3 style="margin-top:18px">Source types</h3> <p class="desc">What kind of site each cited domain is.</p> <!-- categories only, not data -->
 <p><span class="tag" style="background:#dbeafe;color:#1e40af">Brand site</span> <span class="tag" style="background:#fef3c7;color:#92400e">News media</span> <span class="tag" style="background:#dcfce7;color:#166534">Community forums</span> <span class="tag" style="background:#ede9fe;color:#5b21b6">Encyclopedia &amp; Q&amp;A</span> <span class="tag">Other</span></p>
 <p style="color:var(--muted);font-size:13px">Domain types use color + text dual encoding, not color alone.</p>
 </div>
 
 <div class="card">
-<h3>URL-level outreach <span class="badge-soon">Coming soon</span></h3>
-<p class="desc">Find pages that could cite your brand.</p>
-</div>
-
-<div class="card">
-<h3>Third-party outranking alerts</h3>
+<h3>Outranking sources</h3>
 <div class="empty">No data: without citation data, third-party vs own citation volume can’t be compared; alerts appear here once citation data is available.</div>
 </div></section>
 
       <!-- ============ VIEW: TOOLS (shell, Phase 3) ============ -->
             <section class="view" id="view-tools"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
-<h2>Tools</h2>
-<p class="desc">Tools for your brand.</p>
+<h2>Toolkit</h2>
+<p class="desc">Tools that turn your score into fixes.</p>
 </div>
 
-<div class="card"><h3>P0 Causal attribution view <span class="badge-soon">Coming soon</span></h3>
-<p>One-page attribution for all tiers: change value plus evidence, net of fluctuation, with confidence interval. Retest quota grows by tier.</p></div>
+<div class="card"><h3>Impact tracker <button type="button" class="tool-info-btn" data-tool-info="impact" aria-label="About Impact tracker">?</button></h3>
+<p>Did it work? See what changed after each fix — with noise removed.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p0">Preview</button></div>
 
-<div class="card"><h3>P1 Content diagnoser <span class="badge-soon">Coming soon</span></h3>
-<p>Diagnosis for core pages (home / main product page) plus a brief for your writer. No multi-page batch, no competitor source diff.</p></div>
+<div class="card"><h3>Page checkup <button type="button" class="tool-info-btn" data-tool-info="checkup" aria-label="About Page checkup">?</button></h3>
+<p>Why AI skips your pages — and the brief to fix it.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p1">Preview</button></div>
 
-<div class="card"><h3>P2 Outreach pack <span class="badge-soon">Coming soon</span></h3>
-<p>Gap citation-source list (have / both-missing tiers) for all tiers. No standing template library, no execution tracking.</p></div>
+<div class="card"><h3>Win citations <button type="button" class="tool-info-btn" data-tool-info="citations" aria-label="About Win citations">?</button></h3>
+<p>Sites that cite your rivals but not you — with outreach drafts.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p2">Preview</button></div>
 
-<div class="card"><h3>P3 AI readability check <span class="badge-soon">Coming soon</span></h3>
-<p>Base 4-item check results (shown as part of P5, not a standalone tool). No standalone audit report, no extended checks, no history diff.</p></div>
+<div class="card"><h3>AI readiness <button type="button" class="tool-info-btn" data-tool-info="readiness" aria-label="About AI readiness">?</button></h3>
+<p>Can AI read your site? A technical check, plus a one-line brief for your developer.</p> <p class="tk-tier">Included on all plans · full audit on Growth and above</p> <button type="button" class="btn" data-go="tools-p3">Preview</button></div>
 
-<div class="card"><h3>P4 Negative handling playbook <span class="badge-soon">Coming soon</span></h3>
-<p>One-page emergency checklist (1 appeal template + source contact script) for all tiers. No dilution calendar, no fact base, no D7 linkage. A downstream tool after an incident, not a standing per-tier selling point.</p></div>
+<div class="card"><h3>llms.txt generator <button type="button" class="tool-info-btn" data-tool-info="llms" aria-label="About llms.txt generator">?</button></h3>
+<p>A small file that tells AI what your site is about.</p> <p class="tk-tier">All plans · batch generation on Teams</p> <button type="button" class="btn" data-go="tools-p5">Preview</button></div>
 
-<div class="card"><h3>P5 llms.txt generator <span class="badge-soon">Coming soon</span></h3>
-<p>One-click llms.txt / robots.txt / sitemap pointers for a single brand (you fill in your own values); generated files verified 5/5 with our own checker. Same across three tiers by design; Teams adds batch. A retention foundation, not an upgrade driver.</p></div>
+<div class="card"><h3>Fix a bad mention <button type="button" class="tool-info-btn" data-tool-info="mention" aria-label="About Fix a bad mention">?</button></h3>
+<p>Step-by-step when AI gets your facts wrong.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p4">Preview</button></div>
+
+<div class="card"><h3>Answer history <button type="button" class="tool-info-btn" data-tool-info="history" aria-label="About Answer history">?</button> <span class="badge-soon">Coming soon</span></h3>
+<p>See how AI's answers about you changed, word for word.</p></div>
+
+<div class="card"><h3>What AI says about you <button type="button" class="tool-info-btn" data-tool-info="says" aria-label="About What AI says about you">?</button> <span class="badge-soon">Coming soon</span></h3>
+<p>Not just whether AI mentions you — what it says, checked against your facts.</p></div>
+
+<div class="card"><h3>Question radar <button type="button" class="tool-info-btn" data-tool-info="radar" aria-label="About Question radar">?</button> <span class="badge-soon">Coming soon</span></h3>
+<p>New questions worth tracking — from search data, not guesses.</p></div>
+
+<div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
+<p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
 </section>
+<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card tk-action"><h3>Re-run quota <span class="badge-ok" id="tkP0Status">Available</span></h3>
+<p id="tkP0Reason" class="tk-reason">Within quota. Re-runs run normally.</p>
+<button type="button" class="btn" id="tkRunBtn">Re-run</button>
+
+</div>
+<div class="tk-details">
+<p class="tk-foot">Details</p>
+<div class="card"><h3>Quota numbers</h3>
+<p class="desc">Per-tier re-run quota. Usage figures are samples.</p>
+<div class="tk-state-row" role="group" aria-label="Preview state">
+<button type="button" class="tk-state active" data-tk-state="normal">Normal</button>
+<button type="button" class="tk-state" data-tk-state="near">Near limit</button>
+<button type="button" class="tk-state" data-tk-state="reached">Quota reached</button>
+<button type="button" class="tk-state" data-tk-state="breaker">Account limit</button>
+</div>
+<p class="tk-foot">Preview state (demo control &mdash; it switches the displayed sample state only; it does not change live enforcement.)</p>
+<div class="tk-meter"><div class="tk-meter-top"><span>Questions</span><span><b id="tkQUsed">812</b> / <span id="tkQCap">1,317</span> (sample)</span></div><div class="bar"><i id="tkQBar" style="width:62%"></i></div></div>
+
+
+
+</div>
+</div></section>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card"><h3>Suggestions &amp; results &middot; Store <span class="tk-badge-notconn">Not connected</span></h3>
+<p class="desc">Sample run &mdash; at most 3 suggestions per run. Old rows are kept, never silently overwritten.</p>
+<ol class="tk-sugg">
+<li><b>Add a comparison table to the main product page</b> <span class="badge-ok">done</span></li>
+<li><b>Rewrite the category page intro for the AI shortlist</b> <span class="tk-badge-note">Pending re-run</span></li>
+<li><b>Claim a citation on a listicle that mentions competitors</b> <span class="tk-badge-note">Insufficient evidence</span></li>
+<li class="tk-superseded"><b>Shorten the home page hero copy</b> <span class="tk-badge-note">superseded</span> <span class="tk-note">Superseded by #2 &mdash; old row kept, not overwritten.</span></li>
+</ol>
+<div class="tk-gate-blocked"><b>Withheld by the honesty gate</b><p>1 suggestion withheld (a factual claim with no source cited). It is not shown as fact, and no claim content is displayed for withheld items.</p></div></div>
+</section>
+<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
+<section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
+<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
+<section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 
             <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
 <h2>Notifications</h2>
@@ -1222,9 +1488,9 @@ button { font: inherit; }
 </div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Edit brand"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status">Bombas · bombas.com</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status">1 source connected</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">2 invoices</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status">Growth and above · 1 seat now</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Starter gated</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
-<div class="switch-row"><div><b title="Email me when negative signals appear">Email me when negative signals appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Email me when negative signals appear"><span class="knob"></span></button></div>
-<div class="switch-row"><div><b title="Email me when a rescan finishes">Email me when a rescan finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Email me when a rescan finishes"><span class="knob"></span></button></div>
+      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status">Bombas · bombas.com</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">2 invoices</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status">Growth and above · 1 seat now</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
+<div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
+<div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
 <div class="switch-row"><div><b title="Send me a weekly digest">Send me a weekly digest</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Send me a weekly digest"><span class="knob"></span></button></div></div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
 <section class="view" id="view-security-password"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h3>Change password</h3>
@@ -1248,16 +1514,16 @@ button { font: inherit; }
 </div>
 
 <div class="confirm-box" id="deleteConfirm" style="display:none">
-<p style="margin:0 0 8px;color:#b91c1c"><b>Before you delete:</b> deleting removes your brand, snapshots, and reports. This cannot be undone.</p>
+<p style="margin:0 0 8px;color:#b91c1c"><b>Deleting your account cannot be undone.</b> This removes your brand, snapshots, and reports.</p>
 <label style="display:flex;gap:8px;align-items:flex-start;margin:12px 0"><input type="checkbox" id="deleteAck"><span>I understand deletion cannot be undone.</span></label>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
 <button class="btn small danger" type="button" id="deleteConfirmBtn" disabled>Delete account</button>
 <button class="btn small ghost" type="button" id="deleteBackBtn">Keep my account</button>
 </div></div></section>
-<section class="view" id="view-help"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Help — CitMark Support</h2><p class="desc">对外一律 CitMark Support，不出现 Tao Yu 个人名义。</p><p class="desc">后台唯一入口：头像菜单 Help center，新开 /contact 页（邮箱联系，不承诺在线聊天与回复时效）。Crisp 未装，不上悬浮按钮；/help 预览页已存在，但尚未上线、线上目前 404，/help 上线工程仍走生产集成线，需 Tao Yu 终审 + 点卡，本 Demo 不替代上线。</p><button class="btn small ghost" type="button" data-go="settings">Back to Settings</button></div></section>
+<section class="view" id="view-help"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Help & support</h2><p class="desc">Email us at <a href="mailto:support@citmark.com">support@citmark.com</a> — our support team replies by email.</p><p class="desc">To help us find your account, write from the email you signed up with (or tell us what it is) and describe what's happening. A screenshot of what you see helps.</p><p class="desc">Two places answer most questions:</p><ul class="desc" style="list-style:none;padding:0"><li style="padding-left:15px;text-indent:-15px;margin-bottom:6px">· Every tool in the Toolkit has a ? next to its name — it explains what the tool does and how to use it.</li><li style="padding-left:15px;text-indent:-15px">· Your Weekly report shows what changed in your scores and why.</li></ul><button class="btn small ghost" type="button" data-go="settings">Back to Settings</button></div></section>
 <section class="view" id="view-brand-edit"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="card"><h2>Edit brand</h2>
-<p class="desc">Brand name and domain shown across Overview, Score and Report.</p>
+<div class="card"><h2>Brand profile</h2>
+<p class="desc">Brand name and domain shown across Overview, Visibility score and Weekly report.</p>
 <div class="row"><div class="field"><label>Brand name</label><input type="text" value="Bombas"></div>
 <div class="field"><label>Domain</label><input type="text" value="bombas.com"></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -1273,7 +1539,7 @@ button { font: inherit; }
 <button class="sec-row" type="button" data-go="security-logins"><span class="sec-label" title="Login history">Login history</span><span class="sec-arrow" aria-hidden="true">›</span></button>
 <button class="sec-row" type="button" id="exportRow"><span class="sec-label" title="Export my data">Export my data</span><span class="sec-arrow" aria-hidden="true">›</span></button>
 </div></div>
-<div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
+<div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
@@ -1283,16 +1549,18 @@ button { font: inherit; }
 </section>
 
 <section class="view" id="view-plan"><button class="back-btn" type="button" id="planBackBtn" aria-label="Back">← Back</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<div class="card" id="planPastDueCard" style="display:none"><h3>Payment problem</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">We could not collect your last payment, so your plan is past due. Update your payment method to keep your plan running.</p><button class="btn small" type="button" id="pastDueBillingBtn">View invoices</button></div>
+<div class="card" id="planNoPlanCard" style="display:none"><h3>No plan yet</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">You do not have a subscription yet. Choose a plan to start measuring how AI search shows your brand.</p><button class="btn small" type="button" id="noPlanCta">Choose</button></div>
 <div id="planMain">
 <div class="card" id="currentPlanCard"><h3 class="current-tier" id="planName">Starter</h3>
-<p class="current-pos" id="planPos">For one brand getting started with AI visibility. Weekly full measurement + daily core-question alerts.</p>
+<p class="current-pos" id="planPos">For one brand getting started with AI visibility. Weekly full measurement, daily checks on your core questions — plus an alert when AI turns negative.</p>
 <p class="current-price"><b id="planPromoPrice">$19/mo</b> <s id="planStandardPrice">$30/mo</s> <span class="current-price-note" id="planPriceNote">for the first 12 months, then $30/mo</span></p>
 <p class="current-founding" id="planFounding">Founding members: $9.50/mo for the first 12 months.</p></div>
 <div class="card" id="upgradeCard"><button class="cp-toggle" type="button" id="changePlanToggle" aria-expanded="false" aria-controls="changePlanBody"><span class="cp-toggle-title">Change plan</span><span class="cp-chevron" aria-hidden="true">▾</span></button><div class="cp-body" id="changePlanBody"><div class="cp-body-inner">
-<button class="drawer-tier-card" type="button" data-tier="starter" data-name="Starter" data-promo="$19/mo" data-standard="$30/mo" data-founding="$9.50/mo" aria-pressed="false"><span class="dtc-tier">Starter</span><span class="dtc-pos">For one brand getting started with AI visibility. Weekly full measurement + daily core-question alerts.</span><span class="dtc-price"><b>$19/mo</b><s>$30/mo</s></span><span class="dtc-note">for the first 12 months, then $30/mo</span><span class="dtc-founding">Founding members: $9.50/mo for the first 12 months.</span><span class="dtc-meta">1 seat · 4 AI engines · 1 site</span></button>
-<button class="drawer-tier-card" type="button" data-tier="growth" data-name="Growth" data-promo="$49/mo" data-standard="$70/mo" data-founding="$24.50/mo" aria-pressed="false"><span class="dtc-tier">Growth</span><span class="dtc-pos">For growing brands tracking more questions and competitors. Everything in Starter, plus more brands and questions.</span><span class="dtc-price"><b>$49/mo</b><s>$70/mo</s></span><span class="dtc-note">for the first 12 months, then $70/mo</span><span class="dtc-founding">Founding members: $24.50/mo for the first 12 months.</span><span class="dtc-meta">3 seats · 5 AI engines (including Grok) · 1 site</span></button>
-<button class="drawer-tier-card" type="button" data-tier="pro" data-name="Pro" data-promo="$129/mo" data-standard="$170/mo" data-founding="$64.50/mo" aria-pressed="false"><span class="dtc-tier">Pro</span><span class="dtc-pos">For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more brands and questions.</span><span class="dtc-price"><b>$129/mo</b><s>$170/mo</s></span><span class="dtc-note">for the first 12 months, then $170/mo</span><span class="dtc-founding">Founding members: $64.50/mo for the first 12 months.</span><span class="dtc-meta">5 seats · 6 AI engines (including Grok and DeepSeek) · 1 site · API access</span></button>
-<button class="drawer-tier-card" type="button" data-tier="teams" data-name="Teams" data-promo="$199/mo" data-standard="$300/mo" data-founding="$99.50/mo" aria-pressed="false"><span class="dtc-tier">Teams</span><span class="dtc-pos">For multi-brand teams and agencies. Everything in Pro, plus the most brands and questions.</span><span class="dtc-price"><b>$199/mo</b><s>$300/mo</s></span><span class="dtc-note">for the first 12 months, then $300/mo</span><span class="dtc-founding">Founding members: $99.50/mo for the first 12 months.</span><span class="dtc-meta">20 seats · 7 AI engines (including Grok, DeepSeek, and Mistral) · 10 sites · White-label reports · API access</span></button>
+<button class="drawer-tier-card" type="button" data-tier="starter" data-name="Starter" data-promo="$19/mo" data-standard="$30/mo" data-founding="$9.50/mo" aria-pressed="false"><span class="dtc-tier">Starter</span><span class="dtc-pos">For one brand getting started with AI visibility. Weekly full measurement, daily checks on your core questions — plus an alert when AI turns negative.</span><span class="dtc-price"><b>$19/mo</b><s>$30/mo</s></span><span class="dtc-note">for the first 12 months, then $30/mo</span><span class="dtc-founding">Founding members: $9.50/mo for the first 12 months.</span><span class="dtc-meta">1 seat · 4 AI engines · 1 site</span></button>
+<button class="drawer-tier-card" type="button" data-tier="growth" data-name="Growth" data-promo="$49/mo" data-standard="$70/mo" data-founding="$24.50/mo" aria-pressed="false"><span class="dtc-tier">Growth</span><span class="dtc-pos">For growing brands tracking more questions and competitors. Everything in Starter, plus more questions.</span><span class="dtc-price"><b>$49/mo</b><s>$70/mo</s></span><span class="dtc-note">for the first 12 months, then $70/mo</span><span class="dtc-founding">Founding members: $24.50/mo for the first 12 months.</span><span class="dtc-meta">3 seats · 5 AI engines (including Grok) · 1 site</span></button>
+<button class="drawer-tier-card" type="button" data-tier="pro" data-name="Pro" data-promo="$129/mo" data-standard="$169/mo" data-founding="$64.50/mo" aria-pressed="false"><span class="dtc-tier">Pro</span><span class="dtc-pos">For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more questions.</span><span class="dtc-price"><b>$129/mo</b><s>$169/mo</s></span><span class="dtc-note">for the first 12 months, then $169/mo</span><span class="dtc-founding">Founding members: $64.50/mo for the first 12 months.</span><span class="dtc-meta">5 seats · 6 AI engines (including Grok and DeepSeek) · 1 site</span></button>
+<button class="drawer-tier-card" type="button" data-tier="teams" disabled aria-disabled="true" data-name="Teams" data-promo="$199/mo" data-standard="$300/mo" aria-pressed="false"><span class="dtc-tier">Teams</span><span class="dtc-pos">For multi-brand teams and agencies. Everything in Pro, plus the most brands and questions.</span><span class="dtc-price"><b>$199/mo</b><s>$300/mo</s></span><span class="dtc-note">for the first 12 months, then $300/mo</span><span class="dtc-founding">Coming soon</span><span class="dtc-meta">20 seats · 7 AI engines (including Grok, DeepSeek, and Mistral) · 10 sites · White-label reports</span></button>
 <div id="drawerConfirmArea" style="display:none;margin:0 0 12px"><button class="btn small" type="button" id="drawerConfirmBtn">Confirm</button></div></div></div></div>
 <div class="card" id="cancelCard"><h3>Cancel subscription</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">The rest of the current period remains usable; renewal stops at period end.</p><button class="btn small danger" type="button" id="cancelBtn">Cancel subscription</button></div>
 <div class="card"><h3>Payment method</h3><p>Pay with card</p></div>
@@ -1301,10 +1569,10 @@ button { font: inherit; }
 </section>
 
 <section class="view" id="view-pricing-cards"><button class="back-btn" type="button" id="pricingBackBtn" aria-label="Back to Change plan">← Back to Change plan</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Pricing</h2><p class="desc">Compare all plans. Prices are promo prices for the first 12 months, then standard prices. No purchase is made from this page.</p></div>
-<div class="card"><h3>Starter</h3><p>$19/mo for the first 12 months, then $30/mo</p><p>Seats: 1</p><p>Engines: 4</p><p>Sites: 1</p><p>White-label reports: No</p><p>API access: No</p></div>
-<div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 5 (+Grok)</p><p>Sites: 1</p><p>White-label reports: No</p><p>API access: No</p></div>
-<div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $170/mo</p><p>Seats: 5</p><p>Engines: 6 (+DeepSeek)</p><p>Sites: 1</p><p>White-label reports: No</p><p>API access: Yes</p></div>
-<div class="card"><h3>Teams</h3><p>$199/mo for the first 12 months, then $300/mo</p><p>Seats: 20</p><p>Engines: 7 (+Mistral)</p><p>Sites: 10</p><p>White-label reports: Yes</p><p>API access: Yes</p></div></section>
+<div class="card"><h3>Starter</h3><p>$19/mo for the first 12 months, then $30/mo</p><p>Seats: 1</p><p>Engines: 4</p><p>Sites: 1</p><p>White-label reports: No</p><p>Alerts when AI turns negative about your brand</p></div>
+<div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 5 (+Grok)</p><p>Sites: 1</p><p>White-label reports: No</p><p>Alerts when your score really moves — noise doesn't count</p></div>
+<div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $169/mo</p><p>Seats: 5</p><p>Engines: 6 (+DeepSeek)</p><p>Sites: 1</p><p>White-label reports: No</p><p>Alerts when a question drops you, or a rival overtakes you</p></div>
+<div class="card"><h3>Teams</h3><p>$199/mo for the first 12 months, then $300/mo</p><p>Seats: 20</p><p>Engines: 7 (+Mistral)</p><p>Sites: 10</p><p>White-label reports: Yes</p><p>Every alert, across all your sites, in one roll-up</p></div></section>
 
 <section class="view" id="view-team"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card">
@@ -1326,19 +1594,14 @@ button { font: inherit; }
 <h2>Connections</h2>
 <p class="desc">Data sources linked to your brand.</p>
 </div>
-<div class="card"><h3>Data sources</h3>
-<div class="switch-row"><div><b>Google Search Console</b><p>Connected <span class="sample-tag">Sample</span></p></div><button class="btn small ghost" type="button" data-demo="disconnect">Disconnect</button></div>
-<!-- NEXT6-2 first batch: Shopify + SC only; Woo/Wix/Squarespace hidden, spec retained --><div class="switch-row ds-later"><div><b>WooCommerce</b><p class="muted">Coming soon</p></div></div>
-<div class="switch-row ds-later"><div><b>Wix</b><p class="muted">Coming soon</p></div></div>
-<div class="switch-row ds-later"><div><b>Squarespace</b><p class="muted">Coming soon</p></div></div>
-<div class="switch-row"><div><b>Shopify</b><p class="muted">Not connected</p></div></div></div></section>
+<div class="card"><h3>Connected services</h3>
+<div id="connRows"><div class="switch-row"><div><b>Google Search Console</b><p class="muted">Loading…</p></div></div></div></div></section>
 
 <section class="view" id="view-developer"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card">
 <h2>Developer</h2>
 <p class="desc">API keys and usage.</p>
 </div>
-<div class="card gate-card gate-dev" style="display:none"><h3>API access is available on Pro and above</h3><p class="desc">Upgrade to create API keys and view usage.</p><button class="btn small ghost" type="button" data-go="settings">View plans</button></div>
 <div class="card gate-hide-dev"><h3>API keys</h3>
 <p>No API keys yet.</p>
 <button class="btn small" type="button" data-demo="key">Create key</button></div>
@@ -1350,9 +1613,9 @@ button { font: inherit; }
 
   <nav class="tabbar" id="tabbar">
     <button data-view="overview" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
-    <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Score</button>
-    <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Questions</button>
-    <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Report</button>
+    <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Visibility score</button>
+    <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Prompts</button>
+    <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Weekly report</button>
     <button id="moreBtn" type="button" aria-haspopup="dialog" aria-expanded="false"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></span>More</button>
   </nav>
 <div class="more-backdrop" id="moreBackdrop"></div>
@@ -1360,11 +1623,11 @@ button { font: inherit; }
   <div class="more-handle"></div>
   <input class="more-search" id="moreSearch" type="search" placeholder="Search views..." aria-label="Search views">
   <div id="moreResults" style="display:none"></div>
-  <p class="more-note">J2 trial: bottom bar 4 + More. Search jumps to a view (not content search).</p>
+  
   <div id="moreList">
     <button class="more-item" type="button" data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
-    <button class="more-item" type="button" data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Sources</button>
-    <button class="more-item" type="button" data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Tools</button>
+    <button class="more-item" type="button" data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Citations</button>
+    <button class="more-item" type="button" data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Toolkit</button>
     <button class="more-item" type="button" data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
   </div>
 </div>
@@ -1429,10 +1692,10 @@ button { font: inherit; }
 <h3 id="qDrawerTitle">Question details</h3>
 <p id="qDrawerMeta" style="color:var(--muted);font-size:13px"></p>
 <div id="qDrawerBody"></div>
-<p style="color:var(--muted);font-size:13px">Top / Region / Time: not available yet; shown as —.</p>
+<p style="color:var(--muted);font-size:13px">Top source, region and time appear here once recorded.</p>
 </aside>
 <div id="planChangeModal" aria-hidden="true"><div class="modal-mask" id="planChangeModalMask"></div><div class="modal-card" role="dialog" aria-label="Confirm plan change"><button class="modal-close" type="button" id="planChangeModalClose" aria-label="Close">✕</button><h3 id="planChangeModalTitle">Change plan</h3><p class="modal-price"><b id="planChangeModalPromo"></b> <s id="planChangeModalStandard"></s></p><p class="modal-note" id="planChangeModalNote"></p><p class="modal-founding" id="planChangeModalFounding"></p><p class="modal-pay">Payment is by card.</p><div class="modal-actions"><button class="btn small" type="button" id="planChangeModalConfirm">Confirm</button><button class="btn small ghost" type="button" id="planChangeModalCancel">Cancel</button></div></div></div>
- <div id="cancelModal" aria-hidden="true"><div class="modal-mask" id="cancelModalMask"></div><div class="modal-card" role="dialog" aria-label="Before you cancel"><button class="modal-close" type="button" id="cancelModalClose" aria-label="Close">✕</button><h3>Before you cancel</h3><p class="modal-note">canceling means losing the watchdog (no more monitoring, alerts, or weekly reports) — not a silent pause. The rest of the current period remains usable; renewal stops at period end.</p><div class="modal-actions"><button class="btn small danger" type="button" id="cancelConfirmBtn">I understand, cancel anyway</button><button class="btn small ghost" type="button" id="cancelKeep">Keep subscription</button></div></div></div> <div id="secConfirm" aria-hidden="true"><div class="modal-mask" id="secConfirmMask"></div><div class="modal-card" role="dialog" aria-label="Confirm"><button class="modal-close" type="button" id="secConfirmClose" aria-label="Close">✕</button><h3 id="secConfirmTitle">Confirm</h3><p class="modal-note" id="secConfirmMsg"></p><div class="modal-actions"><button class="btn small" type="button" id="secConfirmGo">Confirm</button><button class="btn small ghost" type="button" id="secConfirmBack">Cancel</button></div></div></div> <script>
+ <div id="cancelModal" aria-hidden="true"><div class="modal-mask" id="cancelModalMask"></div><div class="modal-card" role="dialog" aria-label="Before you cancel"><button class="modal-close" type="button" id="cancelModalClose" aria-label="Close">✕</button><h3>Before you cancel</h3><p class="modal-note">canceling stops your monitoring, alerts, and weekly reports — it is not a silent pause. The rest of the current period remains usable; renewal stops at period end.</p><div class="modal-actions"><button class="btn small danger" type="button" id="cancelConfirmBtn">I understand, cancel anyway</button><button class="btn small ghost" type="button" id="cancelKeep">Keep subscription</button></div></div></div> <div id="secConfirm" aria-hidden="true"><div class="modal-mask" id="secConfirmMask"></div><div class="modal-card" role="dialog" aria-label="Confirm"><button class="modal-close" type="button" id="secConfirmClose" aria-label="Close">✕</button><h3 id="secConfirmTitle">Confirm</h3><p class="modal-note" id="secConfirmMsg"></p><div class="modal-actions"><button class="btn small" type="button" id="secConfirmGo">Confirm</button><button class="btn small ghost" type="button" id="secConfirmBack">Cancel</button></div></div></div> <script>
 "use strict";
 /* =====================================================================
    CitMark dashboard demo — data layer (replays real measured data since 2026-10-24).
@@ -1719,12 +1982,18 @@ const state = { snapshot: null, score: null, answers: null, running: false };
 /* ---------------- router ---------------- */
 const TITLES = {
   overview:    ["Overview", "Your brand's AI visibility at a glance"],
-  score:       ["Score", "Your brand's AI visibility, with confidence intervals"],
-  report:      ["Report", "Per-question results, raw answers, suggestions"],
-  questions:   ["Questions", "Questions your snapshots ask"],
+  score:       ["Visibility score", "Your brand's AI visibility, with confidence intervals"],
+  report:      ["Weekly report", "Per-question results, raw answers, suggestions"],
+  questions:   ["Prompts", "Questions you track"],
   competitors: ["Competitors", "Your visibility vs tracked competitors"],
-  sources:     ["Sources", "Where AI answers cite from"],
-  tools:       ["Tools", "Tools for your brand"],
+  sources:     ["Citations", "Where AI gets its answers"],
+  tools:       ["Toolkit", "Tools that turn your score into fixes."],
+  'tools-p0': ["Impact tracker", "Did it work? See what changed after each fix — with noise removed."],
+  'tools-p1': ["Page checkup", "Why AI skips your pages — and the brief to fix it."],
+  'tools-p2': ["Win citations", "Sites that cite your rivals but not you — with outreach drafts."],
+  'tools-p3': ["AI readiness", "Can AI read your site? A technical check, plus a one-line brief for your developer."],
+  'tools-p4': ["Fix a bad mention", "Step-by-step when AI gets your facts wrong."],
+  'tools-p5': ["llms.txt generator", "A small file that tells AI what your site is about."],
   notifications: ["Notifications", "Snapshot, score, report and alert updates"],
   settings:    ["Settings", "Brand, notifications, and account security"],
   billing:     ["Invoices", "Invoices only"],
@@ -1734,16 +2003,16 @@ const TITLES = {
   connections: ["Connections", "Data sources linked to your brand"],
   developer:   ["Developer", "API keys and usage"],
   'security-password': ["Change password", "Set a new password for your account"],
-  'brand-edit': ["Edit brand", "Brand name and domain"],
+  'brand-edit': ["Brand profile", "Brand name and domain"],
   'security': ["Security", "Password, logins and export"],
   'security-logins': ["Login history", "Recent sign-ins for your account"],
   'security-delete': ["Delete account", "Permanently remove your account"],
-  help: ["Help — CitMark Support", "Help center, not live chat"],
+  help: ["Help & support", "Help center, not live chat"],
 };
 function go(view) {
   if (view === 'plan') { var __cur = document.querySelector('.view.active'); var __k = __cur ? __cur.id.replace('view-', '') : ''; if (__k && __k !== 'plan') { window.planReturn = __k; } }
   /* Standalone pages push history so browser/gesture back returns to Settings (trial 20261025). */
-  var __standalone = ['billing', 'plan', 'pricing-cards', 'team', 'connections', 'developer', 'security-password', 'security-logins', 'security-delete', 'help', 'brand-edit', 'security'];
+  var __standalone = ['billing', 'plan', 'pricing-cards', 'team', 'connections', 'developer', 'security-password', 'security-logins', 'security-delete', 'help', 'brand-edit', 'security', 'tools-p0', 'tools-p1', 'tools-p2', 'tools-p3', 'tools-p4', 'tools-p5'];
   if (__standalone.indexOf(view) >= 0) {
     var __cur = document.querySelector('.view.active');
     var __curKey = __cur ? __cur.id.replace('view-', '') : '';
@@ -1769,21 +2038,14 @@ window.addEventListener('popstate', function () {
   if (cur && cur.id === 'view-pricing-cards') {
     go('plan');
   }
+  if (cur && ['view-tools-p0', 'view-tools-p1', 'view-tools-p2', 'view-tools-p3', 'view-tools-p4', 'view-tools-p5'].indexOf(cur.id) >= 0) {
+    go('tools');
+  }
 });
 document.querySelectorAll("[data-view]").forEach(b =>
   b.addEventListener("click", () => go(b.dataset.view)));
 document.querySelectorAll("[data-goto]").forEach(b =>
   b.addEventListener("click", () => go(b.dataset.goto)));
-
-/* ---------------- skin ---------------- */
-const SKIN_TIER = { starter: "STARTER", growth: "GROWTH", pro: "PRO", teams: "TEAMS" };
-document.querySelectorAll("#skinOpts button").forEach(b =>
-  b.addEventListener("click", () => {
-    document.documentElement.dataset.skin = b.dataset.skin;
-    document.querySelectorAll("#skinOpts button").forEach(x =>
-      x.classList.toggle("active", x === b));
-    document.getElementById("tierBadge").textContent = SKIN_TIER[b.dataset.skin];
-  }));
 
 /* ---------------- overview view ---------------- */
 function renderOverview() {
@@ -2019,7 +2281,7 @@ function renderScore() {
   });
   document.getElementById("matrixTable").innerHTML = mhtml + "</tbody>";
   const hasImplicit = state.answers.some(a => a.mention_type === "implicit");
-  document.getElementById("matrixDesc").textContent = "Click a ✓ or ✕ cell to read the raw answer." + (hasImplicit ? " ◐ = implicit mention (needs review)." : "") + " ! = no answer recorded (call failed).";
+  document.getElementById("matrixDesc").textContent = "Every question × every engine. Click a ✓ or ✕ cell to read the raw answer." + (hasImplicit ? " ◐ = implicit mention (needs review)." : "") + " ! = no answer recorded (call failed).";
   document.querySelectorAll(".cell").forEach(c =>
     c.addEventListener("click", () => openDrawer(+c.dataset.idx)));
   const engineOrder = MOCK.snapshot.engines;
@@ -2057,7 +2319,7 @@ function renderReport() {
     <div class="sug"><div class="n">${i + 1}</div>
       <div><b>${escapeHtml(sg.title)}</b><p>${sg.body}</p>
       <div class="sug-tags"><span class="tag neu">${cap(sg.impact)} impact</span><span class="tag neu">${cap(sg.effort)} effort</span></div></div></div>`).join("");
-  // Negative signals, computed from data (no invented counts).
+  // Negative mentions, computed from data (no invented counts).
   const neg = [];
   const zeroQ = s.by_question.filter(b => b.value === 0);
   if (zeroQ.length) {
@@ -2324,25 +2586,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
 })();
 </script>
 
-<script>
-/* B identity row trial 20261025: tier badge follows skin switch (locked v2 colors) */
-(function () {
-  var badge = document.getElementById('idTierBadge');
-  var MAP = {
-    starter: { t: 'STARTER', bg: '#ff5a1f', fg: '#141519', bd: '1px solid transparent' },
-    growth: { t: 'GROWTH', bg: '#B45309', fg: '#ffffff', bd: '1px solid transparent' },
-    pro: { t: 'PRO', bg: '#5B21B6', fg: '#ffffff', bd: '1px solid transparent' },
-    teams: { t: 'TEAMS', bg: '#C9A96A', fg: '#141519', bd: '1px solid #7A5F2E' }
-  };
-  document.querySelectorAll('#skinOpts button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var m = MAP[b.dataset.skin]; if (!m || !badge) return;
-      badge.textContent = m.t;
-      badge.style.background = m.bg; badge.style.color = m.fg; badge.style.border = m.bd;
-    });
-  });
-})();
-</script>
+
 
 <script>
 /* Trial account menu 20261025: §十五 defaults (dropdown, 48px rows, direct logout demo) */
@@ -2378,20 +2622,27 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
       else if (k === 'connections') { go('connections'); }
       else if (k === 'developer') { go('developer'); }
       else if (k === 'help') { go('help'); }
-      else if (k === 'logout') { showToast('Demo environment — you are not really signed out.'); }
+      else if (k === 'logout') {
+        fetch('/auth/logout', { method: 'POST', credentials: 'same-origin' })
+          .then(function () { window.location.href = '/'; })
+          .catch(function () { showToast('Could not sign out. Check your connection and try again.'); });
+      }
     });
   });
   document.querySelectorAll('.more-item').forEach(function (b) { b.addEventListener('click', closeMenu); });
   var mb = document.getElementById('menuTierBadge');
   var MAP = { starter: { t: 'STARTER', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' }, growth: { t: 'GROWTH', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' }, pro: { t: 'PRO', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' }, teams: { t: 'TEAMS', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' } };
-  document.querySelectorAll('#skinOpts button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var m = MAP[b.dataset.skin]; if (!m || !mb) return;
-      mb.textContent = m.t; mb.style.background = m.bg; mb.style.color = m.fg; mb.style.border = m.bd;
-    });
-  });
+  /* P1 wiring 20261028: the menu tier badge follows /auth/me, not the skin switch. */
 })();
 </script>
+<style>
+#sessionGate{position:fixed;inset:0;z-index:300;background:var(--bg);align-items:center;justify-content:center;padding:16px}
+#sessionGate .sg-card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;max-width:340px;width:100%}
+#sessionGate .sg-mark{margin:0 0 12px;font-size:20px;color:var(--ink)}
+#sessionGate h2{margin:0 0 8px;font-size:20px;color:var(--ink)}
+#sessionGate .sg-copy{color:var(--muted);font-size:14px;margin:0 0 16px}
+</style>
+<div id="sessionGate" style="display:none" role="dialog" aria-modal="true" aria-labelledby="sessionGateTitle"><div class="sg-card"><p class="sg-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="sessionGateTitle">You are not signed in</h2><p class="sg-copy">Sign in to open your CitMark dashboard.</p><a class="btn" href="/">Sign in</a></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 /* Audit trial c 20261025: toast + demo actions + account gating + data-go */
@@ -2452,7 +2703,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
   var SEATS = { starter: '1 seat', growth: '3 seats', pro: '5 seats', teams: '20 seats' };
   var NAMES = { starter: 'Starter', growth: 'Growth', pro: 'Pro', teams: 'Teams' };
   var PRICES = { starter: 'Starter · $19/mo', growth: 'Growth · $49/mo', pro: 'Pro · $129/mo', teams: 'Teams · $199/mo' };
-  var PLAN_PRICES = { starter: '$19/mo for the first 12 months, then $30/mo', growth: '$49/mo for the first 12 months, then $70/mo', pro: '$129/mo for the first 12 months, then $170/mo', teams: '$199/mo for the first 12 months, then $300/mo' };
+  var PLAN_PRICES = { starter: '$19/mo for the first 12 months, then $30/mo', growth: '$49/mo for the first 12 months, then $70/mo', pro: '$129/mo for the first 12 months, then $169/mo', teams: '$199/mo for the first 12 months, then $300/mo' };
   var TIERS = { starter: 0, growth: 1, pro: 2, teams: 3 };
   function syncGating(skin) {
     var multi = skin !== 'starter';
@@ -2466,7 +2717,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     document.querySelectorAll('.cond-non-teams').forEach(function (el) { el.style.display = skin === 'teams' ? 'none' : ''; });
     document.querySelectorAll('.cond-upgrade').forEach(function (el) { el.style.display = skin === 'teams' ? 'none' : ''; });
     document.querySelectorAll('.cond-downgrade').forEach(function (el) { el.style.display = skin === 'starter' ? 'none' : ''; });
-    var curIdx = TIERS[skin];
+    var curIdx = (skin in TIERS) ? TIERS[skin] : -1;
     document.querySelectorAll('.up-row').forEach(function (el) { el.style.display = curIdx < TIERS[el.dataset.tier] ? '' : 'none'; });
     var upEmpty = document.getElementById('upEmpty');
     if (upEmpty) upEmpty.style.display = skin === 'teams' ? '' : 'none';
@@ -2475,22 +2726,22 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     var bl = document.getElementById('billingLinkStatus');
     var tl = document.getElementById('teamLinkStatus');
     var ts = document.getElementById('teamSeats');
-    if (wsT) wsT.textContent = NAMES[skin];
-    if (wsS) wsS.textContent = SEATS[skin];
-    if (bl) bl.textContent = PRICES[skin];
-    if (tl) tl.textContent = SEATS[skin];
-    if (ts) ts.textContent = SEATS[skin];
+    if (wsT) wsT.textContent = NAMES[skin] || 'No plan';
+    if (wsS) wsS.textContent = SEATS[skin] || '—';
+    if (bl) bl.textContent = PRICES[skin] || 'No plan yet';
+    if (tl) tl.textContent = SEATS[skin] || '—';
+    if (ts) ts.textContent = SEATS[skin] || '—';
     var pn = document.getElementById('planName');
-    var PLAN_POS = { starter: 'For one brand getting started with AI visibility. Weekly full measurement + daily core-question alerts.', growth: 'For growing brands tracking more questions and competitors. Everything in Starter, plus more brands and questions.', pro: 'For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more brands and questions.', teams: 'For multi-brand teams and agencies. Everything in Pro, plus the most brands and questions.' };
+    var PLAN_POS = { starter: 'For one brand getting started with AI visibility. Weekly full measurement, daily checks on your core questions — plus an alert when AI turns negative.', growth: 'For growing brands tracking more questions and competitors. Everything in Starter, plus more questions.', pro: 'For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more questions.', teams: 'For multi-brand teams and agencies. Everything in Pro, plus the most brands and questions.' };
     var PLAN_PROMO = { starter: '$19/mo', growth: '$49/mo', pro: '$129/mo', teams: '$199/mo' };
-    var PLAN_STD = { starter: '$30/mo', growth: '$70/mo', pro: '$170/mo', teams: '$300/mo' };
-    var PLAN_FOUND = { starter: '$9.50/mo', growth: '$24.50/mo', pro: '$64.50/mo', teams: '$99.50/mo' };
-    if (pn) pn.textContent = NAMES[skin];
-    var ppos = document.getElementById('planPos'); if (ppos) ppos.textContent = PLAN_POS[skin];
-    var ppromo = document.getElementById('planPromoPrice'); if (ppromo) ppromo.textContent = PLAN_PROMO[skin];
-    var pstd = document.getElementById('planStandardPrice'); if (pstd) pstd.textContent = PLAN_STD[skin];
-    var pnote = document.getElementById('planPriceNote'); if (pnote) pnote.textContent = 'for the first 12 months, then ' + PLAN_STD[skin];
-    var pfound = document.getElementById('planFounding'); if (pfound) pfound.textContent = 'Founding members: ' + PLAN_FOUND[skin] + ' for the first 12 months.';
+    var PLAN_STD = { starter: '$30/mo', growth: '$70/mo', pro: '$169/mo', teams: '$300/mo' };
+    var PLAN_FOUND = { starter: '$9.50/mo', growth: '$24.50/mo', pro: '$64.50/mo' };
+    if (pn) pn.textContent = NAMES[skin] || 'No plan';
+    var ppos = document.getElementById('planPos'); if (ppos) ppos.textContent = PLAN_POS[skin] || '';
+    var ppromo = document.getElementById('planPromoPrice'); if (ppromo) ppromo.textContent = PLAN_PROMO[skin] || '';
+    var pstd = document.getElementById('planStandardPrice'); if (pstd) pstd.textContent = PLAN_STD[skin] || '';
+    var pnote = document.getElementById('planPriceNote'); if (pnote) pnote.textContent = PLAN_STD[skin] ? 'for the first 12 months, then ' + PLAN_STD[skin] : '';
+    var pfound = document.getElementById('planFounding'); if (pfound) { if (PLAN_FOUND[skin]) { pfound.style.display = ''; pfound.textContent = 'Founding members: ' + PLAN_FOUND[skin] + ' for the first 12 months.'; } else { pfound.style.display = 'none'; pfound.textContent = ''; } }
     var cur = null;
     document.querySelectorAll('.view.active').forEach(function (v) { cur = v.id.replace('view-', ''); });
     if (cur === 'team' && !multi) go('settings');
@@ -2501,17 +2752,16 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     var devRow = document.getElementById('developerMenuRow');
     if (devRow) { var devOk = skin === 'pro' || skin === 'teams'; devRow.classList.toggle('gated', !devOk); devRow.disabled = !devOk; devRow.setAttribute('aria-disabled', devOk ? 'false' : 'true'); }
   }
-  document.querySelectorAll('#skinOpts button').forEach(function (b) {
-    b.addEventListener('click', function () { syncGating(b.dataset.skin); });
-  });
+  /* P1 wiring 20261028: skin switch no longer drives gating; gating follows the /auth/me tier (session-layer script). */
   var planUp = document.getElementById('planUpgradeBtn');
   var upCard = document.getElementById('upgradeCard');
   if (planUp && upCard) planUp.addEventListener('click', function () { upCard.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   syncGating('starter');
+  window.syncGating = syncGating;
 })();
 
   /* Drawer tier cards 20261026: select card -> confirm button below selected card (Upgrade primary / Downgrade secondary / Current disabled, no modal on Current), tap confirm -> centered modal, modal Confirm -> demo toast (production checkout), two-step not merged. No Upgrade button per card. */
-  var DRAWER_TIERS = { starter: 0, growth: 1, pro: 2, teams: 3 };
+  var DRAWER_TIERS = { starter: 0, growth: 1, pro: 2, teams: 3, __none__: -1 };
   var DRAWER_NAMES = { starter: 'Starter', growth: 'Growth', pro: 'Pro', teams: 'Teams' };
   var drawerCards = document.querySelectorAll('.drawer-tier-card');
   var drawerConfirmArea = document.getElementById('drawerConfirmArea');
@@ -2526,6 +2776,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     var pn2 = document.getElementById('planName');
     var curName = pn2 ? pn2.textContent.trim() : 'Starter';
     for (var k in DRAWER_NAMES) { if (DRAWER_NAMES[k] === curName) return k; }
+    if (window.__p1 && window.__p1.meLoaded && !window.__p1.tier) return '__none__';
     return 'starter';
   }
   function drawerUpdateConfirmBtn() {
@@ -2768,11 +3019,11 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
 })();
 </script>
 <style>
-/* Gesture 20261026 (Tao Yu order: gestures added back, only gestures changed): More sheet full state */
+/* Gesture 20261026 (gestures added back, only gestures changed): More sheet full state */
 .more-sheet.gesture-full{max-height:92vh;max-height:92dvh}
 </style>
 <style>
-/* Settings card spacing 20261026 (Tao Yu real-device feedback: cards blank uneven, only spacing, no content, no other views): unify card padding, row height, card gap. Root causes fixed here: set-links margin-bottom 18px made card bottom blank 34px vs top 16px; switch rows 12px padding made 2-line rows 62px vs menu rows 44px. */
+/* Settings card spacing 20261026 (real-device feedback: cards blank uneven, only spacing, no content, no other views): unify card padding, row height, card gap. Root causes fixed here: set-links margin-bottom 18px made card bottom blank 34px vs top 16px; switch rows 12px padding made 2-line rows 62px vs menu rows 44px. */
 #view-settings h2{margin-bottom:16px!important}
 #view-settings .card{padding:16px!important;margin-bottom:16px!important;margin-top:0!important}
 #view-settings .card + .card{margin-top:0!important}
@@ -2782,7 +3033,7 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
 #view-settings .switch-row{padding:4px 0!important;min-height:44px!important}
 </style>
 <style>
-/* Current plan card 20261026 (Tao Yu image style, tier name corrected 20261026: tier name NOT large bold, appropriate 16px regular weight, per Tao Yu correction; positioning gray, price promo large bold + standard gray strikethrough + note gray, founding gray, only current info, no buttons. Change plan drawer 20261026: expand/collapse with animation, not instant disappear. */
+/* Current plan card 20261026 (image style, tier name corrected 20261026: tier name NOT large bold, appropriate 16px regular weight, per correction; positioning gray, price promo large bold + standard gray strikethrough + note gray, founding gray, only current info, no buttons. Change plan drawer 20261026: expand/collapse with animation, not instant disappear. */
 #currentPlanCard .current-tier{font-size:16px!important;font-weight:400!important;line-height:1.2!important;margin:0 0 6px!important}
 #currentPlanCard .current-pos{color:var(--muted)!important;font-size:14px!important;line-height:1.45!important;margin:0 0 12px!important}
 #currentPlanCard .current-price{margin:0 0 8px!important;font-size:16px!important;line-height:1.4!important}
@@ -2799,8 +3050,9 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
 #upgradeCard .cp-body-inner{padding-top:12px!important}
 </style>
 <style>
-/* Drawer tier cards 20261026 (Tao Yu screenshot correction): 4 Pricing-style cards, no Upgrade button per card, tier name large bold (distinct from Current plan card regular tier name), promo + strikethrough same line, duration independent line, founding/meta each independent line gray, block spacing consistent, numbers/copy unchanged. Select card -> confirm button below selected card, tap confirm -> centered modal, modal Confirm -> demo toast (production checkout), two-step not merged. */
+/* Drawer tier cards 20261026 (screenshot correction): 4 Pricing-style cards, no Upgrade button per card, tier name large bold (distinct from Current plan card regular tier name), promo + strikethrough same line, duration independent line, founding/meta each independent line gray, block spacing consistent, numbers/copy unchanged. Select card -> confirm button below selected card, tap confirm -> centered modal, modal Confirm -> demo toast (production checkout), two-step not merged. */
 #upgradeCard .drawer-tier-card{display:block!important;width:100%!important;text-align:left!important;background:var(--bg)!important;border:1px solid var(--line)!important;border-radius:10px!important;padding:14px!important;margin-bottom:12px!important;cursor:pointer!important;color:var(--ink)!important;box-sizing:border-box!important}
+#upgradeCard .drawer-tier-card:disabled{background:#ddd!important;color:#777!important;border-color:#ddd!important;cursor:not-allowed!important}
 #upgradeCard .drawer-tier-card.selected{border-color:var(--skin-accent)!important;background:#fff8f0!important}
 #upgradeCard .dtc-tier{display:block!important;font-size:22px!important;font-weight:800!important;line-height:1.2!important;margin-bottom:6px!important}
 #upgradeCard .dtc-pos{display:block!important;color:var(--muted)!important;font-size:14px!important;line-height:1.45!important;margin-bottom:10px!important}
@@ -2838,7 +3090,7 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
 #cancelModal .modal-actions{display:flex!important;gap:8px!important;flex-wrap:wrap!important}
 </style>
 <script>
-/* Gesture 20261026 (Tao Yu order: gestures added back, only gestures changed, per gesture spec 20261026) */
+/* Gesture 20261026 (gestures added back, only gestures changed, per gesture spec 20261026) */
 /* 1. Subpage left-edge swipe back (start <=24px, follow, >1/3 width or speed >0.5 px/ms -> return, else rebound) */
 /* 2. Bottom nav left/right swipe switch (tabbar area only, content area does not switch, first/last rebound, no loop) */
 /* 3. More drawer drag half/full/close (handle or sheet non-interactive area, follow height, snap <25% close, >75% full, else direction, else nearest, no intermediate state) */
@@ -2964,5 +3216,329 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
 })();
 </script>
 <script>(function(){ var b=document.getElementById("planBackBtn"); if(!b) return; b.addEventListener("click", function(){ go(window.planReturn || "overview"); }); })();</script>
+
+<script>
+/* ============ P1 wiring 20261028: session layer + identity states + Connections ============
+   Contract: GET /auth/me {user_id,email,team_id,tier,subscription_status} (tier only from the
+   subscription row); POST /auth/logout clears the cookie (the HMAC token itself is not
+   revocable; signing out only returns the browser to the signed-out state);
+   GET /connections -> [{provider,status,account,credential_type,created_at}];
+   DELETE /connections/{provider}. 401 anywhere -> in-dashboard sign-in gate. */
+(function () {
+  var NAMES = { starter: 'Starter', growth: 'Growth', pro: 'Pro', teams: 'Teams' };
+  window.__p1 = { meLoaded: false, tier: null, status: null, email: null };
+  function $(id) { return document.getElementById(id); }
+  function showGate() { var g = $('sessionGate'); if (g) g.style.display = 'flex'; }
+  window.__p1ShowGate = showGate;
+  function setBadge(text) {
+    var mb = $('menuTierBadge'); if (mb) mb.textContent = text;
+    var tb = $('tierBadge'); if (tb) tb.textContent = text;
+  }
+  function applyPlanState(state) {
+    var cur = $('currentPlanCard'), cancel = $('cancelCard'), pd = $('planPastDueCard'), np = $('planNoPlanCard');
+    if (state === 'active') {
+      if (cur) cur.style.display = ''; if (cancel) cancel.style.display = '';
+      if (pd) pd.style.display = 'none'; if (np) np.style.display = 'none';
+    } else if (state === 'past_due') {
+      if (cur) cur.style.display = 'none'; if (cancel) cancel.style.display = 'none';
+      if (pd) pd.style.display = ''; if (np) np.style.display = 'none';
+    } else {
+      if (cur) cur.style.display = 'none'; if (cancel) cancel.style.display = 'none';
+      if (pd) pd.style.display = 'none'; if (np) np.style.display = '';
+    }
+  }
+  function applyMe(me) {
+    window.__p1.meLoaded = true;
+    window.__p1.email = me.email || null;
+    window.__p1.status = me.subscription_status || null;
+    var tierKey = me.tier ? String(me.tier).toLowerCase() : null;
+    if (!NAMES[tierKey]) tierKey = null;
+    window.__p1.tier = tierKey;
+    document.documentElement.dataset.skin = tierKey || 'starter';
+    var nameEl = document.querySelector('#acctMenu .acct-name');
+    if (nameEl && me.email) nameEl.textContent = me.email;
+    var meta = document.querySelector('#acctMenu .acct-meta');
+    if (meta) meta.querySelectorAll('span').forEach(function (s) { if (s.textContent.trim() === '(demo)') s.remove(); });
+    var state = tierKey ? 'active' : (me.subscription_status === 'past_due' ? 'past_due' : 'noplan');
+    setBadge(tierKey ? NAMES[tierKey].toUpperCase() : (state === 'past_due' ? 'PAST DUE' : 'NO PLAN'));
+    if (typeof window.syncGating === 'function') window.syncGating(tierKey);
+    applyPlanState(state);
+  }
+  window.__p1ApplyMe = applyMe;
+  fetch('/auth/me', { credentials: 'same-origin' })
+    .then(function (r) {
+      if (r.status === 401) { showGate(); return null; }
+      if (!r.ok) return null;
+      return r.json();
+    })
+    .then(function (me) { if (me) { applyMe(me); loadConns(false); } })
+    .catch(function () { /* offline or demo file: keep the shipped demo state */ });
+
+  var npBtn = $('noPlanCta');
+  if (npBtn) npBtn.addEventListener('click', function (e) {
+    if (e) e.stopPropagation(); /* the click lands outside #upgradeCard; keep its blank-tap collapse from closing what this opens */
+    var t = $('changePlanToggle');
+    if (t && t.getAttribute('aria-expanded') !== 'true') t.click();
+    var u = $('upgradeCard');
+    if (u) u.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  var pdBtn = $('pastDueBillingBtn');
+  if (pdBtn) pdBtn.addEventListener('click', function () { go('billing'); });
+
+  /* ---------------- Connections (real wiring) ---------------- */
+  var PROVIDERS = [
+    { key: 'search_console', name: 'Google Search Console', connectUrl: '/auth/google/login' },
+    { key: 'shopify', name: 'Shopify', connectUrl: '/auth/shopify/login' },
+    { key: 'woocommerce', name: 'WooCommerce', connectUrl: null },
+    { key: 'wix', name: 'Wix', connectUrl: null },
+    { key: 'squarespace', name: 'Squarespace', connectUrl: null }
+  ];
+  var connLoaded = false;
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function renderConns(list) {
+    var box = $('connRows'); if (!box) return;
+    var byKey = {};
+    (list || []).forEach(function (c) { if (c && c.provider) byKey[c.provider] = c; });
+    var linkStatus = $('connLinkStatus');
+    if (linkStatus) {
+      var nConn = (list || []).filter(function (c) { return c && c.status === 'connected'; }).length;
+      linkStatus.textContent = nConn === 0 ? 'No sources connected' : (nConn === 1 ? '1 source connected' : nConn + ' sources connected');
+    }
+    var html = '';
+    PROVIDERS.forEach(function (p) {
+      var c = byKey[p.key];
+      if (!c && !p.connectUrl) return; /* not-connected long-tail providers stay hidden: no fake buttons */
+      html += '<div class="switch-row"><div><b>' + p.name + '</b>';
+      if (c) {
+        html += '<p>Connected' + (c.account ? ' · ' + esc(c.account) : '') + (p.key === 'search_console' ? ' <span class="sample-tag">Sample</span>' : '') + '</p></div>';
+        html += '<button class="btn small ghost" type="button" data-disconnect="' + p.key + '">Disconnect</button>';
+      } else {
+        html += '<p class="muted">Not connected</p></div>';
+        html += '<button class="btn small" type="button" data-connect="' + p.key + '">Connect</button>';
+      }
+      html += '</div>';
+    });
+    box.innerHTML = html || '<div class="switch-row"><div><b>No data sources available</b></div></div>';
+    box.querySelectorAll('[data-connect]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var p = PROVIDERS.filter(function (x) { return x.key === b.dataset.connect; })[0];
+        if (p && p.connectUrl) window.location.href = p.connectUrl;
+      });
+    });
+    box.querySelectorAll('[data-disconnect]').forEach(function (b) {
+      b.addEventListener('click', function () { onDisconnect(b); });
+    });
+  }
+  function connError() {
+    var linkStatus = $('connLinkStatus');
+    if (linkStatus) linkStatus.textContent = "Couldn't load status";
+    var box = $('connRows'); if (!box) return;
+    box.innerHTML = '<div class="switch-row"><div><b>Connections could not be loaded</b><p class="muted">Check your connection and try again.</p></div><button class="btn small ghost" type="button" id="connRetry">Retry</button></div>';
+    var r = $('connRetry');
+    if (r) r.addEventListener('click', function () { loadConns(true); });
+  }
+  function onDisconnect(btn) {
+    if (btn.dataset.armed !== '1') {
+      btn.dataset.armed = '1';
+      btn.textContent = 'Tap again to confirm';
+      setTimeout(function () {
+        if (btn.isConnected && btn.dataset.armed === '1') { btn.dataset.armed = ''; btn.textContent = 'Disconnect'; }
+      }, 3000);
+      return;
+    }
+    var key = btn.dataset.disconnect;
+    btn.disabled = true;
+    btn.textContent = 'Disconnecting…';
+    fetch('/connections/' + encodeURIComponent(key), { method: 'DELETE', credentials: 'same-origin' })
+      .then(function (r) {
+        if (r.status === 401) { showGate(); return; }
+        if (!r.ok) throw new Error('http ' + r.status);
+        loadConns(true);
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.dataset.armed = '';
+        btn.textContent = 'Disconnect';
+        if (window.showToast) window.showToast('Could not disconnect. Try again.');
+      });
+  }
+  function loadConns(force) {
+    if (connLoaded && !force) return;
+    connLoaded = true;
+    fetch('/connections', { credentials: 'same-origin' })
+      .then(function (r) {
+        if (r.status === 401) { showGate(); throw new Error('unauthorized'); }
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.json();
+      })
+      .then(function (list) { renderConns(Array.isArray(list) ? list : []); })
+      .catch(function (e) { if (!e || e.message !== 'unauthorized') connError(); });
+  }
+  var connView = $('view-connections');
+  if (connView) {
+    new MutationObserver(function () {
+      if (connView.classList.contains('active')) loadConns(false);
+    }).observe(connView, { attributes: true, attributeFilter: ['class'] });
+    if (connView.classList.contains('active')) loadConns(false);
+  }
+})();
+</script>
+<style>
+/* naming batch: tool info ("?") cards — content lives in TOOL_INFO (single source, shared with the tool first-run guide) */
+.tool-info-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 6px; vertical-align: 2px; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; color: var(--ink-2); font-size: 12px; font-weight: 700; line-height: 1; cursor: pointer; padding: 0; }
+.tool-info-btn:hover { border-color: var(--ink-2); }
+.tool-info-overlay { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(20, 21, 25, .45); }
+.tool-info-overlay[hidden] { display: none; }
+.tool-info-card { width: min(360px, 90vw); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--bg-raise); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 20px; }
+.tool-info-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.tool-info-head h3 { margin: 0; font-size: 17px; }
+.tool-info-q { margin: 2px 0 0; font-size: 14px; font-weight: 600; color: var(--accent-deep); }
+.tool-info-close { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 17px; height: 17px; padding: 0; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; color: var(--ink-2); line-height: 0; cursor: pointer; position: relative; } .tool-info-close::after { content: ""; position: absolute; inset: -4.5px; border-radius: 50%; } .tool-info-close svg { display: block; }
+.tool-info-card h4 { margin: 16px 0 4px; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.tool-info-card p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+.tool-info-card ol { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+</style>
+<div class="tool-info-overlay" id="toolInfoOverlay" hidden>
+  <div class="tool-info-card" role="dialog" aria-modal="true" aria-labelledby="toolInfoTitle">
+    <div class="tool-info-head"><div><h3 id="toolInfoTitle"></h3><p class="tool-info-q" id="toolInfoQ" hidden></p></div><button type="button" class="tool-info-close" id="toolInfoClose" aria-label="Close"><svg width="7" height="7" viewBox="0 0 11 11" aria-hidden="true"><path d="M1.6 1.6 L9.4 9.4 M9.4 1.6 L1.6 9.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg></button></div>
+    <h4>What it does</h4><p id="toolInfoWhat"></p>
+    <h4>How to use</h4><ol id="toolInfoHow"></ol>
+    <h4>You get</h4><p id="toolInfoGet"></p>
+  </div>
+</div>
+<script>
+/* Tool info cards: TOOL_INFO is the single content source for the "?" cards and the tool first-run guide. Copy: product-finalised 20261028. */
+var TOOL_INFO = {
+  impact:    { name: "Impact tracker", q: "Did it work?",
+    what: "You fixed a page three weeks ago. Did AI notice? Impact tracker re-runs your tracked questions, removes natural fluctuation, and shows the change for that fix — with the evidence attached.",
+    how: ["Mark a fix as done.", "We re-run your tracked questions.", "Read the change — and what it's based on."],
+    get: "A one-page before/after view, with the noise taken out." },
+  checkup:   { name: "Page checkup", q: "",
+    what: "Your pages exist, but AI answers pass them by. Page checkup reads each page the way AI does, finds what's missing, and writes the fix as a brief.",
+    how: ["Run the checkup.", "Review up to 3 priority fixes, with before/after lines.", "Hand the brief to your writer."],
+    get: "A brief your writer can execute without learning GEO." },
+  citations: { name: "Win citations", q: "",
+    what: "The sources AI cites for your rivals but not for you, ranked by gap value, with outreach drafts.",
+    how: ["Review your gap list.", "Send or customise a draft.", "Track replies in the same list."],
+    get: "A worked list, not a template graveyard." },
+  readiness: { name: "AI readiness", q: "Can AI read your site?",
+    what: "An AI-readiness check of the technical basics — crawler access, your llms.txt, structured data.",
+    how: ["Run the check.", "Copy the one-line brief and template to your developer.", "Re-run to confirm."],
+    get: "The fixes, in a form your developer can act on directly." },
+  mention:   { name: "Fix a bad mention", q: "",
+    what: "Start here when an alert flags a negative mention about your brand, or when you spot AI telling customers something untrue. You get the one-page response: fix the source, publish the correction, and re-check.",
+    how: ["Open it from an alert.", "Work the checklist.", "Watch the re-check status."],
+    get: "The exact next step, not a manual." },
+  llms:      { name: "llms.txt generator", q: "",
+    what: "Makes the small file that tells AI what your site is about, and checks it for you.",
+    how: ["Confirm your site basics.", "Generate the file.", "Put it at your site root and verify."],
+    get: "A valid llms.txt, confirmed live." },
+  history:   { name: "Answer history", q: "",
+    what: "Answers change silently. Answer history keeps every run, so you can compare any two dates word for word.",
+    how: ["Pick a question.", "Pick two dates.", "Read the diff."],
+    get: "any two runs, side by side, word for word." },
+  says:      { name: "What AI says about you", q: "",
+    what: "Being mentioned isn't enough if AI describes you wrongly. This tool checks AI's claims against the facts you approve, and flags conflicts with the source attached.",
+    how: ["Approve your key facts.", "Review flagged claims.", "Fix the source \u2014 or mark it accurate."],
+    get: "a list of what's wrong, each item linked to its source." },
+  radar:     { name: "Question radar", q: "",
+    what: "Your tracked questions go stale. Question radar surfaces new ones \u2014 from your own Search Console queries and live answer signals \u2014 and suggests what to add.",
+    how: ["Review candidates and their sources.", "Add the ones that fit.", "We version the set, so scores stay comparable."],
+    get: "new questions worth tracking, each with its source shown." },
+  mcp:       { name: "MCP access (read-only)", q: "",
+    what: "Your scores live here; your work happens in ChatGPT or Claude. MCP access lets those tools read your CitMark data \u2014 questions, answers, citations \u2014 without exporting files.",
+    how: ["Connect from your AI tool.", "Authorise read-only access.", "Ask about your own data in the chat."],
+    get: "your visibility data, answered inside the tools you already use." }
+};
+(function () {
+  var overlay = document.getElementById("toolInfoOverlay");
+  var lastBtn = null;
+  function openInfo(key, btn) {
+    var info = TOOL_INFO[key]; if (!info || !overlay) return;
+    lastBtn = btn;
+    document.getElementById("toolInfoTitle").textContent = info.name;
+    var q = document.getElementById("toolInfoQ");
+    q.hidden = !info.q; q.textContent = info.q || "";
+    document.getElementById("toolInfoWhat").textContent = info.what;
+    document.getElementById("toolInfoHow").innerHTML = info.how.map(function (step) { var li = document.createElement("li"); li.textContent = step; return li.outerHTML; }).join("");
+    document.getElementById("toolInfoGet").textContent = info.get;
+    overlay.hidden = false;
+    document.getElementById("toolInfoClose").focus();
+  }
+  function closeInfo() {
+    overlay.hidden = true;
+    if (lastBtn) lastBtn.focus();
+  }
+  document.querySelectorAll("[data-tool-info]").forEach(function (btn) {
+    btn.addEventListener("click", function () { openInfo(btn.getAttribute("data-tool-info"), btn); });
+  });
+  document.getElementById("toolInfoClose").addEventListener("click", closeInfo);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) closeInfo(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !overlay.hidden) closeInfo(); });
+})();
+</script>
+<script>
+/* Toolkit UI demo (20261027): preview-tier numbers + state preview + demo toast. Sample figures only, never live enforcement. */
+(function () {
+  var TIER = {
+    starter: { name: 'Starter', qCap: 1317, cCap: 15.89, pq: 0.0121, breaker: 1368, qUse: 812, cUse: 9.83 },
+    growth: { name: 'Growth', qCap: 3318, cCap: 42.02, pq: 0.0127, breaker: 3426, qUse: 2104, cUse: 26.72 },
+    pro: { name: 'Pro', qCap: 7835, cCap: 109.93, pq: 0.0140, breaker: 8202, qUse: 5207, cUse: 72.90 },
+    teams: { name: 'Teams', qCap: 9070, cCap: 143.17, pq: 0.0158, breaker: 11235, qUse: 6102, cUse: 96.41 }
+  };
+  var cur = { tier: 'starter', state: 'normal' };
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  function money(n) { return n.toFixed(2); }
+  function render() {
+    var t = TIER[cur.tier];
+    var qUse = t.qUse, cUse = t.cUse;
+    var status = document.getElementById('tkP0Status');
+    var reason = document.getElementById('tkP0Reason');
+    var run = document.getElementById('tkRunBtn');
+    if (cur.state === 'near') {
+      qUse = Math.round(t.qCap * 0.95); cUse = +(t.cCap * 0.95).toFixed(2);
+      status.textContent = 'Near limit'; status.className = 'tk-badge-warn';
+      reason.textContent = 'Approaching the questions cap \u2014 the next re-run may be refused once the cap is reached.';
+      run.disabled = false;
+    } else if (cur.state === 'reached') {
+      qUse = t.qCap; cUse = t.cCap;
+      status.textContent = 'Stopped \u2014 quota reached'; status.className = 'tk-badge-stop';
+      reason.textContent = 'Re-run refused: the questions cap for this tier was reached. No partial results are produced.';
+      run.disabled = true;
+    } else if (cur.state === 'breaker') {
+      status.textContent = 'Stopped \u2014 account limit'; status.className = 'tk-badge-stop';
+      reason.textContent = 'The account-wide question limit was reached (' + fmt(t.breaker) + ' questions). Re-runs are paused for this account.';
+      run.disabled = true;
+    } else {
+      status.textContent = 'Available'; status.className = 'badge-ok';
+      reason.textContent = 'Within quota. Re-runs run normally.';
+      run.disabled = false;
+    }
+    document.getElementById('tkQUsed').textContent = fmt(qUse);
+    document.getElementById('tkQCap').textContent = fmt(t.qCap);
+    document.getElementById('tkQBar').style.width = Math.min(100, Math.round(qUse / t.qCap * 100)) + '%';
+    document.querySelectorAll('.tk-teams-state').forEach(function (el) {
+      if (cur.tier === 'teams') { el.textContent = 'Available'; el.className = 'badge-ok tk-teams-state'; }
+      else { el.textContent = 'Locked \u00b7 Requires Teams'; el.className = 'tk-badge-lock tk-teams-state'; }
+    });
+  }
+  
+  document.querySelectorAll('[data-tk-state]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-tk-state]').forEach(function (x) { x.classList.toggle('active', x === b); });
+      cur.state = b.dataset.tkState; render();
+    });
+  });
+  var runBtn = document.getElementById('tkRunBtn');
+  if (runBtn) runBtn.addEventListener('click', function () {
+    if (window.showToast) window.showToast('Demo preview \u2014 re-run is not connected yet.');
+  });
+  render();
+})();
+</script>
 </body>
 </html>
