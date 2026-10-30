@@ -349,6 +349,7 @@ form.addEventListener("submit", function (ev) {
         e.status = r.status;
         e.detail = body && body.detail;
         e.limit = body && body.limit;
+        e.verificationSent = body ? body.verification_sent : undefined;
         throw e;
       }, function () {
         var e2 = new Error("HTTP " + r.status);
@@ -359,7 +360,7 @@ form.addEventListener("submit", function (ev) {
     return r.json();
   }).then(function (body) {
     if (body && (body.detail === "email_verification_required" || body.status === "email_verification_required")) {
-      showGate(values.email);
+      showGate(values.email, body.verification_sent);
       form.reset();
       return;
     }
@@ -372,7 +373,7 @@ form.addEventListener("submit", function (ev) {
   }).catch(function (err) {
     var detail = ((err && err.detail) || "").toString();
     if (detail === "email_verification_required") {
-      showGate(values.email);
+      showGate(values.email, err.verificationSent);
       return;
     }
     var copy;
@@ -402,11 +403,17 @@ form.addEventListener("submit", function (ev) {
   });
 });
 
-function showGate(email) {
-  document.getElementById("stateOk").innerHTML =
-    "<b>One more step — verify your email.</b> We sent a verification link to " +
-    escapeHtml(email) + ". Click it to start your snapshot. The link expires in 24 hours.";
-  document.getElementById("stateOk").classList.add("show");
+function showGate(email, verificationSent) {
+  if (verificationSent === true) {
+    document.getElementById("stateOk").innerHTML =
+      "<b>One more step — verify your email.</b> We sent a verification link to " +
+      escapeHtml(email) + ". Click it to start your snapshot. The link expires in 24 hours.";
+    document.getElementById("stateOk").classList.add("show");
+    return;
+  }
+  document.getElementById("stateErr").innerHTML =
+    "<b>We couldn't send the verification email just now</b> — please wait a moment and submit again.";
+  document.getElementById("stateErr").classList.add("show");
 }
 
 function escapeHtml(s) {
