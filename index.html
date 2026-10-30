@@ -951,11 +951,11 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <!-- 原 H1（已上线版本）：When buyers ask AI, does it name you — or your competitors? -->
           <h1>See why AI recommends your <span class="hl">competitors</span> — not you.</h1>
           <p class="hero-sub">CitMark checks ChatGPT, Perplexity, Gemini and Claude every week and tells you — in plain English — whether your site gets mentioned, gets cited, or gets skipped. Then it tells you exactly what to fix.</p>
-          <form class="waitlist" data-waitlist data-source="hero" novalidate>
+          <form class="waitlist" data-register data-source="hero" novalidate>
             <label class="mono" style="position:absolute;left:-9999px" for="email-hero">Work email</label>
             <input id="email-hero" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
             <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button class="btn" type="submit">Join the waitlist</button>
+            <button class="btn" type="submit">Create your free account</button>
           </form>
           <p class="form-msg" role="status"></p>
           <p class="form-note">Founding pricing — <strong>50% off for 12 months</strong> — is limited to the <strong>first 50 founding members</strong>. One email at launch, no spam, ever. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
@@ -1051,11 +1051,11 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
               <p>Join the waitlist — founding members lock in 50% off for 12 months. First 50 members only.</p>
             </div>
             <div class="inline-cta-form">
-              <form class="waitlist" data-waitlist data-source="inline" novalidate>
+              <form class="waitlist" data-register data-source="inline" novalidate>
                 <label style="position:absolute;left:-9999px" for="email-inline">Work email</label>
                 <input id="email-inline" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
                 <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                <button class="btn" type="submit">Join the waitlist</button>
+                <button class="btn" type="submit">Create your free account</button>
               </form>
               <p class="form-msg" role="status"></p>
               <p class="consent">By joining, you agree to receive one launch email from CitMark. No spam, unsubscribe anytime. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
@@ -1280,11 +1280,11 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="final reveal">
             <h2>Find out what AI says about you — before your competitors do.</h2>
             <p>Join the waitlist for first access and founding pricing at 50% off for 12 months — for the first 50 founding members only. One email when we launch. That's it.</p>
-            <form class="waitlist" data-waitlist data-source="bottom" novalidate style="margin-top: 26px;">
+            <form class="waitlist" data-register data-source="bottom" novalidate style="margin-top: 26px;">
               <label style="position:absolute;left:-9999px" for="email-final">Work email</label>
               <input id="email-final" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
               <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-              <button class="btn" type="submit">Join the waitlist</button>
+              <button class="btn" type="submit">Create your free account</button>
             </form>
             <p class="form-msg" role="status"></p>
             <p class="consent">By joining, you agree to receive one launch email from CitMark. No spam, unsubscribe anytime. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
@@ -1301,6 +1301,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <p>AI search visibility monitoring for small sites.</p>
           <p>CitMark is in private preview — founding members join the waitlist above.</p>
           <p>Contact: <a href="mailto:support@citmark.com">support@citmark.com</a></p>
+          <p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p>
         </div>
         <nav class="foot-nav" aria-label="Product">
           <p class="foot-h">Product</p>
@@ -1438,15 +1439,12 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           });
         }
 
-        document.querySelectorAll("form[data-waitlist]").forEach(function (form) {
+        document.querySelectorAll("form[data-register]").forEach(function (form) {
           var input = form.querySelector('input[type="email"]');
-          var honeypot = form.querySelector('input[name="website"]');
           var btn = form.querySelector('button[type="submit"]');
           var msg = form.parentElement.querySelector(".form-msg") || form.nextElementSibling;
-          var sending = false;
           form.addEventListener("submit", function (ev) {
             ev.preventDefault();
-            if (sending) return;
             var email = (input.value || "").trim();
             msg.className = "form-msg";
             msg.textContent = "";
@@ -1458,45 +1456,14 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
               return;
             }
             input.removeAttribute("aria-invalid");
-            sending = true;
-            btn.disabled = true;
-            var source = pendingSource || form.getAttribute("data-source") || "hero";
-            pendingSource = null;
-            function done(okText) {
-              sending = false;
-              btn.disabled = false;
-              msg.textContent = okText;
-              msg.classList.add("show", "ok");
-              input.value = "";
-            }
-            function failed() {
-              sending = false;
-              btn.disabled = false;
-              msg.textContent = "Something went wrong — please try again.";
-              msg.classList.add("show", "err");
-            }
-            postToSheet({
-              email: email,
-              source: source,
-              page: location.href,
-              website: honeypot ? honeypot.value : ""
-            }).then(function (result) {
-              if (result === "duplicate") {
-                done("You're already on the list — we'll be in touch.");
-              } else {
-                /* "added" and "ignored" (honeypot) both show the normal success state */
-                done("You're on the list! We'll email you at " + email + " when we launch.");
-              }
-            }).catch(function () {
-              postToFormSubmit(email).then(function () {
-                done("You're on the list! We'll email you at " + email + " when we launch.");
-              }).catch(failed);
-            });
-          });
-          input.addEventListener("input", function () {
-            input.removeAttribute("aria-invalid");
-            msg.className = "form-msg";
-            msg.textContent = "";
+            /* Register bridge (merged base): open the auth card, switch it to its
+               register state, and carry the email into the card's email field. */
+            var loginBtn = document.querySelector(".topbar-in .topbar-auth") || document.querySelector("[data-auth-open]");
+            if (loginBtn) { loginBtn.click(); }
+            var toggle = document.getElementById("authCardModeToggle");
+            if (toggle && toggle.textContent.trim() === "Sign up") { toggle.click(); }
+            var cardEmail = document.getElementById("authCardLoginEmail");
+            if (cardEmail) { cardEmail.value = email; }
           });
         });
 
@@ -2351,7 +2318,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           if (submitBtn) submitBtn.setAttribute("aria-disabled", "true");
           showMsg("", false);
           var url = authMode === "register" ? "https://citmark.com/auth/register" : "https://citmark.com/auth/login";
-          fetch(url, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email, password: password }) })
+          fetch(url, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify(authMode === "register" && (window.__pendingTier || (function () { try { return sessionStorage.getItem("citmark_pending_tier"); } catch (e) { return null; } })()) ? { email: email, password: password, tier: window.__pendingTier || sessionStorage.getItem("citmark_pending_tier") } : { email: email, password: password }) })
             .then(function (resp) {
               if (resp.ok) { window.location.href = "https://citmark.com/dashboard/"; return null; }
               return resp.json().catch(function () { return null; }).then(function (body) {
