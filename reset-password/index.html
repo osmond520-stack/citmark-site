@@ -55,6 +55,7 @@ a.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:10p
 <script>
 (function () {
   var RESET_CONSUME_URL = "https://citmark.com/auth/reset-password";
+  var INTROSPECT_URL = "https://citmark.com/auth/reset-password/introspect";
   var token = new URLSearchParams(window.location.search).get("token");
   var formWrap = document.getElementById("resetFormWrap");
   var invalid = document.getElementById("resetInvalid");
@@ -64,18 +65,49 @@ a.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:10p
   var btn = document.getElementById("resetSubmit");
   function showMsg(t) { msg.textContent = t || ""; msg.hidden = !t; }
   function showInvalid() { formWrap.hidden = true; done.hidden = true; invalid.hidden = false; }
-  if (!token) { showInvalid(); return; }
+  function showDone() { formWrap.hidden = true; invalid.hidden = true; done.hidden = false; }
+  var doneFlag = false;
+  try { doneFlag = window.sessionStorage.getItem("citmark_reset_done") === "1"; } catch (e) {}
+  if (!token) { if (doneFlag) { showDone(); } else { showInvalid(); } return; }
+  // Introspect before showing the form: a dead or used link lands on the invalid
+  // state directly. An introspection failure keeps the form (never kill a live link).
+  formWrap.hidden = true;
+  // Introspection timeout: the probe is aborted after 4s; the abort lands in the
+  // catch below, which releases the form, so a hung probe can never blank-page a
+  // live link. After an abort, no late probe result can change the view.
+  var introCtrl = window.AbortController ? new AbortController() : null;
+  var introTimer = setTimeout(function () { if (introCtrl) { introCtrl.abort(); } }, 4000);
+  fetch(INTROSPECT_URL, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: token }), signal: introCtrl ? introCtrl.signal : undefined })
+    .then(function (resp) {
+      clearTimeout(introTimer);
+      if (!resp.ok) { formWrap.hidden = false; return null; }
+      return resp.json().catch(function () { return null; }).then(function (body) {
+        if (body && body.valid === false) { showInvalid(); }
+        else { formWrap.hidden = false; }
+      });
+    })
+    .catch(function () { clearTimeout(introTimer); formWrap.hidden = false; });
+  var latched = false;
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
+    if (latched) { return; }
     var pw1 = document.getElementById("resetPw1").value;
     var pw2 = document.getElementById("resetPw2").value;
     if (!pw1) { showMsg("Enter a new password — at least 10 characters, with a letter and a number."); return; }
     if (pw1 !== pw2) { showMsg("Passwords don't match."); return; }
+    latched = true;
     btn.disabled = true;
     showMsg("");
     fetch(RESET_CONSUME_URL, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: token, password: pw1 }) })
       .then(function (resp) {
-        if (resp.ok) { formWrap.hidden = true; invalid.hidden = true; done.hidden = false; return null; }
+        if (resp.ok) {
+          // Success latch: the form stays latched and the button stays disabled,
+          // so no later submit can POST again and overwrite this state.
+          try { window.sessionStorage.setItem("citmark_reset_done", "1"); } catch (e) {}
+          try { window.history.replaceState(null, "", window.location.pathname); } catch (e) {}
+          showDone();
+          return null;
+        }
         return resp.json().catch(function () { return null; }).then(function (body) {
           var detail = body && body.detail ? String(body.detail) : "";
           if (resp.status === 400 && detail.indexOf("Password") === 0) { showMsg(detail); }
@@ -85,7 +117,7 @@ a.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:10p
         });
       })
       .catch(function () { showMsg("Something went wrong. Please try again."); })
-      .then(function () { btn.disabled = false; });
+      .then(function () { if (done.hidden) { latched = false; btn.disabled = false; } });
   });
 })();
 </script>
