@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motion intensity — baseline / A / B / C (2026-10-30)</title>
+<style>
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;margin:0;padding:28px 20px 60px;background:#f7f4ee;color:#17191c}
+main{max-width:860px;margin:0 auto}
+h1{font-size:24px;margin:0 0 6px} h2{font-size:17px;margin:26px 0 8px}
+p,li{font-size:14px;line-height:1.65;color:#45413a}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid #ddd5c6;padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#efe9dd}
+code{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+a{color:#c24e21}
+.small{font-size:12.5px;color:#6f6a5f}
+</style></head><body><main>
+<h1>动效强度四版对比（基线＋A/B/C）· 2026-10-30 · r3（重量更正版）</h1>
+<p>共同基底＝触发修版 v2：IO 唯一播放路径、待播态置位、自动版滚动同步巡演、手动版 Play 门控、首屏装载即播（映射表 r5／触发总则沿 r4）。四版终态截图除 C 外一致——强度差在过程里，请开 demo 慢滚验。S4 区终态图存 <code>citmark-screenshots/motion-intensity-20261030/</code>。</p>
+
+<h2>版本与文件（新文件名，基底 preview17 未动）</h2>
+<table>
+<tr><th>版</th><th>自动版</th><th>手动版</th><th>手法一句话</th></tr>
+<tr><td>基线（v2 现行）</td><td><a href="homepage-motion-full-auto-v2-20261030.html">auto</a> <code>04d56283</code></td><td><a href="homepage-motion-full-manual-v2-20261030.html">manual</a> <code>6ce4e01b</code></td><td>240/480/900、计数 900 与行揭示同时进行</td></tr>
+<tr><td>A 数据成形</td><td><a href="homepage-motionA-auto-r2-20261030.html">auto</a> <code>aeba7d14</code></td><td><a href="homepage-motionA-manual-r2-20261030.html">manual</a> <code>675aa925</code></td><td>计数 1500、环扫 1400、条 1200；S4 序贯成形（行先落、+550ms 起数）</td></tr>
+<tr><td>B 编排升入</td><td><a href="homepage-motionB-auto-r2-20261030.html">auto</a> <code>4a996929</code></td><td><a href="homepage-motionB-manual-r2-20261030.html">manual</a> <code>3f4d9539</code></td><td>入场 720ms、位移 22px、错峰 130/200，整节成波</td></tr>
+<tr><td>C 描绘强调</td><td><a href="homepage-motionC-auto-r4-20261030.html">auto</a> <code>42e9c833</code></td><td><a href="homepage-motionC-manual-r4-20261030.html">manual</a> <code>22f23cc6</code></td><td>分数条描填（真值宽）、节题强调线、卡顶色带、环扫尾光点</td></tr>
+</table>
+
+<h2>设计五维评分</h2>
+<table>
+<tr><th>版</th><th>被发现度（/5 · 判断量表非实测）</th><th>专业克制</th><th>气质契合</th><th>红线合规</th><th>重量 gzip（锚 2,215 · QA 复算）</th></tr>
+<tr><td>基线</td><td>3</td><td>92</td><td>90</td><td>100</td><td>2,215</td></tr>
+<tr><td>A</td><td>4</td><td>86</td><td>90</td><td>100</td><td>≈2,266（+52）</td></tr>
+<tr><td>B</td><td>4</td><td>76</td><td>78</td><td>96</td><td>≈2,244（+30）</td></tr>
+<tr><td>C</td><td>5</td><td>82</td><td>84</td><td>94</td><td>≈3,291（+1,077）</td></tr>
+</table>
+<p><b>被发现度量表</b>（设计判断、非实测；主分给下半页数据面 S4/S5/S7）：5＝慢滚经过无需提醒即注意到（跨度 ≥1.2s／≥3 元素序贯／有描绘事件任一）；4＝正看该面时注意到；3＝只注意到最大元素；2＝只觉变了一下；1＝等于没动。QA 将以 390/1280 慢滚逐面「看得见」实测与此对位。</p>
+<ul>
+<li><b>基线 3</b>：计数与行揭示同时糊过，分数变化常被错过——正是他真机说「下面数据不容易发现」的形态。</li>
+<li><b>A 4</b>：S4 数据时刻被拉长到 2 秒级且序贯分段，注意力被分步牵引；S5/S7 与基线同（未加重），故不到 5。</li>
+<li><b>B 4</b>：长节成波最易被余光捕获（S5/S7 收益最大）；但数据时刻本身没变长，S4 仍靠计数 900 收尾。</li>
+<li><b>C 5</b>：整张表多了一轮「画出来」的事件＋节题线＋卡顶带同时存在，下半页不可能全错过。</li>
+<li><b>克制</b>：B 最低——720ms＋22px 全站皆然，长表错峰尾长（130×8≈1s+），最接近「演」；A 的 1500ms 计数偏长但只在数据面、且只播一次；C 终态安静，扣分在分数条与数字双重编码的轻微冗余。</li>
+<li><b>红线</b>：三版三红线（终值真／零布局位移／价格不数）均不破。B 扣 4：22px 为 transform 位移不占版式，但入场瞬间与相邻元素有视觉重叠。C 扣 6：含视觉内容新增（分数条、强调线、色带）——其中强调线使节题区静态增高约 13px/处，分数条与色带为绝对定位零占位；此项已声明、待他裁。</li>
+<li><b>重量口径（r3 更正）</b>：增量以生产形态（eval 式）实测、<b>分件 gzip 求和</b>——A +52／B +30／C +1,077（对设计锚 2,214；对 QA 复算锚 2,215 各 −1，绝对值 A ≈2,266／B ≈2,244／C ≈3,291）。初版 +10／+5／+688 系演示层提取漏计变体 CSS、已作废勿引。胜出版由技术另测最终数。</li>
+</ul>
+<p><b>r2/r3 修订注记（2026-10-30）</b>：A/B 已并入 S3 锚点修复（r2，参数未动）；C 经 r3（环扫尾光点改懒创建）再升 r4（并入 reduced-motion 修：分数条/色带/强调线在 reduced 下静态终态、条落真值宽；自验两项均过、异常 0；QA 一并复验中）。<b>C 版如实披露一项</b>：7 条节题强调线中 3 条（report 次头、features、faq）在演示巡演里不描入——这三节没有演示触发面，生产层 IO 下进入视口可自描；但 +约13px/处的静态版式成本这三处照付。若介意，可在落版时只给有触发面的节装线。</p>
+<p class="small">自验（412 档）：A 计数时序实测（Play 后 1.5s 分数 58.7 中途值、3.3s 落 66.7）；B 入场参数实测（0.72s／待播位移 22px）；C 注入实测（分数条 8 条、首条宽 66.7%＝真值、播放后填充 scaleX 达 1、色带 4/4 描入、异常 0）。S3 光点随成功态同沙箱限制、待 QA 桩验环境对位。结论空着。</p>
+</main></body></html>
