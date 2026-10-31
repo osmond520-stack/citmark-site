@@ -407,7 +407,7 @@ function showGate(email, verificationSent) {
   if (verificationSent === true) {
     document.getElementById("stateOk").innerHTML =
       "<b>One more step — verify your email.</b> We sent a verification link to " +
-      escapeHtml(email) + ". Clicking it confirms your email — then come back here and submit the form again to start your snapshot. The link expires in 24 hours.";
+      escapeHtml(email) + ". Click it to start your snapshot. The link expires in 24 hours.";
     document.getElementById("stateOk").classList.add("show");
     return;
   }
