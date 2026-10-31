@@ -416,6 +416,117 @@ function showGate(email, verificationSent) {
   document.getElementById("stateErr").classList.add("show");
 }
 
+
+/* ============ Landing resume (frozen contract 2026-10-31, incl. section 5 cookie delivery) ============
+   Delivery: verify 302 lands here cookie-first (citmark_resume, JS-readable);
+   ?verified=1 = verified-no-pending signal; ?verify=invalid = bad link.
+   Page states: starting / done / run_failed / pool_full / link_invalid / verified.
+   Landing copy finalized by product 2026-10-31 (seven sentences verbatim, incl. poll-timeout). */
+var RESUME_API_URL = "https://citmark-backend-216307200415.asia-northeast1.run.app/snapshots/free/resume";
+var RESUME_STATUS_URL = RESUME_API_URL + "/status";
+function landingQuery() {
+  try { return new URLSearchParams(window.location.search); } catch (e) { return null; }
+}
+function landingCookieHandle() {
+  var m = document.cookie.match(/(?:^|; )citmark_resume=([^;]*)/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+function landingClearCookie() {
+  document.cookie = "citmark_resume=; Path=/; Max-Age=0; SameSite=Lax; Secure";
+}
+function landingStore(key, val) {
+  try { if (val === null) { sessionStorage.removeItem(key); } else { sessionStorage.setItem(key, val); } } catch (e) {}
+}
+function landingRead(key) { try { return sessionStorage.getItem(key); } catch (e) { return null; } }
+function landingShow(box, html) {
+  var other = box === "stateOk" ? "stateErr" : "stateOk";
+  document.getElementById(other).classList.remove("show");
+  var el = document.getElementById(box);
+  el.innerHTML = html;
+  el.classList.add("show");
+  if (el.scrollIntoView) { try { el.scrollIntoView({ block: "center" }); } catch (e) {} }
+}
+function landingDone(brand, email) {
+  landingStore("citmark_resume_handle", null);
+  var b = brand ? escapeHtml(brand) : "your brand";
+  var tail = email ? " \u2014 your report is on its way to " + escapeHtml(email) + "." : " \u2014 your report is on its way.";
+  landingShow("stateOk", "<b>Snapshot requested.</b> We are running the check for " + b + tail);
+}
+function landingInvalid() {
+  landingStore("citmark_resume_handle", null);
+  landingShow("stateErr", "That verification link can't be used \u2014 it may have expired or already been used. You can submit the form again from here.");
+}
+function landingHandleInvalid() {
+  landingStore("citmark_resume_handle", null);
+  landingStore("citmark_resume_claimed", null);
+  landingShow("stateErr", "That start session timed out. Your email is verified, so submit the form and your snapshot will run.");
+}
+function landingFailed() {
+  landingStore("citmark_resume_handle", null);
+  landingShow("stateErr", "Your email is verified \u2014 but starting your snapshot failed on our side. Submit the form once more and it will run.");
+}
+function landingPool(body) {
+  var html = "Your email is verified \u2014 but today's free runs are full. Join the waitlist and we'll start your snapshot as soon as a slot opens.";
+  if (body && body.exit === "plans") { html += " <a href=\"/pricing\">See plans</a>."; }
+  landingShow("stateErr", html);
+}
+function pollResumeStatus(handle, tries) {
+  fetch(RESUME_STATUS_URL + "?handle=" + encodeURIComponent(handle), { method: "GET" })
+    .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }, function () { return { ok: r.ok, body: null }; }); })
+    .then(function (res) {
+      if (!res.ok) { landingHandleInvalid(); return; }
+      var st = res.body && res.body.status;
+      if (st === "done") { landingDone(null, null); return; }
+      if (st === "failed") { landingFailed(); return; }
+      if (st === "pool_deferred") { landingPool(null); return; }
+      if (st === "pending" && !landingRead("citmark_resume_claimed")) { postResume(handle); return; }
+      if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; }
+      landingShow("stateOk", "Your email is verified \u2014 your snapshot is taking longer than usual to start, so this page has stopped waiting. If it completes, your report will arrive as normal; if nothing shows up, submit the form once more and it will run right away.");
+    })
+    .catch(function () {
+      if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; }
+      landingFailed();
+    });
+}
+function postResume(handle) {
+  landingStore("citmark_resume_claimed", "1");
+  landingShow("stateOk", "Your email is verified \u2014 starting your snapshot now. Keep this page open; it starts automatically.");
+  var sent = fetch(RESUME_API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ resume_handle: handle })
+  });
+  landingClearCookie();
+  sent.then(function (r) {
+    return r.json().then(function (body) { return { status: r.status, body: body }; }, function () { return { status: r.status, body: null }; });
+  }).then(function (res) {
+    var body = res.body || {};
+    if (res.status === 201) { landingStore("citmark_resume_claimed", null); landingDone(body.brand_name || body.brand_domain, body.email); return; }
+    if (res.status === 409) { pollResumeStatus(handle, 48); return; }
+    if (res.status === 502) { landingStore("citmark_resume_claimed", null); landingFailed(); return; }
+    if (res.status === 429) { landingStore("citmark_resume_claimed", null); landingPool(body); return; }
+    if (res.status === 400) { landingHandleInvalid(); return; }
+    landingStore("citmark_resume_claimed", null); landingFailed();
+  }).catch(function () { landingStore("citmark_resume_claimed", null); landingFailed(); });
+}
+(function initLanding() {
+  var q = landingQuery();
+  if (q && q.get("verify") === "invalid") { landingInvalid(); return; }
+  if (q && q.get("verified") === "1") {
+    landingShow("stateOk", "Your email is verified. Submit the form and your snapshot will start right away.");
+    return;
+  }
+  var handle = landingCookieHandle();
+  if (handle) {
+    landingStore("citmark_resume_handle", handle);
+    landingStore("citmark_resume_claimed", null);
+    postResume(handle);
+    return;
+  }
+  var stored = landingRead("citmark_resume_handle");
+  if (stored) { pollResumeStatus(stored, 48); }
+})();
+
 function escapeHtml(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
