@@ -3133,29 +3133,55 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
     return cur ? cur.id.replace('view-', '') : '';
   }
   var sx = 0, sy = 0, st = 0, leftEdge = false, tabSwipe = false, drawerDrag = false, dragY = 0, dragH = 0, dragDir = 0;
+  var dragCandidate = false, dragTopZone = false, dragDown = 0, lastMoveY = 0, lastMoveT = 0, dragVel = 0;
   document.addEventListener('touchstart', function (e) {
     if (!e.touches || !e.touches.length) return;
     sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now();
     leftEdge = sx <= 24;
     tabSwipe = !!(tabbar && e.target.closest && e.target.closest('#tabbar'));
-    drawerDrag = false;
+    drawerDrag = false; dragCandidate = false; dragTopZone = false; dragDown = 0; dragVel = 0;
     if (sheetOpen() && sheet && e.target.closest && e.target.closest('#moreSheet')) {
-      if (e.target.closest('.more-handle') || e.target === sheet || (!e.target.closest('input,button,a') && e.target.closest('#moreSheet'))) {
-        drawerDrag = true; dragY = e.touches[0].clientY; dragH = sheet.offsetHeight; dragDir = 0;
-        sheet.style.transition = 'none';
-      }
+      /* Swipe-down-to-close (his real-device find 2026-10-30): a drag may start on
+         the handle / the sheet's top area at any time, or on the content once it is
+         scrolled to the top; engagement is decided on the first downward move so
+         content scrolling never fights the gesture. */
+      var sheetRect = sheet.getBoundingClientRect();
+      dragTopZone = !!e.target.closest('.more-handle') || (e.touches[0].clientY - sheetRect.top) <= 64 || e.target === sheet;
+      dragCandidate = dragTopZone || !e.target.closest('input');
+      dragY = e.touches[0].clientY; dragH = sheet.offsetHeight; dragDir = 0;
+      lastMoveY = dragY; lastMoveT = Date.now();
     }
   }, { passive: true });
   document.addEventListener('touchmove', function (e) {
     if (!e.touches || !e.touches.length) return;
     var cx = e.touches[0].clientX, cy = e.touches[0].clientY;
+    if (!drawerDrag && dragCandidate && sheet) {
+      var cdy = cy - dragY;
+      if ((cdy > 8 && (dragTopZone || sheet.scrollTop <= 0)) || (dragTopZone && cdy < -8)) {
+        drawerDrag = true;
+        sheet.style.transition = 'none';
+      } else if (cdy < -8 || sheet.scrollTop > 0) {
+        if (!dragTopZone) dragCandidate = false;
+      }
+    }
     if (drawerDrag && sheet) {
+      var now = Date.now();
+      if (now > lastMoveT) { dragVel = (cy - lastMoveY) / (now - lastMoveT); lastMoveY = cy; lastMoveT = now; }
       var dy = dragY - cy;
       dragDir = dy > 0 ? 1 : (dy < 0 ? -1 : 0);
-      var h = dragH + dy;
-      if (h < 0) h = 0;
-      if (h > window.innerHeight * 0.95) h = window.innerHeight * 0.95;
-      sheet.style.height = h + 'px';
+      if (dy < 0) {
+        /* downward: the sheet follows the finger toward dismiss */
+        dragDown = -dy;
+        sheet.style.height = dragH + 'px';
+        sheet.style.transform = 'translateY(' + dragDown + 'px)';
+      } else {
+        dragDown = 0;
+        sheet.style.transform = '';
+        var h = dragH + dy;
+        if (h < 0) h = 0;
+        if (h > window.innerHeight * 0.95) h = window.innerHeight * 0.95;
+        sheet.style.height = h + 'px';
+      }
       return;
     }
     if (leftEdge && !tabSwipe && mainEl) {
@@ -3163,6 +3189,9 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
       if (dx > 0 && Math.abs(ddy) < 50) { mainEl.style.transition = 'none'; mainEl.style.transform = 'translateX(' + dx + 'px)'; }
     }
   }, { passive: true });
+  document.addEventListener('touchmove', function (e) {
+    if (drawerDrag && dragDown > 0 && e.cancelable) e.preventDefault();
+  }, { passive: false });
   function clearMain() { if (mainEl) { mainEl.style.transition = ''; mainEl.style.transform = ''; } }
   document.addEventListener('touchend', function (e) {
     var ex = e.changedTouches && e.changedTouches.length ? e.changedTouches[0].clientX : sx;
@@ -3170,7 +3199,23 @@ document.querySelectorAll('.notif-toggle').forEach(function(btn){
     var dx = ex - sx, dy = ey - sy, dt = Math.max(1, Date.now() - st), speed = Math.abs(dx) / dt;
     var curId = currentView();
     if (drawerDrag) {
-      drawerDrag = false;
+      drawerDrag = false; dragCandidate = false;
+      if (sheet && dragDown > 0) {
+        var downDist = dragDown; dragDown = 0;
+        gestureLock();
+        var overallVel = downDist / Math.max(1, Date.now() - st);
+        if (downDist > 90 || dragVel > 0.5 || (downDist > 45 && overallVel > 0.35)) {
+          sheet.style.transition = 'transform .24s ease';
+          sheet.style.transform = 'translateY(105%)';
+          setTimeout(closeSheet, 245);
+        } else {
+          sheet.style.transition = 'transform .22s ease, height .22s ease';
+          sheet.style.transform = '';
+          sheet.style.height = '';
+          setTimeout(function () { if (sheet) sheet.style.transition = ''; }, 240);
+        }
+        return;
+      }
       if (sheet) {
         var ratio = sheet.offsetHeight / window.innerHeight;
         var state;
