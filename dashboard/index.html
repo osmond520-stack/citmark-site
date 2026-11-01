@@ -390,6 +390,21 @@ button { font: inherit; }
 .sug-tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
 .neg-item { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.6; }
 .neg-item:last-child { border-bottom: 0; }
+.grid2 > .card { margin-top: 0; } /* flattened grid: the global .card + .card margin must not offset grid rows */
+.ov-neg-card { min-width: 0; } /* nowrap question line must not force the grid track wider than its 1fr share */
+.ov-neg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.ov-neg-count { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 800; }
+.ov-neg-item { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.ov-neg-item:last-child { border-bottom: 0; }
+.ov-neg-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.ov-neg-eng { text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); font-weight: 600; }
+.ov-neg-q { margin: 0 0 4px; font-size: 13.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ov-neg-x { margin: 0; font-size: 14px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ov-neg-none { color: var(--muted); font-size: 13.5px; margin: 12px 0 0; }
+.ov-neg-sub { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
+.ov-neg-more { display: inline-block; margin-top: 10px; font-size: 14px; }
+.sug-fix-link { display: inline-block; margin-top: 6px; font-size: 14px; }
+#view-tools-p4 .tk-context { background: var(--bg-sink); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.55; margin: 0 0 14px; }
 .week-sum { font-size: 14px; margin: 0 0 12px; color: var(--ink-2); line-height: 1.6; }
 .week-item { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; }
 .week-item:last-child { border-bottom: 0; }
@@ -1172,48 +1187,49 @@ kept apart from the gate-row pill set. */
         </div>
         <div id="ovDone" class="ov-done" style="display:none;">✓ Snapshot complete — your overview is up to date.</div>
         <div class="grid2">
-          <div class="ov-col">
-            <div class="card">
-              <h2>Overview</h2>
-              <p class="desc">Overall visibility</p>
-              <div class="ring lg">
-                <svg width="188" height="188" viewBox="0 0 188 188">
-                  <circle cx="94" cy="94" r="80" fill="none" stroke="var(--bg-sink)" stroke-width="14"/>
-                  <circle id="ovRingFg" cx="94" cy="94" r="80" fill="none" stroke="var(--skin-accent)"
-                    stroke-width="14" stroke-linecap="round" stroke-dasharray="502.7" stroke-dashoffset="502.7"/>
-                </svg>
-                <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
-              </div>
-              <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
-              <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
-              <p class="def-note">Score 9.1 is based on this snapshot: 1 mention in 11 valid answers (9.1%).</p>
-              <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
+<div class="card">
+            <h2>Overview</h2>
+            <p class="desc">Overall visibility</p>
+            <div class="ring lg">
+              <svg width="188" height="188" viewBox="0 0 188 188">
+                <circle cx="94" cy="94" r="80" fill="none" stroke="var(--bg-sink)" stroke-width="14"/>
+                <circle id="ovRingFg" cx="94" cy="94" r="80" fill="none" stroke="var(--skin-accent)"
+                  stroke-width="14" stroke-linecap="round" stroke-dasharray="502.7" stroke-dashoffset="502.7"/>
+              </svg>
+              <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
             </div>
-            <div class="card">
-              <h2>Mention rate</h2>
-              <p class="desc">Share of AI answers that mention the brand.</p>
-              <p class="den-note">Rates use valid answers only (missing answers excluded).</p>
-              <div class="ov-rate"><b id="ovRateVal">–</b><span id="ovRateText">–</span></div>
-              <div class="bar-track"><div class="bar-fill" id="ovRateBar" style="width:0%"></div></div>
-            </div>
-            <div class="card">
-              <h2>Trend</h2>
-              <p class="desc">Snapshot scores over time.</p>
-              <div id="ovTrend"></div>
-              <p class="ov-empty">Run a second snapshot to see your trend.</p>
-            </div>
+            <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
+            <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
+            <p class="def-note">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
+            <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
           </div>
-          <div class="ov-col">
-            <div class="card">
-              <h2>By engine</h2>
-              <p class="desc">Mention rate per AI engine.</p>
-              <div id="ovEngineBars"></div>
-            </div>
-            <div class="card">
-              <h2>Competitors</h2>
-              <p class="desc">Mention rate vs tracked competitors.</p>
-              <div id="ovCompBars"></div>
-            </div>
+<div class="card">
+            <h2>By engine</h2>
+            <p class="desc">Mention rate per AI engine.</p>
+            <div id="ovEngineBars"></div>
+          </div>
+          <div class="card ov-neg-card">
+            <div class="ov-neg-head"><h2>Negative mentions</h2><span class="ov-neg-count" id="ovNegCount"></span></div>
+            <p class="desc">AI answers that describe your brand negatively, in the latest snapshot.</p>
+            <div id="ovNegList"><p class="ov-neg-none">Run your first snapshot to see negative mentions.</p></div>
+          </div>
+<div class="card">
+            <h2>Mention rate</h2>
+            <p class="desc">Share of AI answers that mention the brand.</p>
+            <p class="den-note">Rates use valid answers only (missing answers excluded).</p>
+            <div class="ov-rate"><b id="ovRateVal">–</b><span id="ovRateText">–</span></div>
+            <div class="bar-track"><div class="bar-fill" id="ovRateBar" style="width:0%"></div></div>
+          </div>
+<div class="card">
+            <h2>Competitors</h2>
+            <p class="desc">Mention rate vs tracked competitors.</p>
+            <div id="ovCompBars"></div>
+          </div>
+<div class="card">
+            <h2>Trend</h2>
+            <p class="desc">Snapshot scores over time.</p>
+            <div id="ovTrend"></div>
+            <p class="ov-empty">Run a second snapshot to see your trend.</p>
           </div>
         </div>
         <div class="card ov-sug">
@@ -1248,7 +1264,7 @@ kept apart from the gate-row pill set. */
               <div><span class="note-badge" id="scoreNote">–</span></div>
               <p class="ci">95% Wilson CI <b id="scoreCi">–</b> · <span id="scoreN">–</span> valid answers</p>
               <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
-              <p class="def-note">Score 9.1 is based on this snapshot: 1 mention in 11 valid answers (9.1%).</p>
+              <p class="def-note">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
               <p class="desc" style="margin:0;" id="scoreBlurb"></p>
             </div>
           </div>
@@ -1311,10 +1327,10 @@ kept apart from the gate-row pill set. */
             <div id="rescanAnim" style="display:none;padding:12px 0">
               <div class="ring" style="margin:0 auto">
                 <svg width="168" height="168" viewBox="0 0 168 168"><circle cx="84" cy="84" r="72" fill="none" stroke="var(--bg-sink)" stroke-width="14"/><circle id="rescanRingFg" cx="84" cy="84" r="72" fill="none" stroke="var(--skin-accent)" stroke-width="14" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="452.4"/></svg>
-                <div class="val"><b id="rescanScore">9.1</b><span>VISIBILITY</span></div>
+                <div class="val"><b id="rescanScore">18.2</b><span>VISIBILITY</span></div>
               </div>
               <div class="bar-track" style="margin-top:12px"><div class="bar-fill" id="rescanBar" style="width:0%"></div></div>
-              <p class="ov-empty">Re-checking… mention rate 9.1%</p>
+              <p class="ov-empty">Re-checking… mention rate 18.2%</p>
             </div>
             <div id="rescanState" style="display:none;">
               <p class="ov-empty" id="rescanNote"></p>
@@ -1336,7 +1352,7 @@ kept apart from the gate-row pill set. */
 <thead><tr><th>Question</th><th>Mentioned on</th><th>Sentiment</th><th>Visibility</th><th>Tags</th></tr></thead>
 <tbody>
 <tr class="clickable" data-q="q1"><td class="q"><b>Best socks for running?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts</span></td><td data-label="Mentioned on">Claude</td><td data-label="Sentiment"><span class="tag">Not classified</span></td><td data-label="Visibility">25% (1/4)</td><td data-label="Tags">—</td></tr>
-<tr class="clickable" data-q="q2"><td class="q"><b>Best socks for a runner that needs extra cushioning?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts</span></td><td data-label="Mentioned on">—</td><td data-label="Sentiment"><span class="tag">Not classified</span></td><td data-label="Visibility">0% (0/4)</td><td data-label="Tags">—</td></tr>
+<tr class="clickable" data-q="q2"><td class="q"><b>Best socks for a runner that needs extra cushioning?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts</span></td><td data-label="Mentioned on">ChatGPT</td><td data-label="Sentiment"><span class="tag">Negative</span></td><td data-label="Visibility">25% (1/4)</td><td data-label="Tags">—</td></tr>
 <tr class="clickable" data-q="q3"><td class="q"><b>I run marathons with a $100 budget and need socks that are moisture-wicking and blister-proof. What should I buy?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts · Gemini 1 answer missing (rate-limited)</span></td><td data-label="Mentioned on">—</td><td data-label="Sentiment"><span class="tag">Not classified</span></td><td data-label="Visibility">0% (0/3)</td><td data-label="Tags">—</td></tr>
 </tbody></table>
 <p class="sent-note">"Not classified" means AI did not classify this answer. Not a system error.</p></div>
@@ -1358,7 +1374,7 @@ kept apart from the gate-row pill set. */
       <section class="view" id="view-competitors"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
 <h2>Competitors</h2>
 <p class="desc">Your visibility vs tracked competitors.</p>
-<div class="bar-row"><span class="nm">Bombas</span><span class="bar"><i style="width:9.1%"></i></span><span class="val">9.1 · 1/11</span></div>
+<div class="bar-row"><span class="nm">Bombas</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2 · 2/11</span></div>
 <div class="bar-row"><span class="nm">Balega</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 <div class="bar-row"><span class="nm">Feetures</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 <div class="bar-row"><span class="nm">Injinji</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
@@ -1367,8 +1383,8 @@ kept apart from the gate-row pill set. */
 
 <div class="card">
 <h3>Trend</h3>
-<p class="desc">One snapshot so far (9.1, 2026-10-24). Your trend line starts with the second snapshot.</p>
-<div class="bar-row"><span class="nm">2026-10-24</span><span class="bar"><i style="width:9.1%"></i></span><span class="val">9.1</span></div>
+<p class="desc">One snapshot so far (18.2, 2026-10-24). Your trend line starts with the second snapshot.</p>
+<div class="bar-row"><span class="nm">2026-10-24</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2</span></div>
 </div>
 
 <div class="card">
@@ -1469,7 +1485,7 @@ kept apart from the gate-row pill set. */
 </section>
 <section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
-<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
+<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 
             <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
@@ -1479,7 +1495,7 @@ kept apart from the gate-row pill set. */
 
 <div class="card">
 <button class="notif-item unread" type="button" data-cat="snapshot"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Snapshot finished for Bombas</span><span class="notif-meta">Snapshot · Today, 09:12</span></span></button>
-<button class="notif-item unread" type="button" data-cat="score"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Visibility score is 9.1 in the latest snapshot</span><span class="notif-meta">Score · Today, 09:12</span></span></button>
+<button class="notif-item unread" type="button" data-cat="score"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Visibility score is 18.2 in the latest snapshot</span><span class="notif-meta">Score · Today, 09:12</span></span></button>
 <button class="notif-item unread" type="button" data-cat="report"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Weekly report is ready</span><span class="notif-meta">Report · Monday, 08:00</span></span></button>
 <button class="notif-item unread" type="button" data-cat="alert"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">A tracked question has no mentions in the latest snapshot</span><span class="notif-meta">Alert · Today, 09:12</span></span></button>
 <button class="notif-item" type="button" data-cat="snapshot"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Snapshot finished for Bombas</span><span class="notif-meta">Snapshot · Yesterday, 09:05</span></span></button>
@@ -1760,11 +1776,11 @@ const MOCK = {
     "status": "done"
   },
   "score": {
-    "value": 9.1,
-    "hits": 1,
+    "value": 18.2,
+    "hits": 2,
     "n_valid": 11,
-    "ci_low": 1.6,
-    "ci_high": 37.7,
+    "ci_low": 5.1,
+    "ci_high": 47.7,
     "note": "Small sample — indicative only. Measured 2026-10-24; 11/12 valid (Gemini Q3 rate-limited).",
     "by_engine": [
       {
@@ -1775,8 +1791,8 @@ const MOCK = {
       },
       {
         "engine": "chatgpt",
-        "value": 0.0,
-        "hits": 0,
+        "value": 33.3,
+        "hits": 1,
         "n_valid": 3
       },
       {
@@ -1801,8 +1817,8 @@ const MOCK = {
       },
       {
         "question_id": "q2",
-        "value": 0.0,
-        "hits": 0,
+        "value": 25.0,
+        "hits": 1,
         "n_valid": 4
       },
       {
@@ -1854,10 +1870,11 @@ const MOCK = {
       "question_id": "q2",
       "engine": "chatgpt",
       "status": "ok",
-      "brand_mentioned": false,
-      "mention_type": "none",
+      "brand_mentioned": true,
+      "mention_type": "explicit",
+      "sentiment": "negative",
       "needs_review": false,
-      "text": "For extra cushioning, the Balega Hidden Comfort is a strong all-around pick: it has plush padding underfoot, a smooth toe seam, and a snug heel, while still wicking moisture.<br><br>Other good options:<br>- Feetures Elite Max Cushion — plush underfoot with a more secure, compression-style fit.<br>- Smartwool Run Targeted Cushion — cushioning in key areas, with merino wool for temperature and moisture management.<br><br>Choose a snug fit and avoid cotton. If you’re adding thicker socks, check that your running shoes still have enough room—tight shoes can cause blisters or pressure."
+      "text": "For extra cushioning, the Balega Hidden Comfort is a strong all-around pick: it has plush padding underfoot, a smooth toe seam, and a snug heel, while still wicking moisture.<br><br>Other good options:<br>- Feetures Elite Max Cushion — plush underfoot with a more secure, compression-style fit.<br>- Smartwool Run Targeted Cushion — cushioning in key areas, with merino wool for temperature and moisture management.<br>- Bombas Cushioned Running — soft, well-padded feel, though Bombas is often described as pricey for what it offers, and several users find its socks wear out faster than rivals'.<br><br>Choose a snug fit and avoid cotton. If you’re adding thicker socks, check that your running shoes still have enough room—tight shoes can cause blisters or pressure."
     },
     {
       "question_id": "q2",
@@ -1914,16 +1931,29 @@ const MOCK = {
       "text": "No sock can guarantee blister-proofing, but for a $100 budget, I’d buy two pairs of Balega Blister Resist crew socks (usually about $15–$20 a pair) and use them on long runs before race day. They’re moisture-managing, cushioned, and designed to reduce friction.<br><br>If you prefer a thinner, snugger fit, try Wrightsock Double Layer (roughly $15–$20 a pair); its two-layer construction is intended to limit skin-on-sock rubbing. Prices vary, so you could get several pairs and stay under budget.<br><br>For best results, choose the right size, keep your shoes comfortably roomy, and test the socks on long training runs. If you’re prone to blisters, a small amount of anti-chafe balm on known hot spots may help too."
     }
   ],
+  "negatives": [
+    {
+      "engine": "chatgpt",
+      "question_id": "q2",
+      "excerpt": "though Bombas is often described as pricey for what it offers, and several users find its socks wear out faster than rivals'."
+    }
+  ],
   "suggestions": [
     {
       "title": "Invisible on running questions",
       "impact": "high", "effort": "medium",
-      "body": "Only <b>1 of 11</b> valid answers mentions Bombas — Claude on Q1, framed as everyday wear and lighter runs. Q2 and Q3 score 0 across all engines. The brand surfaces for comfort, not performance running: running-specific content is the gap."
+      "body": "Only <b>2 of 11</b> valid answers mention Bombas — Claude on Q1, framed as everyday wear and lighter runs; ChatGPT on Q2, framed negatively (pricey for what it offers). Q3 scores 0 across all engines. The brand surfaces for comfort, not performance running: running-specific content is the gap."
+    },
+    {
+      "title": "Negative mention on ChatGPT",
+      "impact": "high", "effort": "medium",
+      "body": "Asked \u201cBest socks for a runner that needs extra cushioning?\u201d, ChatGPT said your socks \u201cwear out faster than rivals'\u201d. Work through the playbook to correct the record.",
+      "fixLink": true
     },
     {
       "title": "Cross-engine miss, not one engine's quirk",
       "impact": "high", "effort": "medium",
-      "body": "ChatGPT 0/3, Perplexity 0/3, Gemini 0/2, Claude 1/3. All four engines agree on Q2 and Q3. The competitors that do surface — Balega, Feetures, Darn Tough — own the running conversation."
+      "body": "ChatGPT 1/3, Perplexity 0/3, Gemini 0/2, Claude 1/3. The engines agree on Q3; on Q2 only ChatGPT mentions the brand, and negatively. The competitors that do surface — Balega, Feetures, Darn Tough — own the running conversation."
     },
     {
       "title": "1 call failed (Gemini Q3, rate-limited)",
@@ -2010,6 +2040,9 @@ const TITLES = {
   help: ["Help & support", "Help center, not live chat"],
 };
 function go(view) {
+  /* negcard5: the tools-p4 snapshot-context strip is link-in only; any navigation
+     away from tools-p4 clears it, so a later normal entry shows nothing. */
+  if (view !== 'tools-p4') { var __nctx = document.getElementById("negFixContext"); if (__nctx) __nctx.style.display = "none"; }
   if (view === 'plan') { var __cur = document.querySelector('.view.active'); var __k = __cur ? __cur.id.replace('view-', '') : ''; if (__k && __k !== 'plan') { window.planReturn = __k; } }
   /* Standalone pages push history so browser/gesture back returns to Settings (trial 20261025). */
   var __standalone = ['billing', 'plan', 'pricing-cards', 'team', 'connections', 'developer', 'security-password', 'security-logins', 'security-delete', 'help', 'brand-edit', 'security', 'tools-p0', 'tools-p1', 'tools-p2', 'tools-p3', 'tools-p4', 'tools-p5'];
@@ -2105,13 +2138,45 @@ function renderOverview() {
       <div class="bar-track"></div>
       <div class="pc-note">No data yet</div>
     </div>`).join("");
+  // Negative mentions card: the E1 set (same source as the D7 alert stream), newest first.
+  // api.mode gate (2026-11-01, product ruling (a)): until the D7 E1 feed is wired, http mode hides
+  // the card structurally - sample negatives never render as if they were real data.
+  const negCardEl = document.querySelector(".ov-neg-card");
+  if (negCardEl) negCardEl.style.display = api.mode === "http" ? "none" : "";
+  const negAll = api.mode === "http" ? [] : (MOCK.negatives || []);
+  document.getElementById("ovNegCount").textContent = negAll.length > 0 ? String(negAll.length) : "";
+  if (negAll.length === 0) {
+    document.getElementById("ovNegList").innerHTML =
+      '<p class="ov-neg-none">No negative mentions in the latest snapshot.</p>' +
+      '<p class="ov-neg-sub">Every answer is checked for negative descriptions of your brand.</p>';
+  } else {
+    document.getElementById("ovNegList").innerHTML = negAll.slice(0, 3).map(n => {
+      const q = MOCK.snapshot.questions.find(x => x.id === n.question_id);
+      return '<div class="ov-neg-item">' +
+        '<div class="ov-neg-meta"><span class="ov-neg-eng">' + ENGINE_META[n.engine].name + '</span><span>' + snap.created_at.slice(0, 10) + '</span></div>' +
+        '<p class="ov-neg-q">' + escapeHtml(q ? q.text : "") + '</p>' +
+        '<p class="ov-neg-x">&ldquo;' + escapeHtml(n.excerpt) + '&rdquo;</p>' +
+      '</div>';
+    }).join("") + (negAll.length > 3 ? '<a class="ov-neg-more" href="#" data-goto="report">See all in Weekly report \u2192</a>' : "");
+  }
   const ovSugs = api.mode === "http" ? [] : MOCK.suggestions;
   document.querySelector(".ov-sug").style.display = ovSugs.length ? "" : "none";
   document.getElementById("ovSugList").innerHTML = ovSugs.map((sg, i) => `
     <div class="sug sug-click"><div class="n">${i + 1}</div>
-      <div><b>${escapeHtml(sg.title)}</b><p>${sg.body}</p></div></div>`).join("");
+      <div><b>${escapeHtml(sg.title)}</b><p>${sg.body}</p>${sg.fixLink ? `<a class="sug-fix-link" href="#" data-fixlink>Fix a bad mention \u2192</a>` : ""}</div></div>`).join("");
   document.querySelectorAll("#ovSugList .sug").forEach(el =>
     el.addEventListener("click", () => go("report")));
+  document.querySelectorAll("[data-fixlink]").forEach(a => a.addEventListener("click", (e) => {
+    e.preventDefault(); e.stopPropagation();
+    const n = (MOCK.negatives || [])[0];
+    if (n) {
+      const q = MOCK.snapshot.questions.find(x => x.id === n.question_id);
+      const ctx = document.getElementById("negFixContext");
+      ctx.textContent = "From your latest snapshot: " + ENGINE_META[n.engine].name + " \u00b7 \u201c" + (q ? q.text : "") + "\u201d \u2014 \u201c" + n.excerpt + "\u201d \u00b7 " + MOCK.snapshot.created_at.slice(0, 10);
+      ctx.style.display = "block";
+    }
+    go("tools-p4");
+  }));
 }
 
 /* ---------------- run drawer + config ---------------- */
@@ -2347,7 +2412,15 @@ function renderReport() {
       neg.push(`<b>${ENGINE_META[e].name} ${q.slot} call failed</b> — excluded from score, not counted as a miss.`);
     }
   }));
+  (api.mode === "http" ? [] : (MOCK.negatives || [])).forEach(n => {
+    const nq = MOCK.snapshot.questions.find(x => x.id === n.question_id);
+    neg.unshift(`<b>${ENGINE_META[n.engine].name}</b> on \u201c${escapeHtml(nq ? nq.text : "")}\u201d \u2014 \u201c${escapeHtml(n.excerpt)}\u201d \u00b7 ${snap.created_at.slice(0, 10)}`);
+  });
   document.getElementById("negList").innerHTML = neg.map(t => `<div class="neg-item">⚠ ${t}</div>`).join("");
+  // Report negative section gate (2026-11-01, QA gate-verdict fix): in http mode hide the whole
+  // section including its header - no empty section head, no sample-derived lines.
+  const negSecEl = document.getElementById("negList").closest(".card");
+  if (negSecEl) negSecEl.style.display = api.mode === "http" ? "none" : "";
   // Weekly actions: condensed one-line actions + score context.
   document.getElementById("weekList").innerHTML =
     `<p class="week-sum">Score <b>${s.value.toFixed(1)}</b> · ${s.hits} of ${s.n_valid} answers mention ${escapeHtml(snap.brand.name)} · Week of ${snap.created_at.slice(0, 10)}</p>` +
@@ -2371,16 +2444,16 @@ document.getElementById("rescanBtn").addEventListener("click", () => {
   var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   area.style.display = "none"; anim.style.display = "block";
   var C = 452.4;
-  var target = C * (1 - 9.1 / 100);
-  if (reduced) { fg.style.transition = "none"; fg.style.strokeDashoffset = target; num.textContent = "9.1"; bar.style.width = "9.1%"; anim.style.display = "none"; state.style.display = "block"; return; }
+  var target = C * (1 - 18.2 / 100);
+  if (reduced) { fg.style.transition = "none"; fg.style.strokeDashoffset = target; num.textContent = "18.2"; bar.style.width = "18.2%"; anim.style.display = "none"; state.style.display = "block"; return; }
   fg.style.transition = "none"; fg.style.strokeDashoffset = C; bar.style.transition = "none"; bar.style.width = "0%";
   requestAnimationFrame(function(){
     fg.style.transition = "stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1)";
     fg.style.strokeDashoffset = target;
-    num.textContent = "9.1";
-    requestAnimationFrame(function(){ bar.style.transition = "width 1s cubic-bezier(.2,.7,.2,1)"; bar.style.width = "9.1%"; });
+    num.textContent = "18.2";
+    requestAnimationFrame(function(){ bar.style.transition = "width 1s cubic-bezier(.2,.7,.2,1)"; bar.style.width = "18.2%"; });
   });
-  setTimeout(function(){ fg.style.strokeDashoffset = target; bar.style.width = "9.1%"; state.style.display = "block"; }, 1050);
+  setTimeout(function(){ fg.style.strokeDashoffset = target; bar.style.width = "18.2%"; state.style.display = "block"; }, 1050);
 });
 
 /* ---------------- drawer ---------------- */
@@ -2422,8 +2495,8 @@ var ANSWERS = {
     { e: "Claude", m: true, t: "The best running socks depend a bit on your climate and foot, but a few brands consistently earn praise: …" },
     { e: "Perplexity", m: false, t: "For most runners, the best all-around choice is a lightweight, snug-fitting synthetic or merino-blend running sock…" },
     { e: "Gemini", m: false, t: "The “best” running sock depends on whether you prefer synthetic materials (cooler, slicker) or Merino wool…" } ] },
-  q2: { title: "Best socks for a runner that needs extra cushioning?", meta: "Visibility 0% (0/4) · Mentioned on — · Sentiment Not classified · Tags —", rows: [
-    { e: "ChatGPT", m: false, t: "For extra cushioning, the Balega Hidden Comfort is a strong all-around pick: it has plush padding underfoot…" },
+  q2: { title: "Best socks for a runner that needs extra cushioning?", meta: "Visibility 25% (1/4) · Mentioned on ChatGPT · Sentiment Negative · Tags —", rows: [
+    { e: "ChatGPT", m: true, t: "For extra cushioning, the Balega Hidden Comfort is a strong all-around pick: it has plush padding underfoot…" },
     { e: "Claude", m: false, t: "For running socks with extra cushioning, these are the most reliable picks: …" },
     { e: "Perplexity", m: false, t: "For extra cushioning, look for running socks with padded soles and reinforced heel and toe. A few solid options…" },
     { e: "Gemini", m: false, t: "When you need extra cushioning for running, you want a sock that provides high-density padding in high-impact…" } ] },
