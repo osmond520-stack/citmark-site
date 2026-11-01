@@ -772,6 +772,8 @@
       .auth-card-msg { font-size: 13px; line-height: 18px; color: var(--muted); text-align: center; margin: 12px 0 0; }
       .auth-card-back-row { display: none; margin: 12px 0 0; text-align: center; }
       .auth-card.mode-reset .auth-card-back-row { display: block; }
+      /* P2 hide (2026-11-01, GM+QA): the login modes on this page are demo-wired; the card serves the verified reset path only, so there is no way back to a login mode. */
+      .auth-card .auth-card-back-row { display: none !important; }
       .auth-card-back-row a { font-size: 13px; color: var(--accent-deep); text-decoration: underline; cursor: pointer; }
       /* Reset-mode submit: centered, smaller capsule (Tao Yu 2026-10-31). */
       .auth-card.mode-reset .capsule-foot-row { justify-content: center; }
@@ -1862,7 +1864,7 @@ footer .fineprint { grid-column: 1 / -1; }
          (all pending backend confirmation). Video background is a separate
          case; this demo is verified against the static page backdrop. -->
     <div class="auth-card-overlay" id="authCardOverlay" hidden>
-      <div class="auth-card" id="authCard" role="dialog" aria-modal="true" aria-label="Log in" aria-hidden="true">
+      <div class="auth-card mode-reset" id="authCard" role="dialog" aria-modal="true" aria-label="Log in" aria-hidden="true">
         <div class="auth-card-top-row">
           <p class="auth-card-logo"><span class="wordmark">CitMark<span class="dot">.</span></span></p>
         </div>
@@ -1896,7 +1898,7 @@ footer .fineprint { grid-column: 1 / -1; }
               <p>CitMark shows how AI answers questions about your brand.</p>
               <p>Sign in with Google, Shopify, or your email.</p>
             </div>
-            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="true"><span class="btn-capsule-label">Log in</span> <span aria-hidden="true">&gt;</span></button>
+            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false"><span class="btn-capsule-label">Send reset link</span> <span aria-hidden="true">&gt;</span></button>
           </div>
           <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
