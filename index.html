@@ -194,7 +194,7 @@
       }
       @media (max-width: 360px) {
         .topbar-in .btn { display: none; }
-        .topbar-in .nav-toggle { margin-left: auto; }
+        .topbar-in .nav-toggle { margin-left: 0; }
       }
 
       /* ---------- buttons & forms ---------- */
@@ -610,15 +610,16 @@
       @media (max-width: 560px) { .final { padding: 36px 24px; } }
       footer { padding: 40px 0 56px; }
       .foot-in { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; justify-content: space-between; }
-      footer p { margin: 0; font-size: 14px; color: var(--muted); }
+      footer p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
       .foot-group { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; }
       footer a { color: var(--ink-2); }
-      footer .fineprint { width: 100%; font-size: 13px; }
+      footer .fineprint { width: 100%; }
 
       /* ---------- sticky mobile signup bar ---------- */
       .sticky-cta { display: none; }
       .sticky-cta .cta-short { display: none; }
-      @media (max-width: 720px) {
+      /* preview17: sticky bar released at all widths (was @media max-width:720px only);
+         the rules below are the former <=720px block verbatim, now unconditional */
         .sticky-cta {
           display: flex; align-items: center; gap: 12px;
           position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
@@ -633,7 +634,6 @@
         .sticky-cta p { margin: 0; font-size: 13.5px; line-height: 1.35; color: var(--ink-2); flex: 1 1 auto; min-width: 0; }
         .sticky-cta p b { color: var(--ink); }
         .sticky-cta .btn { flex-shrink: 0; min-width: 0; min-height: 44px; }
-      }
       /* narrow phones: tighter bar, smaller text, shorter button label —
          the fluid width above must hold down to 320px with nothing cut off */
       @media (max-width: 360px) {
@@ -843,13 +843,61 @@
         .topbar-in button.topbar-auth { display: inline-flex; }
       }
 
-    </style>
+    
+/* wave1: toolkit band */
+.tkband{border-top:1px solid var(--line)}
+.tkrow{display:flex;gap:28px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line)}
+.tkrow h3{flex:0 0 264px;font-size:17px;font-weight:700;color:var(--ink)}
+.tkrow p{color:var(--muted);font-size:15.5px;line-height:1.55}
+.tk-soon{display:inline-block;background:#f3f4f6;color:#6b7280;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700;vertical-align:2px;margin-left:6px;white-space:nowrap}
+.tkband-cta{margin-top:28px}
+@media (max-width:720px){.tkrow{flex-direction:column;gap:3px}.tkrow h3{flex:none}}
+
+/* align increment: plans exit link + card row equalisation (layout gate) */
+.plans-exit{margin-top:22px;font-size:15.5px}
+#pricing .plan ul{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+#pricing .plan .btn{margin-top:26px}
+
+/* v2 landing batch (20261029) */
+.hero { padding-top: 44px; }
+h1 { text-wrap: balance; }
+h1 .h1-tail { white-space: nowrap; }
+@media (min-width: 1024px) { .hero-in { column-gap: 40px; } .wrap.hero-in { max-width: 1120px; margin-left: auto; margin-right: auto; padding-left: 24px; padding-right: 24px; } }
+@media (max-width: 760px) { .plans { grid-template-columns: minmax(0, 1fr); } .plan { min-width: 0; } }
+.faq-grid { display: grid; gap: 8px; }
+.faq-support { border: 1px solid var(--line-strong); border-radius: 14px; background: var(--bg-raise); padding: 22px 24px; margin-top: 26px; max-width: 700px; }
+.faq-support h3 { margin: 0 0 8px; font-size: 19px; }
+.faq-support p { margin: 0 0 10px; color: var(--muted); }
+.faq-support p:last-child { margin-bottom: 0; }
+@media (min-width: 1024px) {
+  .faq-grid { grid-template-columns: 340px minmax(0, 1fr); gap: 48px; align-items: start; }
+  .faq-side { position: sticky; top: 96px; }
+  .faq-support { max-width: none; }
+  .faq { justify-self: end; width: 100%; }
+}
+.foot-line { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; }
+.foot-op { text-align: right; }
+.join-steps { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 30px; text-align: left; }
+@media (min-width: 720px) { .join-steps { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .join-steps { grid-template-columns: repeat(4, 1fr); } }
+.jstep { border: 1px solid rgba(244,244,241,.25); border-radius: 12px; padding: 16px 18px; }
+.jstep b { display: block; font-size: 15.5px; margin-bottom: 6px; color: var(--bg); }
+.jstep span { font-size: 14px; line-height: 1.5; color: rgba(244,244,241,.75); }
+
+@media (max-width: 720px) {
+  .topbar-in button.topbar-auth { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .topbar-in button.topbar-auth:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+  .topbar-in button.nav-toggle { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .topbar-in button.nav-toggle:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+}
+</style>
   <style id="a1-formal">
 /* A1 formal sample (2026-10-28): real-run mini card + sample run table. Additions only; base styles untouched. */
 .hero-mini { display: none; }
 .hero-mini-caption { display: none; }
 @media (min-width: 1024px) {
-        .hero-in { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) 370px; column-gap: 56px; align-items: start; }
+        .hero-in { max-width: none; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); column-gap: 36px; align-items: start; }
+        .hero-sub { margin-bottom: 20px; } /* preview14: >=1024 only — left-column rhythm, sub->form 30->20 to match h1->sub 20; mobile keeps base 30px */
         .hero-copy { min-width: 0; }
         .hero-chips { grid-column: 1 / -1; }
         .hero-mini { display: block; background: var(--bg-raise); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 22px 24px 18px; box-shadow: 0 1px 2px rgba(20, 21, 25, .05); }
@@ -900,6 +948,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
 .sr-table tbody th, .sr-table thead th:first-child { border-right: 1px solid var(--line-strong); }
 .sr-table tbody th small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
 .sr-table td.sr-score { text-align: right; }
+.sr-table thead th:last-child { text-align: right; } /* preview16: score column header aligned right with its values */
 .sr-table td.sr-score b { font-family: "Plus Jakarta Sans", sans-serif; font-size: 17px; }
 .sr-table td.sr-score small { display: block; color: var(--muted); font-size: 11.5px; }
 .sr-table td.zero { color: var(--muted); }
@@ -913,8 +962,60 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
    via the existing gating. */
 @media (min-width: 1024px) {
   .hero-mini { background: transparent; border: 0; box-shadow: none; padding: 0; }
-  .hero-mini-brand { display: block; font-size: 17px; margin: 17px 0; }
+  .hero-mini-brand { font-size: 17px; margin: 17px 0; } /* preview16: confluence display:block override removed — brand line keeps base flex space-between, score right-aligned at all widths */
 }
+
+/* preview11: same fix as live cand2 (2026-10-29): the sample card and its caption were display:none below 1024
+   (base rule, only lifted at min-width:1024px). Below 1024 show both stacked after the
+   hero copy, full width, frameless as on desktop. Inner rules mirror the
+   min-width:1024 set with label/note margins at their effective (post-override)
+   values; the brand line keeps the base flex/space-between rule untouched. */
+@media (max-width: 1023px) {
+  .hero-mini-wrap { margin-top: 30px; }
+  .hero-mini { display: block; background: transparent; border: 0; box-shadow: none; padding: 0; }
+  .hero-mini-caption { display: block; }
+  .hero-mini-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .hero-mini-title { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .hero-mini-sample { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 999px; padding: 3px 9px; }
+  .hero-mini-score { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.02em; }
+  .hero-mini-score small { font-size: 20px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  .hero-mini-label { font-size: 14px; color: var(--muted); margin: 6px 0 12px; }
+  .hero-mini-delta { color: var(--good); font-weight: 600; }
+  .hero-mini-rows { border-top: 1px solid var(--line); }
+  .hero-mini-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .hero-mini-row:last-child { border-bottom: none; }
+  .hero-mini-eng { flex: none; width: 86px; font-size: 14px; font-weight: 600; }
+  .hero-mini-track { flex: 1; height: 8px; border-radius: 99px; background: var(--bg-sink); overflow: hidden; }
+  .hero-mini-track > span { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+  .hero-mini-row b { flex: none; width: 28px; text-align: right; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; }
+  .hero-mini-note { font-size: 12.5px; color: var(--muted); margin: 10px 0 0; }
+}
+</style>
+<style>
+/* preview13 (2026-10-30): phone-width form pin. At <=480px every input+button form
+   (.waitlist hero/inline/bottom + .check-form) is stacked, input and button full
+   width. This restates the existing <=560px stacking rules as the last rules in
+   the cascade so the phone form can never be flipped row by an earlier block. */
+@media (max-width: 480px) {
+  .waitlist, .check-form { flex-direction: column; }
+  .waitlist input, .check-form input { width: 100%; }
+  .waitlist .btn, .check-form .btn { width: 100%; }
+}
+</style>
+
+<style id="badge-fix">
+/* Badge text cut (his tablet find 2026-10-30): a z-1/2 accent layer painted over
+   the badge's text where the pill straddles the card edge; the badge at z-index 2
+   restores paint order (still far below topbar 40 / sticky bar 45). */
+#pricing .pop-badge { z-index: 2; }
+</style>
+
+<style id="badge-halo">/* B2 checkpoint: orange badge on the orange featured frame needs a visible seam - page-bg halo ring cuts the pill out of the frame line. */
+#pricing .pop-badge{box-shadow:0 0 0 3px var(--bg)}
+</style>
+<style id="badge-follow-featured">/* Badge follows the selected state (his ruling 2026-10-31): a badge renders only on the featured card; selection migration moves frame + solid CTA + badge together. Starter has no badge copy, so a selected Starter shows none. */
+#pricing .pop-badge{display:none}
+#pricing .plan.featured .pop-badge{display:block}
 </style>
 </head>
   <body>
@@ -928,6 +1029,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <a href="#faq">FAQ</a>
         </nav>
         <button class="btn small ghost topbar-auth" type="button" data-open-auth-card>Log in</button>
+        <span class="tb-acct"><button class="id-avatar-btn" id="idAvatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span></button><div class="acct-menu" id="acctMenu" role="menu" aria-label="Account"><div class="acct-head" role="none"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span><div><div class="acct-name">osmond520@gmail.com</div><div class="acct-meta"><span class="id-badge">GROWTH</span></div></div></div><a class="acct-item" role="menuitem" href="/dashboard/">Dashboard</a><a class="acct-item" role="menuitem" href="/dashboard/?view=plan">My plan</a><a class="acct-item" role="menuitem" href="/help/">Help center</a><div class="acct-sep" role="separator"></div><button class="acct-item" role="menuitem" type="button" data-session-logout>Log out</button></div></span>
         <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
           <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
@@ -949,8 +1051,8 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="hero-copy">
           <span class="hero-tag"><span class="pulse"></span>Now accepting founding members</span>
           <!-- 原 H1（已上线版本）：When buyers ask AI, does it name you — or your competitors? -->
-          <h1>See why AI recommends your <span class="hl">competitors</span> — not you.</h1>
-          <p class="hero-sub">CitMark checks ChatGPT, Perplexity, Gemini and Claude every week and tells you — in plain English — whether your site gets mentioned, gets cited, or gets skipped. Then it tells you exactly what to fix.</p>
+          <h1>See why AI recommends your <span class="hl">competitors</span> <span class="h1-tail">— not you.</span></h1>
+          <p class="hero-sub">CitMark checks ChatGPT, Perplexity, Gemini and Claude every week. It tells you — in plain English — whether your site gets mentioned, gets cited, or gets skipped. Then it tells you exactly what to fix.</p>
           <form class="waitlist" data-register data-source="hero" novalidate>
             <label class="mono" style="position:absolute;left:-9999px" for="email-hero">Work email</label>
             <input id="email-hero" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
@@ -958,7 +1060,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             <button class="btn" type="submit">Create your free account</button>
           </form>
           <p class="form-msg" role="status"></p>
-          <p class="form-note">Founding pricing — <strong>50% off for 12 months</strong> — is limited to the <strong>first 50 founding members</strong>. One email at launch, no spam, ever. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
+          <p class="form-note">Founding pricing — <strong>50% off for 12 months</strong> — is limited to the <strong>first 50 founding members</strong>. Create your free account — no card required. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
           </div>
           <div class="hero-mini-wrap"><aside class="hero-mini" aria-label="Sample visibility report for Good Molecules">
             <div class="hero-mini-head"><span class="hero-mini-title">Visibility score</span></div>
@@ -966,9 +1068,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             <div class="hero-mini-score"><span id="miniScore">33</span><small>/100</small></div>
             <p class="hero-mini-label">on <span id="miniEngine">ChatGPT</span> · <span id="miniMention">mentioned in 1 of 3 buyer questions</span></p>
             <div class="hero-mini-rows" id="miniRows">
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Grok" aria-label="Show Grok score">Grok</button><span class="hero-mini-track"><span style="width:100%"></span></span><b>100</b></div>
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="DeepSeek" aria-label="Show DeepSeek score">DeepSeek</button><span class="hero-mini-track"><span style="width:100%"></span></span><b>100</b></div>
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Mistral" aria-label="Show Mistral score">Mistral</button><span class="hero-mini-track"><span style="width:100%"></span></span><b>100</b></div>
+              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Perplexity" aria-label="Show Perplexity score">Perplexity</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
+              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Gemini" aria-label="Show Gemini score">Gemini</button><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
+              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Claude" aria-label="Show Claude score">Claude</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
               <div class="hero-mini-row hero-mini-summary"><a href="#sample-table">+ 3 more engines — full sample below</a></div>
             </div>
             <div class="hero-mini-dots" id="miniDots"></div>
@@ -989,8 +1091,8 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         <div class="wrap">
           <div class="sec-head reveal">
             <p class="sec-kicker">Free check</p>
-            <h2>Check your own site — right now, for real</h2>
-            <p>Enter your domain — we'll fetch your llms.txt, the small file that tells AI what your site is about, and grade it on the spot. No signup, no email. <span style="white-space:nowrap">Done in seconds.</span></p>
+            <h2>Check your llms.txt — right now, for real</h2>
+            <p>Enter your domain — we'll fetch your llms.txt, the small file that tells AI what your site is about, and grade it on the spot. No signup, no email. <span style="white-space:nowrap">Done in seconds.</span> The full visibility check — whether those engines mention you at all — runs inside your account, and accounts are open now.</p>
           </div>
 
           <div class="checker" aria-label="Live llms.txt checker">
@@ -1013,7 +1115,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="sec-head reveal" style="margin-top: 56px;">
             <p class="sec-kicker">Sample report</p>
             <h2>…and this is what lands in your inbox every Monday</h2>
-            <p>We ran CitMark for real on Oct 28, 2026 — seven brands, all seven engines, the same 3 buyer questions as the free check. Every score below is the actual result, low ones included.</p>
+            <p>We ran CitMark for real on Oct 28, 2026 — eight brands, all seven engines, the same 3 buyer questions as the free check. Every score below is the actual result, low ones included.</p>
           </div>
 
           <div class="sample-run" id="sample-table">
@@ -1048,7 +1150,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="inline-cta">
             <div class="inline-cta-copy">
               <h3>Want this report for your own site?</h3>
-              <p>Join the waitlist — founding members lock in 50% off for 12 months. First 50 members only.</p>
+              <p>Create a free account — founding members lock in 50% off for 12 months. First 50 members only.</p>
             </div>
             <div class="inline-cta-form">
               <form class="waitlist" data-register data-source="inline" novalidate>
@@ -1058,7 +1160,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
                 <button class="btn" type="submit">Create your free account</button>
               </form>
               <p class="form-msg" role="status"></p>
-              <p class="consent">By joining, you agree to receive one launch email from CitMark. No spam, unsubscribe anytime. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
+              <p class="consent">Create a free account — no card required, and your first check runs with buyer questions like the ones in the sample below. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
             </div>
           </div>
 
@@ -1089,13 +1191,13 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         <div class="wrap">
           <div class="sec-head reveal">
             <p class="sec-kicker">How it works</p>
-            <h2>Ten minutes to set up. Then it just runs.</h2>
+            <h2>Set it up once. Then it just runs.</h2>
           </div>
           <div class="steps">
             <div class="step reveal">
               <span class="num">STEP 01</span>
               <h3>Add your domain</h3>
-              <p>Tell us your site and up to five competitors. We suggest the questions your buyers actually ask AI — you approve or edit the list. No code, no analytics access, nothing to install.</p>
+              <p>Tell us your site and your competitors — every plan includes competitor tracking. We suggest the questions your buyers actually ask AI — you approve or edit the list. No code, no analytics access, nothing to install.</p>
             </div>
             <div class="step reveal">
               <span class="num">STEP 02</span>
@@ -1141,7 +1243,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         <div class="wrap why-grid">
           <div class="reveal">
             <p class="sec-kicker">Why now</p>
-            <h2>Search is moving into AI answers. Small sites are flying blind.</h2>
+            <h2>Search is moving into AI answers. Most small sites can't see whether they're in them.</h2>
             <p class="lede">Your customers increasingly get recommendations from ChatGPT, Perplexity, Gemini and Claude instead of a list of blue links.</p>
             <p class="lede">If AI never mentions you, you don't exist in that conversation — and today, almost no small site can even see whether it's happening.</p>
             <p class="lede">Enterprise brands buy Profound or AthenaHQ. Everyone else gets one-off free checkers that generate a file once and never look again.</p>
@@ -1149,16 +1251,39 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           </div>
           <div class="reveal">
             <div class="datastrip">
-              <div class="ds-item"><b>SEPT 2024</b><span>llms.txt proposed — now mainstream</span></div>
-              <div class="ds-item"><b>JUNE 2025</b><span>Yoast ships an llms.txt generator — "AI-readable" becomes standard SEO</span></div>
-              <div class="ds-item"><b>OCT 2026</b><span>Category forming now — nobody owns weekly monitoring at small-site prices</span></div>
+              <div class="ds-item"><b>SEP 2024</b><span>A standard is proposed: llms.txt — a small file that tells AI what your site is about.</span></div>
+              <div class="ds-item"><b>2025–26</b><span>Sites publishing an llms.txt file grew 8.8× in a year — from about 4,000 to over 36,000.</span></div>
+              <div class="ds-item"><b>MAY 2026</b><span>Lighthouse, the auditing tool behind PageSpeed, adds llms.txt to its checks.</span></div>
+              <div class="ds-item"><b>TODAY</b><span>The category is forming — and weekly monitoring at small-site prices is still wide open</span></div>
             </div>
-            <p class="ds-src">Sources: llmstxt.org · <a href="https://yoast.com/press/yoast-launches-the-first-llms-txt-generator-in-an-seo-plugin-ushering-in-a-new-era-of-ai-ready-content/" target="_blank" rel="noopener">Yoast press release</a> · <a href="https://www.einpresswire.com/article/949922516/llms-ledger-launches-free-llms-txt-validator-as-website-owners-prepare-for-ai-search" target="_blank" rel="noopener">EIN Presswire, Oct 15, 2026</a></p>
+            <p class="ds-src">Sources: llmstxt.org · Originality.ai, llms.txt adoption tracking · Gartner, Market Guide for Answer Engine Visibility Tools (Mar 2026)</p>
 
           </div>
         </div>
       </section>
 
+            <!-- ============ TOOLKIT BAND ============ -->
+      <section id="toolkit">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <p class="sec-kicker">The toolkit</p>
+            <h2>Tools that turn your score into fixes.</h2>
+          </div>
+          <div class="tkband reveal">
+              <div class="tkrow"><h3>Impact tracker</h3><p>Did it work? See what changed after each fix — with noise removed.</p></div>
+              <div class="tkrow"><h3>Page checkup</h3><p>Why AI skips your pages — and the brief to fix it.</p></div>
+              <div class="tkrow"><h3>Win citations</h3><p>Sites that cite your rivals but not you — with outreach drafts.</p></div>
+              <div class="tkrow"><h3>AI readiness</h3><p>Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div>
+              <div class="tkrow"><h3>llms.txt generator</h3><p>A small file that tells AI what your site is about.</p></div>
+              <div class="tkrow"><h3>Fix a bad mention</h3><p>Step-by-step when AI gets your facts wrong.</p></div>
+              <div class="tkrow"><h3>Answer history <span class="tk-soon">Coming soon</span></h3><p>See how AI's answers about you changed, word for word.</p></div>
+              <div class="tkrow"><h3>What AI says about you <span class="tk-soon">Coming soon</span></h3><p>Not just whether AI mentions you — what it says, checked against your facts.</p></div>
+              <div class="tkrow"><h3>Question radar <span class="tk-soon">Coming soon</span></h3><p>New questions worth tracking — from search data, not guesses.</p></div>
+              <div class="tkrow"><h3>MCP access (read-only) <span class="tk-soon">Coming soon</span></h3><p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
+          </div>
+          <p class="tkband-cta"><a class="btn" href="#pricing">See plans and pricing</a></p>
+        </div>
+      </section>
       <!-- ============ PRICING ============ -->
       <section id="pricing">
         <div class="wrap">
@@ -1176,74 +1301,110 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="plans reveal" id="plans">
             <div class="plan">
               <p class="pname">Starter</p>
-              <p class="pdesc">For blogs, indie products and local businesses that need to know where they stand in AI answers.</p>
+              <p class="pdesc">You're starting out and need to know where you stand in AI answers.</p>
               <div class="price"><span class="amt" data-regular="19" data-founding="9.50">$9.50</span><span class="per">/ month</span><span class="was">$19</span></div>
               <p class="price-note" data-note>Founding price — locked for 12 months.</p>
+              <p class="price-renew">After your first 12 months, this plan renews at the standard $30/mo.</p>
               <ul>
                 <li><b>1</b> website</li>
                 <li><b>30</b> tracked buyer questions</li>
                 <li>ChatGPT, Perplexity, Gemini &amp; Claude</li>
                 <li>Weekly checks + Monday email digest</li>
                 <li>llms.txt health monitoring</li>
-                <li>Mention &amp; citation tracking</li>
+                <li>Mention &amp; citation tracking</li> <li>Competitor tracking — up to <b>19</b> rivals</li>
+                              <li>Alerts when AI turns negative about your brand</li>
+                <li>All six tools included · depth grows with your plan</li>
+                <li>1 seat</li>
               </ul>
-              <a class="btn ghost" href="#join">Join the waitlist</a>
+              <a class="btn ghost" href="#join" data-tier-cta="starter" data-cta-tier="starter">Choose plan</a>
+              <p class="plan-micro">Free account · no card required</p>
             </div>
             <div class="plan featured">
-              <span class="pop-badge">MOST POPULAR</span>
+              <span class="pop-badge">Recommended</span>
               <p class="pname">Growth</p>
-              <p class="pdesc">For stores and small teams actively competing for AI recommendations in their category.</p>
+              <p class="pdesc">You're actively competing for AI recommendations in your category.</p>
               <div class="price"><span class="amt" data-regular="49" data-founding="24.50">$24.50</span><span class="per">/ month</span><span class="was">$49</span></div>
               <p class="price-note" data-note>Founding price — locked for 12 months.</p>
+              <p class="price-renew">After your first 12 months, this plan renews at the standard $70/mo.</p>
               <ul>
                 <li><b>1</b> website</li>
                 <li><b>100</b> tracked buyer questions</li>
                 <li>Everything in Starter</li>
-                <li>Competitor tracking — up to <b>5</b> rivals</li>
+                <li>Competitor tracking — up to <b>20</b> rivals</li>
                 <li>Share-of-voice reporting &amp; rival alerts</li>
                 <li>Fix-it briefs ranked by impact</li>
+                              <li>Alerts when your score really moves — noise doesn't count</li>
+                <li>Everything in Starter, with deeper tool coverage</li>
+                <li>3 seats</li>
               </ul>
-              <a class="btn" href="#join">Join the waitlist</a>
+              <a class="btn" href="#join" data-tier-cta="growth" data-cta-tier="growth">Choose plan</a>
+              <p class="plan-micro">Free account · no card required</p>
             </div>
             <div class="plan">
+              <span class="pop-badge">6 AI ENGINES</span>
               <p class="pname">Pro</p>
-              <p class="pdesc">For brands that live on AI answers and need deeper coverage.</p>
+              <p class="pdesc">Your sales live on AI answers — you can't afford to miss a drop, a rival's move, or a negative mention.</p>
               <div class="price"><span class="amt" data-regular="129" data-founding="64.50">$64.50</span><span class="per">/ month</span><span class="was">$129</span></div>
               <p class="price-note" data-note>Founding price — locked for 12 months.</p>
+              <p class="price-renew">After your first 12 months, this plan renews at the standard $169/mo.</p>
               <ul>
                 <li><b>1</b> website</li>
                 <li><b>300</b> tracked buyer questions</li>
                 <li>Everything in Growth</li>
                 <li><b>6</b> AI engines — adds Grok &amp; DeepSeek</li>
-                <li>Competitor tracking — up to <b>5</b> rivals</li>
+                <li>Competitor tracking — up to <b>20</b> rivals</li>
                 <li>Fix-it briefs ranked by impact</li>
+                              <li>Alerts when a question drops you, or a rival overtakes you</li>
+                <li>Everything in Growth, with deeper coverage across all six tools</li>
+                <li>5 seats</li>
               </ul>
-              <a class="btn ghost" href="#join">Join the waitlist</a>
+              <a class="btn ghost" href="#join" data-tier-cta="pro" data-cta-tier="pro">Choose plan</a>
+              <p class="plan-micro">Free account · no card required</p>
             </div>
             <div class="plan">
+              <span class="pop-badge">ALL 7 ENGINES</span>
               <p class="pname">Teams</p>
-              <p class="pdesc">For multi-brand teams and agencies.</p>
+              <p class="pdesc">You run several brands — or report on them to clients.</p>
               <div class="price"><span class="amt" data-regular="199">$199</span><span class="per">/ month</span><span class="was">$300</span></div>
               <p class="price-note">Coming soon</p>
+              <p class="price-renew">After the first 12 months, Teams renews at the standard $300/mo.</p>
               <ul>
                 <li><b>10</b> websites</li>
                 <li>Everything in Pro</li>
                 <li><b>7</b> AI engines — adds Mistral</li>
                 <li>White-label reports</li>
+                              <li>Every alert, across all your sites, in one roll-up</li>
+                <li>Everything in Pro · llms.txt batch generation included</li>
+                <li>20 seats — read-only seats don't count toward the limit</li>
               </ul>
               <span class="btn ghost soon-static" aria-disabled="true">Coming soon</span>
             </div>
           </div>
-          <p class="pricing-foot reveal">Launch prices: Starter $19/mo, Growth $49/mo, Pro $129/mo, Teams $199/mo. Standard prices: Starter $30/mo, Growth $70/mo, Pro $169/mo, Teams $300/mo. Founding pricing is limited to the first 50 founding members on the waitlist, applies to the Starter, Growth and Pro plans, and lasts for 12 months, then renews at the standard price. No card required to join the waitlist. <strong style="color: var(--ink-2);">And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
+          <p class="plans-exit reveal"><a href="/pricing/">See the full comparison</a></p>
+          <div class="pricing-foot wall-lines reveal">
+<p><b>Launch prices:</b> Starter $19/mo, Growth $49/mo, Pro $129/mo, Teams $199/mo.</p>
+<p><b>Standard prices:</b> Starter $30/mo, Growth $70/mo, Pro $169/mo, Teams $300/mo.</p>
+<p>Founding pricing is limited to the first 50 founding members, applies to the Starter, Growth and Pro plans, and lasts for 12 months, then renews at the standard price.</p>
+<p>No card required to create an account.</p>
+<p><strong>And if your first report finds nothing useful, we'll refund you — no questions asked.</strong></p>
+</div>
         </div>
       </section>
 
       <!-- ============ FAQ ============ -->
       <section id="faq" style="padding-top: 8px;">
         <div class="wrap">
-          <div class="sec-head reveal">
-            <p class="sec-kicker">FAQ</p>
-            <h2>Straight answers</h2>
+          <div class="faq-grid">
+          <div class="faq-side reveal">
+            <div class="sec-head">
+              <p class="sec-kicker">FAQ</p>
+              <h2>Straight answers</h2>
+            </div>
+            <div class="faq-support">
+              <h3>Still stuck?</h3>
+              <p>Write to <a href="mailto:support@citmark.com">support@citmark.com</a> — we answer by what your issue is, never by what you pay.</p>
+              <p><a href="#sample-table">See the sample report →</a></p>
+            </div>
           </div>
           <div class="faq reveal">
             <div class="faq-item">
@@ -1272,6 +1433,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             </div>
           </div>
         </div>
+          </div>
       </section>
 
       <!-- ============ FINAL CTA ============ -->
@@ -1279,7 +1441,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         <div class="wrap">
           <div class="final reveal">
             <h2>Find out what AI says about you — before your competitors do.</h2>
-            <p>Join the waitlist for first access and founding pricing at 50% off for 12 months — for the first 50 founding members only. One email when we launch. That's it.</p>
+            <p>Accounts are open now. Create yours free — founding pricing at 50% off for 12 months is limited to the first 50 founding members.</p>
             <form class="waitlist" data-register data-source="bottom" novalidate style="margin-top: 26px;">
               <label style="position:absolute;left:-9999px" for="email-final">Work email</label>
               <input id="email-final" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
@@ -1287,8 +1449,14 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
               <button class="btn" type="submit">Create your free account</button>
             </form>
             <p class="form-msg" role="status"></p>
-            <p class="consent">By joining, you agree to receive one launch email from CitMark. No spam, unsubscribe anytime. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
-            <p class="form-note">Questions before you join? Email <strong><a href="mailto:support@citmark.com">support@citmark.com</a></strong>. One launch email, no spam, ever.</p>
+            <p class="consent">No card required to create an account. By creating one, you agree to the <a href="/terms/">Terms of Service</a> and Privacy Policy. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
+            <div class="join-steps">
+              <div class="jstep"><b>1 · Create your free account</b><span>No card required — an email and a password, or Google.</span></div>
+              <div class="jstep"><b>2 · Add your site</b><span>Tell us your site and the questions your buyers ask AI.</span></div>
+              <div class="jstep"><b>3 · We check every week</b><span>Up to 7 AI engines, the same buyer questions, run weekly.</span></div>
+              <div class="jstep"><b>4 · See your score and fixes</b><span>Mentions, citations and plain-English fixes in your dashboard.</span></div>
+            </div>
+            <p class="form-note">Questions first? Email <strong><a href="mailto:support@citmark.com">support@citmark.com</a></strong>.</p>
           </div>
         </div>
       </section>
@@ -1297,9 +1465,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
     <footer>
       <div class="wrap foot-in">
         <div class="foot-brand">
-          <a class="wordmark" href="#top" style="font-size: 18px;">CitMark<span class="dot">.</span></a>
+          <a class="wordmark" href="#top">CitMark<span class="dot">.</span></a>
           <p>AI search visibility monitoring for small sites.</p>
-          <p>CitMark is in private preview — founding members join the waitlist above.</p>
+          <p>Now open — founding pricing for the first 50 members.</p>
           <p>Contact: <a href="mailto:support@citmark.com">support@citmark.com</a></p>
           <p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p>
         </div>
@@ -1320,44 +1488,44 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <a href="#privacy" class="privacy-link">Privacy Policy</a>
           <a href="/terms/">Terms of Service</a>
         </nav>
-        <p class="fineprint">The sample report on this page is a real CitMark run from Oct 28, 2026, shown to illustrate the product. Operated by Tao Yu.</p>
+        <p class="fineprint foot-line"><span>The sample report on this page is a real CitMark run from Oct 28, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p>
       </div>
     </footer>
 
     <div class="sticky-cta" id="stickyCta" aria-hidden="true">
       <p><b>Founding pricing:</b> 50% off for 12 months — first 50 only.</p>
-      <a class="btn small" href="#join" tabindex="-1"><span class="cta-full">Join the waitlist</span><span class="cta-short">Join waitlist</span></a>
+      <a class="btn small" href="#join" tabindex="-1"><span class="cta-full">Sign up free</span><span class="cta-short">Sign up free</span></a>
     </div>
 
     <div class="privacy-overlay" id="privacyModal" hidden>
       <div class="privacy-panel" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
         <button class="privacy-close" type="button" id="privacyClose" aria-label="Close privacy policy">&times;</button>
         <h2 id="privacyTitle">Privacy Policy</h2>
-        <p class="eff"><strong>Effective date:</strong> October 17, 2026</p>
+        <p class="eff"><strong>Effective date:</strong> October 25, 2026</p>
         <h3>1. Who we are</h3>
         <p>CitMark ("we", "us") operates citmark.com. For any privacy question or request: <a href="mailto:support@citmark.com">support@citmark.com</a>.</p>
         <h3>2. What we collect</h3>
-        <p>The only personal data we collect on this page is your <strong>email address</strong>, which you provide when joining the waitlist. We do not use cookies, analytics, fingerprinting, or any other tracking technology on this page.</p>
-        <h3>3. Why we collect it, and the lawful basis</h3>
+        <p><strong>Account data:</strong> your email, name (if you provide one), and workspace membership. <strong>Brand &amp; measurement setup:</strong> the brands, domains, and questions you ask us to track. <strong>Measurement data:</strong> AI answers we collect when running checks, extracted citations, scores, and reports. <strong>Connection tokens</strong> (only if you connect Google or Shopify): stored encrypted — never in plain text, never in logs. <strong>Usage &amp; security logs:</strong> logins, API calls, admin actions. <strong>What we never collect:</strong> payment card details — payments go through Creem, our merchant of record, and card data never touches our systems.</p>
+        <h3>3. Why we use it, and the lawful basis</h3>
         <ul>
-          <li><strong>Purpose:</strong> to send you one notification when CitMark launches (including the founding-member pricing you signed up for), and to administer the waitlist (e.g., prevent duplicate signups).</li>
-          <li><strong>Lawful basis (GDPR Art. 6(1)(a)):</strong> your consent, given when you submit the waitlist form after reading the notice next to it.</li>
+          <li><strong>To run the service</strong> — measurements, reports, and alerts (performance of the contract).</li> <li><strong>To administer your account and billing</strong> — contract.</li> <li><strong>To prevent fraud and abuse and keep the service secure</strong> — legitimate interest.</li> <li><strong>To improve the product</strong>, using anonymized, aggregated data only — legitimate interest.</li>
+          <li>Where the GDPR applies, the lawful bases above refer to GDPR Art. 6.</li>
         </ul>
         <h3>4. How we store and protect it</h3>
         <ul>
-          <li>Your email is stored in a private, access-restricted Google Sheet and in our mailbox (signup notifications only).</li>
-          <li>We never sell your data. We share it with no third party except the service providers strictly necessary to run this page (static web hosting, email delivery), each bound by their own data-protection terms.</li>
+          <li>Your data is stored in our primary database in Singapore, encrypted in transit and at rest. OAuth tokens are encrypted before storage and never appear in logs.</li>
+          <li>We never sell your data. We share it with no third party except the service providers strictly necessary to run CitMark (hosting, email delivery), each bound by their own data-protection terms.</li>
         </ul>
         <h3>5. International transfers</h3>
-        <p>Our team and some providers operate outside your country (including the United States and China). Where the GDPR applies, transfers are protected by appropriate safeguards, including the Standard Contractual Clauses with our providers.</p>
+        <p>Your data lives in Singapore — your account, brand, measurement data, tokens, and logs are stored in our primary database there. The website itself is served globally. Some providers handle specific tasks elsewhere, and only the data they need for that task: email delivery — Resend (United States); payment processing — Creem (United States). Where the GDPR applies, transfers to these providers are protected by appropriate safeguards, including Standard Contractual Clauses.</p>
         <h3>6. How long we keep it</h3>
-        <p>We keep waitlist emails until <strong>12 months after launch</strong>, or until you ask us to delete them — whichever comes first. Deleted on request within 30 days.</p>
+        <p>Account and workspace data: until you delete your account. Billing records: as long as tax law requires. Usage logs: 90 days; security audit logs: 1 year.</p>
         <h3>7. Your rights</h3>
         <p>You may at any time: access, correct, or delete your data; withdraw your consent; restrict or object to processing; request portability; and (in the EU/UK) lodge a complaint with your supervisory authority. Email <a href="mailto:support@citmark.com">support@citmark.com</a> for any of these — we respond within 30 days. Withdrawing consent does not affect processing already carried out.</p>
         <h3>8. Children</h3>
         <p>This page is not directed at children under 16, and we do not knowingly collect their data. If you believe a child provided us data, contact us and we will delete it.</p>
         <h3>9. Changes</h3>
-        <p>We will post any updates here with a new effective date. Material changes will be notified to the waitlist by email.</p>
+        <p>We will post any updates here with a new effective date. Material changes get an email notice before they take effect.</p>
       </div>
     </div>
 
@@ -1502,9 +1670,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         var stickyLink = stickyCta.querySelector("a.btn");
         /* the bar jumps to the final form — tag that signup as coming from here */
         stickyLink.addEventListener("click", function () { pendingSource = "sticky"; });
-        var suppressBar = { join: false, footer: false };
+        var suppressBar = { join: false, footer: false, pricing: false };
         function updateSticky() {
-          var show = window.scrollY > window.innerHeight * 0.75 && !suppressBar.join && !suppressBar.footer;
+          var show = window.scrollY > window.innerHeight * 0.75 && !suppressBar.join && !suppressBar.footer && !suppressBar.pricing;
           stickyCta.classList.toggle("visible", show);
           stickyCta.setAttribute("aria-hidden", show ? "false" : "true");
           if (show) { stickyLink.removeAttribute("tabindex"); }
@@ -1514,11 +1682,13 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           var barIO = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
               if (e.target.id === "join") { suppressBar.join = e.isIntersecting; }
+              else if (e.target.id === "pricing") { suppressBar.pricing = e.isIntersecting; }
               else { suppressBar.footer = e.isIntersecting; }
             });
             updateSticky();
           }, { threshold: 0.04 });
           barIO.observe(document.getElementById("join"));
+          barIO.observe(document.getElementById("pricing"));
           barIO.observe(document.querySelector("footer"));
         }
         window.addEventListener("scroll", updateSticky, { passive: true });
@@ -1623,12 +1793,12 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           p.appendChild(document.createTextNode(msg));
           box.appendChild(p);
           var p2 = document.createElement("p");
-          p2.textContent = "Leave your email on the waitlist below and we'll run the full check for you by hand — including what all four AI engines say about your site.";
+          p2.textContent = "Create a free account below and we'll set up the full check for your site — including what all four AI engines say about it.";
           box.appendChild(p2);
           var a = document.createElement("a");
           a.className = "retry-link";
           a.href = "#join";
-          a.textContent = "Join the waitlist and we'll check it for you →";
+          a.textContent = "Create a free account and we'll set it up for you →";
           box.appendChild(a);
           checkResult.appendChild(box);
         }
@@ -1720,7 +1890,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           var ca = document.createElement("a");
           ca.className = "btn small";
           ca.href = "#join";
-          ca.textContent = "Get the full 4-engine comparison — join the waitlist";
+          ca.textContent = "Get the full 4-engine comparison — create a free account";
           cta.appendChild(cp); cta.appendChild(ca);
           container.appendChild(cta);
         }
@@ -1817,7 +1987,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           var ca = document.createElement("a");
           ca.className = "btn small";
           ca.href = "#join";
-          ca.textContent = "Want the full 4-engine report? Join the waitlist";
+          ca.textContent = "Want the full 4-engine report? Create a free account";
           cta.appendChild(cp); cta.appendChild(ca);
           wrap.appendChild(cta);
           /* competitor comparison block — appears once your own grade is in */
@@ -2152,7 +2322,8 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           var googleBtn = document.getElementById("authCardGoogleBtn");
           if (googleBtn) googleBtn.focus({ preventScroll: true });
         }
-        function closeCard(opts) {
+        document.addEventListener("citmark:auth-open", function () { openCard(null); });
+  function closeCard(opts) {
           if (overlay.hidden && !isOpen()) return;
           window.clearTimeout(closeTimer);
           overlay.classList.remove("open");
@@ -2446,8 +2617,12 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
     </script>
 <script>
 /* A1 formal: sample mini card carousel. Data: the Oct 28, 2026 real run for Good Molecules
-   (mentions of 3 buyer questions per engine; score = mention rate). Auto-advance 4.0s;
-   any manual switch stops auto for good; reduced-motion = static; runs only >=1024px. */
+   (mentions of 3 buyer questions per engine; score = mention rate). Auto-advance 4.0s, >=1024px
+   only, reduced-motion = static. preview18 adds swipe/drag switching across all 7 states.
+   Product pause rule (2026-10-30): any manual interaction (swipe, row click, dot click) pauses
+   auto-advance for 8s; with no further interaction it resumes at the original 4.0s interval and
+   order. Card off-viewport or page hidden pauses; returning resumes (unless still in the 8s
+   manual window). */
 (function () {
   var DATA = [
     { name: "ChatGPT", score: 33, mentions: 1 },
@@ -2467,22 +2642,27 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
   var dotsWrap = document.getElementById("miniDots");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var wide = window.matchMedia("(min-width: 1024px)");
-  var idx = 0, current = DATA[0].score, auto = true, timer = null, raf = null;
+  var idx = 0, current = DATA[0].score, timer = null, raf = null;
+  var resumeTimer = null, pausedUntil = 0, inView = true;
   DATA.forEach(function (d, i) {
     var dot = document.createElement("button");
     dot.type = "button"; dot.className = "hero-mini-dot" + (i === 0 ? " on" : "");
     dot.setAttribute("aria-label", "Show " + d.name + " score");
     if (i === 0) dot.setAttribute("aria-current", "true");
-    dot.addEventListener("click", function () { stopAuto(); render(i, true); });
+    dot.addEventListener("click", function () { manualPause(); render(i, true); });
     dotsWrap.appendChild(dot);
   });
   var dots = dotsWrap.querySelectorAll(".hero-mini-dot");
   var rowEls = rowsWrap.querySelectorAll(".hero-mini-row:not(.hero-mini-summary)");
   rowEls.forEach(function (row) {
-    row.querySelector(".hero-mini-eng").addEventListener("click", function () {
+    /* preview19: the whole row is the click target (name, track and score),
+       not just the engine-name button; the target engine is read at click time
+       because render() rewrites each row's engine per state. */
+    row.style.cursor = "pointer";
+    row.addEventListener("click", function () {
       var name = row.querySelector(".hero-mini-eng").getAttribute("data-mini-eng");
       var i = DATA.findIndex(function (d) { return d.name === name; });
-      if (i >= 0) { stopAuto(); render(i, true); }
+      if (i >= 0) { manualPause(); render(i, true); }
     });
   });
   function render(next, animate) {
@@ -2499,8 +2679,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
     } else { scoreEl.textContent = d.score; current = d.score; }
     engEl.textContent = d.name;
     menEl.textContent = "mentioned in " + d.mentions + " of 3 buyer questions";
-    var others = DATA.filter(function (x) { return x.name !== d.name; })
-      .sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
+    var others = DATA.filter(function (x) { return x.name !== d.name; }).slice(0, 3);
     rowEls.forEach(function (row, i) {
       var o = others[i], btn = row.querySelector(".hero-mini-eng");
       btn.textContent = o.name;
@@ -2518,15 +2697,83 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
     });
     idx = next;
   }
-  function stopAuto() { auto = false; if (timer) { clearInterval(timer); timer = null; } }
+  function clearTimer() { if (timer) { clearInterval(timer); timer = null; } }
   function startAuto() {
-    if (reduce || !auto || !wide.matches || timer) return;
+    if (reduce || !wide.matches || timer || document.hidden || !inView) return;
+    if (Date.now() < pausedUntil) return;
     timer = setInterval(function () { render((idx + 1) % DATA.length, true); }, 4000);
   }
+  function manualPause() {
+    clearTimer();
+    pausedUntil = Date.now() + 8000;
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(function () { resumeTimer = null; startAuto(); }, 8000);
+  }
   document.addEventListener("visibilitychange", function () {
-    if (document.hidden) { if (timer) { clearInterval(timer); timer = null; } } else { startAuto(); }
+    if (document.hidden) { clearTimer(); } else { startAuto(); }
   });
-  if (wide.addEventListener) wide.addEventListener("change", function () { if (wide.matches) { startAuto(); } else { stopAuto(); auto = true; } });
+  if (wide.addEventListener) wide.addEventListener("change", function () { if (wide.matches) { startAuto(); } else { clearTimer(); } });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      inView = entries[0].isIntersecting;
+      if (inView) { startAuto(); } else { clearTimer(); }
+    }, { threshold: 0.2 }).observe(card);
+  }
+  /* Swipe / drag layer (preview18): horizontal pointer drag on the card switches the
+     featured engine, cycling all 7 states in DATA order (left = next, right = previous).
+     touch-action: pan-y keeps vertical page scroll native; a committed drag suppresses
+     the click that follows it. Drag feedback and the swap use transform/opacity only,
+     timed with the carousel's own 600ms easeOutCubic (same curve as the count animation). */
+  card.style.touchAction = "pan-y";
+  var dragX = null, dragY = null, dragged = false;
+  function swapFx(dir) {
+    if (reduce) return;
+    card.style.transition = "none";
+    card.style.transform = "translateX(" + (dir > 0 ? 14 : -14) + "px)";
+    card.style.opacity = "0.55";
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        card.style.transition = "transform 600ms cubic-bezier(0.33, 1, 0.68, 1), opacity 600ms cubic-bezier(0.33, 1, 0.68, 1)";
+        card.style.transform = "";
+        card.style.opacity = "";
+      });
+    });
+  }
+  card.addEventListener("pointerdown", function (e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    dragX = e.clientX; dragY = e.clientY; dragged = false;
+  });
+  card.addEventListener("pointermove", function (e) {
+    if (dragX === null) return;
+    var dx = e.clientX - dragX, dy = e.clientY - dragY;
+    if (!dragged && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.2) dragged = true;
+    if (dragged && !reduce) {
+      card.style.transition = "none";
+      card.style.transform = "translateX(" + Math.max(-24, Math.min(24, dx * 0.35)) + "px)";
+    }
+  });
+  function endDrag(e) {
+    if (dragX === null) return;
+    var dx = e.clientX - dragX;
+    var wasDrag = dragged;
+    dragX = null; dragY = null; dragged = false;
+    card.style.transition = "transform 600ms cubic-bezier(0.33, 1, 0.68, 1)";
+    card.style.transform = "";
+    if (wasDrag && Math.abs(dx) >= 40) {
+      var dir = dx < 0 ? 1 : -1;
+      manualPause();
+      render((idx + dir + DATA.length) % DATA.length, true);
+      swapFx(dir);
+      var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
+      card.addEventListener("click", kill, { capture: true, once: true });
+      setTimeout(function () { card.removeEventListener("click", kill, { capture: true }); }, 350);
+    }
+  }
+  card.addEventListener("pointerup", endDrag);
+  card.addEventListener("pointercancel", function () {
+    dragX = null; dragY = null; dragged = false;
+    card.style.transform = "";
+  });
   render(0, false);
   startAuto();
 })();
@@ -2549,17 +2796,544 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
 </style>
 
 <style>
-/* P1-3 footer navigation (scoped to footer; all original footer sentences kept verbatim) */
-footer .foot-in { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 28px 40px; align-items: start; }
-footer .foot-brand p { margin-top: 10px; }
+/* Footer A (grid) — transplanted whole from footer-opt-a-grid-20261030.html (md5 2aeb22d4), preview17.
+   Replaces the P1-3 footer block; values verbatim from A, scoped to footer. */
+footer { border-top: 1px solid var(--line); }
+footer a { color: var(--ink); }
+footer .wordmark { font-size: 18px; }
+footer .foot-in { display: grid; grid-template-columns: 1.55fr .82fr .82fr .82fr; gap: 28px 32px; align-items: start; }
+footer .foot-brand p { margin-top: 10px; max-width: 44ch; }
 footer .foot-nav { display: flex; flex-direction: column; gap: 9px; }
-footer .foot-h { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 2px 0 4px; }
-footer .foot-nav a { font-size: 14.5px; }
-footer .fineprint { grid-column: 1 / -1; }
+footer .foot-h { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 2px 0 4px; }
+footer .foot-nav a { font-size: 14.5px; line-height: 1.6; }
+footer .fineprint { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 12px 32px; align-items: baseline; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 6px; }
+footer .foot-op { text-align: right; white-space: nowrap; }
 @media (max-width: 760px) {
   footer .foot-in { grid-template-columns: 1fr 1fr; }
   footer .foot-brand { grid-column: 1 / -1; }
+  footer .fineprint { grid-template-columns: 1fr; }
+  footer .foot-op { text-align: right; }
 }
 </style>
+<style>
+/* session layer 20261029: homepage recognises the backend session.
+   Final topbar form 20261029: the logged-in topbar adds only an avatar;
+   clicking it opens a drawer copied as-is from the dashboard's Account
+   drawer, with one added entry (Dashboard, first row after the identity
+   head). No standalone buttons beside the avatar. */
+.tb-acct { display: none; position: relative; }
+body.is-authed .tb-acct { display: inline-flex; }
+body.is-authed .topbar-in [data-open-auth-card] { display: none; }
+.id-avatar-btn { border: 0; background: transparent; padding: 2px; border-radius: 50%; cursor: pointer; line-height: 0; color: var(--muted); }
+.id-avatar { display: inline-flex; width: 32px; height: 32px; flex: none; }
+.id-avatar svg { width: 100%; height: 100%; display: block; }
+.acct-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 260px; max-height: calc(100vh - 180px); overflow-y: auto; background: var(--bg-raise); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 8px; z-index: 70; }
+.acct-menu.open { display: block; }
+.acct-head { display: flex; gap: 12px; align-items: center; padding: 10px 4px 12px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.acct-head .id-avatar { color: var(--muted); }
+.acct-name { font-weight: 700; font-size: 15px; word-break: break-all; }
+.acct-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.id-badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 4px 10px; border-radius: 999px; background: #ff5a1f; color: #fff; }
+.acct-item { display: flex; width: 100%; align-items: center; min-height: 44px; padding: 13px 4px; font-size: 15px; font-weight: 600; line-height: 1; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid #eee; border-radius: 0; cursor: pointer; text-decoration: none; text-align: left; font-family: inherit; box-sizing: border-box; }
+.acct-sep { height: 1px; background: var(--line); margin: 8px 0; }
+.sess-toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(8px); background: var(--ink); color: #fff; font-size: 14px; padding: 10px 16px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; z-index: 400; max-width: calc(100vw - 32px); text-align: center; }
+.sess-toast.show { opacity: 1; transform: translateX(-50%) none; }
+</style>
+<script>
+(function () {
+  "use strict";
+  /* Topbar Account drawer (dashboard idiom): the avatar toggles the drawer;
+     session state itself stays with the session layer below. */
+  var btn = document.getElementById("idAvatarBtn");
+  var menu = document.getElementById("acctMenu");
+  if (!btn || !menu) return;
+  function setOpen(open) {
+    menu.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    setOpen(!menu.classList.contains("open"));
+  });
+  document.addEventListener("click", function (e) {
+    if (menu.classList.contains("open") && !menu.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+  menu.addEventListener("click", function (e) { if (e.target.closest("a, button")) setOpen(false); });
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  var DASH = "/dashboard/";
+  var authed = false;
+  function apply(state) {
+    authed = state;
+    document.body.classList.toggle("is-authed", state);
+    document.querySelectorAll("[data-open-auth-card]").forEach(function (b) {
+      b.textContent = state ? "Dashboard" : "Log in";
+    });
+  }
+  document.addEventListener("click", function (e) {
+    if (!authed) return;
+    var t = e.target && e.target.closest ? e.target.closest("[data-open-auth-card]") : null;
+    if (t) { e.preventDefault(); e.stopPropagation(); window.location.href = DASH; }
+  }, true);
+  var toastTimer = null;
+  function toast(msg) {
+    var el = document.querySelector(".sess-toast");
+    if (!el) { el = document.createElement("div"); el.className = "sess-toast"; document.body.appendChild(el); }
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2600);
+  }
+  document.querySelectorAll("[data-session-logout]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      fetch("/auth/logout", { method: "POST", credentials: "same-origin" }).then(function (r) {
+        if (r.ok) {
+          apply(false);
+          var nt = document.getElementById("navToggle");
+          if (nt && nt.getAttribute("aria-expanded") === "true") nt.click();
+        } else { toast("Couldn't log out. Please try again."); }
+      }).catch(function () { toast("Couldn't log out. Check your connection and try again."); });
+    });
+  });
+  function check() {
+    var ctrl = ("AbortController" in window) ? new AbortController() : null;
+    var to = ctrl ? setTimeout(function () { ctrl.abort(); }, 4000) : null;
+    fetch("/auth/me", { credentials: "same-origin", signal: ctrl ? ctrl.signal : undefined }).then(function (r) {
+      if (to) clearTimeout(to);
+      if (r.ok) { apply(true); }
+      else if (r.status === 401) { apply(false); }
+    }).catch(function () { if (to) clearTimeout(to); });
+  }
+  check();
+  window.addEventListener("pageshow", check);
+})();
+</script>
+<style>
+/* v2 preview4 fixes (20261029): FAQ follows container below 1024; footer nav cluster tightened */
+@media (max-width: 1023px) { .faq, .faq-support { max-width: none; } }
+/* footer grid rule removed in preview17 — Footer A block governs at all widths */
+</style>
+<style id="scheme-layer">
+
+/* scheme layer: layout tightening (all versions) */
+h1, h2 { text-wrap: balance; }
+.sec-head { margin-bottom: 40px; }
+.plans { gap: 24px; }
+.steps { gap: 24px; }
+.plan, .sample-run, .checker, .faq-support { border-radius: 16px; }
+
+/* V2 WARM CARDS: every filled surface takes the same warm tint family */
+@media (prefers-color-scheme: light) {
+  .plan, .sample-run, .checker, .faq-support, .hero-mini {
+    --bg-raise: #fbf8f1; --bg-sink: #f3ecdd; --line: #e7dfcd; --line-strong: #d9cfb6;
+    background: #fbf8f1; border: 1px solid #d9cfb6;
+    box-shadow: 0 1px 2px rgba(90,70,30,.05), 0 10px 28px -12px rgba(90,70,30,.16);
+  }
+  .plan { padding: 28px; }
+  .sample-run { padding: 24px 28px; }
+}
+
+</style>
+<style id="scheme-layer-heroguard">
+/* merge guard (frontend): restates the settled <1024 frameless hero rule after the scheme layer,
+   so the warm card treatment applies at >=1024 only, exactly as the scheme file intends.
+   Rule text below is byte-identical to the existing rule inside #a1-formal. */
+@media (max-width: 1023px) { .hero-mini { display: block; background: transparent; border: 0; box-shadow: none; padding: 0; } }
+</style>
+<style id="login-a2-css">
+/* A2 (his order 2026-10-30): Forgot hugs the password field; terms line gets air.
+   Measured on A: pw->forgot 16px, forgot->terms 0px. Targets: 8px / 20px. */
+.auth-card .pw-field{margin-bottom:8px}
+.auth-card .auth-card-forgot-row{margin-top:0}
+.auth-card .auth-card-terms{margin-top:20px}
+</style>
+<style id="hero-mini-restore">
+/* Hero data card restore (his order 2026-10-30, final2 review): this ONE card
+   leaves the V2 warm scheme and returns to the page ground -- same color as
+   the background, no border, no shadow; its inner tokens revert to :root so
+   tracks/hairlines match the rest of the page. All other warm cards untouched.
+   Light scheme only (the warm layer itself is light-only). */
+@media (prefers-color-scheme: light) {
+  .hero-mini { --bg-raise: #ffffff; --bg-sink: #ececea; --line: #dcdad2; --line-strong: #c6c3b8; }
+}
+@media (min-width: 1024px) and (prefers-color-scheme: light) {
+  .hero-mini { background: var(--bg); border-color: transparent; box-shadow: none; }
+}
+</style>
+<style id="tier-label-a">
+/* Tier wordmark A (settled) ported to the merged line, scoped to #pricing.
+   Declarations identical to the A demo (.v-a scope there). Composes with the
+   selected-tier rule: featured card keeps its orange border + solid button. */
+#pricing .pname { font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 21px; font-weight: 800; letter-spacing: -.01em; text-transform: none; color: var(--ink); margin: 0 0 8px; }
+#pricing .plan.featured .pname { color: var(--accent-deep); }
+</style>
+<style id="tier-badges">
+/* Per-tier badges (finalized 2026-10-30): Growth carries Recommended;
+   Pro and Teams carry the engine ladder (6 / ALL 7); Starter carries none.
+   Same pill geometry as the existing .pop-badge; tone differs per tier. */
+#pricing .plan { position: relative; }
+#pricing .pop-badge.tb-quiet { background: var(--bg-sink); color: var(--ink-2); }
+#pricing .pop-badge.tb-ink { background: var(--ink); color: #fff; }
+#pricing .pop-badge.tb-outline { background: inherit; color: var(--muted); border: 1px solid var(--line-strong); }
+</style>
+<style id="renew-lines">
+#pricing .price-renew { font-size: 13.5px; color: var(--ink-2); margin: -12px 0 20px; }
+</style>
+<style id="wall-lines">
+#pricing .wall-lines p { margin: 0; padding: 7px 0; border-bottom: 1px solid var(--line); }
+#pricing .wall-lines p:last-child { border-bottom: none; }
+#pricing .wall-lines b { color: var(--ink); }
+#pricing .wall-lines strong { color: var(--ink-2); }
+</style>
+<style id="plan-micro">
+#pricing .plan-micro { font-size: 12.5px; color: var(--muted); text-align: center; margin: 8px 0 0; }
+</style>
+<script id="tier-intent-wiring">
+/* Tier intent (signup package B): a plan-card click records the tier;
+   the auth card's register submit carries it as `tier`. */
+document.querySelectorAll("[data-tier-cta]").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    window.__pendingTier = btn.getAttribute("data-tier-cta");
+    try { sessionStorage.setItem("citmark_pending_tier", window.__pendingTier); } catch (e) {}
+  });
+});
+</script>
+<style id="topbar-acct-fix">
+/* Topbar session cluster fix (his real-device find 2026-10-30): the logged-in
+   .tb-acct span takes the auto margin the Log in button carries when logged out,
+   so avatar + hamburger sit flush right and the account drawer (anchored to
+   .tb-acct, right:0, 260px) opens fully in-frame at mobile widths. */
+.topbar-in .tb-acct { margin-left: auto; }
+</style>
+<style id="sr-table-fix">
+/* Sample table rest-state fix (his real-device find 2026-10-30): at widths where
+   the table scrolls, rests land on column boundaries (no half-cut glyphs,
+   including under the sticky Brand column), the start position is a true zero
+   (scroll-padding mirrors the scroller padding so the first snap point is 0),
+   and the scrollable state is perceptible (right-edge fade). Paired with the
+   sr-scroll-zero script below. */
+@media (max-width: 1023px) {
+  .sr-scroll { scroll-snap-type: x mandatory; scroll-padding-left: 141px;
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%); }
+  .sr-table { scroll-snap-align: start; }
+  .sr-table thead th:first-child, .sr-table tbody th { left: -24px; }
+  .sr-table th, .sr-table td { scroll-snap-align: start; }
+  /* The sticky first column must never be a snap target (his phone find
+     2026-10-30): a snapped sticky cell can rest half-off the left edge,
+     half-cutting its glyphs. Rests still land on column boundaries via the
+     remaining cells. */
+  .sr-table thead th:first-child, .sr-table tbody th { scroll-snap-align: none; }
+}
+@media (max-width: 560px) { .sr-scroll { scroll-padding-left: 141px; } .sr-table thead th:first-child, .sr-table tbody th { left: -18px; } }
+</style>
+<script id="sr-scroll-zero">
+/* Start position zeroed on load and on history restore: an inner scroller
+   restored mid-table reads as a static half-cut on some mobile browsers. */
+(function () { function zero() { document.querySelectorAll(".sr-scroll").forEach(function (el) { el.scrollLeft = 0; }); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", zero); else zero();
+  window.addEventListener("pageshow", zero); })();
+</script>
+<style id="cta-note-css">
+.plan .cta-note { display: none; margin: 10px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); text-align: center; }
+.plan .cta-note b { color: var(--ink); }
+.plan .cta-note-err { color: var(--accent-deep); }
+</style>
+<script id="cta-state-layer">
+/* Pricing CTA state matrix + checkout intent (2026-10-30). Labels render from
+   the server subscription state only; until /auth/me resolves, buttons carry
+   the neutral placeholder "Choose plan" and clicks are inert. A logged-in
+   response that cannot be classified (e.g. past_due without a tier) holds the
+   placeholder permanently - never a purchase context that might be wrong.
+   Clicks: visitor start -> existing register bridge (tier-intent wiring);
+   signed-in start / upgrade / switch -> POST /billing/checkout with the
+   derived intent. A recorded_not_executed receipt renders the confirmation
+   in place (no plan change is claimed); a checkout_url is followed (real
+   signing); any failure rolls the button back with a retry line. */
+(function () {
+  var ORDER = { starter: 0, growth: 1, pro: 2 };
+  var NAMES = { starter: "Starter", growth: "Growth", pro: "Pro" };
+  var resolved = false, signedIn = false;
+  function noteFor(el, main, sub, isError) {
+    var card = el.closest(".plan"); if (!card) return;
+    var n = card.querySelector(".cta-note");
+    if (!n) { n = document.createElement("p"); n.className = "cta-note"; n.setAttribute("role", "status"); el.parentNode.insertBefore(n, el.nextSibling); }
+    n.innerHTML = "";
+    var b = document.createElement("b"); b.textContent = main; n.appendChild(b);
+    if (sub) { n.appendChild(document.createElement("br")); n.appendChild(document.createTextNode(sub)); }
+    n.style.display = "block"; if (isError) n.classList.add("cta-note-err"); else n.classList.remove("cta-note-err");
+  }
+  function postIntent(el, mode) {
+    var tier = el.getAttribute("data-cta-tier");
+    var original = el.textContent;
+    el.textContent = "One moment\u2026"; el.setAttribute("aria-disabled", "true");
+    fetch("/billing/checkout", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tier: NAMES[tier], intent: mode, success_url: "https://citmark.com/success" }) })
+      .then(function (r) { if (r.ok) return r.json(); if (r.status === 401) { var e401 = new Error("auth"); e401.auth401 = true; throw e401; } return r.json().catch(function () { return null; }).then(function (j) { var eb = new Error("bad"); eb.detail = j && j.detail; throw eb; }); })
+      .then(function (res) {
+        if (res && res.checkout_url) { window.location.href = res.checkout_url; return; }
+        if (res && res.status === "recorded_not_executed") {
+          el.textContent = original; el.removeAttribute("aria-disabled");
+          noteFor(el, "Request recorded", "Your plan and billing stay exactly as they are \u2014 plan changes are handled by our team, and we'll be in touch to complete yours.", false);
+          return;
+        }
+        throw new Error("shape");
+      })
+      .catch(function (err) {
+        el.textContent = original; el.removeAttribute("aria-disabled");
+        if (err && err.auth401) {
+          /* Session died mid-page: raise the login card instead of a dead-end error. */
+          document.dispatchEvent(new CustomEvent("citmark:auth-open"));
+          return;
+        }
+        if (err && err.detail === "coupon_attach_blocked") { noteFor(el, "Your founder discount couldn't be applied, so this checkout can't go ahead. Your discount is safe — our team will be in touch to complete your checkout at your founder price.", "", true); return; }
+        if (err && err.detail === "coupon_probe_unavailable") { noteFor(el, "We couldn't check your founder discount just now, so checkout can't continue yet. Please try again in a few minutes — our team will also be in touch to help complete your checkout.", "", true); return; }
+        noteFor(el, "Couldn't record that \u2014 please try again.", "", true);
+      });
+  }
+  document.addEventListener("click", function (ev) {
+    var el = ev.target.closest ? ev.target.closest("[data-cta-tier]") : null;
+    if (!el) return;
+    var mode = el.getAttribute("data-cta-mode");
+    if (!resolved || mode === "current") { ev.preventDefault(); ev.stopPropagation(); return; }
+    if (mode === "upgrade" || mode === "switch" || (mode === "start" && signedIn)) {
+      ev.preventDefault(); ev.stopPropagation(); postIntent(el, mode);
+    }
+    /* visitor start: fall through to the existing tier-intent wiring + #join. */
+  }, true);
+  function render(me) {
+    signedIn = !!me;
+    var st = me ? me.subscription_status : null;
+    /* Tier arrives Title-case from the backend: normalize before lookup. */
+    var rawTier = (me && typeof me.tier === "string") ? me.tier.toLowerCase() : null;
+    var buyer = !!(me && st !== null && rawTier && ORDER.hasOwnProperty(rawTier) &&
+      (st === "active" || st === "trialing" || st === "past_due"));
+    if (me && !buyer && st !== null && st !== "canceled" && st !== "expired" && st !== "cancelled") {
+      /* A subscription row exists (status non-null) but the tier cannot be
+         judged: hold the neutral placeholder permanently. status === null
+         means no subscription row and renders as unpurchased, as do the
+         terminal states. (Final classification table, 2026-10-30.) */
+      return;
+    }
+    var cur = buyer ? ORDER[rawTier] : -1;
+    document.querySelectorAll("[data-cta-tier]").forEach(function (el) {
+      var t = el.getAttribute("data-cta-tier"), name = NAMES[t];
+      var card = el.closest(".plan");
+      var micro = card ? card.querySelector(".plan-micro") : null;
+      if (!buyer) { el.textContent = "Start with " + name; el.setAttribute("data-cta-mode", "start"); return; }
+      if (micro) micro.style.display = "none";
+      if (ORDER[t] === cur) { el.textContent = "Current plan"; el.setAttribute("data-cta-mode", "current"); el.classList.add("is-current"); el.setAttribute("aria-disabled", "true"); }
+      else if (ORDER[t] > cur) { el.textContent = "Upgrade to " + name; el.setAttribute("data-cta-mode", "upgrade"); }
+      else { el.textContent = "Switch to " + name; el.setAttribute("data-cta-mode", "switch"); }
+    });
+    resolved = true;
+  }
+  var ctrl = ("AbortController" in window) ? new AbortController() : null;
+  var to = ctrl ? setTimeout(function () { ctrl.abort(); }, 4000) : null;
+  fetch("/auth/me", { credentials: "same-origin", signal: ctrl ? ctrl.signal : undefined })
+    .then(function (r) { if (to) clearTimeout(to); return r.ok ? r.json() : null; })
+    .then(function (me) { render(me); })
+    .catch(function () { if (to) clearTimeout(to); render(null); });
+})();
+</script>
+<style id="motion-eval-css">
+:root{--m-ease:cubic-bezier(.22,.61,.21,1);--m-s:240ms;--m-m:480ms;--m-l:900ms;--m-step:70ms}
+.m-pre{opacity:0!important;transform:translateY(10px)} #pricing .plan.m-anim{transition:opacity 300ms cubic-bezier(.22,.61,.21,1),transform 300ms cubic-bezier(.22,.61,.21,1)} #pricing .plan.m-pre{transform:translateY(6px)}
+.m-anim{transition:opacity var(--m-m) var(--m-ease),transform var(--m-m) var(--m-ease)}
+.m-bar{transition:transform var(--m-l) var(--m-ease);transform-origin:left center}
+.m-bar-pre{transform:scaleX(0)}
+.score-ring .ring-fg{transition:stroke-dashoffset var(--m-l) var(--m-ease)!important}
+.sticky-cta{transition:transform var(--m-s) var(--m-ease),opacity var(--m-s) var(--m-ease)}
+.m-swap{transition:opacity var(--m-s) var(--m-ease)}
+</style>
+<style id="motion-c-css">
+/* INTENSITY C: drawn accents (visual additions, declared) */
+.sr-score{position:relative}
+.m-sbar{position:absolute;left:10px;right:10px;bottom:4px;height:4px;border-radius:2px;background:rgba(23,25,28,.10);overflow:hidden}
+.m-sbar i{display:block;height:100%;background:var(--accent,#e8622c);transform:scaleX(0);transform-origin:left center;transition:transform 1200ms cubic-bezier(.22,.61,.21,1)}
+.m-sbar.go i{transform:scaleX(1)}
+.sec-head{position:relative}
+.m-rule{display:block;width:46px;height:3px;border-radius:2px;background:var(--accent,#e8622c);margin-top:10px;transform:scaleX(0);transform-origin:left center;transition:transform 600ms cubic-bezier(.22,.61,.21,1)}
+.m-rule.go{transform:scaleX(1)}
+#pricing .plan{position:relative}
+.m-dotg{transform-origin:48px 48px}
+
+@media (prefers-reduced-motion: reduce){
+  .m-sbar i{transform:scaleX(1)!important;transition:none!important}
+ 
+  .m-rule{transform:scaleX(1)!important;transition:none!important}
+}
+</style>
+<script id="motion-eval-js">
+(function(){
+"use strict";
+var MODE="prod";
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
+var STEP=70, DURL=900;
+function ease(t){return 1-Math.pow(1-t,4);}
+function count(el,dur){
+  if(!el) return;
+  var txt=el.getAttribute("data-m-final");
+  if(!txt){ txt=el.textContent.trim(); el.setAttribute("data-m-final",txt); }
+  var target=parseFloat(txt.replace(/,/g,""));
+  if(isNaN(target)) return;
+  var dec=(txt.split(".")[1]||"").length;
+  if(reduced.matches){ el.textContent=txt; return; }
+  var t0=null;
+  function frame(ts){ if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/dur); var v=target*ease(p);
+    el.textContent=dec? v.toFixed(dec) : String(Math.round(v));
+    if(p<1) requestAnimationFrame(frame); else el.textContent=txt; }
+  requestAnimationFrame(frame);
+}
+function reveal(els,step){
+  var list=Array.prototype.slice.call(els||[]);
+  if(!list.length) return;
+  if(reduced.matches) return;
+  list.forEach(function(el){ el.classList.add("m-anim"); el.classList.add("m-pre"); });
+  void document.body.offsetHeight;
+  list.forEach(function(el,i){ el.style.transitionDelay=(i*(step===undefined?STEP:step))+"ms"; el.classList.remove("m-pre"); });
+  setTimeout(function(){ list.forEach(function(el){ el.style.transitionDelay=""; }); }, 480+list.length*(step===undefined?STEP:step)+100);
+}
+function bars(els){
+  var list=Array.prototype.slice.call(els||[]);
+  if(!list.length||reduced.matches) return;
+  list.forEach(function(el){ el.classList.add("m-bar"); el.classList.add("m-bar-pre"); });
+  void document.body.offsetHeight;
+  list.forEach(function(el,i){ el.style.transitionDelay=(i*STEP)+"ms"; el.classList.remove("m-bar-pre"); });
+  setTimeout(function(){ list.forEach(function(el){ el.style.transitionDelay=""; }); }, DURL+list.length*STEP+100);
+}
+function q(s){ return document.querySelector(s); }
+function qa(s){ return document.querySelectorAll(s); }
+
+var PLAY={
+S1:function(){ var card=q(".hero-mini"); if(card) reveal([card],0); bars(qa(".hero-mini-track > span")); },
+S2:function(){ reveal(qa(".hero-chips > span"),STEP); },
+S3:function(){ var input=q("#checkDomain"), form=q("#checkForm");
+  if(input&&form){ input.value="goodmolecules.com";
+    if(form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event("submit",{cancelable:true,bubbles:true})); } },
+S4:function(){ reveal(qa(".sr-table tbody tr"),STEP); qa(".sr-score b").forEach(function(el){ count(el,DURL); }); },
+S5:function(){ reveal(qa("#why .ds-item"),120); },
+S6:function(){ reveal(qa("#how .step"),120); },
+S7:function(){ reveal(qa("#toolkit .tkrow"),STEP); },
+S8:function(){ if(window.__s8in) return; window.__s8in=true; reveal(qa("#pricing .plan"),0); },
+S9:function(){ var f=q(".pricing-foot"); if(f) reveal([f],0); },
+S10:function(){ reveal(qa("#join .jstep"),120); },
+S12:function(){ window.scrollTo({top:Math.round(document.documentElement.scrollHeight*0.45),behavior:reduced.matches?"auto":"smooth"}); }
+};
+var ANCHOR={S1:".hero-mini",S2:".hero-chips",S3:"#report",S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S9:".pricing-foot",S10:"#join",S11:"#faq"};
+function scrollToSel(sel){ var el=sel&&q(sel); if(el) el.scrollIntoView({behavior:reduced.matches?"auto":"smooth",block:"center"}); }
+function wait(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
+/* S3: stagger the check list when a real result renders (ring + number are native to the checker, token-unified via CSS). */
+var res=q("#checkResult"), s3Seen=false;
+if(res&&"MutationObserver" in window){
+  new MutationObserver(function(){
+    if(!res.hidden && !s3Seen){
+      var items=res.querySelectorAll(".check-list > *");
+      if(items.length){ s3Seen=true; reveal(items,STEP); }
+    }
+    if(res.hidden) s3Seen=false;
+  }).observe(res,{attributes:true,attributeFilter:["hidden"],childList:true,subtree:true});
+}
+/* S8: founding toggle -> price fade-swap (240ms token), never a count. */
+var tog=q("#foundingToggle");
+if(tog){ tog.addEventListener("change",function(){
+  qa("#plans .price").forEach(function(p){ p.classList.add("m-swap"); p.style.opacity="0";
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ p.style.opacity="1"; }); }); });
+}); }
+/* v2: hold pre-play state from init; IO (threshold .15) is the only play path.
+   Retrigger (his ruling 2026-10-30): no once-lock - entry plays, exit resets. */
+var PRIME={S1:".hero-mini",S2:".hero-chips > span",S4:".sr-table tbody tr",S5:"#why .ds-item",S6:"#how .step",S7:"#toolkit .tkrow",S8:"#pricing .plan",S9:".pricing-foot",S10:"#join .jstep"};
+if(!reduced.matches){ Object.keys(PRIME).forEach(function(k){ qa(PRIME[k]).forEach(function(el){ el.classList.add("m-anim"); el.classList.add("m-pre"); }); });
+  qa(".hero-mini-track > span").forEach(function(el){ el.classList.add("m-bar"); el.classList.add("m-bar-pre"); }); }
+var IO_MAP={S1:".hero-mini",S2:".hero-chips",S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S9:".pricing-foot",S10:"#join"};
+var GEN={};
+function mReset(k){
+  GEN[k]=(GEN[k]||0)+1;
+  var sel=PRIME[k]; if(sel && k!=="S8"){ qa(sel).forEach(function(el){ el.style.transitionDelay=""; el.classList.add("m-pre"); }); }
+  if(k==="S1"){ qa(".hero-mini-track > span").forEach(function(el){ el.classList.add("m-bar-pre"); }); }
+  if(k==="S4"){ qa(".m-sbar").forEach(function(bar){ bar.classList.remove("go"); }); }
+  var anch={S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S10:"#join"}[k];
+  if(anch){ var sec=document.querySelector(anch); sec=sec?sec.closest("section"):null; var r=sec?sec.querySelector(".m-rule"):null; if(r) r.classList.remove("go"); }
+}
+if("IntersectionObserver" in window){
+  var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ var k=e.target.getAttribute("data-m"); if(e.isIntersecting){ if(PLAY[k]) PLAY[k](); } else { mReset(k); } }); },{threshold:.15});
+  Object.keys(IO_MAP).forEach(function(k){ var el=document.querySelector(IO_MAP[k]); if(el){ el.setAttribute("data-m",k); mio.observe(el); } });
+}
+
+/* INTENSITY C: drawn accents — injections + play hook (production form;
+   staging semantics identical to the approved C demo). */
+/* INTENSITY C injections + fire hook (overrides empty xf) */
+qa(".sr-table tbody tr").forEach(function(tr,i){
+  var cell=tr.querySelector(".sr-score"), b=cell?cell.querySelector("b"):null; if(!cell||!b) return;
+  var v=parseFloat(b.textContent)||0;
+  var bar=document.createElement("span"); bar.className="m-sbar";
+  bar.innerHTML='<i style="width:'+Math.max(0,Math.min(100,v))+'%"></i>';
+  bar.setAttribute("data-row",i); cell.appendChild(bar);
+});
+qa(".sec-head").forEach(function(h){ var r=document.createElement("span"); r.className="m-rule"; h.appendChild(r); });
+
+(function(){ var res=document.getElementById("checkResult"); if(!res) return;
+  var NS="http://www.w3.org/2000/svg";
+  function ensureDot(){ var ring=document.querySelector(".score-ring"); if(!ring) return null;
+    var g=ring.querySelector(".m-dotg"); if(g) return g;
+    g=document.createElementNS(NS,"g"); g.setAttribute("class","m-dotg"); g.style.opacity="0";
+    var c=document.createElementNS(NS,"circle"); c.setAttribute("cx","48"); c.setAttribute("cy","4"); c.setAttribute("r","4.5"); c.setAttribute("fill","#e8622c");
+    g.appendChild(c); ring.appendChild(g); return g; }
+  new MutationObserver(function(){ if(!res.hidden){ var g=ensureDot(); if(!g) return;
+      var num=document.querySelector(".score-num"); var v=num?parseFloat(num.textContent)||0:0;
+      g.style.opacity="1";
+      g.animate([{transform:"rotate(0deg)"},{transform:"rotate("+(v*3.6)+"deg)"}],{duration:1400,easing:"cubic-bezier(.22,.61,.21,1)",fill:"forwards"});
+    } }).observe(res,{attributes:true,attributeFilter:["hidden"],childList:true,subtree:true});
+})();
+function mAccent(k){
+
+  if(k==="S4"){ var g4=GEN[k]||0; qa(".m-sbar").forEach(function(bar,i){ setTimeout(function(){ if((GEN[k]||0)===g4) bar.classList.add("go"); }, i*70); }); }
+  var anch={S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S10:"#join"}[k];
+  if(anch){ var sec=document.querySelector(anch); sec=sec?sec.closest("section"):null;
+    var r=sec?sec.querySelector(".m-rule"):null; if(r) r.classList.add("go"); }
+}
+["S4","S5","S6","S7","S8","S10"].forEach(function(k){ if(PLAY[k]){ var _p=PLAY[k]; PLAY[k]=function(){ _p(); mAccent(k); }; } });
+})();
+</script>
+
+<style id="foot-e-transplant">
+/* Footer E-form transplant (QA verdict on full19: the E source structure, not an
+   alignment patch): the fineprint is a plain block paragraph and Operated flows
+   inline in the text stream, weakened. Values verbatim from
+   footer-copy-e-merged-20261030.html. */
+.foot-line { display: block !important; }
+.foot-op { font-size: 10.5px; color: var(--muted); opacity: .6; margin-left: .45em; }
+</style>
+
+<style id="plan-card-click-css">
+#pricing .plan { cursor: pointer; }
+</style>
+<script id="plan-card-click">
+/* Plan-card selection (his ruling 2026-11-01, supersedes 2026-10-30): clicking a
+   plan card's body only moves the selected state (.featured: orange frame +
+   solid button). Actions fire ONLY from the card's CTA itself. Teams carries
+   no tier CTA: selection still moves, no intent. */
+document.querySelectorAll("#pricing .plan").forEach(function (card) {
+  function selectCard() {
+    document.querySelectorAll("#pricing .plan.featured").forEach(function (c) {
+      c.classList.remove("featured");
+      var a = c.querySelector("a[data-tier-cta]"); if (a) a.classList.add("ghost");
+    });
+    card.classList.add("featured");
+    if (cta) cta.classList.remove("ghost");
+  }
+  var cta = card.querySelector("a[data-tier-cta]");
+  if (cta) cta.addEventListener("click", selectCard);
+  card.addEventListener("click", function (e) {
+    if (e.target.closest("a, button, input, select, textarea, label")) return;
+    selectCard();
+  });
+});
+</script>
 </body>
 </html>
