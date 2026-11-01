@@ -1126,6 +1126,45 @@ kept apart from the gate-row pill set. */
 /* cardorder-orange 20261028: Toolkit action buttons take the file's primary spec (skin-accent family, same tokens as the base .btn / Overview CTA). Scoped to the Preview entries and p0's Re-run; back buttons and state chips untouched. */
 #view-tools .btn[data-go], #view-tools-p0 #tkRunBtn { background: var(--skin-accent); border-color: var(--skin-accent); color: #fff; }
 #view-tools .btn[data-go]:hover, #view-tools-p0 #tkRunBtn:hover { background: var(--skin-accent-deep); border-color: var(--skin-accent-deep); }</style>
+
+<style id="t7-css">
+#view-tools-p6 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+#view-tools-p6 .card h2{margin:0 0 4px;font-size:20px}
+#view-tools-p6 .card h3{margin:0 0 8px;font-size:16px}
+#view-tools-p6 .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-tools-p6 .empty{color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:14px;font-size:14px}
+.t7-run{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:12px 2px;cursor:pointer;font:inherit;color:inherit}
+.t7-run:first-of-type{border-top:0}
+.t7-run b{font-size:15px}
+.t7-run .t7-meta{color:var(--muted);font-size:13px}
+.t7-run .t7-status{margin-left:auto;font-size:12px;font-weight:700;color:var(--good,#177245)}
+.t7-run[aria-current="true"]{background:var(--bg);border-radius:8px}
+.t7-answrap{overflow-x:auto}
+.t7-ans{width:100%;border-collapse:collapse;font-size:13.5px}
+.t7-ans th,.t7-ans td{text-align:left;padding:7px 6px;border-top:1px solid var(--line);vertical-align:top}
+.t7-ans th{color:var(--muted);font-size:12px;border-top:0}
+.t7-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:12px}
+.t7-pick label{display:grid;gap:4px;font-size:12.5px;color:var(--muted);font-weight:600}
+.t7-pick select{font:inherit;color:var(--ink);background:var(--bg-raise);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:170px}
+.t7-sum{display:flex;flex-wrap:nowrap;gap:8px 22px;font-size:14.5px;font-weight:600;margin:6px 0 12px;white-space:nowrap}
+.t7-sum b{font-size:20px;font-weight:800}
+@media (max-width:560px){.t7-sum{gap:6px 8px;font-size:12.5px} .t7-sum b{font-size:16px}}
+@media (max-width:400px){.t7-sum{flex-wrap:wrap;white-space:normal}}
+.t7-note{font-size:13px;color:var(--warn,#9a6a00);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:0 0 12px}
+.t7-item{border-top:1px solid var(--line);padding:12px 2px}
+.t7-item:first-of-type{border-top:0}
+.t7-item .t7-q{font-weight:700;font-size:14.5px;margin:0 0 5px}
+.t7-item .t7-eng{color:var(--muted);font-size:12.5px;font-weight:600}
+.t7-chip{display:inline-block;font-size:11.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin:2px 4px 2px 0;color:var(--ink);background:var(--bg)}
+.t7-chip.gain{color:var(--good,#177245)}
+.t7-chip.loss{color:#b3261e}
+.t7-evi{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.t7-evi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:700px){.t7-evi-grid{grid-template-columns:1fr}}
+.t7-evi h4{margin:0 0 6px;font-size:12.5px;color:var(--muted)}
+.t7-evi p{margin:0;font-size:14px;line-height:1.55;white-space:pre-wrap}
+.t7-evi .t7-cites{margin-top:8px;font-size:12.5px;color:var(--muted)}
+</style>
 </head>
 <body>
 
@@ -1439,8 +1478,8 @@ kept apart from the gate-row pill set. */
 <div class="card"><h3>Fix a bad mention <button type="button" class="tool-info-btn" data-tool-info="mention" aria-label="About Fix a bad mention">?</button></h3>
 <p>Step-by-step when AI gets your facts wrong.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p4">Preview</button></div>
 
-<div class="card"><h3>Answer history <button type="button" class="tool-info-btn" data-tool-info="history" aria-label="About Answer history">?</button> <span class="badge-soon">Coming soon</span></h3>
-<p>See how AI's answers about you changed, word for word.</p></div>
+<div class="card"><h3>Answer history <button type="button" class="tool-info-btn" data-tool-info="history" aria-label="About Answer history">?</button></h3>
+<p>See how AI's answers about you changed, word for word.</p> <button type="button" class="btn" data-go="tools-p6">Preview</button></div>
 
 <div class="card"><h3>What AI says about you <button type="button" class="tool-info-btn" data-tool-info="says" aria-label="About What AI says about you">?</button> <span class="badge-soon">Coming soon</span></h3>
 <p>Not just whether AI mentions you — what it says, checked against your facts.</p></div>
@@ -1487,6 +1526,7 @@ kept apart from the gate-row pill set. */
 <section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
+<section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
             <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
 <h2>Notifications</h2>
@@ -2024,6 +2064,7 @@ const TITLES = {
   'tools-p3': ["AI readiness", "Can AI read your site? A technical check, plus a one-line brief for your developer."],
   'tools-p4': ["Fix a bad mention", "Step-by-step when AI gets your facts wrong."],
   'tools-p5': ["llms.txt generator", "A small file that tells AI what your site is about."],
+  'tools-p6': ["Answer history", "See how AI's answers about you changed, word for word."],
   notifications: ["Notifications", "Snapshot, score, report and alert updates"],
   settings:    ["Settings", "Brand, notifications, and account security"],
   billing:     ["Invoices", "Invoices only"],
@@ -2045,7 +2086,7 @@ function go(view) {
   if (view !== 'tools-p4') { var __nctx = document.getElementById("negFixContext"); if (__nctx) __nctx.style.display = "none"; }
   if (view === 'plan') { var __cur = document.querySelector('.view.active'); var __k = __cur ? __cur.id.replace('view-', '') : ''; if (__k && __k !== 'plan') { window.planReturn = __k; } }
   /* Standalone pages push history so browser/gesture back returns to Settings (trial 20261025). */
-  var __standalone = ['billing', 'plan', 'pricing-cards', 'team', 'connections', 'developer', 'security-password', 'security-logins', 'security-delete', 'help', 'brand-edit', 'security', 'tools-p0', 'tools-p1', 'tools-p2', 'tools-p3', 'tools-p4', 'tools-p5'];
+  var __standalone = ['billing', 'plan', 'pricing-cards', 'team', 'connections', 'developer', 'security-password', 'security-logins', 'security-delete', 'help', 'brand-edit', 'security', 'tools-p0', 'tools-p1', 'tools-p2', 'tools-p3', 'tools-p4', 'tools-p5', 'tools-p6'];
   if (__standalone.indexOf(view) >= 0) {
     var __cur = document.querySelector('.view.active');
     var __curKey = __cur ? __cur.id.replace('view-', '') : '';
@@ -2071,7 +2112,7 @@ window.addEventListener('popstate', function () {
   if (cur && cur.id === 'view-pricing-cards') {
     go('plan');
   }
-  if (cur && ['view-tools-p0', 'view-tools-p1', 'view-tools-p2', 'view-tools-p3', 'view-tools-p4', 'view-tools-p5'].indexOf(cur.id) >= 0) {
+  if (cur && ['view-tools-p0', 'view-tools-p1', 'view-tools-p2', 'view-tools-p3', 'view-tools-p4', 'view-tools-p5', 'view-tools-p6'].indexOf(cur.id) >= 0) {
     go('tools');
   }
 });
@@ -3660,6 +3701,203 @@ var TOOL_INFO = {
     if (window.showToast) window.showToast('Demo preview \u2014 re-run is not connected yet.');
   });
   render();
+})();
+</script>
+
+<script id="t7-js">
+/* T7 Answer history (tools-p6) — sample fixtures shaped to the live contract:
+   GET /snapshots/history -> {runs:[...]}; /diff -> pre-segmented per question x engine;
+   /evidence -> before/after same shape; /{run_id} -> {run, answers[]}.
+   Mock mode renders fixtures; the http flip only swaps the fetcher. */
+(function(){
+"use strict";
+var RUNS = [
+ {run_id:"run_20261028", brand_id:"b1", brand_name:"Bombas", brand_domain:"bombas.com", question_set_version:"v4", mix_version:"m2", engines:["ChatGPT","Gemini","Perplexity","Claude"], status:"complete", started_at:"2026-10-28T09:02:00Z", finished_at:"2026-10-28T09:11:00Z"},
+ {run_id:"run_20261021", brand_id:"b1", brand_name:"Bombas", brand_domain:"bombas.com", question_set_version:"v4", mix_version:"m2", engines:["ChatGPT","Gemini","Perplexity","Claude"], status:"complete", started_at:"2026-10-21T09:03:00Z", finished_at:"2026-10-21T09:10:00Z"},
+ {run_id:"run_20261014", brand_id:"b1", brand_name:"Bombas", brand_domain:"bombas.com", question_set_version:"v3", mix_version:"m2", engines:["ChatGPT","Gemini","Perplexity","Claude"], status:"complete", started_at:"2026-10-14T09:01:00Z", finished_at:"2026-10-14T09:09:00Z"}
+];
+var DETAIL = {
+ run_20261028:[["Best socks for running?","ChatGPT",true,"positive"],["Best socks for running?","Gemini",true,"neutral"],["Best socks for a runner that needs extra cushioning?","ChatGPT",true,"negative"],["Best socks for a runner that needs extra cushioning?","Perplexity",false,null],["Are Bombas socks worth the price?","Claude",true,"neutral"]],
+ run_20261021:[["Best socks for running?","ChatGPT",true,"positive"],["Best socks for a runner that needs extra cushioning?","ChatGPT",true,"negative"],["Are Bombas socks worth the price?","Gemini",false,null]],
+ run_20261014:[["Best socks for running?","ChatGPT",false,null],["Are Bombas socks worth the price?","Claude",true,"positive"]]
+};
+var DIFF = { summary:{answers_compared:44, answers_changed:9, mention_flips:3},
+ items:[
+  {slot:2, engine:"ChatGPT", question_text:"Best socks for a runner that needs extra cushioning?", question_text_changed:false, answer_changed:true, mention_flip:null, citations_gained:[], citations_lost:["runnersworld.com"]},
+  {slot:0, engine:"Gemini", question_text:"Best socks for running?", question_text_changed:false, answer_changed:true, mention_flip:"gained", citations_gained:["bombas.com"], citations_lost:[]},
+  {slot:4, engine:"Claude", question_text:"Are Bombas socks worth the price?", question_text_changed:false, answer_changed:true, mention_flip:"lost", citations_gained:[], citations_lost:["bombas.com","wirecutter.com"]},
+  {slot:1, engine:"ChatGPT", question_text:"Best socks for wide feet?", question_text_changed:false, answer_changed:true, mention_flip:null, citations_gained:[], citations_lost:[]},   {slot:5, engine:"Perplexity", question_text:"Which socks prevent blisters?", question_text_changed:true, question_text_before:"What socks stop blisters?", answer_changed:true, mention_flip:null, citations_gained:["rei.com"], citations_lost:[]}
+ ]};
+var EVIDENCE = {
+ "2|ChatGPT":{before:{answer_text:"For extra cushioning, look at Feetures Elite Max Cushion or Balega Blister Resist. Bombas is often described as pricey for what it offers, and several users find its socks wear out faster than rivals'.", brand_mentioned:true, citation_hostnames:["runnersworld.com","feetures.com"]}, after:{answer_text:"For extra cushioning, look at Feetures Elite Max Cushion or Balega Blister Resist. Bombas is often described as pricey for what it offers, and several users find its socks wear out faster than rivals'.", brand_mentioned:true, citation_hostnames:["feetures.com"]}},
+ "0|Gemini":{before:{answer_text:"Top picks for running socks include Balega, Feetures and Darn Tough, known for moisture management and durability.", brand_mentioned:false, citation_hostnames:["balega.com","darntough.com"]}, after:{answer_text:"Top picks for running socks include Bombas, Balega and Feetures, known for moisture management and durability.", brand_mentioned:true, citation_hostnames:["bombas.com","balega.com"]}},
+ "4|Claude":{before:{answer_text:"Bombas socks are widely considered worth the price for everyday wear, pairing merino blends with a happiness guarantee.", brand_mentioned:true, citation_hostnames:["bombas.com","wirecutter.com"]}, after:{answer_text:"Whether Bombas socks are worth the price depends on budget; alternatives like Darn Tough offer lifetime guarantees at similar prices.", brand_mentioned:true, citation_hostnames:["darntough.com"]}},
+ "5|Perplexity":{before:{answer_text:"To stop blisters, choose snug synthetic or merino socks; Balega and Feetures are common recommendations.", brand_mentioned:false, citation_hostnames:["balega.com"]}, after:{answer_text:"To prevent blisters, choose snug synthetic or merino socks; Balega, Feetures and REI's house brand are common recommendations.", brand_mentioned:false, citation_hostnames:["balega.com","rei.com"]}}
+};
+/* ---- http flip (2026-11-01): swap the fixture fetcher for the live history endpoints.
+   Mock mode (api.mode !== "http") keeps the fixtures and every render path below unchanged. */
+var HTTP = (typeof api !== "undefined" && api.mode === "http");
+function fetchJSON(path){
+  return fetch(path, { credentials: "same-origin" }).then(function(r){
+    if(!r.ok){ var e = new Error("http " + r.status); e.status = r.status; throw e; }
+    return r.json();
+  });
+}
+function normDetail(resp){
+  return (resp.answers || []).map(function(a){
+    var sm = a.summary || null;
+    return [a.question_text, a.engine, sm ? !!sm.brand_mentioned : null, sm ? sm.sentiment : null];
+  });
+}
+function normDiff(resp){
+  var items = [];
+  (resp.questions || []).forEach(function(q){
+    (q.engines || []).forEach(function(r){
+      var flip = null;
+      if (r.mention_flip === true && r.before && r.after) flip = r.before.brand_mentioned ? "lost" : "gained";
+      items.push({ slot: q.slot, engine: r.engine,
+        question_text: q.question_text_after != null ? q.question_text_after : (q.question_text_before || ""),
+        question_text_changed: !!q.question_text_changed,
+        answer_changed: (r.answer_changed == null ? null : !!r.answer_changed),
+        mention_flip: flip,
+        citations_gained: r.citations_gained || [], citations_lost: r.citations_lost || [] });
+    });
+  });
+  return { summary: resp.summary || {answers_compared:0, answers_changed:0, mention_flips:0}, items: items };
+}
+function normSide(sd){
+  return sd ? { answer_text: (sd.answer_text ? sd.answer_text : "No answer recorded for this run."), brand_mentioned: (sd.brand_mentioned == null ? null : !!sd.brand_mentioned), citation_hostnames: sd.citation_hostnames || [] }
+            : { answer_text: "No answer recorded for this run.", brand_mentioned: null, citation_hostnames: [] };
+}
+function esc(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function dstr(iso){return iso.slice(0,10);}
+function $(id){return document.getElementById(id);}
+var runsEl, cmpEl, detCard, detTitle, detMeta, detBody;
+function renderRuns(){
+ if(!RUNS.length){ runsEl.innerHTML = '<div class="empty">No snapshots yet. Answer history starts with your first run &mdash; changes appear from the second run on.</div>'; return; }
+ runsEl.innerHTML = RUNS.map(function(r,i){
+  return '<button type="button" class="t7-run" data-run="'+r.run_id+'" aria-current="'+(i===0)+'"><b>'+dstr(r.started_at)+'</b><span class="t7-meta">'+esc(r.brand_name)+' &middot; '+r.engines.length+' engines &middot; questions '+esc(r.question_set_version)+'</span><span class="t7-status">'+esc(r.status)+'</span></button>';
+ }).join("");
+ runsEl.querySelectorAll(".t7-run").forEach(function(b){ b.addEventListener("click", function(){ selectRun(b.getAttribute("data-run")); }); });
+}
+var curDetailId = null;
+function paintDetail(id){
+ var rows = (DETAIL[id]||[]).map(function(a){
+  return "<tr><td>"+esc(a[0])+"</td><td>"+esc(a[1])+"</td><td>"+(a[2]===null?"No answer":a[2]?"Mentioned":"Not mentioned")+"</td><td>"+(a[3]?esc(a[3]):"—")+"</td></tr>";
+ }).join("");
+ detBody.innerHTML = rows ? '<div class="t7-answrap"><table class="t7-ans"><tr><th>Question</th><th>Engine</th><th>Brand</th><th>Sentiment</th></tr>'+rows+"</table></div>" : '<div class="empty">No answer rows stored for this run.</div>';
+}
+function selectRun(id){
+ runsEl.querySelectorAll(".t7-run").forEach(function(b){ b.setAttribute("aria-current", String(b.getAttribute("data-run")===id)); });
+ var r = RUNS.filter(function(x){return x.run_id===id;})[0]; if(!r) return;
+ detCard.hidden = false;
+ detTitle.textContent = "Run detail — " + dstr(r.started_at);
+ detMeta.textContent = r.brand_name + " (" + r.brand_domain + ") · finished " + dstr(r.finished_at) + " · question set " + r.question_set_version;
+ curDetailId = id;
+ if (DETAIL[id]) { paintDetail(id); return; }
+ if (HTTP) {
+  detBody.innerHTML = '<div class="empty">Loading run detail…</div>';
+  fetchJSON("/snapshots/history/" + encodeURIComponent(id)).then(function(resp){
+   DETAIL[id] = normDetail(resp);
+   if (curDetailId === id) paintDetail(id);
+  }).catch(function(){
+   if (curDetailId === id) detBody.innerHTML = '<div class="empty">Couldn’t load this run — please try again later.</div>';
+  });
+  return;
+ }
+ paintDetail(id);
+}
+function optList(sel){ return RUNS.map(function(r){ return '<option value="'+r.run_id+'"'+(r.run_id===sel?" selected":"")+'>'+dstr(r.started_at)+" · "+esc(r.question_set_version)+"</option>"; }).join(""); }
+function renderCompare(){
+ if(RUNS.length < 2){ cmpEl.innerHTML = '<div class="empty">Only one run so far. Changes appear when a second run completes.</div>'; return; }
+ var after = RUNS[0], before = RUNS[1];
+ cmpEl.innerHTML = '<div class="t7-pick"><label>Earlier run<select id="t7Before">'+optList(before.run_id)+'</select></label><label>Later run<select id="t7After">'+optList(after.run_id)+'</select></label></div><div id="t7Diff"></div>';
+ $("t7Before").addEventListener("change", renderDiff);
+ $("t7After").addEventListener("change", renderDiff);
+ renderDiff();
+}
+function paintDiff(b, a, diffObj, host){
+ var html = "";
+ if(b.question_set_version !== a.question_set_version){ html += '<p class="t7-note">The question set changed between these runs ('+esc(b.question_set_version)+' &rarr; '+esc(a.question_set_version)+'). Wording changes are marked below.</p>'; }
+ var sm = diffObj.summary;
+ html += '<div class="t7-sum"><span><b>'+sm.answers_compared+'</b> answers compared</span><span><b>'+sm.answers_changed+'</b> changed</span><span><b>'+sm.mention_flips+'</b> mention flips</span></div>';
+ html += diffObj.items.map(function(it){
+  var chips = "";
+  var hasSig = it.mention_flip || (it.citations_gained && it.citations_gained.length) || (it.citations_lost && it.citations_lost.length); if(it.answer_changed && !hasSig) chips += '<span class="t7-chip">Answer changed</span>';
+  if(it.mention_flip==="gained") chips += '<span class="t7-chip gain">Mention gained</span>';
+  if(it.mention_flip==="lost") chips += '<span class="t7-chip loss">Mention lost</span>';
+  if(it.citations_gained.length) chips += '<span class="t7-chip gain">Citations +'+it.citations_gained.length+"</span>";
+  if(it.citations_lost.length) chips += '<span class="t7-chip loss">Citations &minus;'+it.citations_lost.length+"</span>";
+  if(it.question_text_changed) chips += '<span class="t7-chip">Question wording changed</span>';
+  return '<div class="t7-item"><p class="t7-q">'+esc(it.question_text)+' <span class="t7-eng">'+esc(it.engine)+'</span></p>'+chips+' <button type="button" class="btn ghost" data-evi="'+it.slot+'|'+esc(it.engine)+'">See answers</button><div class="t7-evi-host"></div></div>';
+ }).join("");
+ host.innerHTML = html;
+ host.querySelectorAll("[data-evi]").forEach(function(btn){ btn.addEventListener("click", function(){ toggleEvidence(btn); }); });
+}
+function renderDiff(){
+ var b = RUNS.filter(function(x){return x.run_id===$("t7Before").value;})[0];
+ var a = RUNS.filter(function(x){return x.run_id===$("t7After").value;})[0];
+ var host = $("t7Diff"); if(!b || !a || b.run_id===a.run_id){ host.innerHTML = '<div class="empty">Pick two different runs to compare.</div>'; return; }
+ if (HTTP) {
+  host.innerHTML = '<div class="empty">Loading comparison…</div>';
+  fetchJSON("/snapshots/history/diff?from_run=" + encodeURIComponent(b.run_id) + "&to_run=" + encodeURIComponent(a.run_id) + "&allow_cross_version=true").then(function(resp){
+   var nb = $("t7Before"), na = $("t7After");
+   if (!nb || !na || nb.value !== b.run_id || na.value !== a.run_id) return;
+   paintDiff(b, a, normDiff(resp), host);
+  }).catch(function(){
+   host.innerHTML = '<div class="empty">Couldn’t load the comparison — please try again later.</div>';
+  });
+  return;
+ }
+ paintDiff(b, a, DIFF, host);
+}
+function eviSide(label, sd){
+ return '<div><h4>'+label+'</h4><p>'+esc(sd.answer_text)+'</p><p class="t7-cites">'+(sd.brand_mentioned===null?"Brand mention not recorded":sd.brand_mentioned?"Brand mentioned":"Brand not mentioned")+(sd.citation_hostnames.length?" · Cites: "+sd.citation_hostnames.map(esc).join(", "):"")+"</p></div>";
+}
+function paintEvidence(btn, host, ev){
+ host.innerHTML = '<div class="t7-evi"><div class="t7-evi-grid">'+eviSide("Earlier answer", ev.before)+eviSide("Later answer", ev.after)+"</div></div>";
+ btn.textContent = "Hide answers";
+}
+function toggleEvidenceHttp(btn, host){
+ var key = btn.getAttribute("data-evi"); var cut = key.indexOf("|");
+ var slot = key.slice(0, cut), engine = key.slice(cut + 1);
+ btn.textContent = "Loading…";
+ fetchJSON("/snapshots/history/evidence?before_run=" + encodeURIComponent($("t7Before").value) + "&after_run=" + encodeURIComponent($("t7After").value) + "&slot=" + encodeURIComponent(slot) + "&engine=" + encodeURIComponent(engine)).then(function(resp){
+  paintEvidence(btn, host, { before: normSide(resp.before), after: normSide(resp.after) });
+ }).catch(function(err){
+  btn.textContent = "See answers";
+  host.innerHTML = (err && err.status === 409)
+   ? '<p class="t7-note">These two runs used different question sets, so their answers can’t be compared side by side.</p>'
+   : '<p class="t7-note">Couldn’t load the answers — please try again.</p>';
+ });
+}
+function toggleEvidence(btn){
+ var item = btn.closest(".t7-item"), host = item.querySelector(".t7-evi-host");
+ if(host.innerHTML){ host.innerHTML = ""; btn.textContent = "See answers"; return; }
+ if (HTTP) { toggleEvidenceHttp(btn, host); return; }
+ var ev = EVIDENCE[btn.getAttribute("data-evi")]; if(!ev) return;
+ paintEvidence(btn, host, ev);
+}
+function resetTransient(){ document.querySelectorAll("#view-tools-p6 .t7-evi-host").forEach(function(h){ h.innerHTML=""; }); document.querySelectorAll('#view-tools-p6 [data-evi]').forEach(function(b){ b.textContent="See answers"; }); }
+function initHttp(){
+ var sn = document.querySelector("#view-tools-p6 .sample-note"); if (sn) sn.style.display = "none";
+ runsEl.innerHTML = '<div class="empty">Loading your snapshot history…</div>';
+ fetchJSON("/snapshots/history?limit=50").then(function(resp){
+  RUNS = resp.runs || [];
+  renderRuns(); renderCompare();
+  if (RUNS.length) selectRun(RUNS[0].run_id);
+ }).catch(function(){
+  runsEl.innerHTML = '<div class="empty">Couldn’t load your snapshot history — please try again later.</div>';
+  cmpEl.innerHTML = '<div class="empty">History unavailable right now.</div>';
+ });
+}
+document.addEventListener("DOMContentLoaded", function(){
+ runsEl = $("t7Runs"); cmpEl = $("t7Compare"); detCard = $("t7DetailCard"); detTitle = $("t7DetailTitle"); detMeta = $("t7DetailMeta"); detBody = $("t7DetailBody");
+ if(!runsEl) return;
+ if (HTTP) { initHttp(); } else { renderRuns(); renderCompare(); if (RUNS.length) selectRun(RUNS[0].run_id); }
+ if(typeof window.go === "function"){ var orig = window.go; window.go = function(v){ resetTransient(); return orig.apply(this, arguments); }; }
+});
+window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); renderCompare(); detCard.hidden = true; } };
 })();
 </script>
 </body>
