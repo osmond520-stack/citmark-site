@@ -1384,10 +1384,7 @@ kept apart from the gate-row pill set. */
       <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
 <h2>Prompts</h2>
 <p class="desc">Questions you track, plus templates and suggestions.</p>
-<div class="row" style="margin-bottom:14px">
-<div><input type="text" placeholder="Add a question…" aria-label="Add a question"></div>
-<div style="flex:none"><button class="btn" type="button" data-demo="addq">Add question</button></div>
-</div>
+
 <div class="table-wrap"><table>
 <thead><tr><th>Question</th><th>Mentioned on</th><th>Sentiment</th><th>Visibility</th><th>Tags</th></tr></thead>
 <tbody>
@@ -1546,9 +1543,9 @@ kept apart from the gate-row pill set. */
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
       <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status">Bombas · bombas.com</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">2 invoices</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status">Growth and above · 1 seat now</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
-<div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
-<div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
-<div class="switch-row"><div><b title="Send me a weekly digest">Send me a weekly digest</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" aria-label="Send me a weekly digest"><span class="knob"></span></button></div></div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
+<div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_negative" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
+<div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_changes" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
+</div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
 <section class="view" id="view-security-password"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h3>Change password</h3>
 <p class="desc" style="margin:0 0 12px">We'll send a password reset link to your account email.</p>
@@ -1571,14 +1568,18 @@ kept apart from the gate-row pill set. */
 </div>
 
 </section>
+<section class="view" id="view-security-export"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button>
+<div class="card"><h3>Export my data</h3>
+<p class="desc">To export your data, contact support — we'll prepare your export and email it to you.</p>
+<a class="btn small" href="mailto:support@citmark.com">Contact support to export my data</a>
+</div></section>
 <section class="view" id="view-help"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Help & support</h2><p class="desc">Email us at <a href="mailto:support@citmark.com">support@citmark.com</a> — our support team replies by email.</p><p class="desc">To help us find your account, write from the email you signed up with (or tell us what it is) and describe what's happening. A screenshot of what you see helps.</p><p class="desc">Two places answer most questions:</p><ul class="desc" style="list-style:none;padding:0"><li style="padding-left:15px;text-indent:-15px;margin-bottom:6px">· Every tool in the Toolkit has a ? next to its name — it explains what the tool does and how to use it.</li><li style="padding-left:15px;text-indent:-15px">· Your Weekly report shows what changed in your scores and why.</li></ul><button class="btn small ghost" type="button" data-go="settings">Back to Settings</button></div></section>
 <section class="view" id="view-brand-edit"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h2>Brand profile</h2>
 <p class="desc">Brand name and domain shown across Overview, Visibility score and Weekly report.</p>
-<div class="row"><div class="field"><label>Brand name</label><input type="text" value="Bombas"></div>
-<div class="field"><label>Domain</label><input type="text" value="bombas.com"></div></div>
+<div class="row"><div class="field"><label>Brand name</label><input type="text" value="Bombas" readonly aria-readonly="true"></div>
+<div class="field"><label>Domain</label><input type="text" value="bombas.com" readonly aria-readonly="true"></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn brand-save" type="button" data-demo="save">Save brand profile</button>
 <button class="btn brand-cancel" type="button" data-go="settings">Cancel</button>
 </div></div></section>
 <section class="view" id="view-security"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
@@ -1587,14 +1588,14 @@ kept apart from the gate-row pill set. */
 <button class="sec-row" type="button" data-go="security-password"><span class="sec-label" title="Change password">Change password</span><span class="sec-arrow" aria-hidden="true">›</span></button>
 <button class="sec-row" type="button" id="unbindShopifyRow"><span class="sec-label" title="Unbind Shopify">Unbind Shopify</span><span class="sec-arrow" aria-hidden="true">›</span></button>
 <button class="sec-row" type="button" data-go="security-logins"><span class="sec-label" title="Login history">Login history</span><span class="sec-arrow" aria-hidden="true">›</span></button>
-<button class="sec-row" type="button" id="exportRow"><span class="sec-label" title="Export my data">Export my data</span><span class="sec-arrow" aria-hidden="true">›</span></button>
+<button class="sec-row" type="button" data-go="security-export"><span class="sec-label" title="Export my data">Export my data</span><span class="sec-arrow" aria-hidden="true">›</span></button>
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
-<tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><button class="inv-action" type="button" data-demo="invoice">View</button><button class="inv-action" type="button" data-demo="invoice">Download</button></td></tr>
-<tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><button class="inv-action" type="button" data-demo="invoice">View</button><button class="inv-action" type="button" data-demo="invoice">Download</button></td></tr></tbody></table></div>
+<tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr>
+<tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr></tbody></table></div>
 
 </section>
 
@@ -1631,10 +1632,12 @@ kept apart from the gate-row pill set. */
 </div>
 <div class="card gate-card gate-team" style="display:none"><h3>Team is available on Growth and above</h3><p class="desc">Starter includes 1 seat. Upgrade to invite members and manage roles.</p><button class="btn small ghost" type="button" data-go="settings">View plans</button></div>
 <div class="card gate-hide-team"><h3>Invite member</h3>
-<div class="row"><div class="field"><label>Invite member email</label><input type="text" placeholder="teammate@example.com"></div>
-<div class="field"><label>Role</label><select><option>Member</option><option>Read-only</option></select></div></div>
+<div class="row"><div class="field"><label>Invite member email</label><input type="text" id="teamInviteEmail" placeholder="teammate@example.com"></div>
+<div class="field"><label>Role</label><select id="teamInviteRole"><option>Member</option><option>Read-only</option></select></div></div>
 <p style="color:var(--muted);font-size:13px">Members can edit. Read-only members can only view.</p>
-<button class="btn small" type="button" data-demo="invite">Send invite</button></div>
+<button class="btn small" type="button" id="teamInviteBtn">Send invite</button>
+<p class="form-msg" id="teamInviteMsg" role="alert" style="margin-top:10px"></p>
+<p id="teamInviteLink" style="display:none;margin-top:6px;word-break:break-all"></p></div>
 <div class="card gate-hide-team"><h3>Members</h3>
 <p>No member data yet. Member list will appear here once members are added.</p>
 <p>Seats: <span id="teamSeats">1 seat</span></p></div></section>
@@ -1654,7 +1657,7 @@ kept apart from the gate-row pill set. */
 </div>
 <div class="card gate-hide-dev"><h3>API keys</h3>
 <p>No API keys yet.</p>
-<button class="btn small" type="button" data-demo="key">Create key</button></div>
+</div>
 <div class="card gate-hide-dev"><h3>Usage</h3>
 <p>No usage data yet.</p></div></section>
 
@@ -1744,7 +1747,7 @@ kept apart from the gate-row pill set. */
 <div id="qDrawerBody"></div>
 <p style="color:var(--muted);font-size:13px">Top source, region and time appear here once recorded.</p>
 </aside>
-<div id="planChangeModal" aria-hidden="true"><div class="modal-mask" id="planChangeModalMask"></div><div class="modal-card" role="dialog" aria-label="Confirm plan change"><button class="modal-close" type="button" id="planChangeModalClose" aria-label="Close">✕</button><h3 id="planChangeModalTitle">Change plan</h3><p class="modal-price"><b id="planChangeModalPromo"></b> <s id="planChangeModalStandard"></s></p><p class="modal-note" id="planChangeModalNote"></p><p class="modal-founding" id="planChangeModalFounding"></p><p class="modal-pay">Payment is by card.</p><div class="modal-actions"><button class="btn small" type="button" id="planChangeModalConfirm">Confirm</button><button class="btn small ghost" type="button" id="planChangeModalCancel">Cancel</button></div></div></div>
+<div id="planChangeModal" aria-hidden="true"><div class="modal-mask" id="planChangeModalMask"></div><div class="modal-card" role="dialog" aria-label="Confirm plan change"><button class="modal-close" type="button" id="planChangeModalClose" aria-label="Close">✕</button><h3 id="planChangeModalTitle">Change plan</h3><p class="modal-price"><b id="planChangeModalPromo"></b> <s id="planChangeModalStandard"></s></p><p class="modal-note" id="planChangeModalNote"></p><p class="modal-founding" id="planChangeModalFounding"></p><div class="modal-actions"><a class="btn small" href="mailto:support@citmark.com">Contact support to change plan</a><button class="btn small ghost" type="button" id="planChangeModalCancel">Cancel</button></div></div></div>
  <div id="cancelModal" aria-hidden="true"><div class="modal-mask" id="cancelModalMask"></div><div class="modal-card" role="dialog" aria-label="Before you cancel"><button class="modal-close" type="button" id="cancelModalClose" aria-label="Close">✕</button><h3>Before you cancel</h3><p class="modal-note">To cancel your subscription, contact support — we'll confirm the cancellation and its effective date by email.</p><div class="modal-actions"><a class="btn small danger" href="mailto:support@citmark.com">Contact support to cancel</a><button class="btn small ghost" type="button" id="cancelKeep">Keep subscription</button></div></div></div> <div id="secConfirm" aria-hidden="true"><div class="modal-mask" id="secConfirmMask"></div><div class="modal-card" role="dialog" aria-label="Confirm"><button class="modal-close" type="button" id="secConfirmClose" aria-label="Close">✕</button><h3 id="secConfirmTitle">Confirm</h3><p class="modal-note" id="secConfirmMsg"></p><div class="modal-actions"><button class="btn small" type="button" id="secConfirmGo">Confirm</button><button class="btn small ghost" type="button" id="secConfirmBack">Cancel</button></div></div></div> <script>
 "use strict";
 /* =====================================================================
@@ -2072,6 +2075,7 @@ const TITLES = {
   'security': ["Security", "Password, logins and export"],
   'security-logins': ["Login history", "Recent sign-ins for your account"],
   'security-delete': ["Delete account", "Permanently remove your account"],
+  'security-export': ["Export my data", "Get a copy of your data"],
   help: ["Help & support", "Help center, not live chat"],
 };
 function go(view) {
@@ -2767,51 +2771,16 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2000);
   };
-  var DEMO_MSG = {
-    save: 'Demo environment — brand profile not really saved.',
-    invite: 'Demo environment — invitation not really sent.',
-    upgrade: 'Demo environment — plan not really changed.',
-    downgrade: 'Demo environment — plan not really changed.',
-    password: 'Demo environment — password not really changed.',
-    unbind: 'Demo environment — connection not really changed.',
-    disconnect: 'Demo environment — source not really disconnected.',
-    key: 'Demo environment — key not really created.',
-    addq: 'Demo environment — question not really added.',
-    export: 'Demo environment — export not really sent.',
-    invoice: 'Demo environment — invoice view/download is a demo only.'
-  };
-  document.querySelectorAll('[data-demo]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      showToast(DEMO_MSG[b.dataset.demo] || 'Demo environment — nothing is really saved.');
-    });
-  });
+
   document.querySelectorAll('[data-go]').forEach(function (b) {
   b.addEventListener('click', function () { go(b.dataset.go); });
   });
   var secEntry = document.getElementById('securityEntryCard');
   if (secEntry) secEntry.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go('security'); } });
-  var cc = document.getElementById('cancelConfirmBtn');
-  if (cc) cc.addEventListener('click', function () {
-    showToast('Demo environment — subscription not really cancelled.');
-    var cm = document.getElementById('cancelModal');
-    if (cm) { cm.classList.remove('open'); cm.setAttribute('aria-hidden', 'true'); }
-  });
   var cClose = document.getElementById('cancelModalClose');
   if (cClose) cClose.addEventListener('click', function () { var cm = document.getElementById('cancelModal'); if (cm) { cm.classList.remove('open'); cm.setAttribute('aria-hidden', 'true'); } });
   var cModal = document.getElementById('cancelModal');
   if (cModal) cModal.addEventListener('click', function (e) { if (e.target.closest('.modal-card')) return; cModal.classList.remove('open'); cModal.setAttribute('aria-hidden', 'true'); });
-  var delBtn = document.getElementById('deleteBtn');
-  var delBox = document.getElementById('deleteConfirm');
-  var delAck = document.getElementById('deleteAck');
-  var delGo = document.getElementById('deleteConfirmBtn');
-  var delBack = document.getElementById('deleteBackBtn');
-  if (delBtn && delBox) delBtn.addEventListener('click', function () { delBox.style.display = 'block'; });
-  if (delAck && delGo) delAck.addEventListener('change', function () { delGo.disabled = !delAck.checked; });
-  if (delGo) delGo.addEventListener('click', function () {
-    showToast('Demo environment — account not really deleted.');
-    delBox.style.display = 'none'; delAck.checked = false; delGo.disabled = true;
-  });
-  if (delBack) delBack.addEventListener('click', function () { delBox.style.display = 'none'; delAck.checked = false; delGo.disabled = true; });
   var SEATS = { starter: '1 seat', growth: '3 seats', pro: '5 seats', teams: '20 seats' };
   var NAMES = { starter: 'Starter', growth: 'Growth', pro: 'Pro', teams: 'Teams' };
   var PRICES = { starter: 'Starter · $25/mo', growth: 'Growth · $49/mo', pro: 'Pro · $129/mo', teams: 'Teams · $199/mo' };
@@ -2914,6 +2883,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     var ms = document.getElementById('planChangeModalStandard'); if (ms) ms.textContent = selectedCard.dataset.standard;
     var mn = document.getElementById('planChangeModalNote'); if (mn) mn.textContent = 'for the first 12 months, then ' + selectedCard.dataset.standard;
     var mf = document.getElementById('planChangeModalFounding'); if (mf) mf.textContent = 'Founding members: ' + selectedCard.dataset.founding + ' for the first 12 months.';
+    if (mn) mn.textContent = 'To change your plan, contact support \u2014 we\'ll make the switch and confirm it by email.'; if (mf) mf.textContent = '';
     modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
   }
   function drawerCloseModal() {
@@ -2951,8 +2921,6 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
   var drawerToggleBtn = document.getElementById('changePlanToggle');
   if (drawerToggleBtn) drawerToggleBtn.addEventListener('click', function () { drawerReorderCards(); });
   drawerReorderCards();
-  var mConfirm = document.getElementById('planChangeModalConfirm');
-  if (mConfirm) mConfirm.addEventListener('click', function () { showToast('Demo environment — plan not really changed.'); drawerCloseModal(); drawerClearSelection(); });
   var mCancel = document.getElementById('planChangeModalCancel');
   if (mCancel) mCancel.addEventListener('click', function () { drawerCloseModal(); });
   var mClose = document.getElementById('planChangeModalClose');
@@ -3088,36 +3056,72 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     var r = document.getElementById(id);
     if (r) { var l = r.querySelector('.sec-label'); if (l) l.textContent = label; }
   }
-  var ug = document.getElementById('unbindGoogleRow');
-  if (ug) ug.addEventListener('click', function () {
-    secShow('Unbind Google?', 'This demo only: confirming flips this row to Bind in this session. Nothing is really unbound.', 'google');
-  });
   var us = document.getElementById('unbindShopifyRow');
-  if (us) us.addEventListener('click', function () {
-    secShow('Unbind Shopify?', 'This demo only: confirming flips this row to Bind in this session. Nothing is really unbound.', 'shopify');
-  });
-  var ex = document.getElementById('exportRow');
-  if (ex) ex.addEventListener('click', function () {
-    secShow('Export my data?', 'This demo only: confirming shows a demo toast. Nothing is really exported.', 'export');
-  });
+  function shopifyState(cb) {
+    fetch('/connections', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) { cb(!!(list || []).filter(function (c) { return c.provider === 'shopify' || c.key === 'shopify'; }).length); })
+      .catch(function () { cb(false); });
+  }
+  function shopifyLabel() { shopifyState(function (on) { secBindRow('unbindShopifyRow', on ? 'Unbind Shopify' : 'Bind Shopify'); }); }
+  if (us) {
+    us.addEventListener('click', function () {
+      shopifyState(function (on) {
+        if (on) secShow('Unbind Shopify?', 'This will disconnect Shopify from your CitMark account.', 'shopify');
+        else window.location.href = '/auth/shopify/login';
+      });
+    });
+    shopifyLabel();
+  }
   var sg = document.getElementById('secConfirmGo');
   if (sg) sg.addEventListener('click', function () {
-    if (secCase === 'google') { secBindRow('unbindGoogleRow', 'Bind Google'); showToast('Demo environment — connection not really changed.'); }
-    else if (secCase === 'shopify') { secBindRow('unbindShopifyRow', 'Bind Shopify'); showToast('Demo environment — connection not really changed.'); }
-    else if (secCase === 'export') { showToast('Demo environment — export not really sent.'); }
+    if (secCase === 'shopify') {
+      var goBtn = document.getElementById('secConfirmGo');
+      if (goBtn) goBtn.disabled = true;
+      fetch('/connections/shopify', { method: 'DELETE', credentials: 'same-origin' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('http ' + r.status);
+          secBindRow('unbindShopifyRow', 'Bind Shopify');
+          showToast('Shopify disconnected.');
+        })
+        .catch(function () { showToast('Could not disconnect Shopify. Try again.'); })
+        .then(function () { if (goBtn) goBtn.disabled = false; });
+    }
     secHide();
   });
   var sb = document.getElementById('secConfirmBack');
   if (sb) sb.addEventListener('click', secHide); var scClose = document.getElementById('secConfirmClose'); if (scClose) scClose.addEventListener('click', secHide); var scMask = document.getElementById('secConfirmMask'); if (scMask) scMask.addEventListener('click', secHide);
 </script>
 <script>
-document.querySelectorAll('.notif-toggle').forEach(function(btn){
+document.querySelectorAll('.notif-toggle[data-pref]').forEach(function(btn){
   btn.addEventListener('click', function(){
-    var on = btn.classList.toggle('on');
-    btn.setAttribute('aria-checked', on ? 'true' : 'false');
-    if (window.showToast) window.showToast('Demo environment — notification preference not really saved.');
+    var key = btn.getAttribute('data-pref');
+    var on = !btn.classList.contains('on');
+    btn.disabled = true;
+    var body = {}; body[key] = on;
+    fetch('/notifications/prefs', { method: 'PUT', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (prefs) {
+        var v = !!prefs[key];
+        btn.classList.toggle('on', v);
+        btn.setAttribute('aria-checked', v ? 'true' : 'false');
+      })
+      .catch(function () { if (window.showToast) window.showToast('Could not save that preference. Try again.'); })
+      .then(function () { btn.disabled = false; });
   });
 });
+fetch('/notifications/prefs', { credentials: 'same-origin' })
+  .then(function (r) { return r.ok ? r.json() : null; })
+  .then(function (prefs) {
+    if (!prefs) return;
+    document.querySelectorAll('.notif-toggle[data-pref]').forEach(function (btn) {
+      var v = !!prefs[btn.getAttribute('data-pref')];
+      btn.classList.toggle('on', v);
+      btn.setAttribute('aria-checked', v ? 'true' : 'false');
+    });
+  })
+  .catch(function () {});
 </script>
 <script>
 /* v12: long-press truncated single-line label shows full text (mobile title fallback) */
@@ -3914,6 +3918,46 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
           : 'Something went wrong. Please try again.';
       })
       .catch(function () { if (msg) msg.textContent = 'Something went wrong. Please try again.'; })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+<script>
+(function () {
+  var btn = document.getElementById('teamInviteBtn');
+  if (!btn) return;
+  var emailEl = document.getElementById('teamInviteEmail');
+  var roleEl = document.getElementById('teamInviteRole');
+  var msg = document.getElementById('teamInviteMsg');
+  var linkBox = document.getElementById('teamInviteLink');
+  btn.addEventListener('click', function () {
+    var email = (emailEl.value || '').trim();
+    if (msg) msg.textContent = '';
+    if (linkBox) linkBox.style.display = 'none';
+    if (!email) { if (msg) msg.textContent = "Enter your teammate's email address first."; return; }
+    var role = roleEl.value === 'Read-only' ? 'viewer' : 'member';
+    btn.disabled = true;
+    fetch('/auth/me', { credentials: 'same-origin' })
+      .then(function (r) { if (!r.ok) throw new Error('me'); return r.json(); })
+      .then(function (me) {
+        if (!me.team_id) throw new Error('noteam');
+        return fetch('/teams/' + encodeURIComponent(me.team_id) + '/invites', { method: 'POST', credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, role: role }) })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
+      })
+      .then(function (res) {
+        if (res.status === 201) {
+          if (res.body.email_sent === false && res.body.invite_link) {
+            if (msg) msg.textContent = "We couldn't email the invite — share this link with " + email + ':';
+            if (linkBox) { linkBox.textContent = res.body.invite_link; linkBox.style.display = 'block'; }
+          } else if (msg) { msg.textContent = 'Invite sent to ' + email + '.'; }
+          emailEl.value = '';
+        } else if (res.status === 422) { if (msg) msg.textContent = "That email address doesn't look right — check it and try again."; }
+        else if (res.status === 409) { if (msg) msg.textContent = 'That person is already a member of your team.'; }
+        else if (res.status === 403) { if (msg) msg.textContent = (res.body && (res.body.reason || res.body.detail)) || 'Invites are not available on your current plan.'; }
+        else { if (msg) msg.textContent = "Couldn't send the invite. Try again."; }
+      })
+      .catch(function () { if (msg) msg.textContent = "Couldn't send the invite. Try again."; })
       .then(function () { btn.disabled = false; });
   });
 })();
