@@ -2498,7 +2498,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
                 if (resp.status === 401) showMsg("Email or password doesn't match our records.", true);
                 else if (resp.status === 409) showMsg("That email already has an account. Switch to Log in below.", true);
                 else if (resp.status === 429) showMsg("Too many attempts. Please wait a few minutes and try again.", true);
-                else if (resp.status === 400 && detail === "invalid_email") showMsg("That email address doesn't look right.", true);
+                else if (resp.status === 400 && detail === "invalid_email") showMsg("That email address doesn't look right — check it and try again.", true);
+                else if (resp.status === 400 && detail === "email_domain_unreachable") showMsg("We couldn't find a mail server for that domain — check the part after the @ and try again.", true);
+                else if (resp.status === 400 && detail === "email_disposable_blocked") showMsg("Disposable email addresses can't be used for sign-up — please use a permanent email address.", true);
                 else if (resp.status === 400 && detail) showMsg(detail, true);
                 else showMsg("Something went wrong. Please try again.", true);
               });
