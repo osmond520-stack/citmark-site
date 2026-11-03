@@ -115,6 +115,18 @@ a { color: var(--accent-deep); }
 .state.ok { background: var(--good-soft); border: 1px solid #bfe3cb; color: #14532d; }
 .state.err { background: var(--bad-soft); border: 1px solid #f0c4c0; color: var(--bad); }
 .state b { font-weight: 800; }
+/* report panel (report-handle landing, supplement YI 2026-11-03) */
+.report-card[hidden] { display: none; }
+.report-card h2 { font-size: 24px; }
+.report-card .r-domain { color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+.report-card .r-score { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800;
+  font-size: 56px; letter-spacing: -.02em; margin: 18px 0 2px; }
+.report-card .r-score span { font-size: 22px; color: var(--muted); font-weight: 700; }
+.report-card .r-line { color: var(--ink-2); font-size: 15px; margin-top: 6px; }
+.report-card .r-note { background: var(--warn-soft); border: 1px solid #ecd9a8; color: var(--warn);
+  border-radius: 10px; padding: 12px 14px; font-size: 14px; font-weight: 600; margin-top: 16px; }
+.report-card .r-loading { color: var(--muted); font-size: 15px; }
+
 
 /* how it works */
 .how { max-width: 720px; margin: 0 auto; padding: 8px 24px 56px;
@@ -152,6 +164,11 @@ a { color: var(--accent-deep); }
 <div class="hero">
   <h1>See how AI sees your brand — <em>free</em></h1>
   <p>We ask 4 AI engines 3 questions about your category and check whether your brand gets mentioned. You get the score and the raw answers by email.</p>
+</div>
+
+
+<div class="card report-card" id="reportPanel" hidden>
+  <div class="r-loading" id="reportBody">Loading your report\u2026</div>
 </div>
 
 <div class="card">
@@ -509,7 +526,71 @@ function postResume(handle) {
     landingStore("citmark_resume_claimed", null); landingFailed();
   }).catch(function () { landingStore("citmark_resume_claimed", null); landingFailed(); });
 }
+
+/* ============ Report-handle landing (supplement YI, frozen 2026-11-03) ============
+   Email report CTA lands here with ?r=<handle>; the handle is single-use
+   (burned by the first successful read) and expires after 7 days.
+   GET the report JSON once \u2014 never auto-retry \u2014 and render the five
+   fields. score.note, when present, is rendered verbatim (section 7).
+   Burned / expired / unknown handles return the same 404 and land on the
+   invalid state, whose way forward is the form on this page (re-verify
+   the same email for a fresh report link). */
+var REPORT_API_URL = "https://citmark-backend-216307200415.asia-northeast1.run.app/snapshots/free/report";
+var REPORT_PARAM = "r";
+function reportShowInvalid() {
+  var panel = document.getElementById("reportPanel");
+  if (panel) { panel.hidden = true; }
+  landingShow("stateErr", "<b>This report link is no longer valid.</b> Report links can be opened once and expire after 7 days. Submit the form on this page with the same email and verify it \u2014 we'll send you a fresh link to your report.");
+}
+function reportShowLoadError() {
+  var panel = document.getElementById("reportPanel");
+  if (panel) { panel.hidden = true; }
+  landingShow("stateErr", "<b>We couldn't open your report just now.</b> Refresh the page to try again.");
+}
+function renderReport(body) {
+  var panel = document.getElementById("reportPanel");
+  var el = document.getElementById("reportBody");
+  if (!panel || !el || !body) { reportShowLoadError(); return; }
+  var sc = body.score || {};
+  var html = "";
+  var brand = body.brand_name || body.brand_domain || "Your brand";
+  html += "<h2>" + escapeHtml(brand) + "</h2>";
+  if (body.brand_domain) { html += "<div class=\"r-domain\">" + escapeHtml(body.brand_domain) + "</div>"; }
+  if (typeof sc.value === "number") {
+    html += "<div class=\"r-score\">" + sc.value.toFixed(1) + " <span>/ 100</span></div>";
+    if (typeof sc.ci_low === "number" && typeof sc.ci_high === "number") {
+      html += "<div class=\"r-line\">95% confidence interval: " + sc.ci_low.toFixed(1) + "\u2013" + sc.ci_high.toFixed(1) + "</div>";
+    }
+    if (typeof sc.hits === "number" && typeof sc.n_valid === "number") {
+      html += "<div class=\"r-line\">Mentioned in " + sc.hits + " of " + sc.n_valid + " valid answers.</div>";
+    }
+  }
+  if (typeof sc.note === "string" && sc.note) {
+    html += "<div class=\"r-note\">" + escapeHtml(sc.note) + "</div>";
+  }
+  el.innerHTML = html;
+  panel.hidden = false;
+  if (panel.scrollIntoView) { try { panel.scrollIntoView({ block: "center" }); } catch (e) {} }
+}
+(function initReport() {
+  var q = landingQuery();
+  var handle = q ? q.get("r") : null;
+  if (!handle) { return; }
+  window.__citmarkReportMode = true;
+  var panel = document.getElementById("reportPanel");
+  if (panel) { panel.hidden = false; }
+  fetch(REPORT_API_URL + "?" + REPORT_PARAM + "=" + encodeURIComponent(handle), { method: "GET" })
+    .then(function (r) {
+      if (r.status === 404) { reportShowInvalid(); return null; }
+      if (!r.ok) { reportShowLoadError(); return null; }
+      return r.json();
+    })
+    .then(function (body) { if (body) { renderReport(body); } })
+    .catch(function () { reportShowLoadError(); });
+})();
+
 (function initLanding() {
+  if (window.__citmarkReportMode) { return; }
   var q = landingQuery();
   if (q && q.get("verify") === "invalid") { landingInvalid(); return; }
   if (q && q.get("verified") === "1") {
