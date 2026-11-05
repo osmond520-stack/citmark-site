@@ -10,7 +10,7 @@
 html:not([data-state="demo"]) .sample-note{display:none!important}
 html[data-state="empty"] [data-sample-layer]{display:none!important}
 html:not([data-state="empty"]) [data-empty-slot]{display:none!important}
-html[data-state="loading"] .ov-brand,html[data-state="loading"] .ov-fresh{visibility:hidden}
+html[data-state="loading"] .ov-brand,html[data-state="loading"] .ov-fresh,html[data-state="loading"] .side-brand{visibility:hidden}
 /* Demo artifacts: the sample pill and the sample-derived bell count exist only in demo. */
 html:not([data-state="demo"]) #idRow .pill{display:none!important}
 html:not([data-state="demo"]) #bellBadge{display:none!important}
@@ -20,7 +20,7 @@ html:not([data-state="demo"]) #bellBadge{display:none!important}
 html:not([data-state="demo"]) [data-demo-layer]{display:none!important}
 html[data-state="demo"] [data-http-slot]{display:none!important}
 /* Tier/brand labels hold neutral until the identity read lands (no Starter flash). */
-html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #planName,html:not([data-identity="set"]):not([data-state="demo"]) #wsTier,html:not([data-identity="set"]):not([data-state="demo"]) #idBrandName,html:not([data-identity="set"]):not([data-state="demo"]) #acctMenu .acct-meta>span:last-child{visibility:hidden}
+html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #tierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #planName,html:not([data-identity="set"]):not([data-state="demo"]) #wsTier,html:not([data-identity="set"]):not([data-state="demo"]) #idBrandName,html:not([data-identity="set"]):not([data-state="demo"]) #acctMenu .acct-meta>span:last-child{visibility:hidden}
 html[data-state="empty"] [data-empty-slot]{display:block!important}
 </style>
 <title>Dashboard — CitMark</title>
@@ -1260,7 +1260,7 @@ kept apart from the gate-row pill set. */
             </div>
             <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
             <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
-            <p class="def-note">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
+            <p class="def-note" id="ovDefNote">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
             <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
           </div>
 <div class="card">
@@ -1324,7 +1324,7 @@ kept apart from the gate-row pill set. */
               <div><span class="note-badge" id="scoreNote">–</span></div>
               <p class="ci">95% Wilson CI <b id="scoreCi">–</b> · <span id="scoreN">–</span> valid answers</p>
               <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
-              <p class="def-note">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
+              <p class="def-note" id="scoreDefNote">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
               <p class="desc" style="margin:0;" id="scoreBlurb"></p>
             </div>
           </div>
@@ -1508,12 +1508,12 @@ kept apart from the gate-row pill set. */
 <div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
 <p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
 </section>
-<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>Nothing to track yet.</b><br/>Impact tracking starts with your first snapshot and the fixes you make from it.</p></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card tk-action" data-sample-layer><h3>Re-run quota <span class="badge-ok" id="tkP0Status">Available</span></h3>
+<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot><div class="big">◎</div><p><b>Nothing to track yet.</b><br/>Impact tracking starts with your first snapshot and the fixes you make from it.</p></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card tk-action" data-demo-layer><h3>Re-run quota <span class="badge-ok" id="tkP0Status">Available</span></h3>
 <p id="tkP0Reason" class="tk-reason">Within quota. Re-runs run normally.</p>
 <button type="button" class="btn" id="tkRunBtn">Re-run</button>
 
 </div>
-<div class="tk-details" data-sample-layer>
+<div class="tk-details" data-demo-layer>
 <p class="tk-foot">Details</p>
 <div class="card"><h3>Quota numbers</h3>
 <p class="desc">Per-tier re-run quota. Usage figures are samples.</p>
@@ -1530,7 +1530,7 @@ kept apart from the gate-row pill set. */
 
 </div>
 </div></section>
-<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No checkup yet.</b><br/>Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-sample-layer><h3>Suggestions &amp; results &middot; Store <span class="tk-badge-notconn">Not connected</span></h3>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot><div class="big">◎</div><p><b>No checkup yet.</b><br/>Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-demo-layer><h3>Suggestions &amp; results &middot; Store <span class="tk-badge-notconn">Not connected</span></h3>
 <p class="desc">Sample run &mdash; at most 3 suggestions per run. Old rows are kept, never silently overwritten.</p>
 <ol class="tk-sugg">
 <li><b>Add a comparison table to the main product page</b> <span class="badge-ok">done</span></li>
@@ -1725,7 +1725,7 @@ kept apart from the gate-row pill set. */
     <button class="close" id="runClose">✕</button>
     <div id="runConfirm">
       <h3>Run new snapshot</h3>
-      <p class="qtext">Runs with your last configuration. Change it any time.</p>
+      <p class="qtext" id="runConfirmNote">Runs with your last configuration. Change it any time.</p>
       <div class="run-summary" id="runSummary"></div>
       <div id="runErr"></div>
       <button class="btn" id="runBtn" style="width:100%;">▶&nbsp; Run snapshot</button>
@@ -2156,6 +2156,8 @@ function renderOverview() {
   document.getElementById("ovScoreN").textContent = s.n_valid;
   document.getElementById("ovScoreBlurb").textContent =
     snap.brand.name + " was mentioned in " + s.hits + " of " + s.n_valid + " AI answers.";
+  var ovDn = document.getElementById("ovDefNote");
+  if (ovDn) ovDn.textContent = "Score " + s.value.toFixed(1) + " is based on this snapshot: " + s.hits + " mentions in " + s.n_valid + " valid answers (" + s.value.toFixed(1) + "%).";
   const C = 502.7;
   requestAnimationFrame(() => {
     const fg = document.getElementById("ovRingFg");
@@ -2244,26 +2246,37 @@ function renderOverview() {
 }
 
 /* ---------------- run drawer + config ---------------- */
-const cfg = {
+const cfg = (typeof api !== "undefined" && api.mode === "http")
+  ? { brand: { name: "", domain: "" }, competitors: new Set(), questions: new Set() }
+  : {
   brand: { name: MOCK.snapshot.brand.name, domain: MOCK.snapshot.brand.domain },
   competitors: new Set(MOCK.snapshot.competitors),
   questions: new Set(MOCK.snapshot.questions.map(q => q.id)),
 };
 function renderRunSummary() {
+  var note = document.getElementById("runConfirmNote");
+  if (typeof api !== "undefined" && api.mode === "http" && !cfg.brand.name) {
+    if (note) note.textContent = "Set up your first snapshot \u2014 it takes a minute.";
+    document.getElementById("runSummary").innerHTML = "No configuration yet. Your first snapshot starts from a blank setup.";
+    return;
+  }
+  if (note) note.textContent = "Runs with your last configuration. Change it any time.";
   document.getElementById("runSummary").innerHTML =
     "<b>Brand:</b> " + escapeHtml(cfg.brand.name) + " (" + escapeHtml(cfg.brand.domain) + ")<br>" +
     "<b>Competitors:</b> " + cfg.competitors.size + " tracked<br>" +
     "<b>Questions:</b> " + cfg.questions.size + " questions";
 }
 function buildCfgLists() {
-  document.getElementById("cfgCompList").innerHTML = MOCK.snapshot.competitors.map(c => `
+  const src = (typeof api !== "undefined" && api.mode === "http") ? (window.__cfgOptions || { competitors: [], questions: [] }) : MOCK.snapshot;
+  document.getElementById("cfgCompList").innerHTML = src.competitors.map(c => `
     <label class="cfg-check"><input type="checkbox" data-comp="${escapeHtml(c)}" ${cfg.competitors.has(c) ? "checked" : ""}><span>${escapeHtml(c)}</span></label>`).join("");
-  document.getElementById("cfgQList").innerHTML = MOCK.snapshot.questions.map(q => `
+  document.getElementById("cfgQList").innerHTML = src.questions.map(q => `
     <label class="cfg-check"><input type="checkbox" data-q="${q.id}" ${cfg.questions.has(q.id) ? "checked" : ""}><span><b>${q.slot}</b> · ${escapeHtml(q.text)}</span></label>`).join("");
 }
 function applyCfg() {
-  cfg.brand.name = document.getElementById("cfgBrand").value.trim() || MOCK.snapshot.brand.name;
-  cfg.brand.domain = document.getElementById("cfgDomain").value.trim() || MOCK.snapshot.brand.domain;
+  const httpMode = typeof api !== "undefined" && api.mode === "http";
+  cfg.brand.name = document.getElementById("cfgBrand").value.trim() || (httpMode ? "" : MOCK.snapshot.brand.name);
+  cfg.brand.domain = document.getElementById("cfgDomain").value.trim() || (httpMode ? "" : MOCK.snapshot.brand.domain);
   cfg.competitors = new Set([...document.querySelectorAll("#cfgCompList input:checked")].map(i => i.dataset.comp));
   cfg.questions = new Set([...document.querySelectorAll("#cfgQList input:checked")].map(i => i.dataset.q));
   renderRunSummary();
@@ -2376,6 +2389,8 @@ function renderScore() {
   document.getElementById("scoreN").textContent = s.n_valid;
   document.getElementById("scoreBlurb").textContent =
     `${state.snapshot.brand.name} was mentioned in ${s.hits} of ${s.n_valid} AI answers.`;
+  var scDn = document.getElementById("scoreDefNote");
+  if (scDn) scDn.textContent = "Score " + s.value.toFixed(1) + " is based on this snapshot: " + s.hits + " mentions in " + s.n_valid + " valid answers (" + s.value.toFixed(1) + "%).";
   const C = 452.4;
   requestAnimationFrame(() => {
     document.getElementById("ringFg").style.strokeDashoffset = C * (1 - s.value / 100);
@@ -2547,8 +2562,8 @@ function escapeHtml(s) {
 }
 function trunc(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
-state.snapshot = MOCK.snapshot; state.score = MOCK.score; state.answers = MOCK.answers;
-renderOverview(); renderScore(); renderReport();
+if (typeof api === "undefined" || api.mode !== "http") { state.snapshot = MOCK.snapshot; state.score = MOCK.score; state.answers = MOCK.answers;
+renderOverview(); renderScore(); renderReport(); }
 </script>
 
 <script>
@@ -3875,7 +3890,7 @@ function selectRun(id){
 }
 function optList(sel){ return RUNS.map(function(r){ return '<option value="'+r.run_id+'"'+(r.run_id===sel?" selected":"")+'>'+dstr(r.started_at)+" · "+esc(r.question_set_version)+"</option>"; }).join(""); }
 function renderCompare(){
- if(RUNS.length < 2){ cmpEl.innerHTML = '<div class="empty">Only one run so far. Changes appear when a second run completes.</div>'; return; }
+ if(RUNS.length < 2){ cmpEl.innerHTML = '<div class="empty">' + (RUNS.length === 0 ? 'No runs yet. Changes appear when a second run completes.' : 'Only one run so far. Changes appear when a second run completes.') + '</div>'; return; }
  var after = RUNS[0], before = RUNS[1];
  /* Deep-link window: from_run/to_run preselect the pair when both keys are
     present and both runs are in the loaded list; any other shape falls back
@@ -4173,6 +4188,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     }
   }, true);
   function fillFromDetail(run, detail) {
+    if (window.__gateUpgrade) window.__gateUpgrade();
     window.__dlBoot = { run_id: run.run_id, brand: st.brand, score: detail.score || null, object: run.run_id };
     try {
       state.snapshot = { id: run.run_id, brand: { name: run.brand_name, domain: run.brand_domain }, engines: run.engines || [], competitors: [], created_at: run.started_at };
@@ -4183,6 +4199,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
       if (typeof renderReport === "function") renderReport();
     } catch (e) {}
   }
+  window.__dlFillFromDetail = fillFromDetail;
   function brandChain() {
     if (!st.brand) return;
     fetch("/snapshots/history?brand=" + encodeURIComponent(st.brand) + "&limit=1", { credentials: "same-origin" })
@@ -4228,7 +4245,8 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
    demo  = mock mode (sample layer is the content; banners stay)
    real  = the workspace has snapshot runs
    empty = no snapshot runs yet (sample layer gated off, empty slots show)
-   unknown = the probe failed; display follows real (never punish a load error) */
+   a failed probe retries once, then fails closed to empty; a real detail
+   fill upgrades empty back to real via __gateUpgrade. */
 (function () {
   var root = document.documentElement;
   function setState(v) { root.setAttribute("data-state", v); window.__dataState = v; }
@@ -4236,10 +4254,40 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
   try { http = (typeof api !== "undefined" && api.mode === "http"); } catch (e) {}
   if (!http) { setState("demo"); return; }
   setState("loading");
-  fetch("/snapshots/history?limit=1", { credentials: "same-origin" })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (resp) { var runs = resp && resp.runs; if (runs && runs.length) window.__gateBrand = { name: runs[0].brand_name || "", domain: runs[0].brand_domain || "" }; setState(runs && runs.length ? "real" : "empty"); if (window.__fillBrandSurfaces) window.__fillBrandSurfaces(); })
-    .catch(function () { setState("unknown"); });
+  window.__gateUpgrade = function () { if (root.getAttribute("data-state") === "empty") setState("real"); };
+  function probe(attempt) {
+    fetch("/snapshots/history?limit=1", { credentials: "same-origin" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (resp) {
+        var runs = resp && resp.runs;
+        if (runs && runs.length) window.__gateBrand = { name: runs[0].brand_name || "", domain: runs[0].brand_domain || "" };
+        setState(runs && runs.length ? "real" : "empty");
+        if (window.__fillBrandSurfaces) window.__fillBrandSurfaces();
+        var K = window.__dlKeys || {};
+        if (runs && runs.length && !K.brand && !window.__dlObjPinAttempt && window.__dlFillFromDetail) {
+          fetch("/snapshots/history/" + encodeURIComponent(runs[0].run_id), { credentials: "same-origin" })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (detail) {
+              if (!detail || !detail.run) return;
+              window.__dlFillFromDetail(detail.run, detail);
+              try {
+                if (typeof cfg !== "undefined") {
+                  cfg.brand = { name: detail.run.brand_name || "", domain: detail.run.brand_domain || "" };
+                  var sc = detail.score || {};
+                  var qs = (sc.by_question || []).filter(function (q) { return q && (q.question_id || q.id) && (q.question_text || q.text); }).map(function (q) { return { id: q.question_id || q.id, slot: q.slot || "", text: q.question_text || q.text }; });
+                  var cs = (sc.competitors || []).filter(function (c) { return typeof c === "string"; });
+                  window.__cfgOptions = { competitors: cs, questions: qs };
+                  cfg.competitors = new Set(cs);
+                  cfg.questions = new Set(qs.map(function (q) { return q.id; }));
+                }
+              } catch (e) {}
+            })
+            .catch(function () {});
+        }
+      })
+      .catch(function () { if (attempt < 2) setTimeout(function () { probe(attempt + 1); }, 600); else setState("empty"); });
+  }
+  probe(1);
 })();
 </script>
 <script>
@@ -4265,6 +4313,8 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     if (d) d.value = b ? b.domain : "";
     var h = document.getElementById("hubBrandStatus");
     if (h) h.textContent = b ? (b.name + (b.domain ? " · " + b.domain : "")) : "No brand yet";
+    var sb = document.querySelector(".side-brand");
+    if (sb) sb.textContent = b ? b.name : "No brand yet";
     var ib = document.getElementById("idBrandName");
     if (ib) ib.textContent = b ? b.name : "No brand yet";
     var on = document.getElementById("ovBrandName");
