@@ -14,6 +14,11 @@ html[data-state="loading"] .ov-brand,html[data-state="loading"] .ov-fresh{visibi
 /* Demo artifacts: the sample pill and the sample-derived bell count exist only in demo. */
 html:not([data-state="demo"]) #idRow .pill{display:none!important}
 html:not([data-state="demo"]) #bellBadge{display:none!important}
+/* Demo-only layers: surfaces with no live data source at all (invoices, login
+   history) never render their sample rows outside demo. Their empty slot is
+   the http form in every http state. */
+html:not([data-state="demo"]) [data-demo-layer]{display:none!important}
+html[data-state="demo"] [data-http-slot]{display:none!important}
 /* Tier/brand labels hold neutral until the identity read lands (no Starter flash). */
 html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #planName,html:not([data-identity="set"]):not([data-state="demo"]) #wsTier,html:not([data-identity="set"]):not([data-state="demo"]) #idBrandName,html:not([data-identity="set"]):not([data-state="demo"]) #acctMenu .acct-meta>span:last-child{visibility:hidden}
 html[data-state="empty"] [data-empty-slot]{display:block!important}
@@ -1570,7 +1575,7 @@ kept apart from the gate-row pill set. */
 </div>
 <p class="form-msg" id="pwResetMsg" role="alert" style="margin-top:10px"></p></div></section>
 <section class="view" id="view-security-logins"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="empty" data-empty-slot><div class="big">◎</div><p><b>No logins recorded yet.</b></p></div><div class="card" data-sample-layer><h3>Login history</h3>
+<div class="empty" data-http-slot><div class="big">◎</div><p><b>No login history available yet.</b></p></div><div class="card" data-demo-layer><h3>Login history</h3>
 <div class="login-list">
 <div class="login-row"><span class="login-device">Chrome · macOS <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-25 09:12</span></div>
 <div class="login-row"><span class="login-device">Safari · iPhone <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-24 21:40</span></div>
@@ -1607,7 +1612,7 @@ kept apart from the gate-row pill set. */
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="empty" data-empty-slot><div class="big">▤</div><p><b>No invoices yet.</b><br/>Invoices from your subscription will appear here.</p></div><div class="card" data-sample-layer><h3>Invoices</h3>
+<div class="empty" data-http-slot><div class="big">▤</div><p><b>No invoices yet.</b><br/>Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr>
 <tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr></tbody></table></div>
