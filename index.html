@@ -1032,7 +1032,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <a href="#faq">FAQ</a>
         </nav>
         <button class="btn small ghost topbar-auth" type="button" data-open-auth-card>Log in</button>
-        <span class="tb-acct"><button class="id-avatar-btn" id="idAvatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span></button><div class="acct-menu" id="acctMenu" role="menu" aria-label="Account"><div class="acct-head" role="none"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span><div><div class="acct-name">osmond520@gmail.com</div><div class="acct-meta"><span class="id-badge">GROWTH</span></div></div></div><a class="acct-item" role="menuitem" href="/dashboard/">Dashboard</a><a class="acct-item" role="menuitem" href="/dashboard/?view=plan">My plan</a><a class="acct-item" role="menuitem" href="/help/">Help center</a><div class="acct-sep" role="separator"></div><button class="acct-item" role="menuitem" type="button" data-session-logout>Log out</button></div></span>
+        <span class="tb-acct"><button class="id-avatar-btn" id="idAvatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span></button><div class="acct-menu" id="acctMenu" role="menu" aria-label="Account"><div class="acct-head" role="none"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span><div><div class="acct-name"></div><div class="acct-meta"><span class="id-badge"></span></div></div></div><a class="acct-item" role="menuitem" href="/dashboard/">Dashboard</a><a class="acct-item" role="menuitem" href="/dashboard/?view=plan">My plan</a><a class="acct-item" role="menuitem" href="/help/">Help center</a><div class="acct-sep" role="separator"></div><button class="acct-item" role="menuitem" type="button" data-session-logout>Log out</button></div></span>
         <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
           <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
@@ -2915,12 +2915,22 @@ body.is-authed .topbar-in [data-open-auth-card] { display: none; }
       }).catch(function () { toast("Couldn't log out. Check your connection and try again."); });
     });
   });
+  function fillIdentity(me) {
+    if (!me) return;
+    var nameEl = document.querySelector("#acctMenu .acct-name");
+    if (nameEl && me.email) nameEl.textContent = me.email;
+    var badge = document.querySelector("#acctMenu .id-badge");
+    if (badge) {
+      if (me.tier) { badge.textContent = String(me.tier).toUpperCase(); badge.style.display = ""; }
+      else { badge.style.display = "none"; }
+    }
+  }
   function check() {
     var ctrl = ("AbortController" in window) ? new AbortController() : null;
     var to = ctrl ? setTimeout(function () { ctrl.abort(); }, 4000) : null;
     fetch("/auth/me", { credentials: "same-origin", signal: ctrl ? ctrl.signal : undefined }).then(function (r) {
       if (to) clearTimeout(to);
-      if (r.ok) { apply(true); }
+      if (r.ok) { return r.json().then(function (me) { fillIdentity(me); apply(true); }).catch(function () { apply(true); }); }
       else if (r.status === 401) { apply(false); }
     }).catch(function () { if (to) clearTimeout(to); });
   }
