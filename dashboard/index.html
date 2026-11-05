@@ -1151,6 +1151,7 @@ kept apart from the gate-row pill set. */
 .t7-sum b{font-size:20px;font-weight:800}
 @media (max-width:560px){.t7-sum{gap:6px 8px;font-size:12.5px} .t7-sum b{font-size:16px}}
 @media (max-width:400px){.t7-sum{flex-wrap:wrap;white-space:normal}}
+.t7-locked-count{font-weight:600;margin:0 0 4px}
 .t7-note{font-size:13px;color:var(--warn,#9a6a00);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:0 0 12px}
 .t7-item{border-top:1px solid var(--line);padding:12px 2px}
 .t7-item:first-of-type{border-top:0}
@@ -1524,7 +1525,7 @@ kept apart from the gate-row pill set. */
 <section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
-<section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
+<section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
             <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
 <h2>Notifications</h2>
@@ -1606,7 +1607,7 @@ kept apart from the gate-row pill set. */
 <div class="card" id="currentPlanCard"><h3 class="current-tier" id="planName">Starter</h3>
 <p class="current-pos" id="planPos">For one brand getting started with AI visibility. Weekly full measurement, plus an alert when AI turns negative.</p>
 <p class="current-price"><b id="planPromoPrice">$25/mo</b> <s id="planStandardPrice">$35/mo</s> <span class="current-price-note" id="planPriceNote">for the first 12 months, then $35/mo</span></p>
-<p class="current-founding" id="planFounding">Founding members: $12.50/mo for the first 12 months.</p></div>
+<p class="current-founding" id="planFounding">Founding members: $12.50/mo for the first 12 months.</p> <p class="plan-history" id="planHistoryRow">History: last 4 weeks</p></div>
 <div class="card" id="upgradeCard"><button class="cp-toggle" type="button" id="changePlanToggle" aria-expanded="false" aria-controls="changePlanBody"><span class="cp-toggle-title">Change plan</span><span class="cp-chevron" aria-hidden="true">▾</span></button><div class="cp-body" id="changePlanBody"><div class="cp-body-inner">
 <button class="drawer-tier-card" type="button" data-tier="starter" data-name="Starter" data-promo="$25/mo" data-standard="$35/mo" data-founding="$12.50/mo" aria-pressed="false"><span class="dtc-tier">Starter</span><span class="dtc-pos">For one brand getting started with AI visibility. Weekly full measurement, plus an alert when AI turns negative.</span><span class="dtc-price"><b>$25/mo</b><s>$35/mo</s></span><span class="dtc-note">for the first 12 months, then $35/mo</span><span class="dtc-founding">Founding members: $12.50/mo for the first 12 months.</span><span class="dtc-meta">1 seat · 4 AI engines · 1 site</span></button>
 <button class="drawer-tier-card" type="button" data-tier="growth" data-name="Growth" data-promo="$49/mo" data-standard="$70/mo" data-founding="$24.50/mo" aria-pressed="false"><span class="dtc-tier">Growth</span><span class="dtc-pos">For growing brands tracking more questions and competitors. Everything in Starter, plus more questions.</span><span class="dtc-price"><b>$49/mo</b><s>$70/mo</s></span><span class="dtc-note">for the first 12 months, then $70/mo</span><span class="dtc-founding">Founding members: $24.50/mo for the first 12 months.</span><span class="dtc-meta">3 seats · 5 AI engines (including Grok) · 1 site</span></button>
@@ -1620,10 +1621,10 @@ kept apart from the gate-row pill set. */
 </section>
 
 <section class="view" id="view-pricing-cards"><button class="back-btn" type="button" id="pricingBackBtn" aria-label="Back to Change plan">← Back to Change plan</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Pricing</h2><p class="desc">Compare all plans. Prices are promo prices for the first 12 months, then standard prices. No purchase is made from this page.</p></div>
-<div class="card"><h3>Starter</h3><p>$25/mo for the first 12 months, then $35/mo</p><p>Seats: 1</p><p>Engines: 4</p><p>Sites: 1</p><p>White-label reports: No</p><p>Alerts when AI turns negative about your brand</p></div>
-<div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 5 (+Grok)</p><p>Sites: 1</p><p>White-label reports: No</p><p>Alerts when your score really moves — noise doesn't count</p></div>
-<div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $169/mo</p><p>Seats: 5</p><p>Engines: 6 (+DeepSeek)</p><p>Sites: 1</p><p>White-label reports: No</p><p>Alerts when a question drops you, or a rival overtakes you</p></div>
-<div class="card"><h3>Teams</h3><p>$199/mo for the first 12 months, then $300/mo</p><p>Seats: 20</p><p>Engines: 7 (+Mistral)</p><p>Sites: 10</p><p>White-label reports: Yes</p><p>Every alert, across all your sites, in one roll-up</p></div></section>
+<div class="card"><h3>Starter</h3><p>$25/mo for the first 12 months, then $35/mo</p><p>Seats: 1</p><p>Engines: 4</p><p>Sites: 1</p><p>History: last 4 weeks</p><p>White-label reports: No</p><p>Alerts when AI turns negative about your brand</p></div>
+<div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 5 (+Grok)</p><p>Sites: 1</p><p>History: last 3 months</p><p>White-label reports: No</p><p>Alerts when your score really moves — noise doesn't count</p></div>
+<div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $169/mo</p><p>Seats: 5</p><p>Engines: 6 (+DeepSeek)</p><p>Sites: 1</p><p>History: full history</p><p>White-label reports: No</p><p>Alerts when a question drops you, or a rival overtakes you</p></div>
+<div class="card"><h3>Teams</h3><p>$199/mo for the first 12 months, then $300/mo</p><p>Seats: 20</p><p>Engines: 7 (+Mistral)</p><p>Sites: 10</p><p>History: full history</p><p>White-label reports: Yes</p><p>Every alert, across all your sites, in one roll-up</p></div></section>
 
 <section class="view" id="view-team"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card">
@@ -2085,10 +2086,9 @@ function go(view) {
   if (view === 'plan') { var __cur = document.querySelector('.view.active'); var __k = __cur ? __cur.id.replace('view-', '') : ''; if (__k && __k !== 'plan') { window.planReturn = __k; } }
   /* Standalone pages push history so browser/gesture back returns to Settings (trial 20261025). */
   var __standalone = ['billing', 'plan', 'pricing-cards', 'team', 'connections', 'developer', 'security-password', 'security-logins', 'security-delete', 'help', 'brand-edit', 'security', 'tools-p0', 'tools-p1', 'tools-p2', 'tools-p3', 'tools-p4', 'tools-p5', 'tools-p6'];
-  var __cur = document.querySelector('.view.active');
-  var __curKey = __cur ? __cur.id.replace('view-', '') : '';
-  if (window.__dlWrite) { window.__dlWrite(view, __standalone.indexOf(view) >= 0, __curKey); }
-  else if (__standalone.indexOf(view) >= 0) {
+  if (__standalone.indexOf(view) >= 0) {
+    var __cur = document.querySelector('.view.active');
+    var __curKey = __cur ? __cur.id.replace('view-', '') : '';
     if (__curKey !== view) { try { history.pushState({view: view}, ''); } catch (e) {} }
   }
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
@@ -2101,8 +2101,6 @@ function go(view) {
 }
 /* Standalone back: browser/gesture back from a standalone page returns to Settings. */
 window.addEventListener('popstate', function () {
-  window.__dlPop = true;
-  if (window.__dlParse) { var __pk = window.__dlParse(); if (window.__dlKeys) { window.__dlKeys.brand = __pk.brand; window.__dlKeys.from_run = __pk.from_run; window.__dlKeys.to_run = __pk.to_run; window.__dlKeys.week = __pk.week; window.__dlKeys.object = __pk.object; } if (window.__dlState) { window.__dlState.brand = __pk.brand; window.__dlState.week = __pk.week; if (__pk.object) window.__dlState.object = __pk.object; } }
   var cur = document.querySelector('.view.active');
   if (cur && ['view-billing', 'view-team', 'view-connections', 'view-developer', 'view-security-password', 'view-security-logins', 'view-security-delete', 'view-help', 'view-brand-edit', 'view-security'].indexOf(cur.id) >= 0) {
     go('settings');
@@ -2116,8 +2114,6 @@ window.addEventListener('popstate', function () {
   if (cur && ['view-tools-p0', 'view-tools-p1', 'view-tools-p2', 'view-tools-p3', 'view-tools-p4', 'view-tools-p5', 'view-tools-p6'].indexOf(cur.id) >= 0) {
     go('tools');
   }
-  if (window.__dlOnPop) window.__dlOnPop();
-  window.__dlPop = false;
 });
 document.querySelectorAll("[data-view]").forEach(b =>
   b.addEventListener("click", () => go(b.dataset.view)));
@@ -2832,6 +2828,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     document.querySelectorAll('.view.active').forEach(function (v) { cur = v.id.replace('view-', ''); });
     if (cur === 'team' && !multi) go('settings');
     if (cur === 'developer' && !dev) go('settings');
+    if (window.__renderPlanHistory) window.__renderPlanHistory();
     /* Gated menu rows 20261026: Team needs Growth+, Developer needs Pro+. Default skin is Starter, so both start gated. */
     var teamRow = document.getElementById('teamMenuRow');
     if (teamRow) { var teamOk = skin !== 'starter'; teamRow.classList.toggle('gated', !teamOk); teamRow.disabled = !teamOk; teamRow.setAttribute('aria-disabled', teamOk ? 'false' : 'true'); }
@@ -2842,6 +2839,14 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
   var planUp = document.getElementById('planUpgradeBtn');
   var upCard = document.getElementById('upgradeCard');
   if (planUp && upCard) planUp.addEventListener('click', function () { upCard.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  window.__renderPlanHistory = function () {
+    var row = document.getElementById('planHistoryRow'); if (!row) return;
+    var pn = document.getElementById('planName'); var name = pn ? pn.textContent.trim() : 'Starter';
+    var base = name === 'Growth' ? 'History: last 3 months' : (name === 'Pro' || name === 'Teams') ? 'History: full history' : 'History: last 4 weeks';
+    var n = window.__lockedWeeks || 0;
+    if (n > 0 && (name === 'Starter' || name === 'Growth')) base += ' \u00b7 ' + n + ' more week' + (n === 1 ? '' : 's') + ' locked';
+    row.textContent = base;
+  };
   syncGating('starter');
   window.syncGating = syncGating;
 })();
@@ -3161,7 +3166,8 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 #currentPlanCard .current-price b{font-size:22px!important;font-weight:800!important}
 #currentPlanCard .current-price s{color:var(--muted)!important;font-weight:400!important;margin:0 4px!important}
 #currentPlanCard .current-price-note{color:var(--muted)!important;font-size:14px!important}
-#currentPlanCard .current-founding{color:var(--muted)!important;font-size:13px!important;margin:0!important}
+#currentPlanCard .plan-history{font-size:13px;color:var(--muted);margin:6px 0 0}
+.current-founding{color:var(--muted)!important;font-size:13px!important;margin:0!important}
 #upgradeCard .cp-toggle{display:flex!important;justify-content:space-between!important;align-items:center!important;width:100%!important;background:transparent!important;border:0!important;padding:0!important;cursor:pointer!important;text-align:left!important}
 #upgradeCard .cp-toggle-title{font-size:16px!important;font-weight:800!important;color:var(--ink)!important}
 #upgradeCard .cp-chevron{font-size:16px!important;color:var(--muted)!important;transition:transform .35s ease!important;flex:none!important}
@@ -3648,36 +3654,6 @@ var TOOL_INFO = {
 })();
 </script>
 <script>
-/* Deep-link keys (B, 2026-11-04): parsed once at boot; unknown keys ignored.
-   Registered: brand (brands.id uuid), from_run / to_run (run ids; a window
-   only when both are present), week (reserved name; granularity pending,
-   parsed and held, not consumed yet). */
-window.__dlObjViews = { score: 1, report: 1, questions: 1, competitors: 1, sources: 1, "tools-p6": 1 };
-window.__dlParse = function () {
-  var out = { brand: null, from_run: null, to_run: null, week: null, view: null, object: null };
-  try {
-    var q = new URLSearchParams(window.location.search);
-    ["brand", "from_run", "to_run", "week"].forEach(function (k) {
-      var v = q.get(k);
-      if (v) out[k] = v;
-    });
-    var p = window.location.pathname || "";
-    var i = p.indexOf("/dashboard");
-    if (i >= 0) {
-      var segs = p.slice(i + "/dashboard".length).split("/").filter(function (x) { return !!x; });
-      if (segs.length) {
-        try { out.view = decodeURIComponent(segs[0]); } catch (e) { out.view = segs[0]; }
-        if (segs.length > 1) { try { out.object = decodeURIComponent(segs[1]); } catch (e) { out.object = segs[1]; } }
-      }
-    }
-  } catch (e) {}
-  return out;
-};
-window.__dlKeys = window.__dlParse();
-window.__dlObjPinAttempt = !!(window.__dlKeys.object && window.__dlKeys.view && window.__dlObjViews[window.__dlKeys.view]
-  && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(window.__dlKeys.object));
-</script>
-<script>
 /* Toolkit UI demo (20261027): preview-tier numbers + state preview + demo toast. Sample figures only, never live enforcement. */
 (function () {
   var TIER = {
@@ -3744,6 +3720,7 @@ window.__dlObjPinAttempt = !!(window.__dlKeys.object && window.__dlKeys.view && 
    Mock mode renders fixtures; the http flip only swaps the fetcher. */
 (function(){
 "use strict";
+var LOCKED_WEEKS = 3; /* demo fixture: weeks of history beyond the current plan window; http mode overwrites from the list response field locked_weeks */
 var RUNS = [
  {run_id:"run_20261028", brand_id:"b1", brand_name:"Bombas", brand_domain:"bombas.com", question_set_version:"v4", mix_version:"m2", engines:["ChatGPT","Gemini","Perplexity","Claude"], status:"complete", started_at:"2026-10-28T09:02:00Z", finished_at:"2026-10-28T09:11:00Z"},
  {run_id:"run_20261021", brand_id:"b1", brand_name:"Bombas", brand_domain:"bombas.com", question_set_version:"v4", mix_version:"m2", engines:["ChatGPT","Gemini","Perplexity","Claude"], status:"complete", started_at:"2026-10-21T09:03:00Z", finished_at:"2026-10-21T09:10:00Z"},
@@ -3827,7 +3804,6 @@ function selectRun(id){
  detTitle.textContent = "Run detail — " + dstr(r.started_at);
  detMeta.textContent = r.brand_name + " (" + r.brand_domain + ") · finished " + dstr(r.finished_at) + " · question set " + r.question_set_version;
  curDetailId = id;
- if (window.__dlOnSelectRun) window.__dlOnSelectRun(id);
  if (DETAIL[id]) { paintDetail(id); return; }
  if (HTTP) {
   detBody.innerHTML = '<div class="empty">Loading run detail…</div>';
@@ -3845,15 +3821,6 @@ function optList(sel){ return RUNS.map(function(r){ return '<option value="'+r.r
 function renderCompare(){
  if(RUNS.length < 2){ cmpEl.innerHTML = '<div class="empty">Only one run so far. Changes appear when a second run completes.</div>'; return; }
  var after = RUNS[0], before = RUNS[1];
- /* Deep-link window: from_run/to_run preselect the pair when both keys are
-    present and both runs are in the loaded list; any other shape falls back
-    to the default pair (a window never half-applies). */
- var __dlw = window.__dlKeys || {};
- if (HTTP && __dlw.from_run && __dlw.to_run) {
-  var __fb = RUNS.filter(function(x){return x.run_id===__dlw.from_run;})[0];
-  var __ta = RUNS.filter(function(x){return x.run_id===__dlw.to_run;})[0];
-  if (__fb && __ta && __fb.run_id !== __ta.run_id) { before = __fb; after = __ta; }
- }
  cmpEl.innerHTML = '<div class="t7-pick"><label>Earlier run<select id="t7Before">'+optList(before.run_id)+'</select></label><label>Later run<select id="t7After">'+optList(after.run_id)+'</select></label></div><div id="t7Diff"></div>';
  $("t7Before").addEventListener("change", renderDiff);
  $("t7After").addEventListener("change", renderDiff);
@@ -3922,13 +3889,29 @@ function toggleEvidence(btn){
  paintEvidence(btn, host, ev);
 }
 function resetTransient(){ document.querySelectorAll("#view-tools-p6 .t7-evi-host").forEach(function(h){ h.innerHTML=""; }); document.querySelectorAll('#view-tools-p6 [data-evi]').forEach(function(b){ b.textContent="See answers"; }); }
+function renderLocked(){
+ var card = $("t7LockedCard"); if (!card) return;
+ var n = LOCKED_WEEKS || 0;
+ window.__lockedWeeks = n;
+ if (!n) { card.hidden = true; }
+ else {
+  var tierName = ((document.getElementById("planName") || {}).textContent || "Starter").trim();
+  var win = tierName === "Growth" ? "the last 3 months" : "the last 4 weeks";
+  var tail = tierName === "Growth" ? " Pro and Teams show all of it." : " Growth shows 3 months; Pro and Teams show all of it.";
+  $("t7LockedCount").textContent = "You have " + n + " more week" + (n === 1 ? "" : "s") + " of history.";
+  $("t7LockedNote").textContent = "Your plan shows " + win + "." + tail;
+  card.hidden = false;
+ }
+ if (typeof window.__renderPlanHistory === "function") window.__renderPlanHistory();
+}
 function initHttp(){
  var sn = document.querySelector("#view-tools-p6 .sample-note"); if (sn) sn.style.display = "none";
  runsEl.innerHTML = '<div class="empty">Loading your snapshot history…</div>';
- fetchJSON("/snapshots/history?limit=50" + ((window.__dlKeys && window.__dlKeys.brand) ? "&brand=" + encodeURIComponent(window.__dlKeys.brand) : "")).then(function(resp){
+ fetchJSON("/snapshots/history?limit=50").then(function(resp){
   RUNS = resp.runs || [];
-  renderRuns(); renderCompare();
-  if (RUNS.length) { var __pin = (window.__dlKeys && window.__dlKeys.view === "tools-p6" && window.__dlKeys.object) ? RUNS.filter(function (x) { return x.run_id === window.__dlKeys.object; })[0] : null; selectRun(__pin ? __pin.run_id : RUNS[0].run_id); }
+  LOCKED_WEEKS = resp.locked_weeks || 0;
+  renderRuns(); renderCompare(); renderLocked();
+  if (RUNS.length) selectRun(RUNS[0].run_id);
  }).catch(function(){
   runsEl.innerHTML = '<div class="empty">Couldn’t load your snapshot history — please try again later.</div>';
   cmpEl.innerHTML = '<div class="empty">History unavailable right now.</div>';
@@ -3937,10 +3920,9 @@ function initHttp(){
 document.addEventListener("DOMContentLoaded", function(){
  runsEl = $("t7Runs"); cmpEl = $("t7Compare"); detCard = $("t7DetailCard"); detTitle = $("t7DetailTitle"); detMeta = $("t7DetailMeta"); detBody = $("t7DetailBody");
  if(!runsEl) return;
- if (HTTP) { initHttp(); } else { renderRuns(); renderCompare(); if (RUNS.length) selectRun(RUNS[0].run_id); }
+ if (HTTP) { initHttp(); } else { renderRuns(); renderCompare(); renderLocked(); if (RUNS.length) selectRun(RUNS[0].run_id); }
  if(typeof window.go === "function"){ var orig = window.go; window.go = function(v){ resetTransient(); return orig.apply(this, arguments); }; }
 });
-window.__dlReapplyWindow = function () { renderCompare(); };
 window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); renderCompare(); detCard.hidden = true; } };
 })();
 </script>
@@ -4005,174 +3987,6 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
       })
       .catch(function () { if (msg) msg.textContent = "Couldn't send the invite. Try again."; })
       .then(function () { btn.disabled = false; });
-  });
-})();
-</script>
-<script>
-/* Deep-link boot chain (B design S1, consumption point 1): with a brand key,
-   load that brand's latest run and its detail (the detail carries the score,
-   report projection) into the global state. Additive only: any failure or an
-   empty run list leaves the standard boot completely untouched. */
-(function () {
-  var K = window.__dlKeys || {};
-  if (!K.brand) return;
-  if (window.__dlObjPinAttempt) return;
-  if (!(typeof api !== "undefined" && api.mode === "http")) return;
-  document.addEventListener("DOMContentLoaded", function () {
-    fetch("/snapshots/history?brand=" + encodeURIComponent(K.brand) + "&limit=1", { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) throw new Error("list"); return r.json(); })
-      .then(function (resp) {
-        var runs = resp.runs || [];
-        if (!runs.length) return;
-        var run = runs[0];
-        return fetch("/snapshots/history/" + encodeURIComponent(run.run_id), { credentials: "same-origin" })
-          .then(function (r) { if (!r.ok) throw new Error("detail"); return r.json(); })
-          .then(function (detail) {
-            window.__dlBoot = { run_id: run.run_id, brand: K.brand, score: detail.score || null };
-            try {
-              state.snapshot = { id: run.run_id, brand: { name: run.brand_name, domain: run.brand_domain }, engines: run.engines || [], competitors: [], created_at: run.started_at };
-              state.score = detail.score || null;
-              state.answers = detail.answers || null;
-            } catch (e) {}
-          });
-      })
-      .catch(function () {});
-  });
-})();
-</script>
-
-<script>
-/* Deep-link write side + boot restore (SPEC-FINAL S9, 2026-11-04): go()
-   writes the real URL (path + query composed from the current key state);
-   boot parses path (view/object) then query, applies the S6 fallbacks and
-   decides the first view before the first go(); popstate keeps the existing
-   fallback mapping and only re-parses the key state on top of it. */
-(function () {
-  var K = window.__dlKeys || {};
-  var st = window.__dlState = {
-    view: null,
-    object: K.object || null,
-    brand: K.brand || null,
-    from_run: K.from_run || null,
-    to_run: K.to_run || null,
-    week: K.week || null
-  };
-  function basePath() {
-    var p = window.location.pathname || "";
-    var i = p.indexOf("/dashboard");
-    return i >= 0 ? "/dashboard" : p;
-  }
-  function pairFromDom() {
-    var b = document.getElementById("t7Before"), a = document.getElementById("t7After");
-    if (b && a && b.value && a.value && b.value !== a.value) return { f: b.value, t: a.value };
-    return null;
-  }
-  function compose(view) {
-    var v = view || st.view || "overview";
-    var path = basePath();
-    if (window.location.pathname.indexOf("/dashboard") >= 0 && v !== "overview") path += "/" + v;
-    var obj = null;
-    if (window.__dlObjViews[v]) {
-      if (v === "tools-p6") obj = st.object;
-      else obj = (typeof state !== "undefined" && state.snapshot && state.snapshot.id) || st.object;
-    }
-    if (obj && window.location.pathname.indexOf("/dashboard") >= 0) path += "/" + encodeURIComponent(obj);
-    var pr = pairFromDom() || ((st.from_run && st.to_run) ? { f: st.from_run, t: st.to_run } : null);
-    var qs = [];
-    if (st.brand) qs.push("brand=" + encodeURIComponent(st.brand));
-    if (pr) { qs.push("from_run=" + encodeURIComponent(pr.f)); qs.push("to_run=" + encodeURIComponent(pr.t)); }
-    if (st.week) qs.push("week=" + encodeURIComponent(st.week));
-    return path + (qs.length ? "?" + qs.join("&") : "");
-  }
-  window.__dlCompose = compose;
-  window.__dlWrite = function (view, standalone, curKey) {
-    st.view = view;
-    var url = compose(view);
-    if (url === window.location.pathname + window.location.search) return;
-    try {
-      if (window.__dlPop || window.__dlBootNav) history.replaceState({ view: view }, "", url);
-      else if (standalone && curKey !== view) history.pushState({ view: view }, "", url);
-      else history.replaceState({ view: view }, "", url);
-    } catch (e) {}
-  };
-  window.__dlOnSelectRun = function (id) {
-    st.object = id;
-    var cur = document.querySelector(".view.active");
-    if (cur && cur.id === "view-tools-p6" && !window.__dlPop) {
-      var url = compose("tools-p6");
-      if (url !== window.location.pathname + window.location.search) {
-        try { history.replaceState({ view: "tools-p6" }, "", url); } catch (e) {}
-      }
-    }
-  };
-  window.__dlOnPop = function () {
-    var cur = document.querySelector(".view.active");
-    if (cur && cur.id === "view-tools-p6" && window.__dlReapplyWindow) {
-      try { window.__dlReapplyWindow(); } catch (e) {}
-    }
-  };
-  document.addEventListener("change", function (e) {
-    if (!e.target || (e.target.id !== "t7Before" && e.target.id !== "t7After")) return;
-    var pr = pairFromDom();
-    st.from_run = pr ? pr.f : null;
-    st.to_run = pr ? pr.t : null;
-    if (window.__dlKeys) { window.__dlKeys.from_run = st.from_run; window.__dlKeys.to_run = st.to_run; }
-    var cur = document.querySelector(".view.active");
-    if (cur && cur.id === "view-tools-p6") {
-      var url = compose("tools-p6");
-      if (url !== window.location.pathname + window.location.search) {
-        try { history.replaceState({ view: "tools-p6" }, "", url); } catch (e) {}
-      }
-    }
-  }, true);
-  function fillFromDetail(run, detail) {
-    window.__dlBoot = { run_id: run.run_id, brand: st.brand, score: detail.score || null, object: run.run_id };
-    try {
-      state.snapshot = { id: run.run_id, brand: { name: run.brand_name, domain: run.brand_domain }, engines: run.engines || [], competitors: [], created_at: run.started_at };
-      state.score = detail.score || null;
-      state.answers = detail.answers || null;
-      if (typeof renderOverview === "function") renderOverview();
-      if (typeof renderScore === "function") renderScore();
-      if (typeof renderReport === "function") renderReport();
-    } catch (e) {}
-  }
-  function brandChain() {
-    if (!st.brand) return;
-    fetch("/snapshots/history?brand=" + encodeURIComponent(st.brand) + "&limit=1", { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) throw new Error("list"); return r.json(); })
-      .then(function (resp) {
-        var runs = resp.runs || [];
-        if (!runs.length) return;
-        var run = runs[0];
-        return fetch("/snapshots/history/" + encodeURIComponent(run.run_id), { credentials: "same-origin" })
-          .then(function (r) { if (!r.ok) throw new Error("detail"); return r.json(); })
-          .then(function (detail) { fillFromDetail(run, detail); });
-      })
-      .catch(function () {});
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    var http = (typeof api !== "undefined" && api.mode === "http");
-    /* Object pin (snapshot family): the detail of the pinned run fills the
-       state; any failure falls back to the brand chain (S6 row 2, same form). */
-    if (http && window.__dlObjPinAttempt && K.view !== "tools-p6") {
-      fetch("/snapshots/history/" + encodeURIComponent(K.object), { credentials: "same-origin" })
-        .then(function (r) { if (!r.ok) throw new Error("detail"); return r.json(); })
-        .then(function (detail) {
-          if (!detail || !detail.run) throw new Error("shape");
-          fillFromDetail(detail.run, detail);
-        })
-        .catch(function () { brandChain(); });
-    }
-    /* First view from the path, decided before any go() (S9 order). An
-       unknown view falls back to the default view with the URL untouched
-       (S6 row 1). */
-    if (K.view && K.view !== "overview" && typeof TITLES !== "undefined" && TITLES[K.view]
-        && document.getElementById("view-" + K.view) && typeof window.go === "function") {
-      window.__dlBootNav = true;
-      try { window.go(K.view); } catch (e) {}
-      window.__dlBootNav = false;
-    }
-    st.view = (document.querySelector(".view.active") || { id: "view-overview" }).id.replace("view-", "");
   });
 })();
 </script>

@@ -954,9 +954,6 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
 .sr-table td.zero { color: var(--muted); }
 .sample-notes { margin-top: 16px; font-size: 13.5px; color: var(--ink-2); }
 .sample-notes p { margin: 0 0 8px; }
-.fixlog { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 13.5px; color: var(--ink-2); }
-.fixlog-entry { margin: 0 0 6px; }
-.fixlog-entry time { font-weight: 600; color: var(--ink); }
 .sample-notes .sr-main { font-weight: 600; color: var(--ink); }
 @media (max-width: 560px) { .sample-run { padding: 18px; } .sr-scroll { margin: 0 -18px; padding: 0 18px; } }
 /* Confluence hero form (2026-10-28, product ruling A): replicate the approved caption-version
@@ -1144,15 +1141,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             <div class="sample-notes">
               <p class="sr-main">Sample report — a real CitMark run on Oct 28, 2026.</p>
               <p>Each engine cell shows in how many of the 3 buyer questions that engine named the brand. The score is the share of all 21 answers (3 questions × 7 engines) that named it, with the 95% confidence range. Engines as run: ChatGPT (gpt-6-luna), Perplexity (perplexity/sonar), Gemini (gemini-3.8-flash), Claude (claude-haiku-5-5), Grok (grok-4.20-0309-non-reasoning), DeepSeek (deepseek-chat), Mistral (mistral-large-2512).</p>
-              <p>Moon Juice scores 0 on the buyer questions — yet when we asked for alternatives to AG1, 4 of the 7 engines named it. AI knows the brand; buyer questions don't surface it. And CitMark is our own site: it is new.</p>
-              <p>That zero is real — we score CitMark with the same questions and the same ruler as every other brand in this table, and we're publishing the fixes as we make them.</p>
+              <p>Moon Juice scores 0 on the buyer questions — yet when we asked for alternatives to AG1, 4 of the 7 engines named it. AI knows the brand; buyer questions don't surface it. And CitMark is our own site: it is new, and its 0 is the real result.</p>
               <p>Independent sample. CitMark is not affiliated with or endorsed by the brands shown.</p>
               <p>Scores change week to week and vary by brand.</p>
-            </div>
-            <div class="fixlog">
-              <p class="fixlog-entry"><time datetime="2026-11-03">Nov 3, 2026</time> — Synced every price on this site to the current plans, after older prices were found still live on some pages. Engines repeat what pages say, so a stale price is a wrong fact an AI answer can pass on.</p>
-              <p class="fixlog-entry"><time datetime="2026-10-29">Oct 29, 2026</time> — Published llms.txt, a small file that tells AI systems what this site is and where its key pages are. Our own row in the table is 0 of 21; being findable and readable is the first fix.</p>
-              <p class="fixlog-entry"><time datetime="2026-10-24">Oct 24, 2026</time> — Repaired the /security page after a stylesheet error left parts of it rendering without their styles. A page that doesn't render as written is harder for engines — and people — to read and quote.</p>
             </div>
           </div>
 
@@ -1318,6 +1309,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
                 <li><b>1</b> website</li>
                 <li><b>30</b> tracked buyer questions</li>
                 <li>ChatGPT, Perplexity, Gemini &amp; Claude</li>
+                <li>Answer history: last 4 weeks</li>
                 <li>Weekly checks + Monday email digest</li>
                 <li>Mention &amp; citation tracking</li> <li>Competitor tracking — up to <b>19</b> rivals</li>
                               <li>Alerts when AI turns negative about your brand</li>
@@ -1339,6 +1331,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
                 <li><b>100</b> tracked buyer questions</li>
                 <li>Everything in Starter</li>
                 <li><b>5</b> AI engines — adds Grok</li>
+                <li>Answer history: last 3 months</li>
                 <li>Competitor tracking — up to <b>20</b> rivals</li>
                 <li>Share-of-voice reporting &amp; rival alerts</li>
                 <li>Fix-it briefs ranked by impact</li>
@@ -1361,6 +1354,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
                 <li><b>300</b> tracked buyer questions</li>
                 <li>Everything in Growth</li>
                 <li><b>6</b> AI engines — adds DeepSeek</li>
+                <li>Answer history: full history</li>
                 <li>Competitor tracking — up to <b>20</b> rivals</li>
                 <li>Fix-it briefs ranked by impact</li>
                               <li>Alerts when a question drops you, or a rival overtakes you</li>
@@ -1381,6 +1375,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
                 <li><b>10</b> websites</li>
                 <li>Everything in Pro</li>
                 <li><b>7</b> AI engines — adds Mistral</li>
+                <li>Answer history: full history</li>
                 <li>White-label reports</li>
                               <li>Every alert, across all your sites, in one roll-up</li>
                 <li>Everything in Pro</li>
