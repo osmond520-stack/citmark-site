@@ -1,9 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" data-skin="starter">
+<html lang="en" data-skin="starter" data-state="loading">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
+<style id="gate-style">
+/* Gate (fix-1 A): sample banners are a demo-mode artifact; the sample layer is
+   gated on the account data state resolved at boot. */
+html:not([data-state="demo"]) .sample-note{display:none!important}
+html[data-state="empty"] [data-sample-layer]{display:none!important}
+html:not([data-state="empty"]) [data-empty-slot]{display:none!important}
+html[data-state="loading"] .ov-brand,html[data-state="loading"] .ov-fresh{visibility:hidden}
+/* Demo artifacts: the sample pill and the sample-derived bell count exist only in demo. */
+html:not([data-state="demo"]) #idRow .pill{display:none!important}
+html:not([data-state="demo"]) #bellBadge{display:none!important}
+/* Tier/brand labels hold neutral until the identity read lands (no Starter flash). */
+html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #planName,html:not([data-identity="set"]):not([data-state="demo"]) #wsTier,html:not([data-identity="set"]):not([data-state="demo"]) #idBrandName,html:not([data-identity="set"]):not([data-state="demo"]) #acctMenu .acct-meta>span:last-child{visibility:hidden}
+html[data-state="empty"] [data-empty-slot]{display:block!important}
+</style>
 <title>Dashboard — CitMark</title>
 <meta name="description" content="CitMark dashboard demo: run a visibility snapshot, see your score, read the report." />
 <style>
@@ -1227,7 +1241,7 @@ kept apart from the gate-row pill set. */
           <button class="btn" id="ovRunBtn">▶&nbsp; Run new snapshot</button>
         </div>
         <div id="ovDone" class="ov-done" style="display:none;">✓ Snapshot complete — your overview is up to date.</div>
-        <div class="grid2">
+        <div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot yet.</b><br/>Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.</p></div><div class="grid2" data-sample-layer>
 <div class="card">
             <h2>Overview</h2>
             <p class="desc">Overall visibility</p>
@@ -1283,12 +1297,12 @@ kept apart from the gate-row pill set. */
 
       <!-- ============ VIEW: SCORE ============ -->
       <section class="view" id="view-score"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-        <div id="scoreEmpty" class="empty">
+        <div id="scoreEmpty" class="empty" data-empty-slot>
           <div class="big">◎</div>
           <p><b>No snapshot yet.</b><br/>Run a snapshot first to see your visibility score.</p>
           <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview</button>
         </div>
-        <div id="scoreBody" style="display:none;">
+        <div id="scoreBody" style="display:none;" data-sample-layer>
           <div class="score-hero">
             <div class="ring">
               <svg width="168" height="168" viewBox="0 0 168 168">
@@ -1338,12 +1352,12 @@ kept apart from the gate-row pill set. */
 
       <!-- ============ VIEW: REPORT ============ -->
       <section class="view" id="view-report"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-        <div id="reportEmpty" class="empty">
+        <div id="reportEmpty" class="empty" data-empty-slot>
           <div class="big">▤</div>
           <p><b>No report yet.</b><br/>Run a snapshot first to see suggestions here. Weekly report emails are coming soon.</p>
           <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview</button>
         </div>
-        <div id="reportBody" style="display:none;">
+        <div id="reportBody" style="display:none;" data-sample-layer>
           <div class="card">
             <h2>Weekly report</h2>
             <p class="desc">Optimization suggestions, ranked by impact × effort.</p>
@@ -1382,7 +1396,7 @@ kept apart from the gate-row pill set. */
         </div>
       </section>
       <!-- ============ VIEW: QUESTIONS (shell, Phase 3) ============ -->
-      <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
+      <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot yet.</b><br/>Questions you track appear here after your first snapshot.</p></div><div class="card" data-sample-layer>
 <h2>Prompts</h2>
 <p class="desc">Questions you track, plus templates and suggestions.</p>
 
@@ -1409,7 +1423,7 @@ kept apart from the gate-row pill set. */
 </div></section>
 
       <!-- ============ VIEW: COMPETITORS (shell, Phase 3) ============ -->
-      <section class="view" id="view-competitors"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
+      <section class="view" id="view-competitors"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot yet.</b><br/>Competitor comparisons appear here after your first snapshot.</p></div><div class="card" data-sample-layer>
 <h2>Competitors</h2>
 <p class="desc">Your visibility vs tracked competitors.</p>
 <div class="bar-row"><span class="nm">Bombas</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2 · 2/11</span></div>
@@ -1419,7 +1433,7 @@ kept apart from the gate-row pill set. */
 <div class="bar-row"><span class="nm">Darn Tough</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 </div>
 
-<div class="card">
+<div class="card" data-sample-layer>
 <h3>Trend</h3>
 <p class="desc">One snapshot so far (18.2, 2026-10-24). Your trend line starts with the second snapshot.</p>
 <div class="bar-row"><span class="nm">2026-10-24</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2</span></div>
@@ -1489,12 +1503,12 @@ kept apart from the gate-row pill set. */
 <div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
 <p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
 </section>
-<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card tk-action"><h3>Re-run quota <span class="badge-ok" id="tkP0Status">Available</span></h3>
+<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>Nothing to track yet.</b><br/>Impact tracking starts with your first snapshot and the fixes you make from it.</p></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card tk-action" data-sample-layer><h3>Re-run quota <span class="badge-ok" id="tkP0Status">Available</span></h3>
 <p id="tkP0Reason" class="tk-reason">Within quota. Re-runs run normally.</p>
 <button type="button" class="btn" id="tkRunBtn">Re-run</button>
 
 </div>
-<div class="tk-details">
+<div class="tk-details" data-sample-layer>
 <p class="tk-foot">Details</p>
 <div class="card"><h3>Quota numbers</h3>
 <p class="desc">Per-tier re-run quota. Usage figures are samples.</p>
@@ -1511,7 +1525,7 @@ kept apart from the gate-row pill set. */
 
 </div>
 </div></section>
-<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card"><h3>Suggestions &amp; results &middot; Store <span class="tk-badge-notconn">Not connected</span></h3>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No checkup yet.</b><br/>Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-sample-layer><h3>Suggestions &amp; results &middot; Store <span class="tk-badge-notconn">Not connected</span></h3>
 <p class="desc">Sample run &mdash; at most 3 suggestions per run. Old rows are kept, never silently overwritten.</p>
 <ol class="tk-sugg">
 <li><b>Add a comparison table to the main product page</b> <span class="badge-ok">done</span></li>
@@ -1527,12 +1541,12 @@ kept apart from the gate-row pill set. */
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
-            <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
+            <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No notifications yet.</b><br/>Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
 <h2>Notifications</h2>
-<p class="desc">Snapshot, score, report and alert updates for Bombas. Sample notifications for demo only.</p>
+<p class="desc">Snapshot, score, report and alert updates for your brand.</p>
 </div>
 
-<div class="card">
+<div class="card" data-sample-layer>
 <button class="notif-item unread" type="button" data-cat="snapshot"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Snapshot finished for Bombas</span><span class="notif-meta">Snapshot · Today, 09:12</span></span></button>
 <button class="notif-item unread" type="button" data-cat="score"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Visibility score is 18.2 in the latest snapshot</span><span class="notif-meta">Score · Today, 09:12</span></span></button>
 <button class="notif-item unread" type="button" data-cat="report"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Weekly report is ready</span><span class="notif-meta">Report · Monday, 08:00</span></span></button>
@@ -1543,7 +1557,7 @@ kept apart from the gate-row pill set. */
 </div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status">Bombas · bombas.com</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">2 invoices</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status">Growth and above · 1 seat now</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
+      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status">Growth and above · 1 seat now</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
 <div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_negative" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
 <div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_changes" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
 </div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
@@ -1556,7 +1570,7 @@ kept apart from the gate-row pill set. */
 </div>
 <p class="form-msg" id="pwResetMsg" role="alert" style="margin-top:10px"></p></div></section>
 <section class="view" id="view-security-logins"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="card"><h3>Login history</h3>
+<div class="empty" data-empty-slot><div class="big">◎</div><p><b>No logins recorded yet.</b></p></div><div class="card" data-sample-layer><h3>Login history</h3>
 <div class="login-list">
 <div class="login-row"><span class="login-device">Chrome · macOS <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-25 09:12</span></div>
 <div class="login-row"><span class="login-device">Safari · iPhone <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-24 21:40</span></div>
@@ -1578,8 +1592,8 @@ kept apart from the gate-row pill set. */
 <section class="view" id="view-brand-edit"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h2>Brand profile</h2>
 <p class="desc">Brand name and domain shown across Overview, Visibility score and Weekly report.</p>
-<div class="row"><div class="field"><label>Brand name</label><input type="text" value="Bombas" readonly aria-readonly="true"></div>
-<div class="field"><label>Domain</label><input type="text" value="bombas.com" readonly aria-readonly="true"></div></div>
+<div class="row"><div class="field"><label>Brand name</label><input type="text" id="brandNameInput" value="" placeholder="No brand yet" readonly aria-readonly="true"></div>
+<div class="field"><label>Domain</label><input type="text" id="brandDomainInput" value="" placeholder="No domain yet" readonly aria-readonly="true"></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
 <button class="btn brand-cancel" type="button" data-go="settings">Cancel</button>
 </div></div></section>
@@ -1593,7 +1607,7 @@ kept apart from the gate-row pill set. */
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="card"><h3>Invoices</h3>
+<div class="empty" data-empty-slot><div class="big">▤</div><p><b>No invoices yet.</b><br/>Invoices from your subscription will appear here.</p></div><div class="card" data-sample-layer><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr>
 <tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr></tbody></table></div>
@@ -3432,6 +3446,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     if (!NAMES[tierKey]) tierKey = null;
     window.__p1.tier = tierKey;
     document.documentElement.dataset.skin = tierKey || 'starter';
+    document.documentElement.setAttribute('data-identity', 'set');
     var nameEl = document.querySelector('#acctMenu .acct-name');
     if (nameEl && me.email) nameEl.textContent = me.email;
     var meta = document.querySelector('#acctMenu .acct-meta');
@@ -3950,7 +3965,6 @@ function renderLocked(){
  if (typeof window.__renderPlanHistory === "function") window.__renderPlanHistory();
 }
 function initHttp(){
- var sn = document.querySelector("#view-tools-p6 .sample-note"); if (sn) sn.style.display = "none";
  runsEl.innerHTML = '<div class="empty">Loading your snapshot history…</div>';
  fetchJSON("/snapshots/history?limit=50" + ((window.__dlKeys && window.__dlKeys.brand) ? "&brand=" + encodeURIComponent(window.__dlKeys.brand) : "")).then(function(resp){
   RUNS = resp.runs || [];
@@ -4202,6 +4216,64 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     }
     st.view = (document.querySelector(".view.active") || { id: "view-overview" }).id.replace("view-", "");
   });
+})();
+</script>
+<script>
+/* Gate (fix-1 A): resolve the account data state once at boot.
+   demo  = mock mode (sample layer is the content; banners stay)
+   real  = the workspace has snapshot runs
+   empty = no snapshot runs yet (sample layer gated off, empty slots show)
+   unknown = the probe failed; display follows real (never punish a load error) */
+(function () {
+  var root = document.documentElement;
+  function setState(v) { root.setAttribute("data-state", v); window.__dataState = v; }
+  var http = false;
+  try { http = (typeof api !== "undefined" && api.mode === "http"); } catch (e) {}
+  if (!http) { setState("demo"); return; }
+  setState("loading");
+  fetch("/snapshots/history?limit=1", { credentials: "same-origin" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (resp) { var runs = resp && resp.runs; if (runs && runs.length) window.__gateBrand = { name: runs[0].brand_name || "", domain: runs[0].brand_domain || "" }; setState(runs && runs.length ? "real" : "empty"); if (window.__fillBrandSurfaces) window.__fillBrandSurfaces(); })
+    .catch(function () { setState("unknown"); });
+})();
+</script>
+<script>
+/* Gate (fix-1 B): bind the settings brand surfaces to the account's real brand.
+   Sources, in order: the filled snapshot state, then the gate probe's latest
+   run. No source = the surfaces show their no-brand form, never sample values. */
+(function () {
+  function brandNow() {
+    var http = false;
+    try { http = (typeof api !== "undefined" && api.mode === "http"); } catch (e) {}
+    if (http) return (window.__gateBrand && window.__gateBrand.name) ? window.__gateBrand : null;
+    try {
+      var b = (typeof state !== "undefined" && state && ((state.score && state.score.brand) || (state.snapshot && state.snapshot.brand))) || null;
+      if (b && b.name) return { name: b.name, domain: b.domain || "" };
+    } catch (e) {}
+    return null;
+  }
+  function fillBrandSurfaces() {
+    var b = brandNow();
+    var n = document.getElementById("brandNameInput");
+    var d = document.getElementById("brandDomainInput");
+    if (n) n.value = b ? b.name : "";
+    if (d) d.value = b ? b.domain : "";
+    var h = document.getElementById("hubBrandStatus");
+    if (h) h.textContent = b ? (b.name + (b.domain ? " · " + b.domain : "")) : "No brand yet";
+    var ib = document.getElementById("idBrandName");
+    if (ib) ib.textContent = b ? b.name : "No brand yet";
+    var on = document.getElementById("ovBrandName");
+    var od = document.getElementById("ovBrandDomain");
+    var of = document.getElementById("ovFresh");
+    if (on && !b) { on.textContent = "–"; if (od) od.textContent = "–"; if (of) of.textContent = "No snapshots yet"; }
+    else if (on && b) { on.textContent = b.name; if (od) od.textContent = b.domain || "–"; }
+  }
+  if (typeof window.go === "function") {
+    var orig = window.go;
+    window.go = function (v) { var r = orig.apply(this, arguments); if (v === "brand-edit" || v === "settings" || v === "overview") fillBrandSurfaces(); return r; };
+  }
+  window.__fillBrandSurfaces = fillBrandSurfaces;
+  fillBrandSurfaces();
 })();
 </script>
 </body>
