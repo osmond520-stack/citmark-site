@@ -3362,10 +3362,32 @@ document.querySelectorAll("#pricing .plan").forEach(function (card) {
 });
 </script>
 <style>
-  :root { --crisp-customization-button-vertical: 76px; }
-  @media (max-width: 768px) { :root { --crisp-customization-button-vertical: 82px; } }
-  #crisp-chatbox .cc-w7v18 { bottom: 166px !important; }
+  #crisp-chatbox .cc-13wro { bottom: var(--crisp-lift-bubble, 96px) !important; }
+  #crisp-chatbox .cc-w7v18 { bottom: var(--crisp-lift-panel, 166px) !important; }
+  #crisp-chatbox .cc-l4wzd { bottom: var(--crisp-lift-panel, 166px) !important; }
 </style>
+<script>
+  (function () {
+    var GAP = 16;
+    function apply() {
+      var bar = document.getElementById("stickyCta");
+      var h = bar && bar.classList.contains("visible") ? bar.offsetHeight : 0;
+      var lift = h > 0 ? h + GAP : 96;
+      var root = document.documentElement.style;
+      root.setProperty("--crisp-lift-bubble", lift + "px");
+      root.setProperty("--crisp-lift-panel", lift + 70 + "px");
+    }
+    var tick = false;
+    function queue() { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; apply(); }); } }
+    addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    document.addEventListener("DOMContentLoaded", function () {
+      apply();
+      var bar = document.getElementById("stickyCta");
+      if (bar && window.MutationObserver) new MutationObserver(queue).observe(bar, { attributes: true, attributeFilter: ["class"] });
+    });
+  })();
+</script>
 <script type="text/javascript">
   window.$crisp = [];
   window.CRISP_WEBSITE_ID = "7fc49d53-a991-4a0f-9884-730d9fce1cdb";
