@@ -115,6 +115,7 @@ a { color: var(--accent-deep); }
 .state.ok { background: var(--good-soft); border: 1px solid #bfe3cb; color: #14532d; }
 .state.err { background: var(--bad-soft); border: 1px solid #f0c4c0; color: var(--bad); }
 .state b { font-weight: 800; }
+.state .wait-elapsed { margin-top: 6px; font-size: 13.5px; opacity: .85; }
 /* report panel (report-handle landing, supplement YI 2026-11-03) */
 .report-card[hidden] { display: none; }
 .report-card h2 { font-size: 24px; }
@@ -487,22 +488,61 @@ function landingPool(body) {
   if (body && body.exit === "plans") { html += " <a href=\"/pricing\">See plans</a>."; }
   landingShow("stateErr", html);
 }
+/* Run-phase waiting face (snapshot contract v1, 2026-11-07): resume/status
+   returns the unified projection {status: queued|running|partial|done|failed,
+   queue_position (queued only), submitted_at, failure_reason (failed only)}.
+   eta is always null, so elapsed is computed from submitted_at. The frozen
+   claim-phase sentences and the 2.5s x 48 cadence are unchanged. */
+var WAIT_TIMEOUT = "Your email is verified \u2014 your snapshot is taking longer than usual to start, so this page has stopped waiting. If it completes, your report will arrive as normal; if nothing shows up, submit the form once more and it will run right away.";
+var waitTimer = null, waitBase = null, waitFaceKey = null;
+function waitStop() { if (waitTimer) { clearInterval(waitTimer); waitTimer = null; } waitFaceKey = null; }
+function waitElapsedText() {
+  if (!waitBase) return "0:00";
+  var sec = Math.max(0, Math.floor((Date.now() - waitBase) / 1000));
+  var m = Math.floor(sec / 60), s2 = sec % 60;
+  return m + ":" + (s2 < 10 ? "0" : "") + s2;
+}
+function waitShow(body) {
+  if (waitBase === null) {
+    var t = body.submitted_at ? Date.parse(body.submitted_at) : NaN;
+    waitBase = isNaN(t) ? Date.now() : t;
+  }
+  var key = body.status + "|" + (body.queue_position || "");
+  if (key !== waitFaceKey) {
+    waitFaceKey = key;
+    var html;
+    if (body.status === "queued") {
+      html = "<b>You're in the queue.</b>" + (body.queue_position ? " You are number " + body.queue_position + " in line." : "") + "<div class=\"wait-elapsed\">Waiting <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div>";
+    } else {
+      html = "<b>Running your snapshot.</b><div class=\"wait-elapsed\">Elapsed <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div>";
+    }
+    landingShow("stateOk", html);
+  }
+  var el = document.getElementById("waitElapsed");
+  if (el) el.textContent = waitElapsedText();
+  if (!waitTimer) waitTimer = setInterval(function () { var e2 = document.getElementById("waitElapsed"); if (e2) e2.textContent = waitElapsedText(); }, 1000);
+}
 function pollResumeStatus(handle, tries) {
   fetch(RESUME_STATUS_URL + "?handle=" + encodeURIComponent(handle), { method: "GET" })
     .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }, function () { return { ok: r.ok, body: null }; }); })
     .then(function (res) {
-      if (!res.ok) { landingHandleInvalid(); return; }
+      if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
-      if (st === "done") { landingDone(null, null); return; }
-      if (st === "failed") { landingFailed(); return; }
-      if (st === "pool_deferred") { landingPool(null); return; }
-      if (st === "pending" && !landingRead("citmark_resume_claimed")) { postResume(handle); return; }
+      if (st === "done") { waitStop(); landingDone(null, null); return; }
+      if (st === "partial") { waitStop(); landingDone(null, null); var okEl = document.getElementById("stateOk"); if (okEl) okEl.innerHTML += "<div class=\"wait-elapsed\">Some data is missing from this run.</div>"; return; }
+      if (st === "failed") { waitStop(); landingFailed(); return; }
+      if (st === "queued" && !landingRead("citmark_resume_claimed")) { postResume(handle); return; }
+      if (st === "queued" || st === "running") {
+        waitShow(res.body);
+        if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; }
+        waitStop(); landingShow("stateOk", WAIT_TIMEOUT); return;
+      }
       if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; }
-      landingShow("stateOk", "Your email is verified \u2014 your snapshot is taking longer than usual to start, so this page has stopped waiting. If it completes, your report will arrive as normal; if nothing shows up, submit the form once more and it will run right away.");
+      waitStop(); landingShow("stateOk", WAIT_TIMEOUT);
     })
     .catch(function () {
       if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; }
-      landingFailed();
+      waitStop(); landingFailed();
     });
 }
 function postResume(handle) {
