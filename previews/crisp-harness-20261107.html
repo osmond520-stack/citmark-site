@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crisp evidence harness</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #e8e6e0; }
+  .row { display: flex; gap: 24px; align-items: flex-start; padding: 24px; flex-wrap: wrap; }
+  figure { margin: 0; background: #fff; padding: 10px; border: 1px solid #c6c3b8; }
+  figcaption { font: 600 13px/1.4 system-ui, sans-serif; padding: 4px 2px 8px; }
+  iframe { border: 1px solid #141519; display: block; background: #fff; }
+</style>
+</head>
+<body>
+<div class="row">
+  <figure><figcaption>width 320</figcaption><iframe id="f320" width="320" height="844"></iframe></figure>
+  <figure><figcaption>width 360</figcaption><iframe id="f360" width="360" height="844"></iframe></figure>
+  <figure><figcaption>width 390</figcaption><iframe id="f390" width="390" height="844"></iframe></figure>
+</div>
+<script>
+  var u = new URLSearchParams(location.search).get('u') || '/';
+  ['f320', 'f360', 'f390'].forEach(function (id) { document.getElementById(id).src = u; });
+</script>
+</body>
+</html>
