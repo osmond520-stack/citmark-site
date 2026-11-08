@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Help Center — CitMark</title>
+<meta name="description" content="Straight answers about CitMark — pricing, measurement, refunds, and data.">
 <style>
-  /* Preview only. Visual tokens match the dashboard / landing light theme. */
   :root{
     --bg:#f4f4f1; --raise:#ffffff; --sink:#ececea;
     --ink:#141519; --ink-2:#3c4048; --muted:#62666e;
-    --line:#dcdad2; --line-strong:#c6c3b8; --accent:#ff5a1f;
+    --line:#dcdad2; --line-strong:#c6c3b8; --accent:#e8490f;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
@@ -20,7 +20,7 @@
   header p{color:var(--muted);margin:0 0 20px}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
   .chips a{border:1px solid var(--line-strong);background:var(--raise);color:var(--ink);
-    border-radius:99px;padding:6px 12px;font-size:13px;font-weight:700;text-decoration:none}
+    border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;text-decoration:none}
   .card{background:var(--raise);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 16px}
   .card h2{font-size:20px;margin:0 0 8px}
   .card h3{font-size:16px;margin:16px 0 4px}
@@ -31,7 +31,7 @@
   .small{font-size:14px}
   .founding{border:2px solid var(--accent)}
   .founding .tag{display:inline-block;background:var(--accent);color:#fff;
-    font-size:12px;font-weight:800;letter-spacing:.06em;border-radius:99px;padding:3px 10px;margin-bottom:8px}
+    font-size:12px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:3px 10px;margin-bottom:8px}
   .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
   .tier{border:1px solid var(--line);border-radius:12px;padding:14px}
   .tier .name{font-weight:800}
@@ -40,8 +40,9 @@
   .tier .std{color:var(--muted);font-size:14px}
   .tier .std s{margin-right:4px}
   .tier .badge{display:inline-block;background:#fff1e9;color:#c23a08;
-    font-size:11px;font-weight:800;letter-spacing:.05em;border-radius:99px;padding:2px 8px}
+    font-size:11px;font-weight:800;letter-spacing:.05em;border-radius:999px;padding:2px 8px}
   .tier p{font-size:14px;color:var(--muted);margin:6px 0 0}
+  .faq-group{font-size:17px;margin:22px 0 10px}
   details{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 10px;background:var(--raise)}
   details summary{font-weight:700;cursor:pointer}
   details p{margin:8px 0 0}
@@ -72,161 +73,336 @@
   </nav>
 </header>
 
-<!-- Source: 子页面-pricing-终版文案-20261024.md（唯一终版） -->
 <section class="card founding" id="founding">
   <span class="tag">FOUNDING OFFER</span>
   <h2>Founding offer — first 50 members, 50% off for 12 months</h2>
-  <p>Join as a founding member and get <strong>50% off for 12 months</strong> on Starter, Growth and Pro: Starter $12.50/mo, Growth $24.50/mo, Pro $64.50/mo. After 12 months, your plan renews at the standard price. Founding spots are limited to the first 50 members — once they're gone, they're gone.</p>
+  <p>Founding pricing is <strong>50% off for the first 50 members, for their first 12 months</strong>: $12.50/month on Starter, $24.50 on Growth, and $64.50 on Pro. Founding pricing applies to Starter, Growth, and Pro only — it is not offered on Teams. It is first come, first served. After the 12 months, founding plans convert automatically to standard pricing.</p>
 </section>
 
 <section class="card" id="pricing">
   <h2>Pricing</h2>
-  <p>Simple pricing, no surprises. Every plan includes the full product — measurement across AI engines, weekly reports, and 3 actions every week. Plans differ only in scale: more brands, more questions, more engines, longer history.</p>
+  <p>Simple pricing, no surprises. Every plan measures the same three core AI engines; higher plans add more engines and depth.</p>
   <div class="price-grid">
     <div class="tier">
       <div class="name">Starter</div>
       <div class="promo">$25<span>/mo</span></div>
       <div class="std"><s>$35</s> standard price</div>
       <span class="badge">LAUNCH OFFER</span>
-      <p>For one brand getting started with AI visibility. Weekly full measurement, plus an alert when AI turns negative. 4 AI engines.</p>
+      <p>For one brand getting started with AI visibility. 3 engines: ChatGPT, Perplexity, Gemini. Annual: $250/year.</p>
     </div>
     <div class="tier">
       <div class="name">Growth</div>
       <div class="promo">$49<span>/mo</span></div>
       <div class="std"><s>$70</s> standard price</div>
       <span class="badge">LAUNCH OFFER</span>
-      <p>For growing brands tracking more questions and competitors. Everything in Starter, plus more brands and questions. 5 AI engines.</p>
+      <p>For growing brands tracking more questions and competitors. 4 engines — adds Grok. Annual: $490/year.</p>
     </div>
     <div class="tier">
       <div class="name">Pro</div>
       <div class="promo">$129<span>/mo</span></div>
       <div class="std"><s>$169</s> standard price</div>
       <span class="badge">LAUNCH OFFER</span>
-      <p>For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more brands and questions. 6 AI engines.</p>
+      <p>For brands that live on AI answers and need deeper coverage. 5 engines — adds DeepSeek. Annual: $1,290/year.</p>
     </div>
     <div class="tier">
       <div class="name">Teams</div>
       <div class="promo">$199<span>/mo</span></div>
       <div class="std"><s>$300</s> standard price</div>
-      <span class="badge">LAUNCH OFFER</span>
-      <p>For multi-brand teams and agencies. Everything in Pro, plus the most brands and questions. 7 AI engines.</p><p><span class="badge">COMING SOON</span></p>
+      <p>For multi-brand teams and agencies. 6 engines — adds Mistral. Annual: $1,990/year.</p>
     </div>
   </div>
-  <p class="small muted">Launch pricing is limited to the first 100 paying members across the whole site (the founding 50 included). Join during the launch pricing period and your promo price is locked for 12 months; after that, your plan renews at the standard price. Founding members' 50% discount also lasts 12 months, then renews at the standard price. Once the 100 spots are gone, new signups pay the standard price.</p>
-  <p class="small">Cancel anytime — your access continues until the end of the current billing period. See our <a href="/terms">Terms</a> for the refund policy.</p>
+  <p>Special pricing ($25 / $49 / $129 / $199 per month) is available to the <strong>first 100 paying customers</strong> across the whole site. The first 50 of these are founding members, who pay the founding rate — 50% off — instead (see &quot;What is founding pricing?&quot;); the full special price, $25 on Starter, applies to paying customers 51–100. If you subscribe at a special price, that price is <strong>locked for 12 months</strong>. After the special-pricing pool or your lock period ends, standard pricing ($35 / $70 / $169 / $300) applies.</p>
+  <p class="small">Cancel anytime — your access continues until the end of the current billing period. See <a href="#refunds">Refunds</a> below and our <a href="/terms">Terms</a> for the full policy.</p>
 </section>
 
-<!-- Source: 子页面六页终审包-20261024.md /methodology -->
 <section class="card" id="how">
   <h2>How it works</h2>
   <p><strong>The short version:</strong> we ask AI assistants the questions your buyers actually ask, and record whether your brand gets mentioned in the answers. Measured, not modeled.</p>
   <ul>
     <li><strong>Organic visibility only</strong> — whether AI assistants name your brand on their own in answers to real buying questions. Paid placements are never counted in your score.</li>
     <li><strong>Buyer-intent questions</strong> — “best X for Y” lists, comparisons, scenario advice. We deliberately don't pad scores with branded questions.</li>
-    <li><strong>The engines</strong> — every full check runs across 4 AI engines: ChatGPT, Perplexity, Gemini, and Claude. Growth adds Grok, Pro adds DeepSeek, Teams adds Mistral.</li>
-    <li><strong>The rhythm</strong> — a full measurement runs weekly; between full runs, we watch your core questions daily and alert you to sudden moves.</li>
+    <li><strong>The engines</strong> — every plan runs the same three core engines: ChatGPT, Perplexity, and Gemini. Growth adds Grok (4), Pro adds DeepSeek (5), Teams adds Mistral (6).</li>
+    <li><strong>The rhythm</strong> — runs are triggered, not on a fixed calendar: you can start a check at any time. Automatic weekly re-checks are not live yet.</li>
     <li><strong>What counts</strong> — visibility score = answers mentioning your brand ÷ valid answers × 100. Failed or timed-out runs don't count toward the score — they're reported separately as an error rate.</li>
-    <li><strong>What you get</strong> — every week: your score change, what drove it, and 3 concrete actions — on-site, off-site, and technical.</li>
+    <li><strong>What you get</strong> — with each report: your score change, what drove it, and 3 concrete actions — on-site, off-site, and technical.</li>
   </ul>
   <p class="small muted">We don't guarantee AI recommendations or rankings — no honest tool can. We measure credibly, explain plainly, and help you improve.</p>
 </section>
 
 <section id="faq">
-  <h2 style="font-size:20px;margin:24px 0 12px">FAQ</h2>
-
-  <details>
-    <summary>How do the checks actually work?</summary>
-    <p>Each week we send your question set to each engine and capture the answers. We extract brand mentions and the sources cited, aggregate citations by site, and compute your visibility score. If an engine fails or times out, that run is excluded from the score and flagged as an error — we never silently fill gaps.</p>
-  </details>
-
-  <details>
-    <summary>Which AI engines are covered?</summary>
-    <p>ChatGPT, Perplexity, Gemini, and Claude on every plan. Growth adds Grok, Pro adds DeepSeek, Teams adds Mistral. Every engine runs the same questions, so scores stay comparable across engines and over time.</p>
-  </details>
-
-  <details>
-    <summary>Do I need to install anything or share analytics access?</summary>
-    <p>No. There's nothing to install, and we don't need access to your analytics. If you later choose to connect Google Search Console, that's a separate, explicit authorization — always your call.</p>
-  </details>
-
-  <!-- Source: landing page FAQ (live copy, price-free) -->
-  <details>
-    <summary>I already have an SEO tool. Why do I need this?</summary>
-    <p>SEO tools optimise for Google rankings — but AI answers don't show rankings, they cite sources. You can rank #1 and still never be mentioned when a buyer asks ChatGPT. CitMark monitors the thing SEO tools can't see: whether AI actually names and cites you. Same for Google Search Console: it shows how Google sees your site; CitMark shows how AI engines see it.</p>
-  </details>
-
-  <!-- Source: landing page FAQ (live copy, price-free) -->
-  <details>
-    <summary>What if my first report finds nothing useful?</summary>
-    <p>Then you shouldn't pay for it. If your first report finds nothing useful, we'll refund you — no questions asked. Just email us and it's done.</p>
-  </details>
-
-  <details>
-    <summary>How is this different from Profound or AthenaHQ?</summary>
-    <p>Three differences. <strong>Who it's built for:</strong> they're built for enterprise teams with sales-led contracts (around $299+/month); CitMark is self-serve — you sign up yourself, no sales calls. <strong>How it measures:</strong> <em>measured, not modeled</em> — real buyer questions sent to real AI engines, counting actual mentions, instead of black-box estimates. <strong>What you get:</strong> not just a score, but 3 actions every week — because a number without a next step is just anxiety.</p>
-  </details>
-
-  <!-- Source: 子页面-pricing-终版文案-20261024.md FAQ -->
-  <details>
-    <summary>What happens when my 12-month founding discount ends?</summary>
-    <p>Your plan renews automatically at the standard price of your plan — $35, $70, $169, or $300 per month. You don't need to take any action. We'll email you 30 days before so there's no surprise. If you'd like to change or cancel your plan, please contact our support team.</p>
-  </details>
-
-  <details>
-    <summary>What is the founding member price?</summary>
-    <p>Founding members pay 50% off the launch special price for their first 12 months: Starter $12.50/month (special $25; standard $35), Growth $24.50/month (special $49; standard $70), Pro $64.50/month (special $129; standard $169).</p>
-  </details>
-
-  <details>
-    <summary>Who can get the founding price?</summary>
-    <p>The first 50 members. Spots are limited and allocated on a first-come, first-served basis — once all 50 are taken, the founding price is no longer available.</p>
-  </details>
-
-  <details>
-    <summary>How are the first 50 counted?</summary>
-    <p>By deduplicated signups with a valid email address, in the order they come in. Duplicate or invalid signups don't count toward the 50.</p>
-  </details>
-
-  <details>
-    <summary>What happens when my 12-month promo price lock ends?</summary>
-    <p>Same thing: your plan renews at the standard price, and we'll email you 30 days before.</p>
-  </details>
-
-  <details>
-    <summary>Can I upgrade or downgrade later?</summary>
-    <p>Yes. Please contact our support team and we'll sort it out with you.</p>
-  </details>
-
-  <details>
-    <summary>What if I cancel?</summary>
-    <p>You keep access until the end of the current billing period, and you won't be charged again. Your data is handled per our <a href="/privacy">Privacy Policy</a>.</p>
-  </details>
+  <h2 style="font-size:20px;margin:24px 0 4px">FAQ</h2>
+  <h3 class="faq-group">Getting started</h3>
+<details>
+<summary>How do I create an account?</summary>
+<p>You can create a CitMark account in three ways: <strong>with Google, with email and password, or through Shopify</strong>. Pick whichever you use most — you can start measuring your AI search visibility right after signing up.</p>
+</details>
+<details>
+<summary>What sign-in methods can I use?</summary>
+<p>You can sign in to CitMark three ways: <strong>with Google, with email and password, or with Shopify</strong>. Use the same method you registered with.</p>
+</details>
+<details>
+<summary>I forgot my password — how do I reset it?</summary>
+<p>On the sign-in page, choose <strong>Forgot password</strong>, enter the email address on your account, and follow the reset link we email you to set a new password. If you registered with Google or Shopify, sign in with that method instead — there&#x27;s no separate CitMark password to reset.</p>
+</details>
+<details>
+<summary>Do I need to connect Google Analytics, or add a tracking code to my site?</summary>
+<p>No — there&#x27;s nothing to connect, and nothing to install.</p>
+<p>CitMark measures your visibility by asking the AI engines real buyer questions directly and recording what comes back: whether your brand is mentioned, and which sources the answers cite. Your scores are built entirely from those answers. They don&#x27;t depend on analytics access, a tracking code, or your site&#x27;s traffic — so no setup on your side is needed before measuring, and connecting an analytics account wouldn&#x27;t change a score.</p>
+<p>The two views answer different questions. Analytics can tell you what visitors did after they arrived; CitMark tells you whether the engines put you in front of them in the first place. If you&#x27;re trying to line the two up and want a hand reading what your reports do show, contact support and we&#x27;ll walk through it with you.</p>
+</details>
+<h3 class="faq-group">Plans and pricing</h3>
+<details>
+<summary>How much does CitMark cost?</summary>
+<p>CitMark has four plans. Current special pricing is <strong>$25/month (Starter), $49/month (Growth), $129/month (Pro), and $199/month (Teams)</strong>. Standard pricing is $35 / $70 / $169 / $300 per month for the same four plans. Every plan measures the same three core AI engines; higher plans add more engines and depth.</p>
+</details>
+<details>
+<summary>What is founding pricing?</summary>
+<p>Founding pricing is <strong>50% off for the first 50 members, for their first 12 months</strong>: $12.50/month on Starter, $24.50 on Growth, and $64.50 on Pro. Founding pricing applies to Starter, Growth, and Pro only — it is not offered on Teams. It is first come, first served. After the 12 months, founding plans convert automatically to standard pricing.</p>
+</details>
+<details>
+<summary>Who qualifies for founding pricing, and how are the 50 spots counted?</summary>
+<p>The first 50 members to sign up qualify for founding pricing. Spots are counted by <strong>unique, valid email addresses</strong> — duplicate signups with the same email count once, and invalid or junk signups don&#x27;t count toward the 50.</p>
+</details>
+<details>
+<summary>What happens when my founding 12 months end?</summary>
+<p>When your founding 12 months end, your plan <strong>converts automatically to standard pricing</strong> for your tier — $35/month on Starter, $70 on Growth, $169 on Pro, $300 on Teams. You don&#x27;t need to do anything, and your account and data carry over.</p>
+</details>
+<details>
+<summary>Will I be reminded before my founding pricing expires?</summary>
+<p>Yes. We email you <strong>30 days before</strong> your founding period ends, so the move to standard pricing never comes as a surprise.</p>
+</details>
+<details>
+<summary>How does special pricing work?</summary>
+<p>Special pricing ($25 / $49 / $129 / $199 per month) is available to the <strong>first 100 paying customers</strong> across the whole site. The first 50 of these are founding members, who pay the founding rate — 50% off — instead (see &quot;What is founding pricing?&quot;); the full special price, $25 on Starter, applies to paying customers 51–100. If you subscribe at a special price, that price is <strong>locked for 12 months</strong>. After the special-pricing pool or your lock period ends, standard pricing ($35 / $70 / $169 / $300) applies.</p>
+</details>
+<details>
+<summary>How do I change my plan (upgrade or switch)?</summary>
+<p>Use the plan-change option in your account settings to record the change you want. <strong>Plan changes are handled by our team, and we&#x27;ll be in touch to complete yours</strong> — you don&#x27;t need to do anything else after recording it.</p>
+</details>
+<details>
+<summary>What are question packs (extra questions)?</summary>
+<p>If you need more questions than your plan includes, you can buy a <strong>question pack</strong>: <strong>500 or 1,000 extra questions</strong>, priced by your plan — 500 questions cost $21.90 (Starter), $22.90 (Growth), $24.90 (Pro), or $27.90 (Teams); 1,000 questions cost $42.90 / $43.90 / $48.90 / $54.90. Packs are valid for a <strong>rolling 30 days</strong> from purchase. One cap applies: in any rolling 30-day window, the packs you buy can add up to at most your plan&#x27;s quota — packs extend your runway, but they can&#x27;t stack without limit.</p>
+</details>
+<details>
+<summary>Which plan includes white-label reports?</summary>
+<p>White-label reports are included on the <strong>Teams</strong> plan. They let you present CitMark reports under your own branding — for example, to your own clients if you run multiple brands or serve customers under your name.</p>
+</details>
+<h3 class="faq-group">Refunds and billing help</h3>
+<details>
+<summary>What is your refund policy?</summary>
+<p>You can request a refund by contacting support.</p>
+<ul>
+<li><strong>Within 7 days</strong> of a payment: full refund (the 7 days are counted in calendar days from the payment date).</li>
+<li><strong>Days 8–30</strong>: refund of the unused portion of your current period.</li>
+<li><strong>After 30 days</strong>: monthly plans are not refundable for the current period; annual plans are refunded for the remaining full months.</li>
+</ul>
+<p>If we charged you the wrong amount, tell us — billing errors are corrected in full.</p>
+</details>
+<details>
+<summary>I was charged the wrong amount / charged twice — what do I do?</summary>
+<p>Contact support and tell us what looks wrong — the amount, the date, and what you expected. Billing errors are verified against our payment records and <strong>corrected in full</strong>: if you were overcharged we refund the difference; duplicate charges are refunded in full.</p>
+</details>
+<details>
+<summary>If I refund, does my founding spot go back into the pool?</summary>
+<p>No. If a founding membership is refunded, that spot is <strong>not returned to the pool</strong> — the 50 founding spots only ever go down, never back up.</p>
+</details>
+<h3 class="faq-group">What CitMark measures</h3>
+<details>
+<summary>What does CitMark measure, and what does the score mean?</summary>
+<p>CitMark measures <strong>how visible your brand is in AI search</strong>: whether engines like ChatGPT, Perplexity, and Gemini mention you when people ask questions in your category, and what they say about you. Your visibility score summarizes that picture across the engines your plan covers, so you can track whether you&#x27;re being mentioned more — and more accurately — over time. CitMark&#x27;s job is to credibly measure, explain, and improve your visibility in AI search.</p>
+</details>
+<details>
+<summary>What is AI search visibility monitoring?</summary>
+<p>AI search visibility monitoring means <strong>checking, systematically and over time, how AI assistants answer the questions your buyers actually ask — and whether your brand appears in those answers</strong>. Instead of trying a question once yourself, you run a fixed set of category questions across engines like ChatGPT, Perplexity, and Gemini record every answer, and turn it into a visibility score: the share of answers that mention you. Because the same questions are re-run on a schedule, you can see your visibility move — and because every score is built from recorded answers, you can always check what it rests on.</p>
+</details>
+<details>
+<summary>What is the confidence interval next to my score?</summary>
+<p>Next to a CitMark score you&#x27;ll see a range — for example, <strong>50 (33–67)</strong>. That range is a <strong>95% confidence interval</strong>: the band where the score&#x27;s true value most plausibly sits, given how many answers it was measured from. The width is information, not decoration. With few answers behind a score, the band is wide and the number is rough; as the sample grows, the band narrows and the number firms up. We always show the sample size next to the score, and any result based on fewer than 30 answers is flagged as low-sample — so you can tell at a glance how much weight a score can bear.</p>
+</details>
+<details>
+<summary>What is llms.txt?</summary>
+<p>llms.txt is <strong>a small file that tells AI what your site is about</strong>: a plain-text file at your site&#x27;s root that lays out your key pages and what they cover, in a format AI systems can read easily. It&#x27;s simple to add. One honest caveat: no AI provider has confirmed that llms.txt changes how they crawl or cite a site, so treat it as good housekeeping — not as a visibility lever by itself.</p>
+</details>
+<details>
+<summary>Which AI engines does each plan monitor?</summary>
+<p>Every plan monitors the same three core AI engines: <strong>ChatGPT, Perplexity, and Gemini</strong>. Higher plans add more:</p>
+<ul>
+<li><strong>Starter</strong> — the 3 core engines</li>
+<li><strong>Growth</strong> — 4 engines (adds Grok)</li>
+<li><strong>Pro</strong> — 5 engines (adds DeepSeek)</li>
+<li><strong>Teams</strong> — 6 engines (adds Mistral)</li>
+</ul>
+</details>
+<details>
+<summary>How often does CitMark check my brand?</summary>
+<p>Two kinds of runs work differently:</p>
+<ul>
+<li><strong>Free snapshot</strong> — runs once, on demand. You submit your site, we run the check and produce the report. There is no schedule and no recurring run.</li>
+<li><strong>Subscription monitoring</strong> — runs are triggered, not on a fixed calendar. You can start a snapshot at any time, and the system also runs checks at trigger points — when a free-pool batch comes due, or when a fix needs re-testing, for example. Automatic weekly re-checks are <strong>not live yet</strong>; they are in development, so no plan today includes a promised weekly run.</li>
+<li>The rhythm is the same on every plan. Plans differ in engines, questions and history — not in how often checks run.</li>
+</ul>
+</details>
+<details>
+<summary>What kinds of questions does CitMark track for my brand?</summary>
+<p>Two kinds — and the difference matters more than the count.</p>
+<ul>
+<li><strong>Category questions</strong> are what buyers ask before they know your name: &quot;best invoicing tool for a two-person agency&quot;, &quot;air purifier for a small bedroom&quot;. These are the baseline of your score, because they show whether AI engines bring you up unprompted, in front of people who were never going to search for you directly.</li>
+<li><strong>Branded questions</strong> name your brand directly (&quot;what does [your brand] do?&quot;). They test whether engines describe you correctly — a different job.</li>
+</ul>
+<p>CitMark never mixes the two into one number. Branded questions almost always look flattering — an engine that is asked about you by name will usually talk about you — so blending them in would inflate the score while hiding the category gaps where new buyers are won and lost. Each type is reported as its own layer, with its own sample size.</p>
+<p>Every question in your set is versioned: if a question&#x27;s wording changes, it becomes a new version, and results are never averaged across versions. That discipline is what makes period-to-period comparisons mean anything.</p>
+</details>
+<details>
+<summary>I asked ChatGPT the same question three times and got three different answers — none mentioned us. How can any tool claim to measure this?</summary>
+<p>You&#x27;re describing the core difficulty of this category, not a flaw in your test: a single AI answer is one sample, and samples vary. Any single check — yours or a tool&#x27;s — proves almost nothing on its own.</p>
+<p>Measurement starts where single answers stop. CitMark asks a fixed, versioned set of questions repeatedly, across several AI engines, and reports your mention rate together with how many answers sit behind it and a confidence range. A brand that appears in 2 of 3 answers is a coin toss; a brand that appears in 40 of 120 answers is a measurement. When a layer doesn&#x27;t have enough answers yet, we label it &quot;insufficient sample&quot; instead of dressing it up as a score.</p>
+<p>So the honest claim is narrow: we can&#x27;t tell you what ChatGPT will say next Tuesday at 9am. We can tell you, credibly and repeatably, how often engines mention you across many real buyer questions — and whether that&#x27;s moving.</p>
+</details>
+<h3 class="faq-group">Improving your visibility</h3>
+<details>
+<summary>How does CitMark help me improve, not just measure?</summary>
+<p>Measuring is only half of it. Each CitMark report includes <strong>concrete next steps</strong> for the questions and pages where you&#x27;re missing: what to change, and in what order. Then the next runs show whether your visibility actually moved — so a fix is something you can verify, not just hope for. One boundary we won&#x27;t cross: AI engines decide for themselves what to mention and cite, so we never promise a ranking or a result — we promise a clear gap, a specific fix, and honest re-measurement.</p>
+</details>
+<details>
+<summary>Where do I start? How do I prioritize what to fix first?</summary>
+<p>Start where buyers actually are. Your score comes from <strong>category questions</strong> — the &quot;best X for Y&quot; questions people ask before they know your name — so the gaps that matter most are the category questions where your brand never appears while competitors do.</p>
+<p>A practical order:</p>
+<p>1. <strong>Find your absences.</strong> List the category questions with a mention rate of zero (or near it). Ignore your branded-question results for this — a brand people already search by name is not where growth is hiding.</p>
+<p>2. <strong>Check the sample size first.</strong> If a layer is flagged &quot;insufficient sample&quot; (fewer than 30 valid answers), don&#x27;t treat its number as a verdict yet — collect more runs before spending effort on it.</p>
+<p>3. <strong>Follow the report&#x27;s order for those questions.</strong> Each report&#x27;s recommendations are already sequenced for the questions and pages where you&#x27;re missing; work them in that order rather than picking at random.</p>
+<p>4. <strong>Fix one batch, then re-measure.</strong> Change a coherent set of pages, let the next runs come in, and see whether the mention rate actually moved before starting the next batch.</p>
+<p>One caution: a high score on branded questions can feel reassuring while category visibility — the part that brings new buyers — stays flat. Prioritize by category absence, not by which number looks worst.</p>
+</details>
+<details>
+<summary>I made changes — how do I tell whether they&#x27;re working?</summary>
+<p>Judge changes the way the score is built — in layers, over repeated runs, never from a single answer.</p>
+<ul>
+<li><strong>Compare like with like.</strong> A before/after comparison only holds when the question set is the same version with the same mix. If the questions changed, you&#x27;re comparing two different measurements.</li>
+<li><strong>Read the mention rate with its sample size and range.</strong> Every layer reports how many valid answers sit behind the rate, plus a 95% confidence range. If the sample is flagged insufficient (under 30 answers), the honest verdict is &quot;not enough data yet&quot; — not success, not failure.</li>
+<li><strong>Expect wobble.</strong> A single AI answer is an incomplete view; the same question can be answered differently run to run. That&#x27;s why CitMark repeats runs across engines — judge the trend over several runs, not one screenshot.</li>
+<li><strong>Let the range narrow.</strong> As more runs accumulate, the confidence range tightens and real movement separates from noise. A change that worked shows up as a sustained shift in the layer it targeted — for example, category questions where you were absent starting to name you.</li>
+</ul>
+<p>What we won&#x27;t do is call a result early. If the data can&#x27;t support a verdict yet, the report says so.</p>
+</details>
+<details>
+<summary>What kinds of changes help AI engines mention my brand?</summary>
+<p>AI engines mention brands they can find, understand, and quote. The changes that help are the ones that make your facts easy to do all three with:</p>
+<ul>
+<li><strong>State your facts plainly, in one place.</strong> What you offer, who it&#x27;s for, where you operate, what it costs — written as clear statements on your own pages. Engines repeat facts they can lift cleanly; if your key facts are scattered, vague, or locked in images and scripts, there&#x27;s nothing solid to repeat.</li>
+<li><strong>Keep the facts consistent.</strong> The same offer described three different ways across your site gives an engine three half-answers. One consistent version is easier to trust and to cite.</li>
+<li><strong>Be the source for your own category.</strong> Engines cite pages when answering. Pages that answer real buyer questions — comparisons, requirements, pricing logic — in plain language give engines something worth citing, and CitMark&#x27;s reports show citations grouped by site, so you can see which of your pages (and which competitors&#x27; pages) engines actually draw from.</li>
+<li><strong>Give engines a map.</strong> An llms.txt file tells AI systems what your site is about and where the key pages are (see &quot;What is llms.txt?&quot;). It&#x27;s a map, not a lever — it helps engines find the facts; the facts still have to be there.</li>
+</ul>
+<p>Then measure: these changes work through mentions and citations over repeated runs, which is exactly what your reports track. No honest tool can promise an engine will mention you — anyone who guarantees that is selling certainty the engines themselves don&#x27;t offer.</p>
+</details>
+<details>
+<summary>Why does the exact wording of a question change the result?</summary>
+<p>Because an AI engine doesn&#x27;t answer the <em>topic</em> — it answers the <em>sentence</em>.</p>
+<p>Short, list-shaped questions (&quot;best CRM for freelancers&quot;) invite a list of brands. Long, situation-shaped questions (&quot;I&#x27;m a freelancer drowning in spreadsheets, what should I do?&quot;) invite advice — often with no brand names at all. Questions carrying a budget or a deadline push the engine toward a decision; open-ended ones pull it toward an explanation. Same buyer, same need, four differently shaped questions — four genuinely different answers, and different chances for your brand to appear.</p>
+<p>Two consequences follow, and CitMark&#x27;s method is built around both:</p>
+<p>1. <strong>A fixed, versioned question set.</strong> If the wording drifts, the measurement drifts with it — you&#x27;d be tracking the questions, not your visibility. Your tracked questions are locked and versioned so a score change means the answers changed, not the ruler.</p>
+<p>2. <strong>No verdicts from a single answer.</strong> Even the identical question can draw a different answer on a different run. Scores come from repeated runs across engines, reported with their sample sizes — so the variation you&#x27;re seeing is measured, not hidden.</p>
+<p>If a result ever looks strange, this is the first place to look: check the exact wording and the sample size behind the number before concluding anything about your brand.</p>
+</details>
+<details>
+<summary>An AI engine is saying wrong things about my brand. What can I do?</summary>
+<p>First, separate two different problems — they have different fixes.</p>
+<p><strong>If the error is in the AI engine&#x27;s answer:</strong> CitMark keeps the underlying answers behind your scores, together with the sources each answer cited — so you can open the exact answer that&#x27;s wrong and see where it most likely picked the fact up. Engines assemble answers from the pages they draw on; a wrong price, a stale product name, or a service you no longer offer usually traces back to a page that still says it — yours, or a listing or profile about you.</p>
+<p>The fix happens at the source:</p>
+<p>1. <strong>Find the source.</strong> In your report, open the answer and check its cited sources for the wrong fact.</p>
+<p>2. <strong>Correct it where it lives.</strong> Fix your own pages first (and keep the corrected fact consistent everywhere — see &quot;What kinds of changes help AI engines mention my brand?&quot;), then the third-party listings and profiles you control.</p>
+<p>3. <strong>Re-measure.</strong> Engines pick up corrected sources over subsequent runs. There is no switch that edits an AI answer directly — we can&#x27;t order an engine to change what it says, and neither can anyone else. What we can do is show you exactly what was said, where it came from, and whether it changes once the source is fixed.</p>
+<p><strong>If the error is in CitMark&#x27;s own data</strong> — a mis-attributed answer, a citation attached to the wrong question — tell us. We verify it against the recorded run and correct it; measuring credibly is the whole product, so data errors are on us to fix.</p>
+</details>
+<details>
+<summary>I tried another brand-tracking tool and the data made no sense. Why would yours be any different?</summary>
+<p>Fair question — and the right standard. Data you can&#x27;t check is data you shouldn&#x27;t pay for. Three things make CitMark&#x27;s numbers checkable rather than a matter of trust:</p>
+<p>First, every score is built from answers you can open: the underlying AI answers and the sources they cited are kept behind the number, so a surprising result can be traced to what was actually said. Second, the method is published in plain terms — which questions, which engines, how the rate is calculated — including the discipline that branded questions (&quot;what is [brand]?&quot;) are never blended into category questions (&quot;best tool for X&quot;), which is one of the easiest ways to manufacture a flattering score. Third, when the sample behind a number is too small to support it, the report says &quot;insufficient sample&quot; instead of printing false precision.</p>
+<p>If a number still looks wrong, that&#x27;s a support conversation we want to have — bring the question and we&#x27;ll walk the underlying answers with you.</p>
+</details>
+<h3 class="faq-group">Your data and privacy</h3>
+<details>
+<summary>Can I export my results?</summary>
+<p>There&#x27;s no self-service export button yet — but your results are always readable in two places: your <strong>snapshot report</strong> (what each run found) and your <strong>dashboard</strong>, where your scores, the underlying answers, and the cited sources live.</p>
+<p>If you need your results as a file — for your own records, or to share with a client or your team — contact support and our team will prepare it for you manually.</p>
+<p>One distinction: if what you&#x27;re asking for is a copy of your <strong>personal data</strong> (everything we hold about you as an individual), write to us the same way — those requests are handled individually, and we&#x27;ll tell you exactly what happens next.</p>
+</details>
+<details>
+<summary>How do I request an export or deletion of my data?</summary>
+<p>Contact our support team and tell us whether you&#x27;d like an <strong>export</strong> of your data or its <strong>deletion</strong>. We&#x27;ll confirm your request and handle it from there — you don&#x27;t need to prepare anything.</p>
+</details>
+<details>
+<summary>How do I unsubscribe from emails?</summary>
+<p>Use the <strong>unsubscribe link</strong> at the bottom of any CitMark email, and you&#x27;ll stop receiving that kind of message. If you&#x27;d rather, contact support and we&#x27;ll take you off the list.</p>
+</details>
+<details>
+<summary>How long does CitMark keep my data?</summary>
+<p>How long we keep your data depends on the kind of data:</p>
+<ul>
+<li><strong>Account and workspace data</strong> — your brands, settings and measurement history: kept until you delete your account.</li>
+<li><strong>After you delete your account</strong>: your personal data is removed from our live systems within <strong>30 days</strong>. Encrypted backups rotate out within about <strong>90 days</strong> and are never used for anything else; if a backup is ever restored, pending deletions are re-applied.</li>
+<li><strong>Billing records</strong>: kept for as long as tax law requires.</li>
+<li><strong>Usage logs</strong>: 90 days. <strong>Security audit logs</strong>: 1 year.</li>
+<li><strong>Anonymized measurement data</strong> may be kept for category benchmarks — it no longer identifies you or your site.</li>
+</ul>
+<p>Full detail is in our Privacy Policy (&quot;How long we keep it&quot; and &quot;Your rights: export and delete&quot;).</p>
+</details>
+<details>
+<summary>Where do the numbers in CitMark&#x27;s data briefs come from?</summary>
+<p>Our published data briefs use <strong>anonymized, aggregated numbers only</strong>: every figure pools at least 10 unrelated sites over a window of at least one week, and no brief ever shows a single site&#x27;s data. Your own numbers appear only in your own dashboard — never in a public brief. If we ever feature a named customer as a case study, that happens only with that customer&#x27;s written consent, case by case.</p>
+</details>
+<h3 class="faq-group">Developers</h3>
+<details>
+<summary>I&#x27;m a developer — how do I work with CitMark data programmatically?</summary>
+<p>Programmatic access to CitMark data runs through <strong>MCP (read-only)</strong>, included on every plan. Your own tools and AI assistants can read your scores, the underlying answers, and the citations behind them; the interface cannot change anything in your account.</p>
+<p>The operating facts (the quota numbers themselves live in &quot;Which plans include MCP access, and what are the read quotas?&quot; — that entry is the source of truth):</p>
+<ul>
+<li>Reads are counted <strong>per brand</strong>, and every API key belonging to a brand shares that brand&#x27;s monthly quota and daily budget.</li>
+<li>Answers come back as <strong>excerpts</strong>, and how far back reads can reach follows your plan&#x27;s answer history.</li>
+<li>Hitting the daily budget pauses reads until the next day; hitting the monthly quota pauses them until the next month. Treat a pause as a budget state, not an error.</li>
+</ul>
+<p>General practice that works well with this shape (true of most quota&#x27;d read APIs, not CitMark-specific): pull on a schedule rather than continuously, cache responses on your side instead of re-reading the same window, and size each job to finish inside the daily budget so a pause never strands a half-done sync.</p>
+<p>If you&#x27;re evaluating whether the read surface covers your use case before building against it, contact support with what you&#x27;re trying to pull — we&#x27;ll confirm against the current quotas rather than have you guess.</p>
+</details>
+<details>
+<summary>Which plans include MCP access, and what are the read quotas?</summary>
+<p>MCP access (read-only) is included on <strong>every plan</strong> — Starter, Growth, Pro, and Teams. It lets your own tools and AI assistants read your CitMark data (scores, answers, and citations) through a read-only interface; it cannot change anything in your account.</p>
+<p>Reads are counted <strong>per brand</strong>, and all API keys for the same brand share that brand&#x27;s quota:</p>
+<p>| Plan | Reads per brand / month | Daily budget per brand |</p>
+<p>|---|---|---|</p>
+<p>| Starter | 6,000 | 200 / day |</p>
+<p>| Growth | 15,000 | 500 / day |</p>
+<p>| Pro | 45,000 | 1,500 / day |</p>
+<p>| Teams | 90,000 | 3,000 / day |</p>
+<p>If you reach the daily budget, reads pause and resume the next day; the monthly quota resets each month. MCP reads are counted in their own pool — they never use up your monitoring questions. Answers are returned as excerpts, and how far back reads can reach matches your plan&#x27;s answer history (Starter: last 4 weeks; Growth: last 3 months; Pro and Teams: full history).</p>
+</details>
+<h3 class="faq-group">Problems and reports</h3>
+<details>
+<summary>My report failed or the data looks wrong — what happens?</summary>
+<p>Tell support what looks wrong — which report, and what you expected to see. We&#x27;ll re-check the run behind it. If the failure or error was on our side, we&#x27;ll re-run or correct it; if a report can&#x27;t be produced at all, our refund policy applies (see &quot;What is your refund policy?&quot;).</p>
+</details>
 </section>
 
-<!-- Source: 子页面六页终审包-20261024.md /terms §4（判定矩阵口径） -->
 <section class="card" id="refunds">
   <h2>Refunds</h2>
-  <ul>
-    <li><strong>Within 7 days of purchase:</strong> full refund, no questions asked — except: one no-questions refund per domain and per payment method (a second signup with the same domain or card doesn't get another one), and if you've already run 2 or more full snapshots, the refund is prorated instead.</li>
-    <li><strong>Days 8–30:</strong> prorated refund for the unused period. Annual plans: refund for remaining whole months, with used months billed at the monthly rate.</li>
-    <li><strong>After 30 days:</strong> monthly plans — no refund for the current period; cancel anytime and keep access until the period ends. Annual plans — prorated refund for remaining whole months.</li>
-    <li><strong>Usage already consumed</strong> (e.g., overage re-runs that already ran) is non-refundable.</li>
-    <li><strong>Billing errors</strong> (duplicate or wrong charges) are always fixed: tell us and we'll sort it out within 24 hours.</li>
-    <li>Founding-member spots don't go back into the pool after a refund. Accounts terminated for fraud or abuse aren't eligible for refunds.</li>
-    <li>Refunds go to your original payment method. We initiate within <strong>3 business days</strong>; banks usually take <strong>5–10 business days</strong> to show it.</li>
-  </ul>
+  <p>You can request a refund by contacting support.</p>
+<ul>
+<li><strong>Within 7 days</strong> of a payment: full refund (the 7 days are counted in calendar days from the payment date).</li>
+<li><strong>Days 8–30</strong>: refund of the unused portion of your current period.</li>
+<li><strong>After 30 days</strong>: monthly plans are not refundable for the current period; annual plans are refunded for the remaining full months.</li>
+</ul>
+<p>If we charged you the wrong amount, tell us — billing errors are corrected in full.</p>
+<p>Contact support and tell us what looks wrong — the amount, the date, and what you expected. Billing errors are verified against our payment records and <strong>corrected in full</strong>: if you were overcharged we refund the difference; duplicate charges are refunded in full.</p>
   <p class="small">Full policy: <a href="/terms">Terms of Service</a>.</p>
 </section>
 
-<!-- Source: 子页面六页终审包-20261024.md /privacy -->
 <section class="card" id="privacy">
   <h2>Privacy &amp; data</h2>
   <ul>
-    <li><strong>Your data is yours.</strong> Workspaces are strictly isolated. We never sell data. Every employee access is audited. Cancel means delete.</li>
-    <li><strong>Where it lives:</strong> your data lives in Singapore (primary database). The website itself is served globally. Email delivery (Resend) and payment processing (Creem) run in the United States under Standard Contractual Clauses.</li>
-    <li><strong>What we never collect:</strong> payment card details. Payments go through Creem, our merchant of record — card data never touches our systems.</li>
-    <li><strong>Export:</strong> download all your personal data as JSON from your account settings, anytime.</li>
-    <li><strong>Delete:</strong> delete your account and we remove your personal data from our live systems within 30 days. Encrypted backups rotate out within ~90 days and are never used for anything else.</li>
+    <li><strong>Your data is yours.</strong> Workspaces are strictly isolated, and we never sell data.</li>
+    <li><strong>Export or delete:</strong> contact our support team and tell us whether you&#x27;d like an <strong>export</strong> of your data or its <strong>deletion</strong>. We&#x27;ll confirm your request and handle it from there — you don&#x27;t need to prepare anything.</li>
+    <li><strong>Retention:</strong> account and workspace data is kept until you delete your account; after deletion, personal data is removed from live systems within 30 days, and encrypted backups rotate out within about 90 days.</li>
+    <li><strong>Payment details:</strong> card data never touches our systems — payments are handled by our payment provider.</li>
   </ul>
   <p class="small">Full policy: <a href="/privacy">Privacy Policy</a>. Security issues: <a href="mailto:security@citmark.com">security@citmark.com</a>.</p>
 </section>
@@ -244,9 +420,7 @@
   <a href="/terms">Terms</a>
   <a href="/privacy">Privacy</a>
   <a href="/about">About</a>
-  <a href="/contact">Contact</a>
   <p style="margin-top:12px">CitMark — measured, not modeled.</p>
-  <p style="font-size:13px">Operated by Tao Yu.</p>
 </footer>
 
 </div>
