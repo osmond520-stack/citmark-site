@@ -697,28 +697,17 @@
         max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px);
         overflow-y: auto; overscroll-behavior: contain;
         padding: 28px; border-radius: 24px;
-        background: var(--bg-raise); border: 1px solid rgba(255, 255, 255, .55);
+        background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
         box-shadow: 0 24px 48px -16px rgba(20, 21, 25, .22), 0 2px 8px rgba(20, 21, 25, .08);
         color: var(--ink); }
-@supports ((-webkit-backdrop-filter: blur(24px)) or (backdrop-filter: blur(24px))) {
-        .auth-card { -webkit-backdrop-filter: blur(24px) saturate(1.25); backdrop-filter: blur(24px) saturate(1.25);
-          background: rgba(255, 255, 255, .30);
-          background: color-mix(in srgb, rgb(255, 255, 255) 30%, transparent); }
-      }
 @media (prefers-color-scheme: dark) {
         .auth-card-overlay { background: rgba(20, 21, 25, .35); }
-        @supports ((-webkit-backdrop-filter: blur(24px)) or (backdrop-filter: blur(24px))) {
-          .auth-card { -webkit-backdrop-filter: blur(24px) saturate(1.25) brightness(1.14); backdrop-filter: blur(24px) saturate(1.25) brightness(1.14);
-            background: rgba(38, 38, 42, .78);
-            background: color-mix(in srgb, rgb(38, 38, 42) 78%, transparent);
-            border-color: rgba(255, 255, 255, .14); box-shadow: var(--shadow); }
-        }
+        .auth-card { box-shadow: var(--shadow); }
       }
 .auth-card-overlay.open .auth-card { animation: authCardIn .25s ease-out both; }
 .auth-card-overlay.closing .auth-card { animation: authCardOut .2s ease-in both; }
 @keyframes authCardIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
 @keyframes authCardOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.98); } }
-.auth-card .btn-capsule, .auth-card .capsule-field input, .auth-card .capsule-chip, .auth-card .capsule-forgot, .auth-card .capsule-submit, .auth-card-divider, .auth-card-terms label, .auth-card-consent-subs p, .auth-card-brandline, .auth-card-foot { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 .auth-card-top-row { display: flex; align-items: center; justify-content: space-between; margin: 0 0 20px; }
 .auth-card-top-row .auth-card-logo { margin: 0; }
 .auth-card-logo .wordmark { font-size: 28px; }
@@ -726,26 +715,38 @@
 .auth-card .btn-capsule { display: flex; align-items: center; justify-content: center; gap: 10px;
         flex: none; min-width: 0; width: 100%; min-height: 43px; margin: 0; padding: 0 12px; border-radius: 999px; line-height: 1;
         white-space: nowrap;
-        border: 1px solid rgba(20,21,25,.26); background: rgba(255,255,255,.30); box-shadow: 0 1px 2px rgba(20,21,25,.06); color: var(--ink);
+        border: 1px solid #D9CFB6; background: #FFFFFF; box-shadow: 0 1px 2px rgba(20,21,25,.05); color: #141519; transition: background-color .24s ease, color .24s ease, border-color .24s ease, box-shadow .24s ease;
         font-size: 13.4px; font-weight: 650; letter-spacing: -0.01em; cursor: pointer; box-sizing: border-box; }
 .auth-card .btn-capsule svg { flex: none; }
 .auth-card .btn-capsule:active { transform: scale(.97); }
 .auth-card .btn-capsule:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
+.auth-card .btn-capsule:hover { border-color: #B9AB8C; }
+.auth-card .btn-capsule[aria-disabled="true"] { background: #F1EBDB; color: rgba(20,21,25,.62); box-shadow: none; cursor: not-allowed; }
+.auth-card .btn-capsule[aria-disabled="true"]:hover { border-color: #D9CFB6; }
+.auth-card .btn-capsule[aria-disabled="true"]:active { transform: none; }
 .auth-card-divider { display: flex; align-items: center; width: 100%; height: 18px; margin: 6px auto; color: var(--ink-2); font-size: 13px; font-weight: 600; gap: 16px; }
 .auth-card-divider::before, .auth-card-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .auth-card .capsule-field { position: relative; width: 100%; margin: 0 auto 16px; }
-.auth-card .capsule-field input { width: 100%; min-height: 43px; padding: 11px 88px 11px 58px;
+.auth-card .capsule-field input { width: 100%; min-height: 43px; padding: 11px 88px 11px 52px;
         border: 1px solid rgba(20, 21, 25, .12); border-radius: 999px;
-        background: rgba(255, 255, 255, .30); color: var(--ink); font-size: 16px; font-weight: 500; line-height: 19px; box-sizing: border-box; }
+        background: rgba(255, 255, 255, .30); color: var(--ink); font-size: 16px; font-weight: 500; line-height: 19px; box-sizing: border-box; font-family: inherit; letter-spacing: 0; }
 .auth-card .capsule-field input[type="email"] { padding-right: 16px; }
 .auth-card .capsule-field input::placeholder { color: var(--ink-2); }
+.auth-card .capsule-field input:-webkit-autofill,
+.auth-card .capsule-field input:-webkit-autofill:hover,
+.auth-card .capsule-field input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px rgb(247, 247, 245) inset;
+  box-shadow: 0 0 0 100px rgb(247, 247, 245) inset;
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  transition: background-color 9999s ease-in-out 0s;
+}
 .auth-card .capsule-field input:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
 .auth-card .capsule-chip { position: absolute; left: 7px; top: 50%; transform: translateY(-50%);
         width: 35px; height: 35px; border-radius: 50%; background: rgba(20, 21, 25, .06);
         display: flex; align-items: center; justify-content: center; color: var(--ink);
         font-size: 14px; font-weight: 700; pointer-events: none; }
 .auth-card .capsule-chip svg { display: block; }
-.auth-card .capsule-chip-glyph { display: block; transform: translateY(-2px); }
 .auth-card .capsule-forgot { position: absolute; right: 7px; top: 50%; transform: translateY(-50%);
         height: 28px; padding: 0 12px; border: 0; border-radius: 999px;
         background: rgba(255, 255, 255, .20); color: #141519; font-size: 11.6px; font-weight: 650; white-space: nowrap; cursor: pointer;
@@ -762,12 +763,8 @@
 .auth-card .capsule-forgot:active { transform: translateY(-50%) scale(.96); }
 .auth-card .capsule-forgot:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
 .auth-card .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.auth-card-terms { display: flex; align-items: flex-start; gap: 8px; width: 100%; margin: 0 auto 12px; }
-.auth-card-terms input { flex: none; width: 18px; height: 18px; margin: 0; padding: 0; -webkit-appearance: none; appearance: none; border: 1.5px solid var(--ink-2); border-radius: 5px; background: transparent; cursor: pointer; box-sizing: border-box; }
-.auth-card-terms input:checked { border-color: var(--accent); background-color: var(--accent); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.5 4.8 9 10 3.5' fill='none' stroke='%23141519' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: 11px 11px; }
-.auth-card-terms input:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-.auth-card-terms label { font-size: 12px; line-height: 18px; color: var(--ink-2); cursor: pointer; }
-.auth-card-terms label a { color: var(--accent); font-weight: 600; }
+.auth-card-consent { width: 100%; margin: 0 auto 12px; font-size: 12px; line-height: 18px; color: var(--ink-2); }
+.auth-card-consent a { color: var(--accent); font-weight: 600; }
 .auth-card .capsule-foot-row { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 6px auto 0; }
 .auth-card-consent-subs { flex: 1; min-width: 0; }
 .auth-card-consent-subs p { font-size: 12px; line-height: 1.45; color: var(--ink-2); margin: 0; }
@@ -781,14 +778,16 @@
 .auth-card .capsule-submit-arrow svg { display: block; }
 .auth-card .capsule-submit:active { transform: scale(.96); }
 .auth-card .capsule-submit:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-.auth-card .btn-capsule[aria-disabled="true"], .auth-card .capsule-submit[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
-@media (prefers-color-scheme: dark) { .auth-card .btn-capsule { border-color: rgba(255,255,255,.40); background: rgba(255,255,255,.10); box-shadow: 0 1px 2px rgba(0,0,0,.25); } }
+.auth-card .capsule-submit[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+@media (prefers-color-scheme: dark) { .auth-card .btn-capsule { border-color: rgba(255,255,255,.28); background: #26282E; color: #F4F4F1; box-shadow: 0 1px 2px rgba(0,0,0,.25); } .auth-card .btn-capsule[aria-disabled="true"] { background: #1F2126; border-color: rgba(255,255,255,.28); color: rgba(244,244,241,.6); box-shadow: none; } .auth-card .btn-capsule[aria-disabled="true"]:hover { border-color: rgba(255,255,255,.28); } }
 .auth-card-brandline { font-size: 14px; color: var(--ink); font-weight: 600; margin: 30px 0 0; text-align: center; }
 .auth-card-foot { font-size: 14px; color: var(--ink-2); margin: 20px 0 0; text-align: center; }
 .auth-card-msg { font-size: 13px; line-height: 18px; color: var(--muted); text-align: center; margin: 12px 0 0; }
 .auth-card-msg.is-error { color: var(--accent-deep); }
-.auth-card.mode-reset .auth-card-oauth-row, .auth-card.mode-reset .auth-card-divider, .auth-card.mode-reset .pw-field, .auth-card.mode-reset .auth-card-terms { display: none; }
+.auth-card.mode-reset .auth-card-oauth-row, .auth-card.mode-reset .auth-card-divider, .auth-card.mode-reset .pw-field, .auth-card.mode-reset .auth-card-consent { display: none; }
 .auth-card.mode-register #authCardForgotBtn { display: none; }
+.auth-card:not(.mode-register) .auth-card-consent { display: none; }
+.auth-card:not(.mode-register) .auth-card-names { display: none; }
 .auth-card-reset-head { display: none; margin: 0 0 14px; text-align: center; }
 .auth-card.mode-reset .auth-card-reset-head { display: block; }
 .auth-card-reset-head h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
@@ -802,12 +801,18 @@
 @media (prefers-color-scheme: light) {
         .auth-card-foot { color: #2a2d32; }
         .auth-card-foot a { color: var(--accent); }
-        .auth-card .btn-capsule { color: #25221a; }
+        .auth-card .btn-capsule { color: #141519; }
         .auth-card .capsule-field input::placeholder { color: #5d574e; }
-        .auth-card-terms label a { color: var(--accent); }
+        .auth-card-consent a { color: var(--accent); }
       }
 @media (prefers-color-scheme: dark) {
         .auth-card .capsule-field input { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .14); }
+        .auth-card .capsule-field input:-webkit-autofill,
+        .auth-card .capsule-field input:-webkit-autofill:hover,
+        .auth-card .capsule-field input:-webkit-autofill:focus {
+          -webkit-box-shadow: 0 0 0 100px rgb(50, 50, 55) inset;
+          box-shadow: 0 0 0 100px rgb(50, 50, 55) inset;
+        }
         .auth-card .capsule-chip { background: rgba(255, 255, 255, .10); }
       }
 .auth-card-demo-toast { position: fixed; left: 50%; bottom: 28px; z-index: 300; transform: translateX(-50%);
@@ -825,11 +830,11 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
-.su-top { max-width: 1240px; margin: 0 auto; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
-.su-nav { display: flex; gap: 22px; }
-.su-nav a { color: var(--ink-2); text-decoration: none; font-size: 14.5px; font-weight: 600; }
+.su-top { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); height: 60px; margin: 0; padding: 0 max(28px, calc((100% - 1240px) / 2 + 28px)); display: flex; align-items: center; justify-content: space-between; }
+.su-nav { display: flex; gap: 24px; }
+.su-nav a { color: var(--ink-2); text-decoration: none; font-size: 15px; font-weight: 500; }
 .su-nav a:hover { color: var(--accent-deep); }
-.su-top .wordmark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 24px; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+.su-top .wordmark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 21px; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
 .su-top .wordmark .dot { color: var(--accent); }
 .su-split { max-width: 1240px; margin: 0 auto; padding: 12px 28px 56px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -876,36 +881,40 @@ body { margin: 0; background: var(--bg); color: var(--ink);
         <div class="auth-card-top-row">
           <p class="auth-card-logo"><span class="wordmark">CitMark<span class="dot">.</span></span></p>
         </div>
-        <div class="auth-card-oauth-row">
-        <button class="btn-capsule" type="button" id="authCardGoogleBtn" aria-disabled="true"><svg width="11.5" height="11.5" viewBox="0 0 48 48" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
-        <button class="btn-capsule" type="button" id="authCardShopifyBtn" aria-disabled="true"><svg width="11.5" height="11.5" viewBox="0 0 24 24" style="flex:none;display:block"><path fill="#95BF47" d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg><span class="btn-capsule-label">Continue with Shopify</span></button>
-        </div>
-        <div class="auth-card-divider"><span>or</span></div>
-        <div class="auth-card-reset-head">
+                <div class="auth-card-reset-head">
           <h3>Reset your password</h3>
           <p>Enter the email you signed up with. If an account exists for it, we'll email you a reset link.</p>
         </div>
         <form id="authCardLoginForm" novalidate>
+        <div class="auth-card-names">
+          <div class="capsule-field">
+            <label class="sr-only" for="authCardFullName">Full name</label>
+            <span class="capsule-chip" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.31 0-10 1.67-10 5v3h20v-3c0-3.33-6.69-5-10-5z"/></svg></span>
+            <input type="text" id="authCardFullName" name="full_name" autocomplete="name" placeholder="Full name" required>
+          </div>
+          <div class="capsule-field">
+            <label class="sr-only" for="authCardNickname">Nickname (optional)</label>
+            <span class="capsule-chip" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.31 0-10 1.67-10 5v3h20v-3c0-3.33-6.69-5-10-5z"/></svg></span>
+            <input type="text" id="authCardNickname" name="nickname" autocomplete="nickname" placeholder="Nickname (optional)">
+          </div>
+        </div>
           <div class="capsule-field">
             <label class="sr-only" for="authCardLoginEmail">Email</label>
-            <span class="capsule-chip"><span class="capsule-chip-glyph">@</span></span>
+            <span class="capsule-chip" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg></span>
             <input type="email" id="authCardLoginEmail" name="email" autocomplete="email" placeholder="e-mail address">
           </div>
           <div class="capsule-field pw-field">
             <label class="sr-only" for="authCardLoginPassword">Password</label>
-            <span class="capsule-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="4"/><path d="M11.2 11.2 20 20"/><path d="M16 16l2.6-2.6"/><path d="M13.5 18.5 16 16"/></svg></span>
+            <span class="capsule-chip" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="10.5" width="19" height="10" rx="2"/><path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3"/></svg></span>
             <input type="password" id="authCardLoginPassword" name="password" autocomplete="current-password" placeholder="password">
             <button class="capsule-eye" type="button" id="authCardEyeBtn" aria-label="Show password" aria-pressed="false"><svg class="eye-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
             
           </div>
           <div class="auth-card-forgot-row"><button type="button" id="authCardForgotBtn" class="auth-card-forgot-link">Forgot password?</button></div>
-        <div class="auth-card-terms">
-            <input type="checkbox" id="authCardTermsCheck">
-            <label for="authCardTermsCheck">I agree to the <a href="/terms/">Terms of Service</a> and <a href="#privacy" class="privacy-link">Privacy Policy</a>.</label>
-          </div>
+        <p class="auth-card-consent">By creating an account, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
           <div class="capsule-foot-row">
             
-            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="true" aria-label="Log in"><span class="capsule-submit-arrow"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false" aria-label="Log in"><span class="capsule-submit-arrow"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
           </div>
                   <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
@@ -922,13 +931,14 @@ body { margin: 0; background: var(--bg); color: var(--ink);
   var form = document.getElementById("authCardLoginForm");
   var emailInput = document.getElementById("authCardLoginEmail");
   var pwInput = document.getElementById("authCardLoginPassword");
+  var fnInput = document.getElementById("authCardFullName");
+  var nnInput = document.getElementById("authCardNickname");
   var submitBtn = document.getElementById("authCardLoginSubmit");
   var msg = document.getElementById("authCardMsg");
   var googleBtn = document.getElementById("authCardGoogleBtn");
   var shopifyBtn = document.getElementById("authCardShopifyBtn");
   var eyeBtn = document.getElementById("authCardEyeBtn");
   var forgotBtn = document.getElementById("authCardForgotBtn");
-  var termsCheck = document.getElementById("authCardTermsCheck");
   var toggle = document.getElementById("authCardModeToggle");
   var footText = document.getElementById("authCardFootText");
   var toast = document.getElementById("authCardDemoToast");
@@ -950,15 +960,9 @@ body { margin: 0; background: var(--bg); color: var(--ink);
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 3200);
   }
-  function termsAgreed() { return !termsCheck || termsCheck.checked; }
-  function syncTermsGate() {
-    var ok = termsAgreed();
-    [googleBtn, shopifyBtn, submitBtn].forEach(function (b) {
-      if (b) b.setAttribute("aria-disabled", ok ? "false" : "true");
-    });
-  }
   function setMode(next) {
     mode = next; resetMode = false;
+    card.classList.toggle("mode-register", next === "register");
     card.classList.remove("mode-reset");
     if (submitBtn) submitBtn.setAttribute("aria-label", mode === "register" ? "Create account" : "Log in");
     if (footText) footText.textContent = mode === "register" ? "Already have an account?" : "New to CitMark?";
@@ -966,7 +970,6 @@ body { margin: 0; background: var(--bg); color: var(--ink);
     if (pwInput) pwInput.setAttribute("autocomplete", mode === "register" ? "new-password" : "current-password");
     if (mode === "register") showMsg("At least 10 characters, with a letter and a number.", false);
     else showMsg("", false);
-    syncTermsGate();
   }
   function setResetMode(on) {
     resetMode = on;
@@ -987,9 +990,7 @@ body { margin: 0; background: var(--bg); color: var(--ink);
     pwInput.setAttribute("type", show ? "text" : "password");
     eyeBtn.setAttribute("aria-pressed", show ? "true" : "false");
   });
-  if (termsCheck) termsCheck.addEventListener("change", syncTermsGate);
   function gatedNav(url) {
-    if (!termsAgreed()) { showToast("Please agree to the Terms and Privacy Policy to continue."); return; }
     window.location.href = url;
   }
   if (googleBtn) googleBtn.addEventListener("click", function () { gatedNav("https://citmark.com/auth/google/login"); });
@@ -1013,7 +1014,13 @@ body { margin: 0; background: var(--bg); color: var(--ink);
         .then(function () { busy = false; });
       return;
     }
-    if (!termsAgreed()) { showToast("Please agree to the Terms and Privacy Policy to continue."); return; }
+    var fullName = "", nickname = "";
+    if (mode === "register") {
+      fullName = fnInput ? fnInput.value.trim() : "";
+      nickname = nnInput ? nnInput.value.trim() : "";
+      if (!fullName) { showMsg("Enter your full name.", true); return; }
+      if (!nickname) nickname = fullName;
+    }
     var password = pwInput ? pwInput.value : "";
     if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
     if (!password) { showMsg(mode === "register" ? "Choose a password \u2014 at least 10 characters, with a letter and a number." : "Enter your password.", true); return; }
@@ -1024,6 +1031,7 @@ body { margin: 0; background: var(--bg); color: var(--ink);
     var tier = window.__citmarkTier || null;
     var payload = { email: email, password: password };
     if (mode === "register" && tier) payload.tier = tier;
+    if (mode === "register") { payload.full_name = fullName; payload.nickname = nickname; }
     fetch(url, { method: "POST", credentials: "include",
       headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(function (resp) {
@@ -1041,7 +1049,7 @@ body { margin: 0; background: var(--bg); color: var(--ink);
         });
       })
       .catch(function () { showMsg("Something went wrong. Please try again.", true); })
-      .then(function () { busy = false; syncTermsGate(); });
+      .then(function () { busy = false; if (submitBtn) submitBtn.setAttribute("aria-disabled", "false"); });
   });
 
   // Intent priority (finalized): ?tier= whitelist wins and overwrites the stored intent;
