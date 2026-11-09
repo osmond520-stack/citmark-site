@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connect your Shopify store — CitMark</title>
+<style>
+:root{ color-scheme: light dark; --bg:#f4f4f1; --bg-raise:#ffffff; --ink:#141519; --ink-2:#3c4048; --muted:#62666e; --line:#dcdad2; --accent:#e8490f; --bad:#b3261e; --shadow:0 1px 2px rgba(20,21,25,.05),0 12px 32px -12px rgba(20,21,25,.18); }
+@media (prefers-color-scheme: dark){ :root{ --bg:#0e1011; --bg-raise:#171a1c; --ink:#f1efe8; --ink-2:#cfd2cd; --muted:#9aa09b; --line:#272c2e; --accent:#ff6a33; --bad:#f0766d; --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.6); } }
+*{ box-sizing:border-box; } body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif; }
+.su-top{ position:sticky; top:0; z-index:40; height:60px; display:flex; align-items:center; padding:0 max(28px,calc((100vw - 1120px)/2)); background:color-mix(in srgb,var(--bg) 88%,transparent); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+.wordmark{ font-size:21px; font-weight:800; letter-spacing:-.02em; } .wordmark i{ font-style:normal; color:var(--accent); }
+.stage{ max-width:400px; margin:0 auto; padding:40px 16px 64px; }
+.auth-card{ width:100%; padding:28px; border-radius:24px; background:color-mix(in srgb,var(--bg) 88%,transparent); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid var(--line); box-shadow:var(--shadow); }
+.brand-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.brand-row h3{ font-size:16px; font-weight:700; margin:0; }
+.lede{ font-size:13.5px; line-height:19px; color:var(--ink-2); margin:0 0 20px; }
+.capsule-field{ position:relative; width:100%; margin:0 auto; }
+.capsule-chip{ position:absolute; left:7px; top:50%; transform:translateY(-50%); width:35px; height:35px; border-radius:50%; background:rgba(20,21,25,.06); display:flex; align-items:center; justify-content:center; }
+.capsule-field input{ width:100%; min-height:43px; padding:11px 148px 11px 52px; border:1px solid rgba(20,21,25,.12); border-radius:999px; background:rgba(255,255,255,.30); color:var(--ink); font-size:16px; font-weight:500; font-family:inherit; }
+.capsule-field input::placeholder{ color:var(--muted); }
+.capsule-field input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.suffix{ position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:16px; font-weight:500; color:var(--muted); pointer-events:none; }
+.msg{ min-height:18px; font-size:13px; line-height:18px; color:var(--bad); margin:8px 2px 0; }
+.cta{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; min-height:43px; margin-top:14px; border:0; border-radius:999px; background:var(--accent); color:#fff; font-size:16px; font-weight:600; font-family:inherit; cursor:pointer; }
+.cta:active{ transform:scale(.98); }
+.foot{ text-align:center; margin-top:20px; font-size:14px; } .foot a{ color:var(--ink-2); text-decoration:none; } .foot a:hover{ text-decoration:underline; }
+@media (prefers-color-scheme: dark){ .capsule-chip{ background:rgba(255,255,255,.08); } .capsule-field input{ background:#26282E; border-color:rgba(255,255,255,.28); color:#F4F4F1; } }
+</style>
+<div class="su-top"><span class="wordmark">CitMark<i>.</i></span></div>
+<div class="stage">
+ <div class="auth-card" id="authCard">
+  <div class="brand-row"><!-- Shopify "The Shopping Bag" — official geometry, three paths.
+     Source: nodes/ShopifyGraphql/shopify.svg (documented official Shopify logo asset),
+     repo markustripp/n8n-nodes-shopify-graphql @14aed406, file SHA 48dfc778b556398a6daff332a9dcbd295b177260.
+     Path data byte-identical to source; wrapper normalized (symbol/use removed),
+     S fill made explicit #FFFFFF (source inherits root fill #fff). Retrieved 2026-11-08. -->
+<svg height="20" style="display:block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 66"><g fill-rule="nonzero" stroke="none"><path fill="#95BF47" d="M49.255 12.484a.63.63 0 0 0-.564-.527c-.225-.037-5.17-.376-5.17-.376l-3.77-3.77c-.34-.376-1.092-.266-1.376-.188-.037 0-.752.225-1.922.605-1.137-3.3-3.15-6.306-6.696-6.306h-.303C28.438.605 27.194 0 26.144 0c-8.256.037-12.2 10.333-13.434 15.594l-5.77 1.77c-1.77.564-1.835.605-2.073 2.293L0 57.175 36.468 64l19.763-4.26c0-.037-6.94-46.897-6.976-47.255zM34.431 8.86c-.917.303-1.963.605-3.1.945v-.68a15 15 0 0 0-.752-4.999c1.848.284 3.1 2.357 3.843 4.733zm-6.068-4.298c.603 1.778.883 3.65.826 5.527v.34l-6.375 1.963c1.248-4.66 3.55-6.962 5.55-7.83zm-2.45-2.293a1.94 1.94 0 0 1 1.055.339c-2.66 1.238-5.472 4.366-6.678 10.627l-5.045 1.546C16.668 10.03 19.988 2.26 25.91 2.26z"/><path fill="#5E8E3E" d="M48.691 11.957c-.225-.037-5.17-.376-5.17-.376l-3.77-3.77a.75.75 0 0 0-.527-.225L36.472 64l19.763-4.26-6.98-47.218a.68.68 0 0 0-.564-.564z"/><path fill="#FFFFFF" d="m29.758 22.9-2.454 7.242a11.4 11.4 0 0 0-4.752-1.133c-3.848 0-4.036 2.412-4.036 3.018 0 3.298 8.636 4.564 8.636 12.333 0 6.1-3.885 10.03-9.1 10.03-6.26 0-9.467-3.885-9.467-3.885l1.665-5.55s3.28 2.83 6.073 2.83a2.47 2.47 0 0 0 2.564-2.49c0-4.34-7.1-4.527-7.1-11.618 0-5.962 4.298-11.77 12.934-11.77 3.394.05 5.018 1 5.018 1z"/></g></svg>
+<h3>Connect your Shopify store</h3></div>
+  <p class="lede">Enter your store's Shopify domain. You'll be redirected to Shopify to approve the connection.</p>
+  <form onsubmit="return false">
+   <div class="capsule-field">
+    <label class="sr-only" for="storeDomain" style="position:absolute;left:-9999px">Shopify store domain</label>
+    <span class="capsule-chip"><!-- Shopify "The Shopping Bag" — official geometry, three paths.
+     Source: nodes/ShopifyGraphql/shopify.svg (documented official Shopify logo asset),
+     repo markustripp/n8n-nodes-shopify-graphql @14aed406, file SHA 48dfc778b556398a6daff332a9dcbd295b177260.
+     Path data byte-identical to source; wrapper normalized (symbol/use removed),
+     S fill made explicit #FFFFFF (source inherits root fill #fff). Retrieved 2026-11-08. -->
+<svg height="20" style="display:block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 66"><g fill-rule="nonzero" stroke="none"><path fill="#95BF47" d="M49.255 12.484a.63.63 0 0 0-.564-.527c-.225-.037-5.17-.376-5.17-.376l-3.77-3.77c-.34-.376-1.092-.266-1.376-.188-.037 0-.752.225-1.922.605-1.137-3.3-3.15-6.306-6.696-6.306h-.303C28.438.605 27.194 0 26.144 0c-8.256.037-12.2 10.333-13.434 15.594l-5.77 1.77c-1.77.564-1.835.605-2.073 2.293L0 57.175 36.468 64l19.763-4.26c0-.037-6.94-46.897-6.976-47.255zM34.431 8.86c-.917.303-1.963.605-3.1.945v-.68a15 15 0 0 0-.752-4.999c1.848.284 3.1 2.357 3.843 4.733zm-6.068-4.298c.603 1.778.883 3.65.826 5.527v.34l-6.375 1.963c1.248-4.66 3.55-6.962 5.55-7.83zm-2.45-2.293a1.94 1.94 0 0 1 1.055.339c-2.66 1.238-5.472 4.366-6.678 10.627l-5.045 1.546C16.668 10.03 19.988 2.26 25.91 2.26z"/><path fill="#5E8E3E" d="M48.691 11.957c-.225-.037-5.17-.376-5.17-.376l-3.77-3.77a.75.75 0 0 0-.527-.225L36.472 64l19.763-4.26-6.98-47.218a.68.68 0 0 0-.564-.564z"/><path fill="#FFFFFF" d="m29.758 22.9-2.454 7.242a11.4 11.4 0 0 0-4.752-1.133c-3.848 0-4.036 2.412-4.036 3.018 0 3.298 8.636 4.564 8.636 12.333 0 6.1-3.885 10.03-9.1 10.03-6.26 0-9.467-3.885-9.467-3.885l1.665-5.55s3.28 2.83 6.073 2.83a2.47 2.47 0 0 0 2.564-2.49c0-4.34-7.1-4.527-7.1-11.618 0-5.962 4.298-11.77 12.934-11.77 3.394.05 5.018 1 5.018 1z"/></g></svg>
+</span>
+    <input id="storeDomain" type="text" inputmode="url" autocomplete="off" placeholder="your-store" spellcheck="false">
+    <span class="suffix">.myshopify.com</span>
+   </div>
+   <p class="msg" role="alert"></p>
+   <button class="cta" type="submit">Connect store <svg width="7" height="11" viewBox="0 0 10 16" fill="none" aria-hidden="true"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </form>
+ </div>
+ <div class="foot"><a href="#">← Back</a></div>
+</div>
