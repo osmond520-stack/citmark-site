@@ -873,13 +873,6 @@ h1 .h1-tail { white-space: nowrap; }
 .jstep { border: 1px solid rgba(244,244,241,.25); border-radius: 12px; padding: 16px 18px; }
 .jstep b { display: block; font-size: 15.5px; margin-bottom: 6px; color: var(--bg); }
 .jstep span { font-size: 14px; line-height: 1.5; color: rgba(244,244,241,.75); }
-
-@media (max-width: 720px) {
-  .topbar-in button.topbar-auth { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .topbar-in button.topbar-auth:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
-  .topbar-in button.nav-toggle { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .topbar-in button.nav-toggle:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
-}
 </style>
   <style id="a1-formal">
 /* A1 formal sample (2026-10-28): real-run mini card + sample run table. Additions only; base styles untouched. */
@@ -1009,6 +1002,26 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
 <style id="badge-follow-featured">/* Badge follows the selected state (his ruling 2026-10-31): a badge renders only on the featured card; selection migration moves frame + solid CTA + badge together. Starter has no badge copy, so a selected Starter shows none. */
 #pricing .pop-badge{display:none}
 #pricing .plan.featured .pop-badge{display:block}
+</style>
+<style id="textedge-freeze">
+#authCard .capsule-field input{ padding-left:52px !important; }
+#authCard .field-err{ padding-left:52px; }
+</style>
+<style id="submit-freeze">
+#authCard .capsule-submit{ width:100% !important; height:43px; min-height:43px; display:flex; align-items:center; justify-content:center; gap:8px; opacity:1 !important; font-size:16px; font-weight:600; letter-spacing:0; border-radius:999px; }
+#authCard .capsule-submit .capsule-submit-arrow svg{ width:7px; height:11px; }
+#authCard .capsule-submit[aria-disabled="true"]{ background:#F1EBDB !important; color:rgba(20,21,25,.62) !important; }
+</style>
+<style id="viol-freeze">
+#authCard .field-err{ display:none; margin:8px 0 16px; font-size:13px; line-height:18px; color:var(--accent-deep); text-align:left; }
+#authCard .field-err.show{ display:block; }
+#authCard .capsule-field.has-err{ margin-bottom:0 !important; }
+#authCard.mode-register .capsule-field.pw-field{ margin-bottom:16px; }
+#authCard.mode-register .capsule-field.pw-field.has-err{ margin-bottom:0; }
+#authCard:not(.mode-register) .capsule-field.cf-field, #authCard:not(.mode-register) .capsule-field.cf-field + .field-err{ display:none !important; }
+</style>
+<style id="scrollbar-gutter">
+html { scrollbar-gutter: stable; }
 </style>
 </head>
   <body>
@@ -2252,8 +2265,8 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <p class="auth-card-logo"><span class="wordmark">CitMark<span class="dot">.</span></span></p>
         </div>
         <div class="auth-card-oauth-row">
-        <button class="btn-capsule" type="button" id="authCardGoogleBtn" aria-disabled="false"><svg width="11.5" height="11.5" viewBox="0 0 48 48" aria-hidden="true" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
-        <button class="btn-capsule" type="button" id="authCardShopifyBtn" aria-disabled="false"><svg width="11.5" height="11.5" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path fill="#95BF47" d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg><span class="btn-capsule-label">Continue with Shopify</span></button>
+        <button class="btn-capsule" type="button" id="authCardGoogleBtn" aria-disabled="false"><svg width="20" height="20" viewBox="0 0 48 48" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
+        <button class="btn-capsule" type="button" id="authCardShopifyBtn" aria-disabled="false"><svg width="17.6" height="20" viewBox="0 0 58 66" aria-hidden="true" style="flex:none;display:block"><path fill="#95BF47" d="M49.255 12.484a.63.63 0 0 0-.564-.527c-.225-.037-5.17-.376-5.17-.376l-3.77-3.77c-.34-.376-1.092-.266-1.376-.188-.037 0-.752.225-1.922.605-1.137-3.3-3.15-6.306-6.696-6.306h-.303C28.438.605 27.194 0 26.144 0c-8.256.037-12.2 10.333-13.434 15.594l-5.77 1.77c-1.77.564-1.835.605-2.073 2.293L0 57.175 36.468 64l19.763-4.26c0-.037-6.94-46.897-6.976-47.255zM34.431 8.86c-.917.303-1.963.605-3.1.945v-.68a15 15 0 0 0-.752-4.999c1.848.284 3.1 2.357 3.843 4.733zm-6.068-4.298c.603 1.778.883 3.65.826 5.527v.34l-6.375 1.963c1.248-4.66 3.55-6.962 5.55-7.83zm-2.45-2.293a1.94 1.94 0 0 1 1.055.339c-2.66 1.238-5.472 4.366-6.678 10.627l-5.045 1.546C16.668 10.03 19.988 2.26 25.91 2.26z"/><path fill="#5E8E3E" d="M48.691 11.957c-.225-.037-5.17-.376-5.17-.376l-3.77-3.77a.75.75 0 0 0-.527-.225L36.472 64l19.763-4.26-6.98-47.218a.68.68 0 0 0-.564-.564z"/><path fill="#FFFFFF" d="m29.758 22.9-2.454 7.242a11.4 11.4 0 0 0-4.752-1.133c-3.848 0-4.036 2.412-4.036 3.018 0 3.298 8.636 4.564 8.636 12.333 0 6.1-3.885 10.03-9.1 10.03-6.26 0-9.467-3.885-9.467-3.885l1.665-5.55s3.28 2.83 6.073 2.83a2.47 2.47 0 0 0 2.564-2.49c0-4.34-7.1-4.527-7.1-11.618 0-5.962 4.298-11.77 12.934-11.77 3.394.05 5.018 1 5.018 1z"/></svg><span class="btn-capsule-label">Continue with Shopify</span></button>
         </div>
         <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
         <div class="auth-card-reset-head" aria-hidden="true">
@@ -2276,20 +2289,29 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <div class="capsule-field">
             <label class="sr-only" for="authCardLoginEmail">Email</label>
             <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3.5 6.8 12 12.8 20.5 6.8"/></svg></span>
-            <input type="email" id="authCardLoginEmail" name="email" autocomplete="email" placeholder="e-mail address">
+            <input type="email" id="authCardLoginEmail" name="email" autocomplete="email" placeholder="E-mail address">
           </div>
+          <p class="field-err" id="authCardEmailErr">Enter a valid email address.</p>
           <div class="capsule-field pw-field">
             <label class="sr-only" for="authCardLoginPassword">Password</label>
-            <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="10.5" width="19" height="10" rx="2"/><path d="M7.5 10.5V7.8a4.5 4.5 0 0 1 9 0v2.7"/></svg></span>
-            <input type="password" id="authCardLoginPassword" name="password" autocomplete="current-password" placeholder="password">
+            <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4"/><path d="M11.2 11.2 20 20"/><path d="M16 16l2.6-2.6"/><path d="M13.5 18.5 16 16"/></svg></span>
+            <input type="password" id="authCardLoginPassword" name="password" autocomplete="current-password" placeholder="Password">
             <button class="capsule-eye" type="button" id="authCardEyeBtn" aria-label="Show password" aria-pressed="false"><svg class="eye-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
             
           </div>
+          <div class="capsule-field pw-field cf-field">
+            <label class="sr-only" for="authCardConfirmPassword">Confirm password</label>
+            <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4"/><path d="M11.2 11.2 20 20"/><path d="M16 16l2.6-2.6"/><path d="M13.5 18.5 16 16"/></svg></span>
+            <input type="password" id="authCardConfirmPassword" name="confirm_password" autocomplete="new-password" placeholder="Confirm password">
+            <button class="capsule-eye" type="button" aria-label="Show password" aria-pressed="false"><svg class="eye-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+            
+          </div>
+          <p class="field-err" id="authCardConfirmErr">Passwords don't match.</p>
           <div class="auth-card-forgot-row"><button type="button" id="authCardForgotBtn" class="auth-card-forgot-link">Forgot password?</button></div>
         <p class="auth-card-consent">By creating an account, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
           <div class="capsule-foot-row">
             
-            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false" aria-label="Log in"><span class="capsule-submit-arrow" aria-hidden="true"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" aria-hidden="true" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false" aria-label="Log in"><span class="sb-txt">Log in</span><span class="capsule-submit-arrow" aria-hidden="true"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" aria-hidden="true" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
           </div>
                   <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
@@ -2416,6 +2438,32 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
         var footText = document.getElementById("authCardFootText");
         var modeToggle = document.getElementById("authCardModeToggle");
         var submitBtn = document.getElementById("authCardLoginSubmit");
+        var submitTxt = submitBtn ? submitBtn.querySelector(".sb-txt") : null;
+        var emErr = document.getElementById("authCardEmailErr");
+        var emField = emailInput ? emailInput.closest(".capsule-field") : null;
+        function emailOK(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || "").trim()); }
+        function showEmail(on) { if (emErr) emErr.classList.toggle("show", !!on); if (emField) emField.classList.toggle("has-err", !!on); }
+        if (emailInput) {
+          emailInput.addEventListener("blur", function () { if (emailInput.value && !emailOK(emailInput.value)) showEmail(true); });
+          emailInput.addEventListener("input", function () { if (emErr && emErr.classList.contains("show")) showEmail(!!emailInput.value && !emailOK(emailInput.value)); });
+        }
+        var cfInp = document.getElementById("authCardConfirmPassword");
+        var cfErr = document.getElementById("authCardConfirmErr");
+        var cfField = cfInp ? cfInp.closest(".capsule-field") : null;
+        function cfBad() { return !cfInp || cfInp.value !== (pwInput ? pwInput.value : ""); }
+        function showCf(on) { if (cfErr) cfErr.classList.toggle("show", !!on); if (cfField) cfField.classList.toggle("has-err", !!on); }
+        if (cfInp) {
+          cfInp.addEventListener("blur", function () { if (cfInp.value && cfBad()) showCf(true); });
+          cfInp.addEventListener("input", function () { if (cfErr && cfErr.classList.contains("show")) showCf(cfBad() && !!cfInp.value); });
+          if (pwInput) pwInput.addEventListener("input", function () { if (cfErr && cfErr.classList.contains("show")) showCf(cfBad() && !!cfInp.value); });
+          var cfEye = cfField ? cfField.querySelector(".capsule-eye") : null;
+          if (cfEye) cfEye.addEventListener("click", function () {
+            var show = cfInp.type === "password";
+            cfInp.type = show ? "text" : "password";
+            cfEye.setAttribute("aria-pressed", show ? "true" : "false");
+            cfEye.setAttribute("aria-label", show ? "Hide password" : "Show password");
+          });
+        }
         var emailInput = document.getElementById("authCardLoginEmail");
         function showMsg(text, isError) {
           if (!msgEl) return;
@@ -2431,18 +2479,20 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           if (mode === "register") {
             showMsg("At least 10 characters, with a letter and a number.", false);
             if (submitBtn) submitBtn.setAttribute("aria-label", "Create account");
+            if (submitTxt) submitTxt.textContent = "Create account";
             if (footText) footText.textContent = "Already have an account?";
             if (modeToggle) modeToggle.textContent = "Log in";
           } else if (mode === "reset") {
             resetSent = false;
             showMsg("", false);
-            if (submitBtn) { submitBtn.setAttribute("aria-label", "Send reset link"); submitBtn.setAttribute("aria-disabled", "false"); }
+            if (submitBtn) { submitBtn.setAttribute("aria-label", "Send reset link"); submitBtn.setAttribute("aria-disabled", "false"); if (submitTxt) submitTxt.textContent = "Reset password"; }
             if (footText) footText.textContent = "Remembered it?";
             if (modeToggle) modeToggle.textContent = "Log in";
             if (emailInput) emailInput.focus();
           } else {
             showMsg("", false);
             if (submitBtn) submitBtn.setAttribute("aria-label", "Log in");
+            if (submitTxt) submitTxt.textContent = "Log in";
             if (footText) footText.textContent = "New to CitMark?";
             if (modeToggle) modeToggle.textContent = "Sign up";
           }
@@ -2455,6 +2505,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           ev.preventDefault();
           if (authBusy) return;
           var email = (emailInput.value || "").trim();
+          if (!emailOK(email)) { showEmail(true); return; } else { showEmail(false); }
           if (authMode === "reset") {
             if (resetSent) return;
             if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
@@ -2482,6 +2533,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             fullName = fnInput ? fnInput.value.trim() : "";
             nickname = nnInput ? nnInput.value.trim() : "";
             if (!fullName) { showMsg("Enter your full name.", true); return; }
+            if (!cfInp || !cfInp.value || cfBad()) { showCf(true); return; }
             if (!nickname) nickname = fullName;
           }
           var password = pwInput ? pwInput.value : "";
