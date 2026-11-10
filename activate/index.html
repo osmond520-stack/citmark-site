@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Verify your email — CitMark</title>
+<meta name="robots" content="noindex" />
+<meta name="description" content="Finish signing up for CitMark by verifying your email address." />
+<style>
+:root{--ink:#141519;--muted:#62666e;--line:#e5e7eb;--bg:#ffffff;--raise:#f9fafb;--accent:#ff5a1f;--accent-deep:#e04a10}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-deep)}nav{border-bottom:1px solid var(--line)}nav .in{max-width:780px;margin:0 auto;padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.wordmark{font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.wordmark .dot{color:var(--accent)}nav a.n{color:var(--muted);text-decoration:none;font-size:14px}nav a.n:hover{color:var(--ink)}
+main{max-width:780px;margin:0 auto;padding:32px 20px 48px}h1{font-size:32px;line-height:1.2;letter-spacing:-.015em;margin:0 0 8px}p{margin:0 0 14px}.lede{color:var(--muted);font-size:18px}
+footer{border-top:1px solid var(--line)}footer .in{max-width:780px;margin:0 auto;padding:28px 20px 48px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}
+.field{margin:0 0 14px}.field label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+.field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:16px;font-family:inherit;background:#fff;color:var(--ink)}
+.field input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.msg{font-size:14.5px;color:var(--accent-deep);margin:0 0 14px}
+button.go{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit}
+button.go[disabled]{opacity:.55;cursor:default}
+a.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:600;text-decoration:none}
+</style></head>
+<body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
+<a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
+<a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav><main>
+<div id="activateWorking">
+<h1>Verify your email</h1>
+<p class="lede">Verifying your email address…</p>
+</div>
+<div id="activateDone" hidden>
+<h1>Email verified</h1>
+<p>Your email address <strong id="activateEmail"></strong> is verified. You can now sign in.</p>
+<p><a class="btn" href="/">Sign in</a></p>
+</div>
+<div id="activateInvalid" hidden>
+<h1>This verification link doesn't work</h1>
+<p>It may have expired, already been used, or been replaced by a newer link. Enter your email and we will send a new verification link.</p>
+<form id="activateResendForm" novalidate>
+<div class="field"><label for="activateResendEmail">Email</label><input type="email" id="activateResendEmail" autocomplete="email" /></div>
+<p class="msg" id="activateResendMsg" role="alert" hidden></p>
+<button class="go" type="submit" id="activateResendBtn">Resend verification email</button>
+</form>
+</div>
+<div id="activateError" hidden>
+<h1>Verify your email</h1>
+<p class="msg">Something went wrong. Please try again.</p>
+<p><a class="btn" href="" id="activateRetry">Try again</a></p>
+</div>
+</main><footer><div class="in"><p><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></p>
+<p><a href="/pricing/">Pricing</a> · <a href="/methodology/">Methodology</a> · <a href="/about/">About</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a></p>
+<p>Questions: support@citmark.com · Security issues: security@citmark.com</p></div></footer>
+<script>
+(function () {
+  var ACTIVATE_URL = "https://citmark.com/auth/activate";
+  var RESEND_URL = "https://citmark.com/auth/activation/resend";
+  var token = new URLSearchParams(window.location.search).get("token");
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, "", window.location.pathname);
+  }
+  var working = document.getElementById("activateWorking");
+  var done = document.getElementById("activateDone");
+  var invalid = document.getElementById("activateInvalid");
+  var errorBox = document.getElementById("activateError");
+  var emailOut = document.getElementById("activateEmail");
+  document.getElementById("activateRetry").setAttribute("href", window.location.pathname + (token ? "?token=" + encodeURIComponent(token) : ""));
+  function show(box) {
+    working.hidden = box !== working;
+    done.hidden = box !== done;
+    invalid.hidden = box !== invalid;
+    errorBox.hidden = box !== errorBox;
+  }
+  function consume() {
+    if (!token) { show(invalid); return; }
+    fetch(ACTIVATE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: token }) })
+      .then(function (resp) {
+        if (resp.ok) {
+          resp.json().then(function (body) {
+            if (body && body.email) emailOut.textContent = body.email;
+            show(done);
+          }).catch(function () { show(done); });
+          return;
+        }
+        if (resp.status === 400) { show(invalid); return; }
+        show(errorBox);
+      })
+      .catch(function () { show(errorBox); });
+  }
+  var resendForm = document.getElementById("activateResendForm");
+  var resendEmail = document.getElementById("activateResendEmail");
+  var resendMsg = document.getElementById("activateResendMsg");
+  var resendBtn = document.getElementById("activateResendBtn");
+  resendForm.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var email = (resendEmail.value || "").trim();
+    if (!email || resendBtn.disabled) return;
+    resendBtn.disabled = true;
+    fetch(RESEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email }) })
+      .then(function (resp) {
+        resendBtn.disabled = false;
+        resendMsg.hidden = false;
+        if (resp.ok) {
+          resendMsg.textContent = "Verification email sent. The previous link no longer works.";
+        } else {
+          resendMsg.textContent = "Something went wrong. Please try again.";
+        }
+      })
+      .catch(function () {
+        resendBtn.disabled = false;
+        resendMsg.hidden = false;
+        resendMsg.textContent = "Something went wrong. Please try again.";
+      });
+  });
+  consume();
+})();
+</script>
+</body>
+</html>
