@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数据看台 · 形态设计草稿 v1</title>
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel-2:#1d212b; --line:#262b36; --line-soft:#20242e;
+  --ink:#e8eaf0; --ink-2:#c8cfdd; --mut:#9aa3b2; --dim:#6d7688;
+  --acc:#ff6a33; --good:#3fb27f; --warn:#d9a441; --bad:#e05d4d;
+  --r:12px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 24px 34px}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+h1{font-size:22px;margin:0;letter-spacing:-.01em}
+h1 .thin{color:var(--mut);font-weight:500;font-size:15px;margin-left:8px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;color:#141519;background:var(--warn);border-radius:99px;padding:3px 10px;vertical-align:2px;margin-left:10px}
+.meta{color:var(--mut);font-size:12.5px;line-height:1.7;max-width:1120px}
+.meta b{color:var(--ink-2)}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 18px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px}
+.stat .k{color:var(--mut);font-size:12px;margin-bottom:5px}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.stat .v small{font-size:12px;color:var(--mut);font-weight:600}
+.stat.bad{border-color:#7a3b2e}.stat.bad .v{color:var(--bad)}
+.stat.warn .v{color:var(--warn)}
+h2.sec{font-size:15px;margin:22px 0 4px}
+p.secdesc{color:var(--mut);font-size:12.5px;margin:0 0 12px;line-height:1.7}
+.grid8{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cell{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;min-height:172px;display:flex;flex-direction:column}
+.cell .chead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.cell h3{margin:0;font-size:13.5px;color:var(--ink-2);font-weight:700}
+.pill{font-size:11px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap}
+.pill.live{background:rgba(63,178,127,.15);color:var(--good)}
+.pill.empty{background:rgba(154,163,178,.14);color:var(--mut)}
+.pill.resv{background:transparent;border:1px dashed var(--dim);color:var(--dim)}
+.pill.red{background:rgba(224,93,77,.16);color:var(--bad)}
+.cell .big{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.cell .big small{font-size:13px;color:var(--mut);font-weight:600}
+.cell .rows{font-size:12.5px;color:var(--ink-2);line-height:1.75;margin-top:6px}
+.cell .rows b{color:var(--ink)}
+.cell .thr{margin-top:auto;padding-top:10px;font-size:11.5px;color:var(--dim);border-top:1px solid var(--line-soft);line-height:1.6}
+.cell.alert{border-color:#7a3b2e;background:linear-gradient(180deg,rgba(224,93,77,.07),transparent 55%),var(--panel)}
+.cell.reserved{border-style:dashed}
+.cell .placeholder{color:var(--dim);font-size:12.5px;line-height:1.75}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.frame{border:1.5px dashed #333a49;border-radius:var(--r);padding:14px 16px;min-height:150px;background:rgba(255,255,255,.012)}
+.frame h3{margin:0 0 6px;font-size:13.5px;color:var(--ink-2)}
+.frame .tag{font-size:11px;color:var(--warn);font-weight:700}
+.frame .skl{margin-top:12px;display:grid;gap:7px}
+.frame .skl i{display:block;height:9px;border-radius:5px;background:#232833}
+.frame .skl i.w60{width:60%}.frame .skl i.w80{width:80%}.frame .skl i.w40{width:40%}
+.frame p{color:var(--dim);font-size:12px;line-height:1.7;margin:10px 0 0}
+.foot{margin-top:22px;color:var(--dim);font-size:12px;line-height:1.8;border-top:1px solid var(--line-soft);padding-top:14px}
+@media (max-width:900px){.grid8,.grid4{grid-template-columns:repeat(2,1fr)}.strip{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.grid8,.grid4,.strip{grid-template-columns:1fr}.wrap{padding:16px 14px 26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>数据看台<span class="thin">测量面 · 形态设计草稿</span><span class="badge">设计稿 v1</span></h1>
+      <p class="meta">结构与格目从功能现行版《数据看台 v1》（数据组维护）；本稿只定形态层，后续合流「结构从功能、视觉从设计」。现行测量形态：<b>混合案</b>（核心 14 双遍＋轮换 42 品牌 4 日一轮）——全量未起，唯一门＝引用管道修复＋冒烟过。数值即 v1 现行读数（内批 X、机制证据非需求证据），更新 2026-11-10 15:28 CST。</p>
+    </div>
+  </header>
+
+  <div class="strip">
+    <div class="stat"><div class="k">§4.2 门线进度（合计带源）</div><div class="v mono">0 <small>/ 750</small></div></div>
+    <div class="stat bad"><div class="k">探针状态（格 8）</div><div class="v">红格</div></div>
+    <div class="stat warn"><div class="k">带源率 ŝ</div><div class="v">未换锚</div></div>
+    <div class="stat"><div class="k">余额 / 触发器（格 6·7）</div><div class="v">预留落点</div></div>
+  </div>
+
+  <h2 class="sec">八格 · 测量面（格目从 v1）</h2>
+  <p class="secdesc">每格同构：格名＋状态丸＋主读数＋红阈注脚。状态四态——实数（绿）／空态（灰）／预留（虚线）／红格（红）。</p>
+  <div class="grid8">
+    <section class="cell"><div class="chead"><h3>格 3 · §4.2 四值（对门线）</h3><span class="pill live">实数</span></div>
+      <div class="big mono">0<small> / 750 合计带源</small></div>
+      <div class="rows">单引擎带源 chatgpt <b>0</b> · perplexity <b>0</b> · gemini <b>0</b>（门线各 ≥200）<br>独立域名 <b>0</b> / 225 · ≥100 子门进度 0 / 100</div>
+      <div class="thr">红阈：累计 &lt; 计划曲线同期 80%；第 3 日后任一引擎 &lt; 最高引擎 50%</div></section>
+
+    <section class="cell"><div class="chead"><h3>格 1 · 逐格 n（品类×引擎）</h3><span class="pill empty">空态</span></div>
+      <div class="rows">暂无计数轮次落盘——全量首轮候引用管道修复＋冒烟过门后起跑（混合案）。逐格带源 n 与距 30 线差随轮次自动填入。</div>
+      <div class="thr">红阈：达标日仍 &lt;30；排程内任一腿落 0 答（缺轮）</div></section>
+
+    <section class="cell"><div class="chead"><h3>格 2 · 引用完整率</h3><span class="pill empty">空态</span></div>
+      <div class="big mono">—<small> 合计解析完整率</small></div>
+      <div class="rows">带源答案为 0、无可解析样本；逐格完整率随轮次填入。</div>
+      <div class="thr">红阈：合计 &lt;90%（门线）；单轮较前三轮均值跌 &gt;5 点</div></section>
+
+    <section class="cell"><div class="chead"><h3>格 4 · 带源率 ŝ 与换锚状态</h3><span class="pill live">实数</span></div>
+      <div class="big">未换锚<small> · 样本未起</small></div>
+      <div class="rows">计数答数 0、带源 0；规划界仍为双情景 s＝50% / 30%。探针参考（不作率估）：9 答带源 0。满 300 答后按换锚公式定格。</div>
+      <div class="thr">红阈：n≥300 后 ŝ &lt;0.30；相邻 300 答块跌 &gt;10 点</div></section>
+
+    <section class="cell"><div class="chead"><h3>格 5 · 漂移（脊柱轮）</h3><span class="pill empty">空态</span></div>
+      <div class="rows">脊柱轮未起（随全量起跑第 1 / 8 / 15 日落轮）：提及翻转率与提及对一致率暂无读数，首读于第 15 日轮落盘后。</div>
+      <div class="thr">红阈：翻转率 &gt;2× 噪声底；脊柱轮缺轮或补跑失败</div></section>
+
+    <section class="cell alert"><div class="chead"><h3>格 8 · 探针状态</h3><span class="pill red">红格</span></div>
+      <div class="rows">探针 run <b class="mono">f6bcda89</b>（11-10）曾判阴性（落行 0）；<b>验通轮 <span class="mono">81375105</span> 已过</b>：chatgpt 落行 10、gemini 落行 15（三答全 cited）、perplexity 对照 none——生产总账 0→25，引用真落存成立（证据轮、不计数）。</div>
+      <div class="thr">冒烟门：候 TD 令 GO（batch-60 后），判词以 cited 真落行为准。红阈：任一探针/冒烟落行 0</div></section>
+
+    <section class="cell reserved"><div class="chead"><h3>格 6 · 引擎余额</h3><span class="pill resv">预留</span></div>
+      <div class="placeholder">预留落点：分引擎余额＋日耗＋可跑天数（分账号标注、主账号优先）。候只读通道自动化后上线。</div>
+      <div class="thr">红阈：可跑 &lt;7 天；&lt;14 天黄格；读数失败逾 2 日亮红</div></section>
+
+    <section class="cell reserved"><div class="chead"><h3>格 7 · 触发器状态</h3><span class="pill resv">预留</span></div>
+      <div class="placeholder">预留落点：#003 分档样本计数／节律池日 N／M1 内批 X·有机 Y。候只读通道自动化后上线。</div>
+      <div class="thr">红阈：任一触发条件成立即判读动作日；数逾 2 日未更亮红</div></section>
+  </div>
+
+  <h2 class="sec">扩围框架（四项 · 未定格活口）</h2>
+  <p class="secdesc">扩围方案未定格：以下仅画框架与占位形态，格目、口径、数源全部留活口，定格后再逐格实画。</p>
+  <div class="grid4">
+    <section class="frame"><h3>当下跑量</h3><span class="tag">框架占位 · 格目未定格</span>
+      <div class="skl"><i class="w80"></i><i class="w60"></i><i class="w40"></i></div>
+      <p>跑量口径（轮次/日量/队列）候扩围方案定格。</p></section>
+    <section class="frame"><h3>在跑动态</h3><span class="tag">框架占位 · 格目未定格</span>
+      <div class="skl"><i class="w60"></i><i class="w80"></i><i class="w40"></i></div>
+      <p>在跑批次与事件流形态候定格。</p></section>
+    <section class="frame"><h3>销售动态</h3><span class="tag">框架占位 · 格目未定格</span>
+      <div class="skl"><i class="w80"></i><i class="w40"></i><i class="w60"></i></div>
+      <p>订阅/名额/实收动态口径候定格。</p></section>
+    <section class="frame"><h3>客户全球分布</h3><span class="tag">框架占位 · 格目未定格</span>
+      <div class="skl"><i class="w40"></i><i class="w80"></i><i class="w60"></i></div>
+      <p>分布呈现（地图/列表）形态候定格。</p></section>
+  </div>
+
+  <p class="foot">形态草稿说明：八格格目、读数与状态字面从功能现行版《数据看台 v1》（数据组维护、指纹以数据组在册为准）；红阈注脚从数据组《扩供格目》件。本稿为设计形态层、与 v1 功能页并行，合流时结构从功能、视觉从本稿。扩围四项为框架占位，不构成格目承诺。</p>
+</div>
+</body>
+</html>
