@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>运营台原型 v8 — CitMark Ops Console（演示数据）</title>
+<style>
+:root{
+  --bg:#f4f4f1; --bg-raise:#ffffff; --bg-sink:#ececea; --line:#dcdad2;
+  --ink:#20212a; --muted:#6d6d66; --good:#177245; --good-soft:#e4f2e9;
+  --warn:#9a6a00; --warn-soft:#faf0d7; --bad:#b3352b; --bad-soft:#fbeae8;
+  --accent:#e8490f; --accent-soft:#fdeee7;
+  --shadow:0 1px 2px rgba(20,21,25,.05), 0 12px 32px -12px rgba(20,21,25,.18);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif}
+.layout{display:flex;min-height:100vh}
+aside{width:218px;flex:none;background:var(--bg-raise);border-right:1px solid var(--line);padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+aside .brand{font-weight:800;font-size:17px;margin:0 4px 2px}
+aside .brand .dot{color:var(--accent)}
+aside .proto-tag{display:inline-block;margin:0 4px 14px;padding:1px 8px;border-radius:999px;background:var(--warn-soft);color:var(--warn);font-size:12px}
+aside nav{display:flex;flex-direction:column;gap:2px}
+aside nav .grp{font-size:12px;color:var(--muted);margin:12px 4px 4px}
+aside nav button{font:inherit;font-size:14px;text-align:left;padding:7px 10px;border:0;border-radius:8px;background:transparent;cursor:pointer;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+aside nav button:hover{background:var(--bg-sink)}
+aside nav button[aria-current="page"]{background:var(--ink);color:#fff}
+aside nav .cnt{font-size:12px;background:var(--bg-sink);border-radius:999px;padding:0 7px;color:var(--ink)}
+aside nav button[aria-current="page"] .cnt{background:#3a3b46;color:#fff}
+main{flex:1;min-width:0}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 48px}
+.sample-note{background:var(--warn-soft);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--warn);margin-bottom:14px}
+header.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:6px}
+header.top h1{font-size:20px;font-weight:800;margin:0}
+header.top .sub{color:var(--muted);font-size:13px}
+.rolebar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-left:auto;font-size:13px;color:var(--muted)}
+.rolebar button{font:inherit;font-size:13px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg-raise);cursor:pointer}
+.rolebar button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.face{display:none}
+.face.on{display:block}
+.card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.card h2{margin:0 0 4px;font-size:16px}
+.card .desc{color:var(--muted);margin:0 0 14px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.tile{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg-raise)}
+.tile h3{margin:0 0 4px;font-size:14px}
+.tile p{margin:0;color:var(--muted);font-size:13px}
+.tile .big{font-size:22px;font-weight:800;margin:2px 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:12px}
+.toolbar label{font-size:13px;color:var(--muted)}
+input[type="text"],input[type="email"],input[type="number"],select,textarea{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg-raise);color:var(--ink)}
+input[type="text"],input[type="email"]{min-width:220px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+.tblwrap{overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;white-space:nowrap}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;white-space:nowrap}
+.pill.open{background:var(--bad-soft);color:var(--bad)}
+.pill.wait{background:var(--warn-soft);color:var(--warn)}
+.pill.ok{background:var(--good-soft);color:var(--good)}
+.pill.dim{background:var(--bg-sink);color:var(--ink)}
+.pill.acc{background:var(--accent-soft);color:var(--accent)}
+.btn{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg-raise);cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.steps{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.steps li{padding:4px 12px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--muted)}
+.steps li.cur{background:var(--ink);color:#fff;border-color:var(--ink)}
+.steps li.done{background:var(--good-soft);color:var(--good);border-color:var(--good-soft)}
+.checks{list-style:none;margin:0 0 14px;padding:0}
+.checks li{padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px;display:flex;gap:8px;align-items:baseline}
+.checks .ic{flex:none;width:18px;text-align:center}
+.trail{list-style:none;margin:0;padding:0;font-size:13px}
+.trail li{padding:7px 0;border-bottom:1px dashed var(--line)}
+.trail .t{color:var(--muted);white-space:nowrap;margin-right:8px}
+.kv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px 22px;font-size:13px}
+.kv-grid .k{color:var(--muted)}
+.kv-grid .v{font-weight:600}
+.bar{height:8px;background:var(--bg-sink);border-radius:99px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.split{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.case-item{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer;background:var(--bg-raise);width:100%;text-align:left;font:inherit}
+.case-item:hover{border-color:var(--muted)}
+.case-item.sel{border-color:var(--ink);box-shadow:var(--shadow)}
+.case-item .t{font-weight:600;font-size:13px}
+.case-item .s{color:var(--muted);font-size:12px}
+.empty{border:1.5px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--muted)}
+.empty .big{font-size:15px;color:var(--ink);font-weight:700;margin-bottom:4px}
+.radio-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.radio-row label{border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer}
+.radio-row label:has(input:checked){border-color:var(--ink);background:var(--bg-sink)}
+.note{font-size:12.5px;color:var(--muted)}
+.hidden{display:none !important}
+@media (max-width:820px){
+  .layout{flex-direction:column}
+  aside{width:auto;height:auto;position:static}
+  aside nav{flex-direction:row;flex-wrap:wrap}
+  .split{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="brand">CitMark<span class="dot">.</span> 运营台</p>
+  <span class="proto-tag">原型 v8 · 演示数据</span>
+  <nav id="mainNav" aria-label="运营台导航">
+    <button data-face="overview" aria-current="page">总览</button>
+    <span class="grp">处置与查询（新面）</span>
+    <button data-face="refund">退款处置台 <span class="cnt">3 待</span></button>
+    <button data-face="accounts">账号查询</button>
+    <button data-face="mailog">发信记录查</button>
+    <button data-face="audit">审计查询 <span class="cnt">3 族</span></button>
+    <button data-face="funnel">增长漏斗</button>
+    <button data-face="tickets">工单队列 <span class="cnt" id="ticketCnt">0</span></button>
+    <span class="grp">财务 · 计费运营</span>
+    <button data-face="firstpay">首付对表</button>
+    <button data-face="cohort">名额计数</button>
+    <button data-face="recon">对账中心</button>
+    <button data-face="ledger">成本与台账</button>
+    <button data-face="guard">配额与防薅</button>
+    <span class="grp">客服工作面</span>
+    <button data-face="l2queue">L2 人审队列</button>
+    <button data-face="intent">意向与权利</button>
+    <button data-face="notify">通知台账</button>
+    <button data-face="support">支持面</button>
+    <span class="grp">治理（预留格）</span>
+    <button data-face="abuse">滥用处置</button>
+    <button data-face="config">配置中心</button>
+    <span class="grp">既有五面（归位）</span>
+    <button data-face="legacy">登录 / 账号管理</button>
+    <button data-face="legacy">计费读面</button>
+    <button data-face="legacy">告警中心</button>
+  </nav>
+</aside>
+<main>
+<div class="wrap">
+  <div class="sample-note">原型演示：全部数据为钉死的样本（虚构品牌与账号），零真实用户数据、零 live 依赖；按钮动作均为面内演示。</div>
+  <header class="top">
+    <h1 id="faceTitle">总览</h1>
+    <span class="sub" id="faceSub">五面归位 · 运营工作在一台闭环</span>
+    <div class="rolebar" role="group" aria-label="角色切换">
+      <span>当前角色</span>
+      <button id="roleCs" aria-pressed="true">客服</button>
+      <button id="roleFin" aria-pressed="false">财务</button>
+      <button id="roleCredit" aria-pressed="false">Credit</button>
+    </div>
+  </header>
+
+  <!-- 总览 -->
+  <section class="face on" id="face-overview">
+    <div class="card">
+      <h2>关键数（一屏 · 带新鲜度）</h2>
+      <p class="desc">点任一数落对应工作面；新鲜度＝该数最后更新时间（演示值）。</p>
+      <div class="grid">
+        <div class="tile" data-goto="firstpay" style="cursor:pointer"><h3>今日实收</h3><div class="big">$328.40</div><p>新鲜度：更新 23:11 · 点进首付对表</p></div>
+        <div class="tile" data-goto="refund" style="cursor:pointer"><h3>待处置退款</h3><div class="big">3</div><p>新鲜度：更新 23:15 · 点进退款处置台</p></div>
+        <div class="tile" data-goto="cohort" style="cursor:pointer"><h3>名额占用</h3><div class="big">82 / 100</div><p>新鲜度：更新 23:03 · 点进名额计数</p></div>
+        <div class="tile" data-goto="guard" style="cursor:pointer"><h3>防薅事件（24h）</h3><div class="big">2</div><p>新鲜度：更新 22:44 · 点进配额与防薅</p></div>
+        <div class="tile" data-goto="tickets" style="cursor:pointer"><h3>工单在队</h3><div class="big">0</div><p>新鲜度：更新 23:15 · 点进工单队列</p></div>
+        <div class="tile" data-goto="mailog" style="cursor:pointer"><h3>昨日发信成功率</h3><div class="big">98.2%</div><p>新鲜度：更新 22:15 · 点进发信记录查</p></div>
+        <div class="tile" data-goto="l2queue" style="cursor:pointer"><h3>待审 L2 稿</h3><div class="big">2</div><p>新鲜度：更新 23:15 · 点进 L2 人审队列</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>今日工作面</h2>
+      <p class="desc">按运营工作归位，不再按工程面找功能。</p>
+      <div class="grid">
+        <div class="tile"><h3>退款处置</h3><div class="big">3</div><p>待判定工单 · 资格→处置→credit→审批留痕同面</p></div>
+        <div class="tile"><h3>工单队列</h3><div class="big" id="ovTicketBig">0</div><p>入流点接入后实时入队（本原型可模拟入流）</p></div>
+        <div class="tile"><h3>账号查询</h3><div class="big">一屏</div><p>档位 / 订阅 / 支付史 / 登录方式，客服一线闭环</p></div>
+        <div class="tile"><h3>发信记录</h3><div class="big">可查</div><p>「没收到报告」先自查跑批与发信状态</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>既有五面现状（首格盘点归位）</h2>
+      <p class="desc">真功能保留原位，新工作面叠加其上，不推倒。</p>
+      <div class="tblwrap"><table>
+        <tr><th>面</th><th>判定</th><th>在本台的位置</th></tr>
+        <tr><td>登录</td><td><span class="pill ok">真功能</span></td><td>内部登录安全（含 passkey 在建）</td></tr>
+        <tr><td>账号管理</td><td><span class="pill ok">真功能</span></td><td>管理动作面；客服查询走「账号查询」只读面</td></tr>
+        <tr><td>计费</td><td><span class="pill wait">读面通 · 数据薄</span></td><td>读面保留；处置走退款处置台</td></tr>
+        <tr><td>工单</td><td><span class="pill open">有壳无流</span></td><td>本原型补入流点与队列（见工单面）</td></tr>
+        <tr><td>告警</td><td><span class="pill ok">真功能 · 已接线</span></td><td>原位保留，事件亦入审计查询族 C</td></tr>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 退款处置台 -->
+  <section class="face" id="face-refund">
+    <div class="split">
+      <div class="card">
+        <h2>待处置</h2>
+        <p class="desc">点选一单进入处置流。</p>
+        <div id="caseList"></div>
+      </div>
+      <div class="card">
+        <h2 id="rfTitle">处置流</h2>
+        <p class="desc" id="rfDesc">资格判定归政策（已点定），执行与留痕归本台；客服发起、财务审批，大额双签。</p>
+        <ol class="steps" id="rfSteps">
+          <li data-s="1" class="cur">1 资格判定</li>
+          <li data-s="2">2 处置决定</li>
+          <li data-s="3">3 credit 发放</li>
+          <li data-s="4">4 提交 / 审批</li>
+        </ol>
+        <div id="rfStep1">
+          <ul class="checks" id="rfChecks"></ul>
+          <div class="toolbar">
+            <label for="rfReason">原因码</label>
+            <select id="rfReason">
+              <option value="changed_mind">改变主意（changed_mind）</option>
+              <option value="report_missing">报告未收到（report_missing）</option>
+              <option value="quality">报告质量不符（quality）</option>
+              <option value="duplicate">重复购买（duplicate）</option>
+              <option value="service_fail">我方服务故障（service_fail）</option>
+            </select>
+            <button class="btn primary" id="rfToStep2">判定完成 → 处置决定</button>
+          </div>
+          <p class="note" id="rfEligNote"></p>
+        </div>
+        <div id="rfStep2" class="hidden">
+          <div class="radio-row" id="rfKindRow">
+            <label><input type="radio" name="rfkind" value="full" checked> 全额退款</label>
+            <label><input type="radio" name="rfkind" value="partial"> 比例退款</label>
+            <label><input type="radio" name="rfkind" value="deny"> 拒绝（须原因码）</label>
+          </div>
+          <div class="toolbar" id="rfPctRow" style="display:none">
+            <label for="rfPct">退款比例 %</label>
+            <input type="number" id="rfPct" value="50" min="1" max="100" style="width:84px">
+            <span class="note" id="rfPctAmt"></span>
+          </div>
+          <p class="note" id="rfKindNote"></p>
+          <div class="toolbar">
+            <button class="btn" data-back="1">← 返回判定</button>
+            <button class="btn primary" id="rfToStep3">处置决定完成 → credit 发放</button>
+          </div>
+        </div>
+        <div id="rfStep3" class="hidden">
+          <div class="radio-row">
+            <label><input type="radio" name="rfcredit" value="none" checked> 不发 credit</label>
+            <label><input type="radio" name="rfcredit" value="goodwill"> 发放安抚 credit</label>
+          </div>
+          <div class="toolbar" id="rfCreditRow" style="display:none">
+            <label for="rfCreditAmt">credit 金额 $</label>
+            <input type="number" id="rfCreditAmt" value="10" min="1" max="200" style="width:84px">
+            <span class="note">随处置单同号发放、可追踪（客服席 11-10 新点定规则）</span>
+          </div>
+          <p class="note" id="rfCapNote"></p>
+          <div class="toolbar">
+            <button class="btn" data-back="2">← 返回处置</button>
+            <button class="btn primary" id="rfToStep4">→ 提交 / 审批</button>
+          </div>
+        </div>
+        <div id="rfStep4" class="hidden">
+          <p id="rfSummary" style="font-size:13.5px"></p>
+          <div class="toolbar">
+            <button class="btn" data-back="3">← 返回 credit</button>
+            <button class="btn accent" id="rfSubmit">提交处置</button>
+            <button class="btn primary hidden" id="rfApprove">审批通过并执行</button>
+            <button class="btn primary hidden" id="rfIssue">确认发放 credit</button>
+          </div>
+          <p class="note" id="rfRoleNote"></p>
+        </div>
+        <h3 style="margin:18px 0 6px;font-size:14px">审批留痕</h3>
+        <ul class="trail" id="rfTrail"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 账号查询 -->
+  <section class="face" id="face-accounts">
+    <div class="card">
+      <h2>账号查询（客服只读）</h2>
+      <p class="desc">搜邮箱或品牌名 → 档位 / 订阅 / 支付史 / 登录方式一屏出齐，账单纠纷一线闭环。</p>
+      <div class="toolbar">
+        <input type="text" id="acQuery" placeholder="输入邮箱或品牌名，如 marta@ 或 Northwind" aria-label="搜索账号">
+        <button class="btn primary" id="acSearch">查询</button>
+        <span class="note">样本库 3 个账号，试搜：Northwind / Alto / BrightNest</span>
+      </div>
+      <div id="acEmpty" class="empty"><div class="big">输入邮箱或品牌名开始查询</div>只读面：不改档、不动钱，处置请走退款处置台。</div>
+      <div id="acResult" class="hidden">
+        <div class="kv-grid" id="acKv"></div>
+        <h3 style="margin:16px 0 6px;font-size:14px">支付史</h3>
+        <div class="tblwrap"><table><thead><tr><th>日期</th><th>项目</th><th>金额</th><th>状态</th><th>渠道</th></tr></thead><tbody id="acPays"></tbody></table></div>
+        <h3 style="margin:16px 0 6px;font-size:14px">配额用量（滚动 30 天）</h3>
+        <div id="acQuota"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 增长漏斗（补格 ②） -->
+  <section class="face" id="face-funnel">
+    <div class="card">
+      <h2>增长漏斗 · 五段计数</h2>
+      <p class="desc">五段计数原散四处（落地/账号/跑批/计费），本面归一；留资段原无人管——本面起由运营台值守。</p>
+      <ol class="steps" style="gap:8px">
+        <li style="flex:1;text-align:center">落地访问<br><b style="font-size:19px;color:var(--ink)">1,284</b><br><span class="note">新鲜度：更新 22:15</span></li>
+        <li style="flex:1;text-align:center">留资（快照邮箱门）<br><b style="font-size:19px;color:var(--ink)">312</b><br><span class="note">新鲜度：更新 22:49 · 原无人管段</span></li>
+        <li style="flex:1;text-align:center">注册<br><b style="font-size:19px;color:var(--ink)">147</b><br><span class="note">新鲜度：更新 23:15</span></li>
+        <li style="flex:1;text-align:center">邮箱验证激活<br><b style="font-size:19px;color:var(--ink)">121</b><br><span class="note">新鲜度：更新 23:15 · 未验证存量另册候处置口径</span></li>
+        <li style="flex:1;text-align:center">付费转化<br><b style="font-size:19px;color:var(--ink)">82</b><br><span class="note">新鲜度：更新 23:03 · 与名额计数同数</span></li>
+      </ol>
+      <p class="note">段间转化率与掉队名单（如留资未注册名单）随次版深化；本格先归一计数与新鲜度，缺数段标「未接」不编数——现五段均有源（演示值）。</p>
+    </div>
+  </section>
+
+  <!-- 发信记录查 -->
+  <section class="face" id="face-mailog">
+    <div class="card">
+      <h2>跑批与发信记录</h2>
+      <p class="desc">客户说「没收到报告」时先在这里自查：跑批是否完成、信是否发出、是否退信。</p>
+      <div class="toolbar">
+        <label for="mlBrand">品牌</label>
+        <select id="mlBrand"><option value="">全部</option><option>Northwind Pets</option><option>Alto Skincare</option><option>BrightNest Home</option></select>
+        <label for="mlEmail">邮箱</label>
+        <input type="email" id="mlEmail" placeholder="收件人邮箱（可空）">
+        <button class="btn primary" id="mlSearch">查询</button>
+      </div>
+      <h3 style="margin:6px 0;font-size:14px">跑批记录</h3>
+      <div class="tblwrap"><table><thead><tr><th>跑批号</th><th>品牌</th><th>时间</th><th>题数</th><th>引擎</th><th>状态</th></tr></thead><tbody id="mlRuns"></tbody></table></div>
+      <h3 style="margin:16px 0 6px;font-size:14px">发信记录</h3>
+      <div class="tblwrap"><table><thead><tr><th>时间</th><th>模板</th><th>收件人</th><th>关联跑批</th><th>状态</th></tr></thead><tbody id="mlSends"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 审计查询 -->
+  <section class="face" id="face-audit">
+    <div class="card">
+      <h2>审计查询族</h2>
+      <p class="desc">审计按查询族定、不按页面定：三族覆盖计费争议举证、发信自查与事件圈定。</p>
+      <div class="grid">
+        <div class="tile"><h3>族 A · 计费事实链</h3><p>按用户查：订阅、扣费、退款、credit 全链，争议举证可导出。</p><p style="margin-top:8px"><button class="btn" data-audit="a">进入查询</button></p></div>
+        <div class="tile"><h3>族 B · 跑批与发信</h3><p>按品牌查：跑批与发信全量流水，与发信记录查同源、审计口径。</p><p style="margin-top:8px"><button class="btn" data-audit="b">进入查询</button></p></div>
+        <div class="tile"><h3>族 C · 事件圈定</h3><p>按事件查：受影响用户圈定与名单导出（告警/锁定/熔断事件）。</p><p style="margin-top:8px"><button class="btn" data-audit="c">进入查询</button></p></div>
+      </div>
+    </div>
+    <div class="card hidden" id="auditPanel">
+      <h2 id="auditTitle">查询</h2>
+      <div class="toolbar">
+        <input type="text" id="auditQuery" placeholder="">
+        <button class="btn primary" id="auditGo">查询</button>
+        <span class="note" id="auditHint"></span>
+      </div>
+      <div id="auditOut"></div>
+    </div>
+  </section>
+
+  <!-- 工单队列 -->
+  <section class="face" id="face-tickets">
+    <div class="card">
+      <h2>工单入流点</h2>
+      <p class="desc">工单面 0 行的根因不是面坏，是流从未入系统。先定入流点，队列才有水。</p>
+      <div class="grid">
+        <div class="tile"><h3>Crisp 通道</h3><p>站内聊天转工单</p><p><span class="pill wait">待接</span></p></div>
+        <div class="tile"><h3>支持邮箱</h3><p>support@ 邮件自动登记</p><p><span class="pill wait">待接</span></p></div>
+        <div class="tile"><h3>L3 桥</h3><p>机器人客服 L3 承接升级入队，附对话稿</p><p><span class="pill wait">待建</span></p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>工单队列</h2>
+      <p class="desc">L3 承接处置流：登记 → 定类 → 出稿 → 审批 → 发送，全程留痕。</p>
+      <div id="tkEmpty" class="empty">
+        <div class="big">队列为空</div>
+        入流点尚未接入，工单仍在 Gmail＋文件里跑。<br>
+        <button class="btn primary" id="tkSim" style="margin-top:10px">模拟入流（演示）</button>
+      </div>
+      <div id="tkFlow" class="hidden">
+        <div class="tblwrap"><table><thead><tr><th>工单号</th><th>来源</th><th>用户</th><th>类别</th><th>状态</th><th>承接步</th></tr></thead><tbody id="tkRows"></tbody></table></div>
+        <p class="note" id="tkNote"></p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 财务：首付对表（财务 1） -->
+  <section class="face" id="face-firstpay">
+    <div class="card">
+      <h2>首付值守对表</h2>
+      <p class="desc">开卖首批支付逐单对表：序号 / cohort / 券核销 / 实付 vs 定版价 / 发票行，全等才放行计数。</p>
+      <div class="tblwrap"><table><thead><tr><th>序号</th><th>用户</th><th>cohort</th><th>券</th><th>实付</th><th>定版价</th><th>发票行</th><th>对表</th></tr></thead><tbody>
+        <tr><td>#023</td><td>marta@northwindpets.com</td><td>创始 50%</td><td>FOUNDER50 已核销</td><td>$24.50</td><td>$24.50</td><td>INV-2026-0117</td><td><span class="pill ok">全等</span></td></tr>
+        <tr><td>#061</td><td>ops@altoskincare.com</td><td>特惠 51–100</td><td>—</td><td>$129.00</td><td>$129.00</td><td>INV-2026-0131</td><td><span class="pill ok">全等</span></td></tr>
+        <tr><td>#088</td><td>lee@brightnesthome.com</td><td>特惠 51–100</td><td>—</td><td>$250.00</td><td>$250.00（年付）</td><td>INV-2026-0140</td><td><span class="pill ok">全等</span></td></tr>
+      </tbody></table></div>
+      <p class="note">异常行（金额不符/券重复核销）自动冻结计数并入防薅面复核——fail-closed 口径。</p>
+    </div>
+  </section>
+
+  <!-- 财务：名额计数（财务 3 ＋ 客服 5） -->
+  <section class="face" id="face-cohort">
+    <div class="card">
+      <h2>cohort / 名额计数</h2>
+      <p class="desc">创始序只增不回收；客服查名额与锁价走本面只读口径（账号查询亦带出单账号名额）。</p>
+      <div class="grid">
+        <div class="tile"><h3>创始 50%（1–50）</h3><div class="big">38 / 50</div><div class="bar"><i style="width:76%"></i></div><p>锁定 12 个月 · S/G/P 三档（Teams 不入）</p></div>
+        <div class="tile"><h3>特惠（51–100）</h3><div class="big">44 / 50</div><div class="bar"><i style="width:88%"></i></div><p>S $25 / G $49 / P $129 / T $199</p></div>
+        <div class="tile"><h3>满 100 后</h3><div class="big">标准价</div><p>S $35 / G $70 / P $169 / T $300 · fail-closed</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>第 13 月回价跟踪</h2>
+      <div class="tblwrap"><table><thead><tr><th>cohort</th><th>锁定到期</th><th>回价动作</th><th>状态</th></tr></thead><tbody>
+        <tr><td>创始 #001–010</td><td>2027-09</td><td>到期前 30 天通知 → 转标准价</td><td><span class="pill dim">未到期</span></td></tr>
+        <tr><td>特惠 #051–060</td><td>2027-10</td><td>到期前 30 天通知 → 转标准价</td><td><span class="pill dim">未到期</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 财务：对账中心（财务 5/6/7/11） -->
+  <section class="face" id="face-recon">
+    <div class="card">
+      <h2>实收与月度 P&amp;L（财务 5）</h2>
+      <p class="desc">cron 预组装＋本面确认，量起来先崩的一条先落面。</p>
+      <div class="grid">
+        <div class="tile"><h3>2026-10 实收</h3><div class="big">$1,284.50</div><p>订阅 9 笔 ＋ 题量包 3 笔（样本）</p></div>
+        <div class="tile"><h3>退款支出</h3><div class="big">$151.90</div><p>含 credit 发放 $10.00</p></div>
+        <div class="tile"><h3>渠道费</h3><div class="big">$—</div><p>Creem 费率行待对签后入账</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Creem 产品库回读对签（财务 6）</h2>
+      <div class="tblwrap"><table><thead><tr><th>产品/券</th><th>册面定版</th><th>Creem 回读</th><th>差异</th></tr></thead><tbody>
+        <tr><td>Growth 特惠</td><td>$49</td><td>$49</td><td><span class="pill ok">无</span></td></tr>
+        <tr><td>Pro 特惠</td><td>$129</td><td>$129</td><td><span class="pill ok">无</span></td></tr>
+        <tr><td>FOUNDER50 券</td><td>S/G/P · Teams 除外</td><td>同左</td><td><span class="pill ok">无</span></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>VIEW 三口径对账（财务 7）</h2>
+      <div class="tblwrap"><table><thead><tr><th>口径</th><th>本月值</th><th>对账状态</th></tr></thead><tbody>
+        <tr><td>下单口径</td><td>12 单</td><td rowspan="3" style="vertical-align:middle"><span class="pill ok">三口径全等</span></td></tr>
+        <tr><td>支付口径</td><td>12 单</td></tr>
+        <tr><td>交付口径</td><td>12 单</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>改档对账（财务 11）</h2>
+      <div class="tblwrap"><table><thead><tr><th>时间</th><th>用户</th><th>改档</th><th>差额处理</th><th>对账</th></tr></thead><tbody>
+        <tr><td>2026-11-06</td><td>ops@altoskincare.com</td><td>Growth → Pro</td><td>按日折算补差</td><td><span class="pill ok">已对</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 财务：成本与台账（财务 10/12/13） -->
+  <section class="face" id="face-ledger">
+    <div class="card">
+      <h2>供应商成本账（财务 10）</h2>
+      <div class="tblwrap"><table><thead><tr><th>供应商</th><th>项</th><th>本月成本</th><th>口径</th></tr></thead><tbody>
+        <tr><td>SearchApi</td><td>引擎抓取</td><td>按量（样本行）</td><td>主账号优先 osmond520</td></tr>
+        <tr><td>Creem</td><td>支付渠道</td><td>按费率行</td><td>对签后入账</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>节律增量行台账（财务 12）</h2>
+      <p class="desc">增量计费行逐单登记，未上线前先以台账格占位、上线即切换活表。</p>
+      <div class="tblwrap"><table><thead><tr><th>行号</th><th>用户</th><th>增量项</th><th>金额</th><th>状态</th></tr></thead><tbody>
+        <tr><td>INC-001</td><td>ops@altoskincare.com</td><td>MCP 超额调用</td><td>待定价行</td><td><span class="pill wait">未上线</span></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>主体 / 税务台账（财务 13）</h2>
+      <div class="kv-grid">
+        <div><div class="k">运营主体</div><div class="v">福鹿文化传播（广东横琴）有限公司</div></div>
+        <div><div class="k">站点署名</div><div class="v">Operated by Tao Yu.（切换波次前）</div></div>
+        <div><div class="k">税务登记</div><div class="v">台账维护中（财务文档归口）</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 财务：配额与防薅（财务 8/9） -->
+  <section class="face" id="face-guard">
+    <div class="card">
+      <h2>配额 / 熔断状态（财务 8）</h2>
+      <div class="tblwrap"><table><thead><tr><th>面</th><th>当前状态</th><th>阈值</th></tr></thead><tbody>
+        <tr><td>免费快照池</td><td><span class="pill ok">正常</span></td><td>日池上限 · 耗尽走排队面</td></tr>
+        <tr><td>MCP 配额</td><td><span class="pill ok">正常</span></td><td>30 天滚动 · 按档帽</td></tr>
+        <tr><td>引擎上游</td><td><span class="pill wait">1 引擎降级观察</span></td><td>失败率熔断线</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>防薅帽监控（财务 9）</h2>
+      <p class="desc">量起来先崩之二：帽子事件先落面，再谈处置。</p>
+      <div class="tblwrap"><table><thead><tr><th>时间</th><th>事件</th><th>对象</th><th>处置</th></tr></thead><tbody>
+        <tr><td>2026-11-10 08:41</td><td>同 IP 批量注册撞帽</td><td>IP 段（样本）</td><td><span class="pill wait">观察</span></td></tr>
+        <tr><td>2026-11-09 22:15</td><td>券码枚举尝试</td><td>匿名会话（样本）</td><td><span class="pill ok">已限流</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 客服：L2 人审队列（客服 3） -->
+  <section class="face" id="face-l2queue">
+    <div class="card">
+      <h2>L2 稿人审队列</h2>
+      <p class="desc">机器人客服 L2 草稿先入此队列，人审通过才发送；连续 20 次零修改才谈升格（KB 口径）。</p>
+      <div class="tblwrap"><table><thead><tr><th>稿号</th><th>分类</th><th>用户</th><th>草稿摘要</th><th>操作</th></tr></thead><tbody id="l2Rows">
+        <tr><td>L2-077</td><td>报告未收到</td><td>lee@brightnesthome.com</td><td>致歉＋重发报告链接（run-8f33 partial 说明）</td><td><button class="btn l2ok">通过发送</button> <button class="btn l2back">退回</button></td></tr>
+        <tr><td>L2-078</td><td>配额疑问</td><td>ops@altoskincare.com</td><td>解释 MCP 30 天滚动口径＋当前用量</td><td><button class="btn l2ok">通过发送</button> <button class="btn l2back">退回</button></td></tr>
+      </tbody></table></div>
+      <p class="note" id="l2Note">人审动作入留痕（与工单 L3 流同源）。</p>
+    </div>
+  </section>
+
+  <!-- 客服：意向与权利（客服 9/13） -->
+  <section class="face" id="face-intent">
+    <div class="card">
+      <h2>改档意向登记（客服 9）</h2>
+      <div class="tblwrap"><table><thead><tr><th>登记日</th><th>用户</th><th>意向</th><th>跟进</th></tr></thead><tbody>
+        <tr><td>2026-11-08</td><td>lee@brightnesthome.com</td><td>Starter 年付 → Growth 观望</td><td><span class="pill wait">待回访</span></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>数据权利请求台账（客服 13）</h2>
+      <div class="tblwrap"><table><thead><tr><th>请求号</th><th>类型</th><th>用户</th><th>受理日</th><th>30 天清除进度</th></tr></thead><tbody>
+        <tr><td>DR-012</td><td>数据导出</td><td>（样本用户）</td><td>2026-11-05</td><td><span class="pill ok">已交付导出包</span></td></tr>
+        <tr><td>DR-013</td><td>删除</td><td>（样本用户）</td><td>2026-11-09</td><td><span class="pill wait">清除中 · 第 2/30 天</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 客服：通知台账（客服 14） -->
+  <section class="face" id="face-notify">
+    <div class="card">
+      <h2>通知发送台账</h2>
+      <p class="desc">模板终审状态、发送记录与到期提醒队列同账，杜绝「发没发过」靠记忆。</p>
+      <div class="tblwrap"><table><thead><tr><th>模板</th><th>终审</th><th>最近发送</th><th>队列</th></tr></thead><tbody>
+        <tr><td>快照报告就绪</td><td><span class="pill ok">定版</span></td><td>2026-11-10 10:41</td><td>—</td></tr>
+        <tr><td>锁价到期提醒（第 13 月）</td><td><span class="pill wait">待终审</span></td><td>—</td><td>到期前 30 天自动入队</td></tr>
+        <tr><td>激活验证信</td><td><span class="pill ok">定版</span></td><td>随注册实时</td><td>重发间隔 15 分钟</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 客服：支持面（客服 11/15/16） -->
+  <section class="face" id="face-support">
+    <div class="card">
+      <h2>告警 / 事件查看（客服 11）</h2>
+      <p class="desc">客服只读事件面，不再靠转告；处置仍走告警中心原位。</p>
+      <div class="tblwrap"><table><thead><tr><th>时间</th><th>事件</th><th>级别</th><th>状态</th></tr></thead><tbody>
+        <tr><td>2026-11-10 07:58</td><td>登录锁定事件 ×3（同账号）</td><td><span class="pill wait">中</span></td><td>已 ack</td></tr>
+        <tr><td>2026-11-09 19:20</td><td>上游引擎延迟升高</td><td><span class="pill dim">低</span></td><td>已恢复</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="grid">
+      <div class="tile"><h3>陪跑团承接面（客服 15）</h3><p>S1 触发＝事件锚（非日历）：触发命中即按备料开跑。</p><p><span class="pill wait">触发未命中 · 备料齐</span></p></div>
+      <div class="tile"><h3>KB 与仪表维护面（客服 16）</h3><p>KB 条目 tally 与仪表口径维护入口。</p><p><span class="pill dim">文件形态 · 人工 tally</span></p></div>
+    </div>
+  </section>
+
+
+  <!-- 治理：滥用处置（预告 ③） -->
+  <section class="face" id="face-abuse">
+    <div class="card">
+      <h2>滥用监控</h2>
+      <p class="desc">与防薅面同源事件，此面承接处置；监控与处置分格、处置必留痕。</p>
+      <div class="tblwrap"><table><thead><tr><th>时间</th><th>事件</th><th>对象</th><th>风险</th></tr></thead><tbody>
+        <tr><td>2026-11-10 08:41</td><td>同 IP 批量注册撞帽</td><td>IP 段（样本）</td><td><span class="pill wait">中</span></td></tr>
+        <tr><td>2026-11-09 22:15</td><td>券码枚举尝试</td><td>匿名会话（样本）</td><td><span class="pill ok">低</span></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>处置</h2>
+      <div class="toolbar">
+        <label for="abTarget">处置对象</label>
+        <select id="abTarget"><option>IP 段（样本）</option><option>匿名会话（样本）</option><option>（样本账号）lee@brightnesthome.com</option></select>
+        <button class="btn" data-abuse-act="限流 24h">限流 24h</button>
+        <button class="btn" data-abuse-act="冻结注册">冻结注册</button>
+        <button class="btn" data-abuse-act="作废券码">作废券码</button>
+      </div>
+      <ul class="trail" id="abTrail"><li><span class="t">2026-11-09 22:16</span>券码枚举会话已限流（系统自动 · 样本留痕）</li></ul>
+    </div>
+    <div class="card">
+      <h2>对外申诉入口 · 承接与口径模板（③格内一栏）</h2>
+      <p class="desc">被处置对象的对外侧：申诉入口与回复口径模板同栏备齐；模板文案定字仍归原定字链，本格只放入口与模板名、不易主。</p>
+      <div class="tblwrap"><table><thead><tr><th>场景</th><th>申诉入口</th><th>口径模板</th><th>状态</th></tr></thead><tbody>
+        <tr><td>账号冻结申诉</td><td>support@ ＋ 站内申诉页（占位）</td><td>冻结说明与申诉受理（模板名）</td><td><span class="pill dim">入口格</span></td></tr>
+        <tr><td>券码作废异议</td><td>support@（占位）</td><td>作废依据说明（模板名）</td><td><span class="pill dim">入口格</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- 治理：配置中心（预告 ④） -->
+  <section class="face" id="face-config">
+    <div class="card">
+      <h2>配置只读</h2>
+      <p class="desc">运营只读、改值走申请——不在台上直改，防误触生产口径。</p>
+      <div class="tblwrap"><table><thead><tr><th>键</th><th>现值</th><th>口径出处</th><th>变更人</th></tr></thead><tbody>
+        <tr><td>特惠价谱 S/G/P/T</td><td>$25 / $49 / $129 / $199</td><td>2026-11-02 他点定</td><td>他本人（点定）</td></tr>
+        <tr><td>激活链接 TTL</td><td>24 小时</td><td>注册规格改定 §2</td><td>产品（规格改定）</td></tr>
+        <tr><td>激活重发间隔</td><td>15 分钟</td><td>注册规格改定 §2</td><td>产品（规格改定）</td></tr>
+        <tr><td>免费池日限</td><td>按日池（样本值）</td><td>表③契约 §2</td><td>后端一线（契约冻结）</td></tr>
+        <tr><td>MCP 配额帽</td><td>按档（S 3/G 4/P 5/T 6 引擎）</td><td>定版谱</td><td>他本人（点定）</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>申请改值</h2>
+      <div class="toolbar">
+        <label for="cfKey">键</label>
+        <select id="cfKey"><option>免费池日限</option><option>激活重发间隔</option><option>MCP 配额帽</option></select>
+        <label for="cfVal">申请值</label>
+        <input type="text" id="cfVal" placeholder="如 200/日" style="min-width:120px">
+        <label for="cfWhy">理由</label>
+        <input type="text" id="cfWhy" placeholder="一句理由" style="min-width:180px">
+        <button class="btn primary" id="cfSubmit">发起申请</button>
+      </div>
+      <ul class="trail" id="cfTrail"></ul>
+      <p class="note">申请入审批队列，批准后由技术面落值并回执——本台只发起、不直改。</p>
+    </div>
+  </section>
+
+  <!-- 既有面归位说明 -->
+  <section class="face" id="face-legacy">
+    <div class="card">
+      <h2>既有面（归位占位）</h2>
+      <p class="desc">登录 / 账号管理 / 计费读面 / 告警中心为已上线真功能，本原型不重绘其界面，仅在导航中归位；点导航中的新面查看本轮原型范围。</p>
+    </div>
+  </section>
+</div>
+</main>
+</div>
+<script>
+"use strict";
+/* ===== 演示数据（钉死样本，虚构） ===== */
+var ACCOUNTS = [
+  { email:"marta@northwindpets.com", name:"Marta K.", brand:"Northwind Pets", tier:"Growth", price:"$49/mo（特惠·锁定 12 个月）", sub:"有效 · 下次扣费 2026-12-03", cohort:"创始 50% · 第 23 号（$24.50/mo 实付）", login:"邮箱密码", verified:"已验证",
+    pays:[["2026-11-03","Growth 月费（创始 50%）","$24.50","已付","Creem"],["2026-10-21","题量包 500 题（Growth）","$22.90","已付","Creem"],["2026-10-03","Growth 月费（创始 50%）","$24.50","已付","Creem"]],
+    quota:[["快照题量",312,400],["MCP 调用",1240,3000]] },
+  { email:"ops@altoskincare.com", name:"Alto 运营", brand:"Alto Skincare", tier:"Pro", price:"$129/mo（特惠）", sub:"有效 · 下次扣费 2026-11-19", cohort:"特惠 51–100 · 第 61 号", login:"Google 登录", verified:"已验证",
+    pays:[["2026-10-19","Pro 月费（特惠）","$129.00","已付","Creem"],["2026-09-19","Pro 月费（特惠）","$129.00","已付","Creem"]],
+    quota:[["快照题量",905,1200],["MCP 调用",2870,3000]] },
+  { email:"lee@brightnesthome.com", name:"Lee W.", brand:"BrightNest Home", tier:"Starter", price:"$250/年（年付）", sub:"有效 · 到期 2027-08-14", cohort:"特惠 51–100 · 第 88 号", login:"邮箱密码", verified:"已验证",
+    pays:[["2026-08-14","Starter 年付（特惠年付）","$250.00","已付","Creem"]],
+    quota:[["快照题量",96,150],["MCP 调用",210,3000]] }
+];
+var REFUND_CASES = [
+  { id:"RF-1042", email:"marta@northwindpets.com", brand:"Northwind Pets", item:"题量包 500 题（Growth）", amount:22.90, paidDays:6, tier:"Growth", priorRefunds:0, subActive:true },
+  { id:"RF-1043", email:"ops@altoskincare.com", brand:"Alto Skincare", item:"Pro 月费（特惠）", amount:129.00, paidDays:41, tier:"Pro", priorRefunds:1, subActive:true },
+  { id:"RF-1044", email:"lee@brightnesthome.com", brand:"BrightNest Home", item:"Starter 年付", amount:250.00, paidDays:88, tier:"Starter", priorRefunds:0, subActive:true }
+];
+var RUNS = [
+  { id:"run-8f31", brand:"Northwind Pets", time:"2026-11-10 09:12", q:9, engines:"3 引擎", status:"done" },
+  { id:"run-8f32", brand:"Alto Skincare", time:"2026-11-10 10:03", q:12, engines:"5 引擎", status:"done" },
+  { id:"run-8f33", brand:"BrightNest Home", time:"2026-11-10 10:40", q:6, engines:"3 引擎", status:"partial" },
+  { id:"run-8f34", brand:"Northwind Pets", time:"2026-11-09 16:22", q:9, engines:"3 引擎", status:"done" }
+];
+var SENDS = [
+  { time:"2026-11-10 09:14", tpl:"快照报告就绪", to:"marta@northwindpets.com", run:"run-8f31", status:"delivered" },
+  { time:"2026-11-10 10:05", tpl:"快照报告就绪", to:"ops@altoskincare.com", run:"run-8f32", status:"delivered" },
+  { time:"2026-11-10 10:41", tpl:"快照报告就绪", to:"lee@brightnesthome.com", run:"run-8f33", status:"bounced" },
+  { time:"2026-11-09 16:24", tpl:"快照报告就绪", to:"marta@northwindpets.com", run:"run-8f34", status:"delivered" }
+];
+var TICKETS = [
+  { id:"TK-301", src:"Crisp", user:"marta@northwindpets.com", cat:"账单", status:"处理中", step:"出稿" },
+  { id:"TK-302", src:"支持邮箱", user:"lee@brightnesthome.com", cat:"报告未收到", status:"待审批", step:"审批" },
+  { id:"TK-303", src:"L3 桥", user:"ops@altoskincare.com", cat:"配额疑问", status:"新入", step:"定类" }
+];
+var state = { role:"cs", rcase:REFUND_CASES[0], rstep:1 };
+
+/* ===== 导航 ===== */
+var TITLES = { overview:["总览","五面归位 · 运营工作在一台闭环"], refund:["退款处置台","财务 2 ＋ 客服 7/8 同一台 · 角色分格"], accounts:["账号查询","客服只读 · 一屏出齐"], mailog:["发信记录查","跑批与发信同源可查"], audit:["审计查询","三族：计费事实链 / 跑批发信 / 事件圈定"], tickets:["工单队列","先入流、再谈面"], legacy:["既有面归位","已上线真功能 · 本原型不重绘"], funnel:["增长漏斗","补格 ② · 五段计数归一＋新鲜度"], firstpay:["首付对表","财务 1 · 开卖硬缺口"], cohort:["名额计数","财务 3 ＋ 客服 5 · 创始序不回收"], recon:["对账中心","财务 5/6/7/11 · P&L/对签/三口径/改档"], ledger:["成本与台账","财务 10/12/13 · 台账格占位"], guard:["配额与防薅","财务 8/9 · 量起先崩之二"], l2queue:["L2 人审队列","客服 3 · 草稿先审后发"], intent:["意向与权利","客服 9/13 · 意向池与权利台账"], notify:["通知台账","客服 14 · 模板/发送/提醒同账"], support:["支持面","客服 11/15/16 · 事件查看＋承接与维护入口"], abuse:["滥用处置","预留格 ③ · 监控/处置分格"], config:["配置中心","预留格 ④ · 只读＋申请改值"] };
+document.getElementById("mainNav").addEventListener("click", function (e) {
+  var b = e.target.closest("button[data-face]"); if (!b) return;
+  document.querySelectorAll("#mainNav button").forEach(function (x) { x.removeAttribute("aria-current"); });
+  b.setAttribute("aria-current", "page");
+  document.querySelectorAll(".face").forEach(function (f) { f.classList.remove("on"); });
+  document.getElementById("face-" + b.dataset.face).classList.add("on");
+  var t = TITLES[b.dataset.face]; document.getElementById("faceTitle").textContent = t[0]; document.getElementById("faceSub").textContent = t[1];
+});
+
+/* ===== 角色切换 ===== */
+function setRole(r) {
+  state.role = r;
+  document.getElementById("roleCs").setAttribute("aria-pressed", r === "cs");
+  document.getElementById("roleFin").setAttribute("aria-pressed", r === "fin");
+  document.getElementById("roleCredit").setAttribute("aria-pressed", r === "credit");
+  renderRefundRole();
+}
+document.getElementById("roleCs").addEventListener("click", function () { setRole("cs"); });
+document.getElementById("roleFin").addEventListener("click", function () { setRole("fin"); });
+document.getElementById("roleCredit").addEventListener("click", function () { setRole("credit"); });
+
+/* ===== 退款处置台 ===== */
+var caseListEl = document.getElementById("caseList");
+REFUND_CASES.forEach(function (c) {
+  var b = document.createElement("button");
+  b.className = "case-item" + (c === state.rcase ? " sel" : "");
+  b.innerHTML = "<div class='t'>" + c.id + " · " + c.brand + "</div><div class='s'>" + c.item + " · $" + c.amount.toFixed(2) + " · 付款后 " + c.paidDays + " 天</div>";
+  b.addEventListener("click", function () { state.rcase = c; state.rstep = 1; document.querySelectorAll(".case-item").forEach(function (x) { x.classList.remove("sel"); }); b.classList.add("sel"); renderRefund(); });
+  caseListEl.appendChild(b);
+});
+function eligChecks(c) {
+  return [
+    ["90 天退款窗内", c.paidDays <= 90, "付款后 " + c.paidDays + " 天" + (c.paidDays <= 90 ? "" : "（超窗，须特批）")],
+    ["订阅状态有效", c.subActive, c.subActive ? "处置后同步终止/保留按决定执行" : "订阅已终止，先核状态"],
+    ["历史退款次数", c.priorRefunds <= 1, "既往 " + c.priorRefunds + " 次" + (c.priorRefunds >= 1 ? "（二次退款，审批升格）" : "")],
+    ["档位与金额对册", true, c.tier + " · $" + c.amount.toFixed(2) + " 与定版价谱对位"]
+  ];
+}
+function gotoStep(n) {
+  state.rstep = n;
+  [1, 2, 3, 4].forEach(function (i) {
+    document.getElementById("rfStep" + i).classList.toggle("hidden", i !== n);
+    var li = document.querySelector("#rfSteps li[data-s='" + i + "']");
+    li.className = i < n ? "done" : (i === n ? "cur" : "");
+  });
+  if (n === 4) renderSummary();
+}
+function renderRefund() {
+  var c = state.rcase;
+  document.getElementById("rfTitle").textContent = "处置流 · " + c.id;
+  var ul = document.getElementById("rfChecks"); ul.innerHTML = "";
+  eligChecks(c).forEach(function (row) {
+    var li = document.createElement("li");
+    li.innerHTML = "<span class='ic'>" + (row[1] ? "✓" : "!") + "</span><span><b>" + row[0] + "</b> — " + row[2] + "</span>";
+    li.style.color = row[1] ? "" : "var(--bad)";
+    ul.appendChild(li);
+  });
+  document.getElementById("rfEligNote").textContent = "资格由政策自动判定（演示规则）；判定结论与原因码一并入留痕。";
+  updatePct(); gotoStep(1);
+}
+function curKind() { return document.querySelector("input[name='rfkind']:checked").value; }
+function updatePct() {
+  var c = state.rcase, k = curKind();
+  document.getElementById("rfPctRow").style.display = k === "partial" ? "" : "none";
+  var pct = Number(document.getElementById("rfPct").value || 0);
+  document.getElementById("rfPctAmt").textContent = "≈ $" + (c.amount * pct / 100).toFixed(2) + " / $" + c.amount.toFixed(2);
+  document.getElementById("rfKindNote").textContent = k === "deny" ? "拒绝须带原因码并留痕，客户侧由客服出稿回复（L3 流）。" : (k === "full" ? "全额原路退回，订阅同步终止。" : "比例退款按上方比例执行，余额留存订阅。");
+}
+document.getElementById("rfKindRow").addEventListener("change", updatePct);
+document.getElementById("rfPct").addEventListener("input", updatePct);
+document.querySelectorAll("input[name='rfcredit']").forEach(function (r) {
+  r.addEventListener("change", function () {
+    document.getElementById("rfCreditRow").style.display = document.querySelector("input[name='rfcredit']:checked").value === "goodwill" ? "" : "none";
+  });
+});
+document.getElementById("rfToStep2").addEventListener("click", function () { gotoStep(2); });
+document.getElementById("rfToStep3").addEventListener("click", function () { gotoStep(3); });
+document.getElementById("rfToStep4").addEventListener("click", function () { gotoStep(4); });
+document.querySelectorAll("[data-back]").forEach(function (b) { b.addEventListener("click", function () { gotoStep(Number(b.dataset.back)); }); });
+function trailAdd(text) {
+  var li = document.createElement("li");
+  var now = new Date(); var hh = String(now.getHours()).padStart(2, "0"), mm = String(now.getMinutes()).padStart(2, "0");
+  li.innerHTML = "<span class='t'>2026-11-10 " + hh + ":" + mm + "</span>" + text;
+  document.getElementById("rfTrail").prepend(li);
+}
+function dispositionText() {
+  var c = state.rcase, k = curKind();
+  var d = k === "full" ? "全额退款 $" + c.amount.toFixed(2) : (k === "partial" ? "比例退款 " + document.getElementById("rfPct").value + "%（$" + (c.amount * Number(document.getElementById("rfPct").value) / 100).toFixed(2) + "）" : "拒绝退款");
+  var cr = document.querySelector("input[name='rfcredit']:checked").value === "goodwill" ? "＋ credit $" + document.getElementById("rfCreditAmt").value : "＋ 无 credit";
+  return d + " · 原因码 " + document.getElementById("rfReason").value + " " + cr;
+}
+function renderSummary() {
+  document.getElementById("rfSummary").innerHTML = "<b>" + state.rcase.id + "</b>（" + state.rcase.brand + "）处置决定：" + dispositionText();
+  renderRefundRole();
+}
+function renderRefundRole() {
+  var fin = state.role === "fin", cred = state.role === "credit";
+  document.getElementById("rfSubmit").classList.toggle("hidden", cred);
+  document.getElementById("rfSubmit").textContent = fin ? "登记处置（财务直执）" : "提交处置（待财务审批）";
+  document.getElementById("rfApprove").classList.toggle("hidden", !fin);
+  document.getElementById("rfIssue").classList.toggle("hidden", !cred);
+  // field isolation: steps 1-2 belong to CS/FIN cells; step 3 issuance cell belongs to Credit
+  ["rfReason"].forEach(function (id) { document.getElementById(id).disabled = cred; });
+  document.querySelectorAll("input[name='rfkind'], #rfPct").forEach(function (el) { el.disabled = cred; });
+  document.getElementById("rfCreditAmt").disabled = !(cred || state.role === "cs");
+  var capSingle = 50, capMonth = 100, usedMonth = state.rcase.id === "RF-1043" ? 40 : 10;
+  document.getElementById("rfCapNote").textContent = cred
+    ? "Credit 格 · 额度上限：单笔 $" + capSingle + " · 本客户本月已发 $" + usedMonth + " / 月帽 $" + capMonth + "——超限须财务特批，本格不可越。"
+    : (state.role === "cs" ? "本格金额为申请值：实际发放由 Credit 格在额度上限内确认。" : "credit 发放由 Credit 格执行；财务审批只覆盖退款本体。");
+  document.getElementById("rfRoleNote").textContent = cred
+    ? "Credit 态：只操作发放格（第 3 步）与确认发放；判定/处置字段按格隔离为只读。"
+    : (fin ? "财务态：审批与对表；大额（≥$100）或二次退款仍须双签——批准钮即第二签。" : "客服态：发起与提交；执行须财务审批、credit 须 Credit 格确认。");
+}
+document.getElementById("rfSubmit").addEventListener("click", function () {
+  trailAdd("<b>" + state.rcase.id + "</b> " + dispositionText() + " — 由" + (state.role === "fin" ? "财务登记直执" : "客服提交、待财务审批"));
+  this.textContent = "已提交 ✓"; this.disabled = true;
+  setTimeout(() => { this.disabled = false; this.textContent = state.role === "fin" ? "登记处置（财务直执）" : "提交处置（待财务审批）"; }, 1600);
+});
+document.getElementById("rfIssue").addEventListener("click", function () {
+  var cr = document.querySelector("input[name='rfcredit']:checked").value === "goodwill" ? "$" + document.getElementById("rfCreditAmt").value : "无 credit 申请";
+  trailAdd("<b>" + state.rcase.id + "</b> Credit 格确认发放 — " + cr + "（额度上限内）");
+});
+document.getElementById("rfApprove").addEventListener("click", function () {
+  trailAdd("<b>" + state.rcase.id + "</b> 财务审批通过并执行 — " + dispositionText());
+});
+trailAdd("<b>RF-1043</b> 客服提交处置（全额退款 $129.00 · 原因码 quality）— 待财务审批（演示种子留痕）");
+
+/* ===== 账号查询 ===== */
+function doAccountSearch() {
+  var q = document.getElementById("acQuery").value.trim().toLowerCase();
+  var hit = ACCOUNTS.find(function (a) { return q && (a.email.toLowerCase().includes(q) || a.brand.toLowerCase().includes(q)); });
+  document.getElementById("acEmpty").classList.toggle("hidden", !!hit);
+  document.getElementById("acResult").classList.toggle("hidden", !hit);
+  if (!hit) { if (q) document.getElementById("acEmpty").innerHTML = "<div class='big'>未找到账号</div>换邮箱或品牌名再试（样本：Northwind / Alto / BrightNest）。"; return; }
+  var kv = [["邮箱", hit.email], ["姓名", hit.name], ["品牌", hit.brand], ["档位", hit.tier], ["价格", hit.price], ["订阅", hit.sub], ["创始名额", hit.cohort], ["登录方式", hit.login], ["邮箱验证", hit.verified]];
+  document.getElementById("acKv").innerHTML = kv.map(function (p) { return "<div><div class='k'>" + p[0] + "</div><div class='v'>" + p[1] + "</div></div>"; }).join("");
+  document.getElementById("acPays").innerHTML = hit.pays.map(function (p) { return "<tr><td>" + p[0] + "</td><td>" + p[1] + "</td><td>" + p[2] + "</td><td><span class='pill ok'>" + p[3] + "</span></td><td>" + p[4] + "</td></tr>"; }).join("");
+  document.getElementById("acQuota").innerHTML = hit.quota.map(function (q2) {
+    var pct = Math.round(q2[1] / q2[2] * 100);
+    return "<div style='margin-bottom:10px'><span class='k' style='color:var(--muted)'>" + q2[0] + "</span> <b>" + q2[1] + " / " + q2[2] + "</b>（" + pct + "%）<div class='bar'><i style='width:" + pct + "%'></i></div></div>";
+  }).join("");
+}
+document.getElementById("acSearch").addEventListener("click", doAccountSearch);
+document.getElementById("acQuery").addEventListener("keydown", function (e) { if (e.key === "Enter") doAccountSearch(); });
+
+/* ===== 发信记录 ===== */
+function pillFor(s) { return s === "done" || s === "delivered" ? "<span class='pill ok'>" + s + "</span>" : (s === "partial" ? "<span class='pill wait'>partial</span>" : "<span class='pill open'>" + s + "</span>"); }
+function renderMailog() {
+  var brand = document.getElementById("mlBrand").value, email = document.getElementById("mlEmail").value.trim().toLowerCase();
+  document.getElementById("mlRuns").innerHTML = RUNS.filter(function (r) { return !brand || r.brand === brand; }).map(function (r) {
+    return "<tr><td>" + r.id + "</td><td>" + r.brand + "</td><td>" + r.time + "</td><td>" + r.q + "</td><td>" + r.engines + "</td><td>" + pillFor(r.status) + "</td></tr>";
+  }).join("") || "<tr><td colspan='6' class='note'>无匹配跑批</td></tr>";
+  document.getElementById("mlSends").innerHTML = SENDS.filter(function (s) { return (!email || s.to.toLowerCase().includes(email)) && (!brand || RUNS.find(function (r) { return r.id === s.run; }).brand === brand); }).map(function (s) {
+    return "<tr><td>" + s.time + "</td><td>" + s.tpl + "</td><td>" + s.to + "</td><td>" + s.run + "</td><td>" + pillFor(s.status) + "</td></tr>";
+  }).join("") || "<tr><td colspan='5' class='note'>无匹配发信</td></tr>";
+}
+document.getElementById("mlSearch").addEventListener("click", renderMailog);
+renderMailog();
+
+/* ===== 审计查询 ===== */
+var AUDIT = {
+  a: ["族 A · 计费事实链", "输入用户邮箱（试：marta@）", "订阅/扣费/退款/credit 事件链，争议举证口径。", function (q) {
+    var a = ACCOUNTS.find(function (x) { return x.email.includes(q); }); if (!a) return "<p class='note'>无匹配用户。</p>";
+    var rows = a.pays.map(function (p) { return "<tr><td>" + p[0] + "</td><td>" + p[1] + "</td><td>" + p[2] + "</td><td>" + p[3] + "</td></tr>"; }).join("");
+    return "<div class='tblwrap'><table><thead><tr><th>时间</th><th>事件</th><th>金额</th><th>状态</th></tr></thead><tbody>" + rows + "<tr><td>2026-11-10</td><td>退款处置 RF-1042 已登记（演示）</td><td>$22.90</td><td>待审批</td></tr></tbody></table></div><p class='note'>导出举证包（演示按钮略）：含本链全部事件与留痕号。</p>";
+  }],
+  b: ["族 B · 跑批与发信", "输入品牌名（试：Northwind）", "与发信记录查同源，此处为审计全量口径。", function (q) {
+    var rs = RUNS.filter(function (r) { return r.brand.toLowerCase().includes(q.toLowerCase()); });
+    if (!rs.length) return "<p class='note'>无匹配品牌。</p>";
+    return "<p>跑批 " + rs.length + " 条 · 关联发信 " + SENDS.filter(function (s) { return rs.some(function (r) { return r.id === s.run; }); }).length + " 封（明细见发信记录查，同源同数）。</p>";
+  }],
+  c: ["族 C · 事件圈定", "输入事件类型（试：登录锁定）", "圈定受影响用户并导出名单。", function (q) {
+    return "<p>事件「" + q + "」近 7 天圈定 <b>2 个账号</b>（演示）：marta@northwindpets.com、lee@brightnesthome.com。</p><p class='note'>名单导出与通知发送走通知台账（客服 14），不在本族直发。</p>";
+  }]
+};
+var curAudit = "a";
+document.querySelectorAll("[data-audit]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    curAudit = b.dataset.audit;
+    var cfg = AUDIT[curAudit];
+    document.getElementById("auditPanel").classList.remove("hidden");
+    document.getElementById("auditTitle").textContent = cfg[0];
+    document.getElementById("auditQuery").placeholder = cfg[1];
+    document.getElementById("auditHint").textContent = cfg[2];
+    document.getElementById("auditOut").innerHTML = "";
+    document.getElementById("auditPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+document.getElementById("auditGo").addEventListener("click", function () {
+  document.getElementById("auditOut").innerHTML = AUDIT[curAudit][3](document.getElementById("auditQuery").value.trim());
+});
+
+/* ===== 工单 ===== */
+document.getElementById("tkSim").addEventListener("click", function () {
+  document.getElementById("tkEmpty").classList.add("hidden");
+  document.getElementById("tkFlow").classList.remove("hidden");
+  document.getElementById("ticketCnt").textContent = "3";
+  document.getElementById("ovTicketBig").textContent = "3";
+  document.getElementById("tkRows").innerHTML = TICKETS.map(function (t) {
+    var pill = t.status === "新入" ? "acc" : (t.status === "待审批" ? "wait" : "dim");
+    return "<tr><td>" + t.id + "</td><td>" + t.src + "</td><td>" + t.user + "</td><td>" + t.cat + "</td><td><span class='pill " + pill + "'>" + t.status + "</span></td><td>登记 → 定类 → <b>" + t.step + "</b> → 审批 → 发送</td></tr>";
+  }).join("");
+  document.getElementById("tkNote").textContent = "入流点接入后此队列实时更新；L3 承接每步留痕，审批步须人工点定后才发送。";
+});
+
+document.querySelectorAll(".l2ok,.l2back").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var tr = b.closest("tr"); var id = tr.querySelector("td").textContent;
+    tr.querySelectorAll("button").forEach(function (x) { x.disabled = true; });
+    document.getElementById("l2Note").textContent = id + (b.classList.contains("l2ok") ? " 已人审通过并发送（演示留痕）。" : " 已退回机器人重稿（演示留痕）。");
+  });
+});
+
+document.querySelectorAll("[data-goto]").forEach(function (el) {
+  el.addEventListener("click", function () { document.querySelector("button[data-face='" + el.dataset.goto + "']").click(); });
+});
+document.querySelectorAll("[data-abuse-act]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var li = document.createElement("li");
+    li.innerHTML = "<span class='t'>2026-11-10 · 刚刚</span>" + document.getElementById("abTarget").value + " → " + b.dataset.abuseAct + "（运营处置 · 演示留痕）";
+    document.getElementById("abTrail").prepend(li);
+  });
+});
+document.getElementById("cfSubmit").addEventListener("click", function () {
+  var li = document.createElement("li");
+  li.innerHTML = "<span class='t'>2026-11-10 · 刚刚</span>申请改值：" + document.getElementById("cfKey").value + " → 「" + (document.getElementById("cfVal").value || "（未填）") + "」理由：" + (document.getElementById("cfWhy").value || "（未填）") + " — <b>待审批</b>";
+  document.getElementById("cfTrail").prepend(li);
+});
+
+renderRefund();
+setRole("cs");
+</script>
+</body>
+</html>
