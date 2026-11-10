@@ -610,10 +610,10 @@
       @media (max-width: 560px) { .final { padding: 36px 24px; } }
       footer { padding: 40px 0 56px; }
       .foot-in { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; justify-content: space-between; }
-      footer p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
+      footer p { margin: 0; font-size: 14px; color: var(--muted); }
       .foot-group { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; }
       footer a { color: var(--ink-2); }
-      footer .fineprint { width: 100%; }
+      footer .fineprint { width: 100%; font-size: 13px; }
 
       /* ---------- sticky mobile signup bar ---------- */
       .sticky-cta { display: none; }
@@ -741,7 +741,7 @@
         border: 1px solid rgba(20, 21, 25, .12); border-radius: 999px;
         background: rgba(255, 255, 255, .30); color: var(--ink); font-size: 16px; font-weight: 500; line-height: 19px; box-sizing: border-box;  font-style: normal;}
       .auth-card .capsule-field input[type="email"] { padding-right: 16px; }
-      .auth-card .capsule-field input::placeholder { color: var(--ink-2); font-style: normal; }
+      .auth-card .capsule-field input::placeholder { color: var(--ink-2); }
       .auth-card .capsule-field input:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
       .auth-card .capsule-chip { position: absolute; left: 7px; top: 50%; transform: translateY(-50%);
         width: 35px; height: 35px; border-radius: 50%; background: rgba(20, 21, 25, .06);
@@ -879,7 +879,7 @@ h1 .h1-tail { white-space: nowrap; }
 .hero-mini { display: none; }
 .hero-mini-caption { display: none; }
 @media (min-width: 1024px) {
-        .hero-in { max-width: none; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); column-gap: 36px; align-items: start; }
+        .hero-in { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) 370px; column-gap: 56px; align-items: start; }
         .hero-sub { margin-bottom: 20px; } /* preview14: >=1024 only — left-column rhythm, sub->form 30->20 to match h1->sub 20; mobile keeps base 30px */
         .hero-copy { min-width: 0; }
         .hero-chips { grid-column: 1 / -1; }
