@@ -524,8 +524,6 @@ function waitShow(body) {
     var html;
     if (body.status === "queued") {
       html = "<b>You're in the queue.</b>" + (body.queue_position ? " You are number " + body.queue_position + " in line." : "") + "<div class=\"wait-elapsed\">Waiting <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div>";
-    } else if (body.status === "partial") {
-      html = "<b>Running your snapshot.</b><div class=\"wait-elapsed\">Elapsed <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div><div class=\"wait-elapsed\">Some data is missing from this run.</div>";
     } else {
       html = "<b>Running your snapshot.</b><div class=\"wait-elapsed\">Elapsed <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div>";
     }
@@ -547,7 +545,7 @@ function pollResumeStatus(handle, tries) {
       if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
       if (st === "done") { landingComplete(false); return; }
-      if (st === "partial") { waitShow(res.body); if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; } waitStop(); landingShow("stateOk", WAIT_TIMEOUT); return; }
+      if (st === "partial") { landingComplete(true); return; }
       if (st === "failed") { landingFailedReason(res.body); return; }
       if (st === "queued" && landingRead("citmark_resume_pooled")) { pollPoolStatus(handle, 240); return; }
       if (st === "queued" && !landingRead("citmark_resume_claimed")) { postResume(handle); return; }
@@ -571,7 +569,7 @@ function pollPoolStatus(handle, tries) {
       if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
       if (st === "done") { landingComplete(false); return; }
-      if (st === "partial") { waitShow(res.body); if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; } waitStop(); landingShow("stateOk", WAIT_TIMEOUT); return; }
+      if (st === "partial") { landingComplete(true); return; }
       if (st === "failed") { landingFailedReason(res.body); return; }
       if (st === "running") { pollResumeStatus(handle, 48); return; }
       if (tries > 0) { setTimeout(function () { pollPoolStatus(handle, tries - 1); }, 15000); return; }
