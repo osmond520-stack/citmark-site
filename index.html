@@ -710,28 +710,18 @@
         max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px);
         overflow-y: auto; overscroll-behavior: contain;
         padding: 28px; border-radius: 24px;
-        background: var(--bg-raise); border: 1px solid rgba(255, 255, 255, .55);
+        background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
         box-shadow: 0 24px 48px -16px rgba(20, 21, 25, .22), 0 2px 8px rgba(20, 21, 25, .08);
         color: var(--ink); }
-      @supports ((-webkit-backdrop-filter: blur(24px)) or (backdrop-filter: blur(24px))) {
-        .auth-card { -webkit-backdrop-filter: blur(24px) saturate(1.25); backdrop-filter: blur(24px) saturate(1.25);
-          background: rgba(255, 255, 255, .30);
-          background: color-mix(in srgb, rgb(255, 255, 255) 30%, transparent); }
-      }
       @media (prefers-color-scheme: dark) {
         .auth-card-overlay { background: rgba(20, 21, 25, .35); }
-        @supports ((-webkit-backdrop-filter: blur(24px)) or (backdrop-filter: blur(24px))) {
-          .auth-card { -webkit-backdrop-filter: blur(24px) saturate(1.25) brightness(1.14); backdrop-filter: blur(24px) saturate(1.25) brightness(1.14);
-            background: rgba(38, 38, 42, .78);
-            background: color-mix(in srgb, rgb(38, 38, 42) 78%, transparent);
-            border-color: rgba(255, 255, 255, .14); box-shadow: var(--shadow); }
-        }
+        .auth-card { box-shadow: var(--shadow); }
       }
       .auth-card-overlay.open .auth-card { animation: authCardIn .25s ease-out both; }
       .auth-card-overlay.closing .auth-card { animation: authCardOut .2s ease-in both; }
       @keyframes authCardIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
       @keyframes authCardOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.98); } }
-      .auth-card .btn-capsule, .auth-card .capsule-field input, .auth-card .capsule-chip, .auth-card .capsule-forgot, .auth-card .capsule-submit, .auth-card-divider, .auth-card-terms label, .auth-card-consent-subs p, .auth-card-brandline, .auth-card-foot { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .auth-card .btn-capsule, .auth-card .capsule-field input, .auth-card .capsule-chip, .auth-card .capsule-forgot, .auth-card .capsule-submit, .auth-card-divider, .auth-card-consent, .auth-card-consent-subs p, .auth-card-brandline, .auth-card-foot { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
       .auth-card-top-row { display: flex; align-items: center; justify-content: space-between; margin: 0 0 20px; }
       .auth-card-top-row .auth-card-logo { margin: 0; }
       .auth-card-logo .wordmark { font-size: 28px; }
@@ -775,12 +765,8 @@
       .auth-card .capsule-forgot:active { transform: translateY(-50%) scale(.96); }
       .auth-card .capsule-forgot:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
       .auth-card .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-      .auth-card-terms { display: flex; align-items: flex-start; gap: 8px; width: 100%; margin: 0 auto 12px; }
-      .auth-card-terms input { flex: none; width: 18px; height: 18px; margin: 0; padding: 0; -webkit-appearance: none; appearance: none; border: 1.5px solid var(--ink-2); border-radius: 5px; background: transparent; cursor: pointer; box-sizing: border-box; }
-      .auth-card-terms input:checked { border-color: var(--accent); background-color: var(--accent); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.5 4.8 9 10 3.5' fill='none' stroke='%23141519' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: 11px 11px; }
-      .auth-card-terms input:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-      .auth-card-terms label { font-size: 12px; line-height: 18px; color: var(--ink-2); cursor: pointer; }
-      .auth-card-terms label a { color: var(--accent); font-weight: 600; }
+      .auth-card-consent { width: 100%; margin: 0 auto 12px; font-size: 12px; line-height: 18px; color: var(--ink-2); }
+      .auth-card-consent a { color: var(--accent); font-weight: 600; }
       .auth-card .capsule-foot-row { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 6px auto 0; }
       .auth-card-consent-subs { flex: 1; min-width: 0; }
       .auth-card-consent-subs p { font-size: 12px; line-height: 1.45; color: var(--ink-2); margin: 0; }
@@ -799,8 +785,11 @@
       .auth-card-foot { font-size: 14px; color: var(--ink-2); margin: 20px 0 0; text-align: center; }
         .auth-card-msg { font-size: 13px; line-height: 18px; color: var(--muted); text-align: center; margin: 12px 0 0; }
         .auth-card-msg.is-error { color: var(--accent-deep); }
-        .auth-card.mode-reset .auth-card-oauth-row, .auth-card.mode-reset .auth-card-divider, .auth-card.mode-reset .pw-field, .auth-card.mode-reset .auth-card-terms { display: none; }
+        .auth-card.mode-reset .auth-card-oauth-row, .auth-card.mode-reset .auth-card-divider, .auth-card.mode-reset .pw-field, .auth-card.mode-reset .auth-card-consent { display: none; }
         .auth-card.mode-register .auth-card-oauth-row, .auth-card.mode-register .auth-card-divider { display: none; }
+      .auth-card:not(.mode-register) .auth-card-names { display: none; }
+      .auth-card:not(.mode-register) .auth-card-consent { display: none; }
+      .auth-card-names .capsule-field input { padding-right: 20px; }
         .auth-card.mode-register #authCardForgotBtn { display: none; }
         .auth-card-reset-head { display: none; margin: 0 0 14px; text-align: center; }
         .auth-card.mode-reset .auth-card-reset-head { display: block; }
@@ -822,7 +811,7 @@
         .auth-card-foot a { color: var(--accent); }
         .auth-card .btn-capsule { color: #25221a; }
         .auth-card .capsule-field input::placeholder { color: #5d574e; }
-        .auth-card-terms label a { color: var(--accent); }
+        .auth-card-consent a { color: var(--accent); }
       }
       @media (prefers-color-scheme: dark) {
         .auth-card .capsule-field input { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .14); }
@@ -2263,8 +2252,8 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <p class="auth-card-logo"><span class="wordmark">CitMark<span class="dot">.</span></span></p>
         </div>
         <div class="auth-card-oauth-row">
-        <button class="btn-capsule" type="button" id="authCardGoogleBtn" aria-disabled="true"><svg width="11.5" height="11.5" viewBox="0 0 48 48" aria-hidden="true" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
-        <button class="btn-capsule" type="button" id="authCardShopifyBtn" aria-disabled="true"><svg width="11.5" height="11.5" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path fill="#95BF47" d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg><span class="btn-capsule-label">Continue with Shopify</span></button>
+        <button class="btn-capsule" type="button" id="authCardGoogleBtn" aria-disabled="false"><svg width="11.5" height="11.5" viewBox="0 0 48 48" aria-hidden="true" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
+        <button class="btn-capsule" type="button" id="authCardShopifyBtn" aria-disabled="false"><svg width="11.5" height="11.5" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path fill="#95BF47" d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg><span class="btn-capsule-label">Continue with Shopify</span></button>
         </div>
         <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
         <div class="auth-card-reset-head" aria-hidden="true">
@@ -2272,6 +2261,18 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           <p>Enter the email you signed up with. If an account exists for it, we'll email you a reset link.</p>
         </div>
         <form id="authCardLoginForm" novalidate>
+          <div class="auth-card-names">
+            <div class="capsule-field">
+              <label class="sr-only" for="authCardFullName">Full name</label>
+              <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+              <input type="text" id="authCardFullName" name="full_name" autocomplete="name" placeholder="Full name" required>
+            </div>
+            <div class="capsule-field">
+              <label class="sr-only" for="authCardNickname">Nickname (optional)</label>
+              <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.45 0.45)"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.3"/></g></svg></span>
+              <input type="text" id="authCardNickname" name="nickname" autocomplete="nickname" placeholder="Nickname (optional)">
+            </div>
+          </div>
           <div class="capsule-field">
             <label class="sr-only" for="authCardLoginEmail">Email</label>
             <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3.5 6.8 12 12.8 20.5 6.8"/></svg></span>
@@ -2285,13 +2286,10 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             
           </div>
           <div class="auth-card-forgot-row"><button type="button" id="authCardForgotBtn" class="auth-card-forgot-link">Forgot password?</button></div>
-        <div class="auth-card-terms">
-            <input type="checkbox" id="authCardTermsCheck">
-            <label for="authCardTermsCheck">I agree to the <a href="/terms/">Terms of Service</a> and <a href="#privacy" class="privacy-link">Privacy Policy</a>.</label>
-          </div>
+        <p class="auth-card-consent">By creating an account, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
           <div class="capsule-foot-row">
             
-            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="true" aria-label="Log in"><span class="capsule-submit-arrow" aria-hidden="true"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" aria-hidden="true" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false" aria-label="Log in"><span class="capsule-submit-arrow" aria-hidden="true"><svg width="6.2" height="9.6" viewBox="0 0 10 16" fill="none" aria-hidden="true" focusable="false"><path d="M2 2 L8 8 L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
           </div>
                   <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
@@ -2374,36 +2372,18 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           window.clearTimeout(toastTimer);
           toastTimer = window.setTimeout(function () { demoToast.classList.remove("show"); }, 2600);
         }
-        var termsCheck = document.getElementById("authCardTermsCheck");
-        var gatedIds = ["authCardGoogleBtn", "authCardShopifyBtn", "authCardLoginSubmit"];
-        function termsAgreed() { return !!(termsCheck && termsCheck.checked); }
-        function syncTermsGate() {
-          var agreed = termsAgreed();
-          gatedIds.forEach(function (id) {
-            var el = document.getElementById(id);
-            if (el) el.setAttribute("aria-disabled", agreed ? "false" : "true");
-          });
-        }
-        function gatedDemoToast() {
-          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
-          showDemoToast();
-        }
         /* Google sign-in (wired 2026-10-28): full-page navigation; state and
-           PKCE are handled server-side. The Terms gate covers this path too. */
+           PKCE are handled server-side. */
         function gatedGoogleNav() {
-          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
           window.location.href = "https://citmark.com/auth/google/login";
         }
-        /* Shopify sign-in (intent routing 2026-10-29): Terms gate first,
-           then straight to the intent entry; the backend routes by
-           intent=login (bound store -> session, unbound store -> email
-           step, someone else's store -> 409 guard). */
+        /* Shopify sign-in (intent routing 2026-10-29): straight to the
+           intent entry; the backend routes by intent=login (bound store ->
+           session, unbound store -> email step, someone else's store ->
+           409 guard). */
         function gatedShopifyNav() {
-          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
           window.location.href = "https://citmark.com/auth/shopify/login?intent=login";
         }
-        if (termsCheck) termsCheck.addEventListener("change", syncTermsGate);
-        syncTermsGate();
         ["authCardGoogleBtn", "authCardShopifyBtn"].forEach(function (id) {
           var btn = document.getElementById(id);
           if (btn) btn.addEventListener("click", id === "authCardGoogleBtn" ? gatedGoogleNav : gatedShopifyNav);
@@ -2425,8 +2405,9 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
            the activation email verifies the address, it does not gate use.
            Reset asks the backend to email a link to the set-new-password
            page; the reply never reveals whether the address has an account.
-           The Terms gate covers login/register; reset is account recovery
-           for existing users and is not terms-gated. */
+           Register carries the text-consent line (no checkbox, no gate):
+           submitting implies agreement. Reset is account recovery for
+           existing users. */
         var RESET_REQUEST_URL = "https://citmark.com/auth/forgot-password";
         var authMode = "login";
         var authBusy = false;
@@ -2452,7 +2433,6 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             if (submitBtn) submitBtn.setAttribute("aria-label", "Create account");
             if (footText) footText.textContent = "Already have an account?";
             if (modeToggle) modeToggle.textContent = "Log in";
-            syncTermsGate();
           } else if (mode === "reset") {
             resetSent = false;
             showMsg("", false);
@@ -2465,7 +2445,6 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             if (submitBtn) submitBtn.setAttribute("aria-label", "Log in");
             if (footText) footText.textContent = "New to CitMark?";
             if (modeToggle) modeToggle.textContent = "Sign up";
-            syncTermsGate();
           }
         }
         if (modeToggle) modeToggle.addEventListener("click", function (ev) {
@@ -2496,7 +2475,15 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
               });
             return;
           }
-          if (!termsAgreed()) { showDemoToast("Please agree to the Terms and Privacy Policy to continue."); return; }
+          var fullName = "", nickname = "";
+          if (authMode === "register") {
+            var fnInput = document.getElementById("authCardFullName");
+            var nnInput = document.getElementById("authCardNickname");
+            fullName = fnInput ? fnInput.value.trim() : "";
+            nickname = nnInput ? nnInput.value.trim() : "";
+            if (!fullName) { showMsg("Enter your full name.", true); return; }
+            if (!nickname) nickname = fullName;
+          }
           var password = pwInput ? pwInput.value : "";
           if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
           if (!password) { showMsg(authMode === "register" ? "Choose a password — at least 10 characters, with a letter and a number." : "Enter your password.", true); return; }
@@ -2504,7 +2491,12 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
           if (submitBtn) submitBtn.setAttribute("aria-disabled", "true");
           showMsg("", false);
           var url = authMode === "register" ? "https://citmark.com/auth/register" : "https://citmark.com/auth/login";
-          fetch(url, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify(authMode === "register" && (window.__pendingTier || (function () { try { return sessionStorage.getItem("citmark_pending_tier"); } catch (e) { return null; } })()) ? { email: email, password: password, tier: window.__pendingTier || sessionStorage.getItem("citmark_pending_tier") } : { email: email, password: password }) })
+          var payload = { email: email, password: password };
+          if (authMode === "register") {
+            payload.full_name = fullName; payload.nickname = nickname;
+            if (window.__pendingTier || (function () { try { return sessionStorage.getItem("citmark_pending_tier"); } catch (e) { return null; } })()) payload.tier = window.__pendingTier || sessionStorage.getItem("citmark_pending_tier");
+          }
+          fetch(url, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
             .then(function (resp) {
               if (resp.ok) { window.location.href = "https://citmark.com/dashboard/"; return null; }
               return resp.json().catch(function () { return null; }).then(function (body) {
@@ -2522,7 +2514,7 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
             .catch(function () { showMsg("Something went wrong. Please try again.", true); })
             .then(function () {
               authBusy = false;
-              if (submitBtn) submitBtn.setAttribute("aria-disabled", termsAgreed() ? "false" : "true");
+              if (submitBtn) submitBtn.setAttribute("aria-disabled", "false");
             });
         });
         /* Terms-row Privacy link: the page-level .privacy-link binding runs
@@ -2976,7 +2968,7 @@ h1, h2 { text-wrap: balance; }
    Measured on A: pw->forgot 16px, forgot->terms 0px. Targets: 8px / 20px. */
 .auth-card .pw-field{margin-bottom:8px}
 .auth-card .auth-card-forgot-row{margin-top:0}
-.auth-card .auth-card-terms{margin-top:20px}
+.auth-card .auth-card-consent{margin-top:20px}
 </style>
 <style id="hero-mini-restore">
 /* Hero data card restore (his order 2026-10-30, final2 review): this ONE card
