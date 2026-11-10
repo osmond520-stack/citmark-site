@@ -1086,19 +1086,17 @@ html { scrollbar-gutter: stable; }
           </div>
           <div class="hero-mini-wrap"><aside class="hero-mini" aria-label="Sample visibility report for Good Molecules">
             <div class="hero-mini-head"><span class="hero-mini-title">Visibility score</span></div>
-            <p class="hero-mini-brand"><b>Good Molecules</b><span>66.7 overall</span></p>
+            <p class="hero-mini-brand"><b>Good Molecules</b><span>44.4 overall</span></p>
             <div class="hero-mini-score"><span id="miniScore">33</span><small>/100</small></div>
             <p class="hero-mini-label">on <span id="miniEngine">ChatGPT</span> · <span id="miniMention">mentioned in 1 of 3 buyer questions</span></p>
             <div class="hero-mini-rows" id="miniRows">
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Perplexity" aria-label="Show Perplexity score">Perplexity</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Gemini" aria-label="Show Gemini score">Gemini</button><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Claude" aria-label="Show Claude score">Claude</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
-              <div class="hero-mini-row hero-mini-summary"><a href="#sample-table">+ 3 more engines — full sample below</a></div>
+              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Perplexity" aria-label="Show Perplexity score">Perplexity</button><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
+              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Gemini" aria-label="Show Gemini score">Gemini</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
             </div>
             <div class="hero-mini-dots" id="miniDots"></div>
-            <p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Oct 28, 2026.</p>
+            <p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Nov 10, 2026.</p>
           </aside>
-            <p class="hero-mini-caption" style="font-size:11.5px;line-height:1.55;color:var(--muted);margin:10px 4px 0">Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash · Claude claude-haiku-5-5 · Grok grok-4.20-0309-non-reasoning · DeepSeek deepseek-chat · Mistral mistral-large-2512. Question set v2 — the same 3 buyer questions as the free check.</p></div>
+            <p class="hero-mini-caption" style="font-size:11.5px;line-height:1.55;color:var(--muted);margin:10px 4px 0">Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash. Question set v2 — the same 3 buyer questions as the free check.</p></div>
           <div class="hero-chips">
             <span><b>3</b> AI engines tracked — ChatGPT, Perplexity and Gemini from day one.</span>
             <span><b>Ongoing</b> checks, not one-off scans</span>
@@ -1137,34 +1135,46 @@ html { scrollbar-gutter: stable; }
           <div class="sec-head reveal" style="margin-top: 56px;">
             <p class="sec-kicker">Sample report</p>
             <h2>…and this is what a full report looks like</h2>
-            <p>We ran CitMark for real on Oct 28, 2026 — eight brands, all seven engines, the same 3 buyer questions as the free check. Every score below is the actual result, low ones included.</p>
+            <p>We ran CitMark for real on Nov 10, 2026 — all three engines, the same 3 buyer questions as the free check, for one brand: Good Molecules. The table lists every brand the engines named in those 9 answers. Every score below is the actual result, low ones included.</p>
           </div>
 
           <div class="sample-run" id="sample-table">
             <div class="sample-run-head">
-              <span class="site">Sample run · Oct 28, 2026 · 8 brands × 7 engines</span>
+              <span class="site">Sample run · Nov 10, 2026 · Good Molecules · 3 engines · 9 answers</span>
               <span class="real-badge">REAL RUN — REAL DATA</span>
             </div>
             <div class="sr-scroll">
             <table class="sr-table">
-              <thead><tr><th>Brand</th><th>ChatGPT</th><th>Perplexity</th><th>Gemini</th><th>Claude</th><th>Grok</th><th>DeepSeek</th><th>Mistral</th><th>Score</th></tr></thead>
+              <thead><tr><th>Brand</th><th>ChatGPT</th><th>Perplexity</th><th>Gemini</th><th>Score</th></tr></thead>
               <tbody>
-              <tr><th>Good Molecules<small>goodmolecules.com</small></th><td>1/3</td><td>1/3</td><td>2/3</td><td>1/3</td><td>3/3</td><td>3/3</td><td>3/3</td><td class="sr-score"><b>66.7</b><small>95% CI 45.4–82.8</small></td></tr>
-              <tr><th>Floyd<small>floydhome.com</small></th><td>2/3</td><td>1/3</td><td>2/3</td><td>1/3</td><td class="zero">0/3</td><td>1/3</td><td>1/3</td><td class="sr-score"><b>38.1</b><small>95% CI 20.8–59.1</small></td></tr>
-              <tr><th>Dusen Dusen<small>dusendusen.com</small></th><td>2/3</td><td class="zero">0/3</td><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td>2/3</td><td>1/3</td><td class="sr-score"><b>28.6</b><small>95% CI 13.8–50.0</small></td></tr>
-              <tr><th>Kotn<small>kotn.com</small></th><td>1/3</td><td class="zero">0/3</td><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>9.5</b><small>95% CI 2.7–28.9</small></td></tr>
-              <tr><th>Wild One<small>wildone.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>9.5</b><small>95% CI 2.7–28.9</small></td></tr>
-              <tr><th>Cocokind<small>cocokind.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>0.0</b><small>95% CI 0.0–15.5</small></td></tr>
-              <tr><th>Moon Juice<small>moonjuice.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>0.0</b><small>95% CI 0.0–15.5</small></td></tr>
-              <tr><th>CitMark<small>citmark.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>0.0</b><small>95% CI 0.0–15.5</small></td></tr>
+              <tr><th>The Ordinary</th><td>3/3</td><td>3/3</td><td>2/3</td><td class="sr-score"><b>88.9</b><small>95% CI 56.5–98.0</small></td></tr>
+              <tr><th>CeraVe</th><td>2/3</td><td>2/3</td><td>2/3</td><td class="sr-score"><b>66.7</b><small>95% CI 35.4–87.9</small></td></tr>
+              <tr><th>The Inkey List</th><td>2/3</td><td>1/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
+              <tr><th>Vanicream</th><td>2/3</td><td>1/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
+              <tr><th>Good Molecules<small>goodmolecules.com</small></th><td>1/3</td><td>2/3</td><td>1/3</td><td class="sr-score"><b>44.4</b><small>95% CI 18.9–73.3</small></td></tr>
+              <tr><th>Cetaphil</th><td>1/3</td><td>2/3</td><td class="zero">0/3</td><td class="sr-score"><b>33.3</b><small>95% CI 12.1–64.6</small></td></tr>
+              <tr><th>Beauty of Joseon</th><td class="zero">0/3</td><td class="zero">0/3</td><td>2/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
+              <tr><th>La Roche-Posay</th><td class="zero">0/3</td><td>1/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
+              <tr><th>Neutrogena</th><td>1/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
+              <tr><th>Coppertone</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Cosrx</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Differin</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Eucerin</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Geek & Gorgeous</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Melano CC</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Naturium</th><td class="zero">0/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Prequel</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>RoC</th><td class="zero">0/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Timeless</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>CitMark<small>citmark.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>0.0</b><small>95% CI 0.0–29.9</small></td></tr>
               </tbody>
             </table>
             </div>
             <div class="sample-notes">
-              <p class="sr-main">Sample report — a real CitMark run on Oct 28, 2026.</p>
-              <p>Each engine cell shows in how many of the 3 buyer questions that engine named the brand. The score is the share of all 21 answers (3 questions × 7 engines) that named it, with the 95% confidence range. Engines as run: ChatGPT (gpt-6-luna), Perplexity (perplexity/sonar), Gemini (gemini-3.8-flash), Claude (claude-haiku-5-5), Grok (grok-4.20-0309-non-reasoning), DeepSeek (deepseek-chat), Mistral (mistral-large-2512).</p>
-              <p>Moon Juice scores 0 on the buyer questions — yet when we asked for alternatives to AG1, 4 of the 7 engines named it. AI knows the brand; buyer questions don't surface it. And CitMark is our own site: it is new.</p>
-              <p>That zero is real — we score CitMark with the same questions and the same ruler as every other brand in this table, and we're publishing the fixes as we make them.</p>
+              <p class="sr-main">Sample report — a real CitMark run on Nov 10, 2026.</p>
+              <p>Each engine cell shows in how many of the 3 buyer questions that engine named the brand. The score is the share of all 9 answers (3 questions × 3 engines) that named it, with the 95% confidence range. Engines as run: ChatGPT (gpt-6-luna), Perplexity (perplexity/sonar), Gemini (gemini-3.8-flash). By question length, Good Molecules scores 33.3 on short questions (L1), 100.0 on medium (L2) and 0.0 on long (L4) — small samples, indicative only. This sample scores 3 questions; probe questions are not part of this sample.</p></p>
+              <p>The Ordinary is the name these answers reach for — named in 8 of the 9 answers, by every engine. Good Molecules is named by all three engines on the dull-skin question, and by Perplexity on the affordable-brands question — and by no engine at all on the specific product question, the best vitamin C serum under $25.</p>
+              <p>And CitMark is our own site: it is not a skincare brand and no engine named it on these questions, so its row is 0 as well. That zero is real — the same questions and the same ruler as every other brand in this table, and we're publishing the fixes as we make them.</p>
               <p>Independent sample. CitMark is not affiliated with or endorsed by the brands shown.</p>
               <p>Scores change week to week and vary by brand.</p>
             </div>
@@ -1521,7 +1531,7 @@ html { scrollbar-gutter: stable; }
           <a href="#privacy" class="privacy-link">Privacy Policy</a>
           <a href="/terms/">Terms of Service</a>
         </nav>
-        <p class="fineprint foot-line"><span>The sample report on this page is a real CitMark run from Oct 28, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p>
+        <p class="fineprint foot-line"><span>The sample report on this page is a real CitMark run from Nov 10, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p>
       </div>
     </footer>
 
@@ -2764,7 +2774,7 @@ html { scrollbar-gutter: stable; }
       })();
     </script>
 <script>
-/* A1 formal: sample mini card carousel. Data: the Oct 28, 2026 real run for Good Molecules
+/* A1 formal: sample mini card carousel. Data: the Nov 10, 2026 real run for Good Molecules
    (mentions of 3 buyer questions per engine; score = mention rate). Auto-advance 4.0s, >=1024px
    only, reduced-motion = static. preview18 adds swipe/drag switching across all 7 states.
    Product pause rule (2026-10-30): any manual interaction (swipe, row click, dot click) pauses
@@ -2774,12 +2784,8 @@ html { scrollbar-gutter: stable; }
 (function () {
   var DATA = [
     { name: "ChatGPT", score: 33, mentions: 1 },
-    { name: "Perplexity", score: 33, mentions: 1 },
-    { name: "Gemini", score: 67, mentions: 2 },
-    { name: "Claude", score: 33, mentions: 1 },
-    { name: "Grok", score: 100, mentions: 3 },
-    { name: "DeepSeek", score: 100, mentions: 3 },
-    { name: "Mistral", score: 100, mentions: 3 }
+    { name: "Perplexity", score: 67, mentions: 2 },
+    { name: "Gemini", score: 33, mentions: 1 }
   ];
   var card = document.querySelector(".hero-mini");
   if (!card) return;
@@ -2868,7 +2874,7 @@ html { scrollbar-gutter: stable; }
     }, { threshold: 0.2 }).observe(card);
   }
   /* Swipe / drag layer (preview18): horizontal pointer drag on the card switches the
-     featured engine, cycling all 7 states in DATA order (left = next, right = previous).
+     featured engine, cycling all states in DATA order (left = next, right = previous).
      touch-action: pan-y keeps vertical page scroll native; a committed drag suppresses
      the click that follows it. Drag feedback and the swap use transform/opacity only,
      timed with the carousel's own 600ms easeOutCubic (same curve as the count animation). */
