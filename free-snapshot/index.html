@@ -524,6 +524,8 @@ function waitShow(body) {
     var html;
     if (body.status === "queued") {
       html = "<b>You're in the queue.</b>" + (body.queue_position ? " You are number " + body.queue_position + " in line." : "") + "<div class=\"wait-elapsed\">Waiting <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div>";
+    } else if (body.status === "partial") {
+      html = "<b>Running your snapshot.</b><div class=\"wait-elapsed\">Elapsed <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div><div class=\"wait-elapsed\">Some data is missing from this run.</div>";
     } else {
       html = "<b>Running your snapshot.</b><div class=\"wait-elapsed\">Elapsed <span id=\"waitElapsed\">" + waitElapsedText() + "</span></div>";
     }
@@ -533,6 +535,11 @@ function waitShow(body) {
   if (el) el.textContent = waitElapsedText();
   if (!waitTimer) waitTimer = setInterval(function () { var e2 = document.getElementById("waitElapsed"); if (e2) e2.textContent = waitElapsedText(); }, 1000);
 }
+function landingFailedReason(body) {
+  waitStop();
+  if (body && body.failure_reason === "pool_exhausted") { landingPool(null); return; }
+  landingFailed();
+}
 function pollResumeStatus(handle, tries) {
   fetch(RESUME_STATUS_URL + "?handle=" + encodeURIComponent(handle), { method: "GET" })
     .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }, function () { return { ok: r.ok, body: null }; }); })
@@ -540,8 +547,8 @@ function pollResumeStatus(handle, tries) {
       if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
       if (st === "done") { landingComplete(false); return; }
-      if (st === "partial") { landingComplete(true); return; }
-      if (st === "failed") { waitStop(); landingFailed(); return; }
+      if (st === "partial") { waitShow(res.body); if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; } waitStop(); landingShow("stateOk", WAIT_TIMEOUT); return; }
+      if (st === "failed") { landingFailedReason(res.body); return; }
       if (st === "queued" && landingRead("citmark_resume_pooled")) { pollPoolStatus(handle, 240); return; }
       if (st === "queued" && !landingRead("citmark_resume_claimed")) { postResume(handle); return; }
       if (st === "queued" || st === "running") {
@@ -564,8 +571,8 @@ function pollPoolStatus(handle, tries) {
       if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
       if (st === "done") { landingComplete(false); return; }
-      if (st === "partial") { landingComplete(true); return; }
-      if (st === "failed") { waitStop(); landingFailed(); return; }
+      if (st === "partial") { waitShow(res.body); if (tries > 0) { setTimeout(function () { pollResumeStatus(handle, tries - 1); }, 2500); return; } waitStop(); landingShow("stateOk", WAIT_TIMEOUT); return; }
+      if (st === "failed") { landingFailedReason(res.body); return; }
       if (st === "running") { pollResumeStatus(handle, 48); return; }
       if (tries > 0) { setTimeout(function () { pollPoolStatus(handle, tries - 1); }, 15000); return; }
       waitStop();
@@ -590,7 +597,7 @@ function postResume(handle) {
     if (res.status === 201) { waitBrand = body.brand_name || body.brand_domain || null; waitEmail = body.email || null; landingDone(waitBrand, waitEmail); pollResumeStatus(handle, 48); return; }
     if (res.status === 409) { pollResumeStatus(handle, 48); return; }
     if (res.status === 502) { landingStore("citmark_resume_claimed", null); landingFailed(); return; }
-    if (res.status === 429) { landingStore("citmark_resume_pooled", "1"); landingPool(body); pollPoolStatus(handle, 240); return; }
+    if (res.status === 429) { if (body.detail === "daily_free_pool_exhausted") { landingStore("citmark_resume_pooled", "1"); landingPool(body); pollPoolStatus(handle, 240); } else { pollResumeStatus(handle, 48); } return; }
     if (res.status === 400) { landingHandleInvalid(); return; }
     landingStore("citmark_resume_claimed", null); landingFailed();
   }).catch(function () { landingStore("citmark_resume_claimed", null); landingFailed(); });
