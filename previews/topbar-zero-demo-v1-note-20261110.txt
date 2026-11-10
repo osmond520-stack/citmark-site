@@ -1,0 +1,3 @@
+Topbar zero-shift demo v1 (approved 2026-11-10)
+index:   topbar-zero-demo-index-v1-20261110.html  md5 1e39952ff05c49da2652bc53452ba62f  632577 B
+success: topbar-zero-demo-success-v1-20261110.html  md5 4f7a1c5a3988c92f063d938db7e4ddbf  535856 B
