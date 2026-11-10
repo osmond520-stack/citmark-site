@@ -1023,6 +1023,22 @@ button.hero-mini-eng:hover { color: var(--accent-deep); }
 <style id="scrollbar-gutter">
 html { scrollbar-gutter: stable; }
 </style>
+<style id="pending-gate">
+/* REG-VERIFY-GATE: pending-verification state (card mode-pending).
+   Form/oauth/foot hide; the pending block shows. Type metrics mirror
+   the reset-head block so the face stays in the card's own vocabulary. */
+#authCard .auth-card-pending { display: none; margin: 0 0 6px; text-align: center; }
+#authCard.mode-pending .auth-card-pending { display: block; }
+#authCard.mode-pending .auth-card-oauth-row, #authCard.mode-pending .auth-card-divider, #authCard.mode-pending .auth-card-reset-head, #authCard.mode-pending form, #authCard.mode-pending .auth-card-foot { display: none !important; }
+#authCard .auth-card-pending h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
+#authCard .auth-card-pending .pending-mail { font-size: 13.5px; line-height: 19px; color: var(--ink-2); margin: 0 0 14px; }
+#authCard .auth-card-pending .pending-mail strong { color: var(--ink); font-weight: 600; }
+#authCard .auth-card-pending .pending-actions { margin: 0 0 8px; }
+#authCard .pending-link-btn { background: none; border: 0; padding: 0; font: inherit; font-size: 13px; color: var(--accent-deep); text-decoration: underline; cursor: pointer; }
+#authCard .pending-link-btn[disabled] { opacity: .55; cursor: default; }
+#authCard .auth-card-pending-msg { font-size: 13px; line-height: 18px; color: var(--muted); margin: 10px 0 8px; }
+#authCard .auth-card-pending-msg.is-error { color: var(--accent-deep); }
+</style>
 </head>
   <body>
     <header class="topbar">
@@ -2315,6 +2331,13 @@ html { scrollbar-gutter: stable; }
           </div>
                   <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
+        <div class="auth-card-pending" id="authCardPending">
+          <h3>Check your inbox to finish signing up.</h3>
+          <p class="pending-mail">We sent a verification link to <strong id="authCardPendingEmail"></strong>. The link is valid for 24 hours.</p>
+          <p class="pending-actions"><button type="button" class="pending-link-btn" id="authCardResendBtn">Resend verification email</button></p>
+          <p class="auth-card-pending-msg" id="authCardPendingMsg" role="status" hidden></p>
+          <p class="pending-actions"><button type="button" class="pending-link-btn" id="authCardPendingBack">Use a different email</button></p>
+        </div>
         <p class="auth-card-foot"><span id="authCardFootText">New to CitMark?</span> <a href="#" id="authCardModeToggle">Sign up</a></p>
       </div>
     </div>
@@ -2475,6 +2498,7 @@ html { scrollbar-gutter: stable; }
           authMode = mode;
           card.classList.toggle("mode-register", mode === "register");
           card.classList.toggle("mode-reset", mode === "reset");
+          card.classList.toggle("mode-pending", mode === "pending");
           if (pwInput) { pwInput.value = ""; pwInput.setAttribute("autocomplete", mode === "register" ? "new-password" : "current-password"); }
           if (mode === "register") {
             showMsg("At least 10 characters, with a letter and a number.", false);
@@ -2482,6 +2506,8 @@ html { scrollbar-gutter: stable; }
             if (submitTxt) submitTxt.textContent = "Create account";
             if (footText) footText.textContent = "Already have an account?";
             if (modeToggle) modeToggle.textContent = "Log in";
+          } else if (mode === "pending") {
+            showMsg("", false);
           } else if (mode === "reset") {
             resetSent = false;
             showMsg("", false);
@@ -2497,6 +2523,58 @@ html { scrollbar-gutter: stable; }
             if (modeToggle) modeToggle.textContent = "Sign up";
           }
         }
+        var pendingEmail = "";
+        var pendingFrom = "register";
+        var resendBusy = false;
+        var pendEmailEl = document.getElementById("authCardPendingEmail");
+        var pendMsgEl = document.getElementById("authCardPendingMsg");
+        var resendBtn = document.getElementById("authCardResendBtn");
+        var pendBackBtn = document.getElementById("authCardPendingBack");
+        function showPendingMsg(text, isErr) {
+          if (!pendMsgEl) return;
+          pendMsgEl.textContent = text || "";
+          pendMsgEl.hidden = !text;
+          pendMsgEl.classList.toggle("is-error", !!isErr);
+        }
+        var RESEND_ACTIVATION_URL = "https://citmark.com/auth/activation/resend";
+        function requestResend(email, done) {
+          fetch(RESEND_ACTIVATION_URL, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email }) })
+            .then(function (resp) {
+              if (resp.ok) { done(null); return; }
+        if (resp.status === 429) {
+          var ra = parseInt(resp.headers.get("Retry-After") || "", 10);
+          done({ waitMin: isNaN(ra) ? null : Math.max(1, Math.ceil(ra / 60)) });
+          return;
+        }
+                            done({ error: true });
+            })
+            .catch(function () { done({ error: true }); });
+        }
+        function enterPending(email, opts) {
+          pendingEmail = email || pendingEmail;
+          pendingFrom = (opts && opts.from) || "register";
+          if (pendEmailEl) pendEmailEl.textContent = pendingEmail;
+          if (pendBackBtn) pendBackBtn.textContent = pendingFrom === "login" ? "Back to log in" : "Use a different email";
+          setAuthMode("pending");
+          if (opts && opts.resent) showPendingMsg("Verification email sent. The previous link no longer works.", false);
+          else showPendingMsg("", false);
+        }
+        if (resendBtn) resendBtn.addEventListener("click", function () {
+          if (resendBusy || !pendingEmail) return;
+          resendBusy = true;
+          resendBtn.disabled = true;
+          requestResend(pendingEmail, function (res) {
+            resendBusy = false;
+            resendBtn.disabled = false;
+            if (!res) showPendingMsg("Verification email sent. The previous link no longer works.", false);
+            else if (res.waitMin) showPendingMsg("We just sent a link. You can request another in about " + res.waitMin + " minutes.", true);
+            else if ("waitMin" in res) showPendingMsg("Please wait a few minutes before trying again.", true);
+            else showPendingMsg("Something went wrong. Please try again.", true);
+          });
+        });
+        if (pendBackBtn) pendBackBtn.addEventListener("click", function () {
+          setAuthMode(pendingFrom === "login" ? "login" : "register");
+        });
         if (modeToggle) modeToggle.addEventListener("click", function (ev) {
           ev.preventDefault();
           setAuthMode(authMode === "login" ? "register" : "login");
@@ -2550,10 +2628,19 @@ html { scrollbar-gutter: stable; }
           }
           fetch(url, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
             .then(function (resp) {
-              if (resp.ok) { window.location.href = "https://citmark.com/dashboard/"; return null; }
+              if (resp.ok) {
+                if (authMode === "register") {
+                  return resp.json().catch(function () { return null; }).then(function (body) {
+                    enterPending(email, { from: "register", resent: !!(body && body.resent) });
+                    return null;
+                  });
+                }
+                window.location.href = "https://citmark.com/dashboard/"; return null;
+              }
               return resp.json().catch(function () { return null; }).then(function (body) {
                 var detail = body && body.detail ? String(body.detail) : "";
-                if (resp.status === 401) showMsg("Email or password doesn't match our records.", true);
+                if (resp.status === 403 && detail === "email_verification_required") enterPending(email, { from: "login" });
+                else if (resp.status === 401) showMsg("Email or password doesn't match our records.", true);
                 else if (resp.status === 409) showMsg("That email already has an account. Switch to Log in below.", true);
                 else if (resp.status === 429) showMsg("Too many attempts. Please wait a few minutes and try again.", true);
                 else if (resp.status === 400 && detail === "invalid_email") showMsg("That email address doesn't look right — check it and try again.", true);
