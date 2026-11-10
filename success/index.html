@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="description" content="CitMark checks ChatGPT, Perplexity, Gemini and Claude every week to see whether your site gets mentioned, cited, or skipped — and tells you in plain English what to fix." />
+    <meta name="description" content="CitMark checks ChatGPT, Perplexity and Gemini every week to see whether your site gets mentioned, cited, or skipped — and tells you in plain English what to fix." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Does AI recommend your business? — CitMark" />
-    <meta property="og:description" content="Check your site's llms.txt for free in seconds, then get a weekly report on what ChatGPT, Perplexity, Gemini and Claude say about you." />
+    <meta property="og:description" content="Check your site's llms.txt for free in seconds, then get a weekly report on what ChatGPT, Perplexity and Gemini say about you." />
     <meta property="og:image" content="https://citmark.com/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Does AI recommend your business? — CitMark" />
-    <meta name="twitter:description" content="Check your site's llms.txt for free in seconds, then get a weekly report on what ChatGPT, Perplexity, Gemini and Claude say about you." />
+    <meta name="twitter:description" content="Check your site's llms.txt for free in seconds, then get a weekly report on what ChatGPT, Perplexity and Gemini say about you." />
     <link rel="icon" href="data:," />
     <title>Thank you — CitMark</title>
     <style>
@@ -1030,17 +1030,6 @@ footer .fineprint { grid-column: 1 / -1; }
               { q: "is merino wool worth it for base layers?", status: "mentioned", page: "named, but no page linked" },
               { q: "best online stores for trail running gear", status: "mentioned", page: "named, but no page linked" }
             ]
-          },
-          "Claude": {
-            score: 49, delta: "▼ 2 pts vs. last week",
-            mention: 40, citation: 24, sov: 22,
-            prompts: [
-              { q: "best waterproof hiking boots for wide feet", status: "mentioned", page: "named, but no page linked" },
-              { q: "most durable backpack for a daily commute", status: "missed", page: "not in the answer at all" },
-              { q: "best gifts for hikers under $50", status: "missed", page: "rival cited instead: summitstride.com" },
-              { q: "is merino wool worth it for base layers?", status: "cited", page: "cited: /blog/merino-wool-guide" },
-              { q: "best online stores for trail running gear", status: "missed", page: "not in the answer at all" }
-            ]
           }
         };
         var STATUS_LABEL = { cited: "CITED", mentioned: "MENTIONED", missed: "MISSED" };
@@ -1608,7 +1597,7 @@ footer .fineprint { grid-column: 1 / -1; }
           var cta = document.createElement("div");
           cta.className = "checker-cta";
           var cp = document.createElement("p");
-          cp.innerHTML = "<strong>This is one file.</strong> The full report checks what ChatGPT, Perplexity, Gemini and Claude actually say about you — every week.";
+          cp.innerHTML = "<strong>This is one file.</strong> The full report checks what ChatGPT, Perplexity and Gemini actually say about you — every week.";
           var ca = document.createElement("a");
           ca.className = "btn small";
           ca.href = "#join";
