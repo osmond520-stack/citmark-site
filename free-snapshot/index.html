@@ -164,7 +164,7 @@ a { color: var(--accent-deep); }
 
 <div class="hero">
   <h1>See how AI sees your brand — <em>free</em></h1>
-  <p>We ask 3 AI engines 3 questions about your category and check whether your brand gets mentioned. You get the score and the raw answers by email.</p>
+  <p>We ask 3 AI engines 3 questions about your category and check whether your brand gets mentioned. We'll email you the score and a link to the full report — every raw answer included.</p>
 </div>
 
 
@@ -214,7 +214,7 @@ a { color: var(--accent-deep); }
 <div class="how">
   <div class="step"><div class="n">1</div><h2>Tell us your brand</h2><p>Brand name, domain, and where to send the report.</p></div>
   <div class="step"><div class="n">2</div><h2>We run the check</h2><p>3 questions × 3 AI engines, scored with confidence intervals.</p></div>
-  <div class="step"><div class="n">3</div><h2>Read your report</h2><p>Your visibility score plus every raw answer, by email.</p></div>
+  <div class="step"><div class="n">3</div><h2>Read your report</h2><p>We'll email you the score and a link to the full report — every raw answer included.</p></div>
 </div>
 
 <p class="foot">This check is free and rate-limited to keep it fair — one snapshot per email per day. Abuse protection by Cloudflare Turnstile.</p>
@@ -471,15 +471,32 @@ function landingDone(brand, email) {
   landingShow("stateOk", "<b>Snapshot requested.</b> We are running the check for " + b + tail);
 }
 var waitBrand = null, waitEmail = null;
-function landingComplete(partial) {
+function landingComplete(handle, partial) {
   waitStop();
+  var savedHandle = handle || landingRead("citmark_resume_handle");
   landingStore("citmark_resume_handle", null);
   landingStore("citmark_resume_claimed", null);
   landingStore("citmark_resume_pooled", null);
-  var b = waitBrand ? escapeHtml(waitBrand) : "your brand";
-  var html = "<b>Your snapshot is ready.</b> We sent the report for " + b + (waitEmail ? " to " + escapeHtml(waitEmail) + "." : ".");
-  if (partial) html += "<div class=\"wait-elapsed\">Some data is missing from this run.</div>";
-  landingShow("stateOk", html);
+  landingStore("citmark_resume_brand", null);
+  landingStore("citmark_resume_email", null);
+  var render = function () {
+    var html;
+    if (waitBrand && waitEmail) { html = "<b>Your snapshot is ready.</b> We sent the report for " + escapeHtml(waitBrand) + " to " + escapeHtml(waitEmail) + "."; }
+    else if (waitBrand) { html = "<b>Your snapshot is ready.</b> We sent the report for " + escapeHtml(waitBrand) + "."; }
+    else { html = "<b>Your snapshot is ready.</b>"; }
+    if (partial) html += "<div class=\"wait-elapsed\">Some data is missing from this run.</div>";
+    landingShow("stateOk", html);
+  };
+  if ((waitBrand && waitEmail) || !savedHandle) { render(); return; }
+  fetch(REPORT_API_URL + "?" + REPORT_PARAM + "=" + encodeURIComponent(savedHandle), { method: "GET" })
+    .then(function (r) { return r.ok ? r.json() : null; }, function () { return null; })
+    .then(function (body) {
+      if (body) {
+        if (!waitBrand) { waitBrand = body.brand_name || body.brand_domain || null; }
+        if (!waitEmail) { waitEmail = body.email || null; }
+      }
+      render();
+    }, render);
 }
 function landingInvalid() {
   landingStore("citmark_resume_handle", null);
@@ -539,13 +556,15 @@ function landingFailedReason(body) {
   landingFailed();
 }
 function pollResumeStatus(handle, tries) {
+  if (!waitBrand) { waitBrand = landingRead("citmark_resume_brand"); }
+  if (!waitEmail) { waitEmail = landingRead("citmark_resume_email"); }
   fetch(RESUME_STATUS_URL + "?handle=" + encodeURIComponent(handle), { method: "GET" })
     .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }, function () { return { ok: r.ok, body: null }; }); })
     .then(function (res) {
       if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
-      if (st === "done") { landingComplete(false); return; }
-      if (st === "partial") { landingComplete(true); return; }
+      if (st === "done") { landingComplete(handle, false); return; }
+      if (st === "partial") { landingComplete(handle, true); return; }
       if (st === "failed") { landingFailedReason(res.body); return; }
       if (st === "queued" && landingRead("citmark_resume_pooled")) { pollPoolStatus(handle, 240); return; }
       if (st === "queued" && !landingRead("citmark_resume_claimed")) { postResume(handle); return; }
@@ -563,13 +582,15 @@ function pollResumeStatus(handle, tries) {
     });
 }
 function pollPoolStatus(handle, tries) {
+  if (!waitBrand) { waitBrand = landingRead("citmark_resume_brand"); }
+  if (!waitEmail) { waitEmail = landingRead("citmark_resume_email"); }
   fetch(RESUME_STATUS_URL + "?handle=" + encodeURIComponent(handle), { method: "GET" })
     .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }, function () { return { ok: r.ok, body: null }; }); })
     .then(function (res) {
       if (!res.ok) { waitStop(); landingHandleInvalid(); return; }
       var st = res.body && res.body.status;
-      if (st === "done") { landingComplete(false); return; }
-      if (st === "partial") { landingComplete(true); return; }
+      if (st === "done") { landingComplete(handle, false); return; }
+      if (st === "partial") { landingComplete(handle, true); return; }
       if (st === "failed") { landingFailedReason(res.body); return; }
       if (st === "running") { pollResumeStatus(handle, 48); return; }
       if (tries > 0) { setTimeout(function () { pollPoolStatus(handle, tries - 1); }, 15000); return; }
@@ -592,7 +613,7 @@ function postResume(handle) {
     return r.json().then(function (body) { return { status: r.status, body: body }; }, function () { return { status: r.status, body: null }; });
   }).then(function (res) {
     var body = res.body || {};
-    if (res.status === 201) { waitBrand = body.brand_name || body.brand_domain || null; waitEmail = body.email || null; landingDone(waitBrand, waitEmail); pollResumeStatus(handle, 48); return; }
+    if (res.status === 201) { waitBrand = body.brand_name || body.brand_domain || null; waitEmail = body.email || null; if (waitBrand) { landingStore("citmark_resume_brand", waitBrand); } if (waitEmail) { landingStore("citmark_resume_email", waitEmail); } landingDone(waitBrand, waitEmail); pollResumeStatus(handle, 48); return; }
     if (res.status === 409) { pollResumeStatus(handle, 48); return; }
     if (res.status === 502) { landingStore("citmark_resume_claimed", null); landingFailed(); return; }
     if (res.status === 429) { if (body.detail === "daily_free_pool_exhausted") { landingStore("citmark_resume_pooled", "1"); landingPool(body); pollPoolStatus(handle, 240); } else { pollResumeStatus(handle, 48); } return; }
