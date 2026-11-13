@@ -2255,7 +2255,7 @@ html { scrollbar-gutter: stable; }
             entries.forEach(function (e) {
               if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
             });
-          }, { threshold: 0.12 });
+          }, { threshold: 0.01 });
           revealEls.forEach(function (el) { io.observe(el); });
         } else {
           revealEls.forEach(function (el) { el.classList.add("in"); });
@@ -3425,7 +3425,7 @@ function mReset(k){
   if(anch){ var sec=document.querySelector(anch); sec=sec?sec.closest("section"):null; var r=sec?sec.querySelector(".m-rule"):null; if(r) r.classList.remove("go"); }
 }
 if("IntersectionObserver" in window){
-  var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ var k=e.target.getAttribute("data-m"); if(e.isIntersecting){ if(PLAY[k]) PLAY[k](); } else { mReset(k); } }); },{threshold:.15});
+  var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ var k=e.target.getAttribute("data-m"); if(e.isIntersecting){ if(PLAY[k]) PLAY[k](); } else { mReset(k); } }); },{threshold:.01});
   Object.keys(IO_MAP).forEach(function(k){ var el=document.querySelector(IO_MAP[k]); if(el){ el.setAttribute("data-m",k); mio.observe(el); } });
 }
 
