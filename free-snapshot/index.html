@@ -236,7 +236,7 @@ a { color: var(--accent-deep); }
    Abuse guard also lives on the backend: P-013 limits (email 24h×1,
    IP 24h×3, successes counted, over limit 429).
    ===================================================================== */
-var SNAPSHOT_API_URL = "https://citmark-backend-216307200415.asia-northeast1.run.app/snapshots/free";
+var SNAPSHOT_API_URL = "/snapshots/free";
 
 var form = document.getElementById("snapForm");
 var submitBtn = document.getElementById("submitBtn");
@@ -440,7 +440,7 @@ function showGate(email, verificationSent) {
    ?verified=1 = verified-no-pending signal; ?verify=invalid = bad link.
    Page states: starting / done / run_failed / pool_full / link_invalid / verified.
    Landing copy finalized by product 2026-10-31 (seven sentences verbatim, incl. poll-timeout). */
-var RESUME_API_URL = "https://citmark-backend-216307200415.asia-northeast1.run.app/snapshots/free/resume";
+var RESUME_API_URL = "/snapshots/free/resume";
 var RESUME_STATUS_URL = RESUME_API_URL + "/status";
 function landingQuery() {
   try { return new URLSearchParams(window.location.search); } catch (e) { return null; }
@@ -609,7 +609,7 @@ function postResume(handle) {
    Burned / expired / unknown handles return the same 404 and land on the
    invalid state, whose way forward is the form on this page (re-verify
    the same email for a fresh report link). */
-var REPORT_API_URL = "https://citmark-backend-216307200415.asia-northeast1.run.app/snapshots/free/report";
+var REPORT_API_URL = "/snapshots/free/report";
 var REPORT_PARAM = "r";
 function reportShowInvalid() {
   var panel = document.getElementById("reportPanel");
