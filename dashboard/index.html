@@ -861,6 +861,11 @@ a.wordmark { color: inherit; text-decoration: none; }
 /* Actions never wrap to two lines. */
 #view-billing .inv-table td[data-label="Actions"]{white-space:nowrap}
 </style>
+<style id="inv-rebuild-20261113">
+/* Invoice face rebuild (2026-11-13): live layer hidden in demo state; action anchors match .inv-action text-button form. */
+html[data-state="demo"] [data-live-layer]{display:none!important}
+#view-billing a.inv-action{text-decoration:none}
+</style>
 <style id="menuweb-fixes">
 /* Menu-web fixes (20261027): web acct-menu items fall back to UA gray defaults because the transparent/border rules live only in max-width:900px media. Mirror mobile's computed item + separator style on web (>=901px). Mobile untouched. */
 @media (min-width:901px){
@@ -1612,10 +1617,12 @@ kept apart from the gate-row pill set. */
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="empty" data-http-slot><div class="big">▤</div><p><b>No invoices yet.</b><br/>Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
-<table class="inv-table" style="min-width:0"><thead><tr><th>Invoice</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
-<tbody><tr><td>2026-10 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr>
-<tr><td>2026-09 · Starter <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"></td></tr></tbody></table></div>
+<div class="empty" data-http-slot id="invEmpty"><div class="big">▤</div><p><b>No invoices yet.</b><br/>Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
+<table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody><tr><td>Oct 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document?download=1">Download</a></td></tr>
+<tr><td>Sep 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document?download=1">Download</a></td></tr></tbody></table></div><div class="card" data-live-layer id="invCard" hidden><h3>Invoices</h3>
+<table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="invRows"></tbody></table></div><div class="empty" data-live-layer id="invError" hidden><div class="big">▤</div><p><b>Couldn't load your invoices.</b><br/>Check your connection and try again.</p><p><button class="btn small" type="button" id="invRetry">Retry</button></p></div>
 
 </section>
 
@@ -4329,6 +4336,88 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
   }
   window.__fillBrandSurfaces = fillBrandSurfaces;
   fillBrandSurfaces();
+})();
+</script>
+<script>
+/* Invoice face rebuild (2026-11-13, frozen read-face contract):
+   GET /billing/invoices -> {id, amount, currency, status, created_at, url}.
+   View opens url (HTML invoice page); Download uses url?download=1
+   (HTML attachment + print guidance; the face never labels a file format). */
+(function () {
+  function fmtDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return "";
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+  function fmtAmount(inv) {
+    var a = Number(inv.amount);
+    if (isNaN(a)) return "";
+    var s = (a % 1 === 0) ? String(a) : a.toFixed(2);
+    if (inv.currency === "USD") return "$" + s;
+    return (inv.currency ? inv.currency + " " : "") + s;
+  }
+  function cell(label) {
+    var td = document.createElement("td");
+    if (label) td.setAttribute("data-label", label);
+    return td;
+  }
+  function invRow(inv) {
+    var tr = document.createElement("tr");
+    var d = cell(null); d.textContent = fmtDate(inv.created_at); tr.appendChild(d);
+    var am = cell("Amount"); am.textContent = fmtAmount(inv); tr.appendChild(am);
+    var st = cell("Status");
+    if (inv.status === "paid") {
+      var b = document.createElement("span"); b.className = "badge-ok"; b.textContent = "Paid"; st.appendChild(b);
+    } else {
+      st.textContent = inv.status ? (inv.status.charAt(0).toUpperCase() + inv.status.slice(1)) : "";
+    }
+    tr.appendChild(st);
+    var ac = cell("Actions");
+    if (inv.url) {
+      var v = document.createElement("a");
+      v.className = "inv-action"; v.href = inv.url; v.target = "_blank"; v.rel = "noopener"; v.textContent = "View";
+      var dl = document.createElement("a");
+      dl.className = "inv-action"; dl.href = inv.url + (inv.url.indexOf("?") === -1 ? "?download=1" : "&download=1"); dl.textContent = "Download";
+      ac.appendChild(v); ac.appendChild(dl);
+    }
+    tr.appendChild(ac);
+    return tr;
+  }
+  function loadInvoices() {
+    var empty = document.getElementById("invEmpty");
+    var card = document.getElementById("invCard");
+    var body = document.getElementById("invRows");
+    var err = document.getElementById("invError");
+    if (!empty || !card || !body) return;
+    fetch("/billing/invoices", { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) { throw new Error("http " + r.status); } return r.json(); })
+      .then(function (data) {
+        var list = (data && data.invoices) || [];
+        body.textContent = "";
+        if (err) err.hidden = true;
+        if (!list.length) { card.hidden = true; empty.style.display = ""; return; }
+        list.forEach(function (inv) { body.appendChild(invRow(inv)); });
+        empty.style.display = "none";
+        card.hidden = false;
+      })
+      .catch(function () {
+        /* Failure state (never fake rows, never pass off as empty):
+           show the error slot with a working Retry. */
+        empty.style.display = "none";
+        card.hidden = true;
+        if (err) err.hidden = false;
+      });
+  }
+  var rb = document.getElementById("invRetry");
+  if (rb) rb.addEventListener("click", loadInvoices);
+  if (typeof window.go === "function") {
+    var orig = window.go;
+    window.go = function (v) {
+      var r = orig.apply(this, arguments);
+      if (v === "billing" && document.documentElement.getAttribute("data-state") !== "demo") loadInvoices();
+      return r;
+    };
+  }
 })();
 </script>
 </body>
