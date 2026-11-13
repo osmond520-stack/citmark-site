@@ -2391,6 +2391,13 @@ html { scrollbar-gutter: stable; }
           if (googleBtn) googleBtn.focus({ preventScroll: true });
         }
         document.addEventListener("citmark:auth-open", function () { openCard(null); });
+        /* /login canonical landing: /?auth=login opens the sign-in card, then cleans the URL. */
+        try {
+          if (new URLSearchParams(window.location.search).get("auth") === "login") {
+            document.dispatchEvent(new CustomEvent("citmark:auth-open"));
+            window.history.replaceState(null, "", window.location.pathname + window.location.hash);
+          }
+        } catch (e) {}
   function closeCard(opts) {
           if (overlay.hidden && !isOpen()) return;
           window.clearTimeout(closeTimer);
