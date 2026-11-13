@@ -466,9 +466,10 @@ function landingShow(box, html) {
 }
 function landingDone(brand, email) {
   landingStore("citmark_resume_handle", null);
-  var b = brand ? escapeHtml(brand) : "your brand";
-  var tail = email ? " \u2014 your report is on its way to " + escapeHtml(email) + "." : " \u2014 your report is on its way.";
-  landingShow("stateOk", "<b>Snapshot requested.</b> We are running the check for " + b + tail);
+  var msg = "<b>Snapshot requested.</b> We are running the check";
+  if (brand) { msg += " for " + escapeHtml(brand); }
+  msg += email ? " \u2014 your report is on its way to " + escapeHtml(email) + "." : " \u2014 your report is on its way.";
+  landingShow("stateOk", msg);
 }
 var waitBrand = null, waitEmail = null;
 function landingComplete(handle, partial) {
