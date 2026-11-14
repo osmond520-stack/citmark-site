@@ -885,11 +885,7 @@ html { scrollbar-gutter: stable; }
             <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
             <input type="text" id="authCardFullName" name="full_name" autocomplete="name" placeholder="Full name" required>
           </div>
-          <div class="capsule-field">
-            <label class="sr-only" for="authCardNickname">Nickname (optional)</label>
-            <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.45 0.45)"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.3"/></g></svg></span>
-            <input type="text" id="authCardNickname" name="nickname" autocomplete="nickname" placeholder="Nickname (optional)">
-          </div>
+          
         </div>
           <div class="capsule-field">
             <label class="sr-only" for="authCardLoginEmail">Email</label>
@@ -941,7 +937,7 @@ html { scrollbar-gutter: stable; }
   var emailInput = document.getElementById("authCardLoginEmail");
   var pwInput = document.getElementById("authCardLoginPassword");
   var fnInput = document.getElementById("authCardFullName");
-  var nnInput = document.getElementById("authCardNickname");
+  
   var submitBtn = document.getElementById("authCardLoginSubmit");
   var submitTxt = submitBtn ? submitBtn.querySelector(".sb-txt") : null;
         var emErr = document.getElementById("authCardEmailErr");
@@ -1105,13 +1101,13 @@ html { scrollbar-gutter: stable; }
         .then(function () { busy = false; });
       return;
     }
-    var fullName = "", nickname = "";
+    var fullName = "";
     if (mode === "register") {
       fullName = fnInput ? fnInput.value.trim() : "";
-      nickname = nnInput ? nnInput.value.trim() : "";
+      
       if (!fullName) { showMsg("Enter your full name.", true); return; }
       if (!cfInp || !cfInp.value || cfBad()) { showCf(true); return; }
-      if (!nickname) nickname = fullName;
+      
     }
     var password = pwInput ? pwInput.value : "";
     if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
@@ -1123,7 +1119,7 @@ html { scrollbar-gutter: stable; }
     var tier = window.__citmarkTier || null;
     var payload = { email: email, password: password };
     if (mode === "register" && tier) payload.tier = tier;
-    if (mode === "register") { payload.full_name = fullName; payload.nickname = nickname; }
+    if (mode === "register") { payload.full_name = fullName;  }
     fetch(url, { method: "POST", credentials: "include",
       headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(function (resp) {
@@ -1165,11 +1161,24 @@ html { scrollbar-gutter: stable; }
       window.__citmarkTier = sessionStorage.getItem("citmark_pending_tier");
     }
   } catch (e) {}
-  // Signed-in visitors go straight to the dashboard (finalized landing rule).
-  fetch("https://citmark.com/auth/me", { credentials: "include" })
-    .then(function (r) { if (r.ok) window.location.href = "https://citmark.com/dashboard/"; })
-    .catch(function () {});
-  setMode("register");
+  // Signed-in visitors go straight to the dashboard (finalized landing rule),
+// with one exception carved out 2026-11-14: a registration for a DIFFERENT
+// email must never be rerouted - its 201 lands on the pending-verification
+// face and stays there. Same-email (or untouched form) keeps the old rule.
+fetch("https://citmark.com/auth/me", { credentials: "include" })
+  .then(function (r) { return r.ok ? r.json().catch(function () { return null; }) : null; })
+  .then(function (me) {
+    if (!me) return;
+    var card = document.getElementById("authCard");
+    if (card && card.classList.contains("mode-pending")) return;
+    var em = document.getElementById("authCardLoginEmail");
+    var typed = em ? (em.value || "").trim().toLowerCase() : "";
+    var mine = String(me.email || "").trim().toLowerCase();
+    if (typed && typed !== mine) return;
+    window.location.href = "https://citmark.com/dashboard/";
+  })
+  .catch(function () {});
+setMode("register");
 })();
 
 </script>
