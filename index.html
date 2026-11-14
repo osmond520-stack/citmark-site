@@ -188,7 +188,7 @@
       @media (max-width: 560px) { .waitlist { flex-direction: column; } .waitlist .btn { width: 100%; } }
 
       /* ---------- hero ---------- */
-      .hero { padding: 76px 0 30px; position: relative; overflow: hidden; }
+      .hero { padding: 44px 0 64px; position: relative; overflow: hidden; }
       .hero::before {
         content: ""; position: absolute; inset: 0; pointer-events: none;
         background-image:
@@ -222,7 +222,7 @@
       /* ---------- sections ---------- */
       section { padding: 64px 0; }
       section[id] { scroll-margin-top: 76px; }
-      .sec-head { max-width: 700px; margin-bottom: 36px; }
+      .sec-head { max-width: 700px; margin-bottom: 40px; }
       .sec-kicker { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-deep); margin: 0 0 10px; }
       h2 { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; font-size: clamp(26px, 3.6vw, 36px); line-height: 1.15; letter-spacing: -.01em; margin: 0 0 12px; }
       .sec-head p { color: var(--ink-2); margin: 0; font-size: 17.5px; }
@@ -855,6 +855,7 @@ h1 .h1-tail { white-space: nowrap; }
         .hero-mini-track { flex: 1; height: 8px; border-radius: 99px; background: var(--bg-sink); overflow: hidden; }
         .hero-mini-track > span { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
         .hero-mini-row b { flex: none; width: 28px; text-align: right; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; }
+.hero-mini-sub { flex: none; font-size: 12px; color: var(--muted); white-space: nowrap; }
         .hero-mini-note { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; }
       }
 .hero-mini-brand { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 8px; font-size: 15px; }
@@ -1043,15 +1044,16 @@ html { scrollbar-gutter: stable; }
           </div>
           <div class="hero-mini-wrap"><aside class="hero-mini" aria-label="Sample visibility report for Good Molecules">
             <div class="hero-mini-head"><span class="hero-mini-title">Visibility score</span></div>
-            <p class="hero-mini-brand"><b>Good Molecules</b><span>44.4 overall</span></p>
-            <div class="hero-mini-score"><span id="miniScore">33</span><small>/100</small></div>
-            <p class="hero-mini-label">on <span id="miniEngine">ChatGPT</span> · <span id="miniMention">mentioned in 1 of 3 buyer questions</span></p>
+            <p class="hero-mini-brand"><b>Good Molecules</b><span>22.2 overall</span></p>
+            <div class="hero-mini-score"><span id="miniScore">22.2</span><small>/100</small></div>
+            <p class="hero-mini-label">Across 3 AI engines · <span id="miniMention">mentioned in 2 of 9 engine answers</span></p>
             <div class="hero-mini-rows" id="miniRows">
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Perplexity" aria-label="Show Perplexity score">Perplexity</button><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
-              <div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Gemini" aria-label="Show Gemini score">Gemini</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
+              <div class="hero-mini-row"><span class="hero-mini-eng">Perplexity</span><span class="hero-mini-track"><span style="width:0%"></span></span><b>0</b><span class="hero-mini-sub">mentioned in 0 of 3</span></div>
+              <div class="hero-mini-row"><span class="hero-mini-eng">ChatGPT</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b><span class="hero-mini-sub">mentioned in 1 of 3</span></div>
+              <div class="hero-mini-row"><span class="hero-mini-eng">Gemini</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b><span class="hero-mini-sub">mentioned in 1 of 3</span></div>
             </div>
-            <div class="hero-mini-dots" id="miniDots"></div>
-            <p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Nov 10, 2026.</p>
+            
+            <p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Nov 13, 2026.</p>
           </aside>
             <p class="hero-mini-caption" style="font-size:11.5px;line-height:1.55;color:var(--muted);margin:10px 4px 0">Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash. Question set v2 — the same 3 buyer questions as the free check.</p></div>
           <div class="hero-chips">
@@ -1089,15 +1091,15 @@ html { scrollbar-gutter: stable; }
             </div>
           </div>
 
-          <div class="sec-head reveal" style="margin-top: 56px;">
+          <div class="sec-head reveal" style="margin-top: 40px;">
             <p class="sec-kicker">Sample report</p>
             <h2>…and this is what a full report looks like</h2>
-            <p>We ran CitMark for real on Nov 10, 2026 — all three engines, the same 3 buyer questions as the free check, for one brand: Good Molecules. The table lists every brand the engines named in those 9 answers. Every score below is the actual result, low ones included.</p>
+            <p>We ran CitMark for real on Nov 13, 2026 — all three engines, the same 3 buyer questions as the free check, for one brand: Good Molecules. The table lists every brand the engines named in those 9 answers. Every score below is the actual result, low ones included.</p>
           </div>
 
           <div class="sample-run" id="sample-table">
             <div class="sample-run-head">
-              <span class="site">Sample run · Nov 10, 2026 · Good Molecules · 3 engines · 9 answers</span>
+              <span class="site">Sample run · Nov 13, 2026 · Good Molecules · 3 engines · 9 answers</span>
               <span class="real-badge">REAL RUN — REAL DATA</span>
             </div>
             <div class="sr-scroll">
@@ -1106,29 +1108,30 @@ html { scrollbar-gutter: stable; }
               <tbody>
               <tr><th>The Ordinary</th><td>3/3</td><td>3/3</td><td>2/3</td><td class="sr-score"><b>88.9</b><small>95% CI 56.5–98.0</small></td></tr>
               <tr><th>CeraVe</th><td>2/3</td><td>2/3</td><td>2/3</td><td class="sr-score"><b>66.7</b><small>95% CI 35.4–87.9</small></td></tr>
-              <tr><th>The Inkey List</th><td>2/3</td><td>1/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
+              <tr><th>The Inkey List</th><td>1/3</td><td>2/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
               <tr><th>Vanicream</th><td>2/3</td><td>1/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
-              <tr><th>Good Molecules<small>goodmolecules.com</small></th><td>1/3</td><td>2/3</td><td>1/3</td><td class="sr-score"><b>44.4</b><small>95% CI 18.9–73.3</small></td></tr>
-              <tr><th>Cetaphil</th><td>1/3</td><td>2/3</td><td class="zero">0/3</td><td class="sr-score"><b>33.3</b><small>95% CI 12.1–64.6</small></td></tr>
-              <tr><th>Beauty of Joseon</th><td class="zero">0/3</td><td class="zero">0/3</td><td>2/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
+              <tr><th>Cetaphil</th><td>2/3</td><td>2/3</td><td>1/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
+              <tr><th>Naturium</th><td class="zero">0/3</td><td>1/3</td><td>3/3</td><td class="sr-score"><b>44.4</b><small>95% CI 18.9–73.3</small></td></tr>
+              <tr><th>Good Molecules<small>goodmolecules.com</small></th><td>1/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
               <tr><th>La Roche-Posay</th><td class="zero">0/3</td><td>1/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
               <tr><th>Neutrogena</th><td>1/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
-              <tr><th>Coppertone</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Eucerin</th><td>1/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
+              <tr><th>Geek & Gorgeous</th><td>1/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
+              <tr><th>Beauty of Joseon</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
               <tr><th>Cosrx</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
               <tr><th>Differin</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr><th>Eucerin</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr><th>Geek & Gorgeous</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
               <tr><th>Melano CC</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr><th>Naturium</th><td class="zero">0/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr><th>Prequel</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr><th>RoC</th><td class="zero">0/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
               <tr><th>Timeless</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Byoma</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Hada Labo</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Skin Aqua</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
+              <tr><th>Jumiso</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
               <tr><th>CitMark<small>citmark.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>0.0</b><small>95% CI 0.0–29.9</small></td></tr>
               </tbody>
             </table>
             </div>
             <div class="sample-notes">
-              <p class="sr-main">Sample report — a real CitMark run on Nov 10, 2026.</p>
+              <p class="sr-main">Sample report — a real CitMark run on Nov 13, 2026.</p>
               <p>Each engine cell shows in how many of the 3 buyer questions that engine named the brand. The score is the share of all 9 answers (3 questions × 3 engines) that named it, with the 95% confidence range. Engines as run: ChatGPT (gpt-6-luna), Perplexity (perplexity/sonar), Gemini (gemini-3.8-flash). By question length, Good Molecules scores 33.3 on short questions (L1), 100.0 on medium (L2) and 0.0 on long (L4) — small samples, indicative only. This sample scores 3 questions; probe questions are not part of this sample.</p></p>
               <p>The Ordinary is the name these answers reach for — named in 8 of the 9 answers, by every engine. Good Molecules is named by all three engines on the dull-skin question, and by Perplexity on the affordable-brands question — and by no engine at all on the specific product question, the best vitamin C serum under $25.</p>
               <p>And CitMark is our own site: it is not a skincare brand and no engine named it on these questions, so its row is 0 as well. That zero is real — the same questions and the same ruler as every other brand in this table, and we're publishing the fixes as we make them.</p>
@@ -1182,7 +1185,7 @@ html { scrollbar-gutter: stable; }
       </section>
 
       <!-- ============ HOW IT WORKS ============ -->
-      <section id="how" style="padding-top: 8px;">
+      <section id="how">
         <div class="wrap">
           <div class="sec-head reveal">
             <p class="sec-kicker">How it works</p>
@@ -1209,7 +1212,7 @@ html { scrollbar-gutter: stable; }
       </section>
 
       <!-- ============ FEATURES ============ -->
-      <section id="features" style="padding-top: 8px;">
+      <section id="features">
         <div class="wrap">
           <div class="sec-head reveal">
             <p class="sec-kicker">What gets monitored</p>
@@ -1391,7 +1394,7 @@ html { scrollbar-gutter: stable; }
       </section>
 
       <!-- ============ FAQ ============ -->
-      <section id="faq" style="padding-top: 8px;">
+      <section id="faq">
         <div class="wrap">
           <div class="faq-grid">
           <div class="faq-side reveal">
@@ -1436,7 +1439,7 @@ html { scrollbar-gutter: stable; }
       </section>
 
       <!-- ============ FINAL CTA ============ -->
-      <section id="join" style="padding-top: 8px;">
+      <section id="join">
         <div class="wrap">
           <div class="final reveal">
             <h2>Find out what AI says about you — before your competitors do.</h2>
@@ -1488,7 +1491,7 @@ html { scrollbar-gutter: stable; }
           <a href="#privacy" class="privacy-link">Privacy Policy</a>
           <a href="/terms/">Terms of Service</a>
         </nav>
-        <p class="fineprint foot-line"><span>The sample report on this page is a real CitMark run from Nov 10, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p>
+        <p class="fineprint foot-line"><span>The sample report on this page is a real CitMark run from Nov 13, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p>
       </div>
     </footer>
 
@@ -2710,163 +2713,9 @@ html { scrollbar-gutter: stable; }
       })();
     </script>
 <script>
-/* A1 formal: sample mini card carousel. Data: the Nov 10, 2026 real run for Good Molecules
-   (mentions of 3 buyer questions per engine; score = mention rate). Auto-advance 4.0s, >=1024px
-   only, reduced-motion = static. preview18 adds swipe/drag switching across all 7 states.
-   Product pause rule (2026-10-30): any manual interaction (swipe, row click, dot click) pauses
-   auto-advance for 8s; with no further interaction it resumes at the original 4.0s interval and
-   order. Card off-viewport or page hidden pauses; returning resumes (unless still in the 8s
-   manual window). */
-(function () {
-  var DATA = [
-    { name: "ChatGPT", score: 33, mentions: 1 },
-    { name: "Perplexity", score: 67, mentions: 2 },
-    { name: "Gemini", score: 33, mentions: 1 }
-  ];
-  var card = document.querySelector(".hero-mini");
-  if (!card) return;
-  var scoreEl = document.getElementById("miniScore");
-  var engEl = document.getElementById("miniEngine");
-  var menEl = document.getElementById("miniMention");
-  var rowsWrap = document.getElementById("miniRows");
-  var dotsWrap = document.getElementById("miniDots");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var wide = window.matchMedia("(min-width: 1024px)");
-  var idx = 0, current = DATA[0].score, timer = null, raf = null;
-  var resumeTimer = null, pausedUntil = 0, inView = true;
-  DATA.forEach(function (d, i) {
-    var dot = document.createElement("button");
-    dot.type = "button"; dot.className = "hero-mini-dot" + (i === 0 ? " on" : "");
-    dot.setAttribute("aria-label", "Show " + d.name + " score");
-    if (i === 0) dot.setAttribute("aria-current", "true");
-    dot.addEventListener("click", function () { manualPause(); render(i, true); });
-    dotsWrap.appendChild(dot);
-  });
-  var dots = dotsWrap.querySelectorAll(".hero-mini-dot");
-  var rowEls = rowsWrap.querySelectorAll(".hero-mini-row:not(.hero-mini-summary)");
-  rowEls.forEach(function (row) {
-    /* preview19: the whole row is the click target (name, track and score),
-       not just the engine-name button; the target engine is read at click time
-       because render() rewrites each row's engine per state. */
-    row.style.cursor = "pointer";
-    row.addEventListener("click", function () {
-      var name = row.querySelector(".hero-mini-eng").getAttribute("data-mini-eng");
-      var i = DATA.findIndex(function (d) { return d.name === name; });
-      if (i >= 0) { manualPause(); render(i, true); }
-    });
-  });
-  function render(next, animate) {
-    var d = DATA[next];
-    if (raf) cancelAnimationFrame(raf);
-    if (animate && !reduce) {
-      var from = current, to = d.score, t0 = performance.now(), DUR = 600;
-      var step = function (t) {
-        var p = Math.min(1, (t - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
-        scoreEl.textContent = Math.round(from + (to - from) * e);
-        if (p < 1) { raf = requestAnimationFrame(step); } else { current = to; }
-      };
-      raf = requestAnimationFrame(step);
-    } else { scoreEl.textContent = d.score; current = d.score; }
-    engEl.textContent = d.name;
-    menEl.textContent = "mentioned in " + d.mentions + " of 3 buyer questions";
-    var others = DATA.filter(function (x) { return x.name !== d.name; }).slice(0, 3);
-    rowEls.forEach(function (row, i) {
-      var o = others[i], btn = row.querySelector(".hero-mini-eng");
-      btn.textContent = o.name;
-      btn.setAttribute("data-mini-eng", o.name);
-      btn.setAttribute("aria-label", "Show " + o.name + " score");
-      row.querySelector(".hero-mini-track > span").style.width = o.score + "%";
-      row.querySelector("b").textContent = o.score;
-    });
-    var n = DATA.length - 1 - 3;
-    var sum = rowsWrap.querySelector(".hero-mini-summary a");
-    if (sum) sum.textContent = "+ " + n + " more engines — full sample below";
-    dots.forEach(function (dot, i) {
-      dot.classList.toggle("on", i === next);
-      if (i === next) { dot.setAttribute("aria-current", "true"); } else { dot.removeAttribute("aria-current"); }
-    });
-    idx = next;
-  }
-  function clearTimer() { if (timer) { clearInterval(timer); timer = null; } }
-  function startAuto() {
-    if (reduce || !wide.matches || timer || document.hidden || !inView) return;
-    if (Date.now() < pausedUntil) return;
-    timer = setInterval(function () { render((idx + 1) % DATA.length, true); }, 4000);
-  }
-  function manualPause() {
-    clearTimer();
-    pausedUntil = Date.now() + 8000;
-    if (resumeTimer) clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(function () { resumeTimer = null; startAuto(); }, 8000);
-  }
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) { clearTimer(); } else { startAuto(); }
-  });
-  if (wide.addEventListener) wide.addEventListener("change", function () { if (wide.matches) { startAuto(); } else { clearTimer(); } });
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) {
-      inView = entries[0].isIntersecting;
-      if (inView) { startAuto(); } else { clearTimer(); }
-    }, { threshold: 0.2 }).observe(card);
-  }
-  /* Swipe / drag layer (preview18): horizontal pointer drag on the card switches the
-     featured engine, cycling all states in DATA order (left = next, right = previous).
-     touch-action: pan-y keeps vertical page scroll native; a committed drag suppresses
-     the click that follows it. Drag feedback and the swap use transform/opacity only,
-     timed with the carousel's own 600ms easeOutCubic (same curve as the count animation). */
-  card.style.touchAction = "pan-y";
-  var dragX = null, dragY = null, dragged = false;
-  function swapFx(dir) {
-    if (reduce) return;
-    card.style.transition = "none";
-    card.style.transform = "translateX(" + (dir > 0 ? 14 : -14) + "px)";
-    card.style.opacity = "0.55";
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        card.style.transition = "transform 600ms cubic-bezier(0.33, 1, 0.68, 1), opacity 600ms cubic-bezier(0.33, 1, 0.68, 1)";
-        card.style.transform = "";
-        card.style.opacity = "";
-      });
-    });
-  }
-  card.addEventListener("pointerdown", function (e) {
-    if (e.button !== undefined && e.button !== 0) return;
-    dragX = e.clientX; dragY = e.clientY; dragged = false;
-  });
-  card.addEventListener("pointermove", function (e) {
-    if (dragX === null) return;
-    var dx = e.clientX - dragX, dy = e.clientY - dragY;
-    if (!dragged && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.2) dragged = true;
-    if (dragged && !reduce) {
-      card.style.transition = "none";
-      card.style.transform = "translateX(" + Math.max(-24, Math.min(24, dx * 0.35)) + "px)";
-    }
-  });
-  function endDrag(e) {
-    if (dragX === null) return;
-    var dx = e.clientX - dragX;
-    var wasDrag = dragged;
-    dragX = null; dragY = null; dragged = false;
-    card.style.transition = "transform 600ms cubic-bezier(0.33, 1, 0.68, 1)";
-    card.style.transform = "";
-    if (wasDrag && Math.abs(dx) >= 40) {
-      var dir = dx < 0 ? 1 : -1;
-      manualPause();
-      render((idx + dir + DATA.length) % DATA.length, true);
-      swapFx(dir);
-      var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
-      card.addEventListener("click", kill, { capture: true, once: true });
-      setTimeout(function () { card.removeEventListener("click", kill, { capture: true }); }, 350);
-    }
-  }
-  card.addEventListener("pointerup", endDrag);
-  card.addEventListener("pointercancel", function () {
-    dragX = null; dragY = null; dragged = false;
-    card.style.transform = "";
-  });
-  render(0, false);
-  startAuto();
-})();
+/* Static three-engine card (2026-11-13): the carousel form is retired - all three
+   engines render same-format on one screen (overall 22.2; Perplexity 0 / ChatGPT 33 /
+   Gemini 33, Nov 13, 2026 real run). No rotation, no dots, no per-engine big number. */
 </script>
 
 <style>
@@ -3021,7 +2870,7 @@ body.is-authed .topbar-in [data-open-auth-card] { display: none; }
 
 /* scheme layer: layout tightening (all versions) */
 h1, h2 { text-wrap: balance; }
-.sec-head { margin-bottom: 40px; }
+
 .plans { gap: 24px; }
 .steps { gap: 24px; }
 .plan, .sample-run, .checker, .faq-support { border-radius: 16px; }
@@ -3473,5 +3322,17 @@ document.querySelectorAll("#pricing .plan").forEach(function (card) {
     d.getElementsByTagName("head")[0].appendChild(s);
   })();
 </script>
+
+<style>
+/* Rhythm mobile band (2026-11-13, ruler v1): one media block, no per-section inline. */
+@media (max-width: 720px) {
+  section { padding: 48px 0; }
+  .hero { padding: 36px 0 48px; }
+  .sec-head { margin-bottom: 32px; }
+  #report .sec-head[style] { margin-top: 32px !important; }
+}
+.feat-note { margin-bottom: 0 !important; }
+.tkband-cta { margin-bottom: 0 !important; }
+</style>
 </body>
 </html>
