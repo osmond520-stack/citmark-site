@@ -1590,12 +1590,26 @@ html { scrollbar-gutter: stable; }
             input.removeAttribute("aria-invalid");
             /* Register bridge (merged base): open the auth card, switch it to its
                register state, and carry the email into the card's email field. */
-            var loginBtn = document.querySelector(".topbar-in .topbar-auth") || document.querySelector("[data-auth-open]");
-            if (loginBtn) { loginBtn.click(); }
-            var toggle = document.getElementById("authCardModeToggle");
-            if (toggle && toggle.textContent.trim() === "Sign up") { toggle.click(); }
-            var cardEmail = document.getElementById("authCardLoginEmail");
-            if (cardEmail) { cardEmail.value = email; }
+            function openRegister() {
+              document.dispatchEvent(new CustomEvent("citmark:auth-open", { detail: { mode: "register", email: email } }));
+            }
+            /* Session-aware bridge: never open the card by clicking the topbar
+               button - with a live session that click is intercepted and rerouted
+               to the dashboard, discarding the typed email. Ask /auth/me first:
+               only the session's own email may go straight to the dashboard;
+               anything else (or no session) opens the register card with the
+               typed email carried in. A failed check falls back to opening the
+               card, never to a jump. */
+            fetch("/auth/me", { credentials: "same-origin" })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (me) {
+                if (me && me.email && String(me.email).toLowerCase() === email.toLowerCase()) {
+                  window.location.href = "/dashboard/";
+                  return;
+                }
+                openRegister();
+              })
+              .catch(function () { openRegister(); });
           });
         });
 
@@ -2322,7 +2336,15 @@ html { scrollbar-gutter: stable; }
           var googleBtn = document.getElementById("authCardGoogleBtn");
           if (googleBtn) googleBtn.focus({ preventScroll: true });
         }
-        document.addEventListener("citmark:auth-open", function () { openCard(null); });
+        document.addEventListener("citmark:auth-open", function (ev) {
+        openCard(null);
+        var d = (ev && ev.detail) || {};
+        if (d.mode === "register") {
+          setAuthMode("register");
+          var em = document.getElementById("authCardLoginEmail");
+          if (em && d.email) { em.value = d.email; }
+        }
+      });
         /* /login canonical landing: /?auth=login opens the sign-in card, then cleans the URL. */
         try {
           if (new URLSearchParams(window.location.search).get("auth") === "login") {
