@@ -656,12 +656,12 @@
       /* LOGIN-CARD-FROSTED-20261027: centered frosted-glass login card.
          Replaces the former right slide-in panel. No spring, no drag. */
       .auth-card-overlay { position: fixed; inset: 0; z-index: 200;
-        background: rgba(20, 21, 25, .20);
+        background: rgba(20, 21, 25, 0);
         display: flex; padding: 24px 16px; overflow-y: auto; overscroll-behavior: contain;
-        opacity: 0; visibility: hidden;
-        transition: opacity .2s ease, visibility 0s linear .2s; }
+        visibility: hidden;
+        transition: background-color .2s ease, visibility 0s linear .2s; }
       .auth-card-overlay[hidden] { display: none; }
-      .auth-card-overlay.open { opacity: 1; visibility: visible; transition: opacity .2s ease; }
+      .auth-card-overlay.open { background: rgba(20, 21, 25, .20); visibility: visible; transition: background-color .2s ease; }
       .auth-card { margin: auto; width: 100%; max-width: 400px; box-sizing: border-box;
         max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px);
         overflow-y: auto; overscroll-behavior: contain;
@@ -670,13 +670,14 @@
         box-shadow: 0 24px 48px -16px rgba(20, 21, 25, .22), 0 2px 8px rgba(20, 21, 25, .08);
         color: var(--ink); }
       @media (prefers-color-scheme: dark) {
-        .auth-card-overlay { background: rgba(20, 21, 25, .35); }
+        .auth-card-overlay { background: rgba(20, 21, 25, 0); }
+        .auth-card-overlay.open { background: rgba(20, 21, 25, .35); }
         .auth-card { box-shadow: var(--shadow); }
       }
       .auth-card-overlay.open .auth-card { animation: authCardIn .25s ease-out both; }
       .auth-card-overlay.closing .auth-card { animation: authCardOut .2s ease-in both; }
-      @keyframes authCardIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
-      @keyframes authCardOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.98); } }
+      @keyframes authCardIn { from { transform: scale(.96); } to { transform: scale(1); } }
+      @keyframes authCardOut { from { transform: scale(1); } to { transform: scale(.98); } }
       .auth-card .btn-capsule, .auth-card .capsule-field input, .auth-card .capsule-chip, .auth-card .capsule-forgot, .auth-card .capsule-submit, .auth-card-divider, .auth-card-consent, .auth-card-consent-subs p, .auth-card-brandline, .auth-card-foot { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
       .auth-card-top-row { display: flex; align-items: center; justify-content: space-between; margin: 0 0 20px; }
       .auth-card-top-row .auth-card-logo { margin: 0; }
@@ -1400,7 +1401,7 @@ html { scrollbar-gutter: stable; }
             </div>
             <div class="faq-support">
               <h3>Still stuck?</h3>
-              <p>Write to <a href="mailto:support@citmark.com">support@citmark.com</a> — we answer by what your issue is, never by what you pay.</p>
+              <p>Write to <a href="/cdn-cgi/l/email-protection#6f1c1a1f1f001d1b2f0c061b020e1d04410c0002"><span class="__cf_email__" data-cfemail="bdcec8cdcdd2cfc9fdded4c9d0dccfd693ded2d0">[email&#160;protected]</span></a> — we answer by what your issue is, never by what you pay.</p>
               <p><a href="#sample-table">See the sample report →</a></p>
             </div>
           </div>
@@ -1455,7 +1456,7 @@ html { scrollbar-gutter: stable; }
               <div class="jstep"><b>3 · We run the checks</b><span>Up to 6 AI engines, the same buyer questions, the same ruler.</span></div>
               <div class="jstep"><b>4 · See your score and fixes</b><span>Mentions, citations and plain-English fixes in your dashboard.</span></div>
             </div>
-            <p class="form-note">Questions first? Email <strong><a href="mailto:support@citmark.com">support@citmark.com</a></strong>.</p>
+            <p class="form-note">Questions first? Email <strong><a href="/cdn-cgi/l/email-protection#6f1c1a1f1f001d1b2f0c061b020e1d04410c0002"><span class="__cf_email__" data-cfemail="c5b6b0b5b5aab7b185a6acb1a8a4b7aeeba6aaa8">[email&#160;protected]</span></a></strong>.</p>
           </div>
         </div>
       </section>
@@ -1467,7 +1468,7 @@ html { scrollbar-gutter: stable; }
           <a class="wordmark" href="#top">CitMark<span class="dot">.</span></a>
           <p>AI search visibility monitoring for small sites.</p>
           <p>Now open for new accounts.</p>
-          <p>Contact: <a href="mailto:support@citmark.com">support@citmark.com</a></p>
+          <p>Contact: <a href="/cdn-cgi/l/email-protection#fd8e888d8d928f89bd9e9489909c8f96d39e9290"><span class="__cf_email__" data-cfemail="ff8c8a8f8f908d8bbf9c968b929e8d94d19c9092">[email&#160;protected]</span></a></p>
           <p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p>
         </div>
         <nav class="foot-nav" aria-label="Product">
@@ -1502,7 +1503,7 @@ html { scrollbar-gutter: stable; }
         <h2 id="privacyTitle">Privacy Policy</h2>
         <p class="eff"><strong>Effective date:</strong> October 25, 2026</p>
         <h3>1. Who we are</h3>
-        <p>CitMark ("we", "us") operates citmark.com. For any privacy question or request: <a href="mailto:support@citmark.com">support@citmark.com</a>.</p>
+        <p>CitMark ("we", "us") operates citmark.com. For any privacy question or request: <a href="/cdn-cgi/l/email-protection#72010702021d000632111b061f1300195c111d1f"><span class="__cf_email__" data-cfemail="aedddbdedec1dcdaeecdc7dac3cfdcc580cdc1c3">[email&#160;protected]</span></a>.</p>
         <h3>2. What we collect</h3>
         <p><strong>Account data:</strong> your email, name (if you provide one), and workspace membership. <strong>Brand &amp; measurement setup:</strong> the brands, domains, and questions you ask us to track. <strong>Measurement data:</strong> AI answers we collect when running checks, extracted citations, scores, and reports. <strong>Connection tokens</strong> (only if you connect Google or Shopify): stored encrypted — never in plain text, never in logs. <strong>Usage &amp; security logs:</strong> logins, API calls, admin actions. <strong>What we never collect:</strong> payment card details — payments go through Creem, our merchant of record, and card data never touches our systems.</p>
         <h3>3. Why we use it, and the lawful basis</h3>
@@ -1520,7 +1521,7 @@ html { scrollbar-gutter: stable; }
         <h3>6. How long we keep it</h3>
         <p>Account and workspace data: until you delete your account. Billing records: as long as tax law requires. Usage logs: 90 days; security audit logs: 1 year.</p>
         <h3>7. Your rights</h3>
-        <p>You may at any time: access, correct, or delete your data; withdraw your consent; restrict or object to processing; request portability; and (in the EU/UK) lodge a complaint with your supervisory authority. Email <a href="mailto:support@citmark.com">support@citmark.com</a> for any of these — we respond within 30 days. Withdrawing consent does not affect processing already carried out.</p>
+        <p>You may at any time: access, correct, or delete your data; withdraw your consent; restrict or object to processing; request portability; and (in the EU/UK) lodge a complaint with your supervisory authority. Email <a href="/cdn-cgi/l/email-protection#23505653534c515763404a574e4251480d404c4e"><span class="__cf_email__" data-cfemail="0c7f797c7c637e784c6f6578616d7e67226f6361">[email&#160;protected]</span></a> for any of these — we respond within 30 days. Withdrawing consent does not affect processing already carried out.</p>
         <h3>8. Children</h3>
         <p>This page is not directed at children under 16, and we do not knowingly collect their data. If you believe a child provided us data, contact us and we will delete it.</p>
         <h3>9. Changes</h3>
@@ -1528,7 +1529,7 @@ html { scrollbar-gutter: stable; }
       </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
       (function () {
         "use strict";
 
@@ -2296,6 +2297,17 @@ html { scrollbar-gutter: stable; }
             document.body.classList.remove("modal-open");
           }
           lastTrigger = trigger || null;
+          /* Entry intent outranks a stale flow state: a pending-verification
+             view left over from an earlier register attempt (or an unverified
+             login reply) in this page session must never greet a fresh open.
+             The pending view is re-entered only by a new register submit or
+             a fresh email_verification_required login reply. */
+          if (card.classList.contains("mode-pending")) {
+            pendingEmail = "";
+            if (pendEmailEl) pendEmailEl.textContent = "";
+            showPendingMsg("", false);
+            setAuthMode("login");
+          }
           window.clearTimeout(closeTimer);
           overlay.classList.remove("closing");
           closeMenu();
