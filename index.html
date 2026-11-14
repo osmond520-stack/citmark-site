@@ -861,7 +861,6 @@ h1 .h1-tail { white-space: nowrap; }
 .hero-mini-brand { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 8px; font-size: 15px; }
 .hero-mini-brand b { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; }
 .hero-mini-brand span { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-.hero-mini-track > span { transition: width .6s cubic-bezier(.22,.61,.36,1); }
 button.hero-mini-eng { background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; color: inherit; text-align: left; }
 button.hero-mini-eng:hover { color: var(--accent-deep); }
 .hero-mini-summary { display: flex; align-items: center; padding: 10px 0 2px; font-size: 13.5px; }
@@ -3397,7 +3396,7 @@ document.querySelectorAll("#pricing .plan").forEach(function (card) {
   var dotsWrap = document.getElementById("miniDots");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var wide = window.matchMedia("(min-width: 1024px)");
-  var idx = 0, current = DATA[0].score, timer = null, raf = null;
+  var idx = 0, curScore = DATA[0].score, curBar = [0, 0], timer = null, raf = null;
   var resumeTimer = null, pausedUntil = 0, inView = true;
   DATA.forEach(function (d, i) {
     var dot = document.createElement("button");
@@ -3421,33 +3420,54 @@ document.querySelectorAll("#pricing .plan").forEach(function (card) {
     });
   });
   function render(next, animate) {
+    /* Same-clock sync (his pick, 2026-11-14): the big number and the row bars are
+       driven by ONE rAF loop with ONE eased progress, interpolated from their
+       current displayed values; the CSS width transition is removed, so no
+       quantity runs on its own clock and no frame mixes states. */
     var d = DATA[next];
     if (raf) cancelAnimationFrame(raf);
-    if (animate && !reduce) {
-      var from = current, to = d.score, t0 = performance.now(), DUR = 600;
-      var step = function (t) {
-        var p = Math.min(1, (t - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
-        scoreEl.textContent = Math.round(from + (to - from) * e);
-        if (p < 1) { raf = requestAnimationFrame(step); } else { current = to; }
-      };
-      raf = requestAnimationFrame(step);
-    } else { scoreEl.textContent = d.score; current = d.score; }
     engEl.textContent = d.name;
     menEl.textContent = "mentioned in " + d.mentions + " of 3 buyer questions";
     var others = DATA.filter(function (x) { return x.name !== d.name; }).slice(0, 3);
+    var barEls = [];
     rowEls.forEach(function (row, i) {
       var o = others[i], btn = row.querySelector(".hero-mini-eng");
       btn.textContent = o.name;
       btn.setAttribute("data-mini-eng", o.name);
       btn.setAttribute("aria-label", "Show " + o.name + " score");
-      row.querySelector(".hero-mini-track > span").style.width = o.score + "%";
       row.querySelector("b").textContent = o.score;
+      barEls.push(row.querySelector(".hero-mini-track > span"));
     });
     dots.forEach(function (dot, i) {
       dot.classList.toggle("on", i === next);
       if (i === next) { dot.setAttribute("aria-current", "true"); } else { dot.removeAttribute("aria-current"); }
     });
     idx = next;
+    if (animate && !reduce) {
+      var fromS = curScore, toS = d.score;
+      var fromB = curBar.slice();
+      var toB = others.map(function (o) { return o.score; });
+      var t0 = performance.now(), DUR = 600;
+      var step = function (t) {
+        var p = Math.min(1, (t - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
+        curScore = fromS + (toS - fromS) * e;
+        scoreEl.textContent = Math.round(curScore);
+        barEls.forEach(function (el, i) {
+          curBar[i] = fromB[i] + (toB[i] - fromB[i]) * e;
+          el.style.width = curBar[i] + "%";
+        });
+        if (p < 1) { raf = requestAnimationFrame(step); }
+        else {
+          curScore = toS; scoreEl.textContent = toS;
+          barEls.forEach(function (el, i) { curBar[i] = toB[i]; el.style.width = toB[i] + "%"; });
+          raf = null;
+        }
+      };
+      raf = requestAnimationFrame(step);
+    } else {
+      curScore = d.score; scoreEl.textContent = d.score;
+      barEls.forEach(function (el, i) { curBar[i] = others[i].score; el.style.width = others[i].score + "%"; });
+    }
   }
   function clearTimer() { if (timer) { clearInterval(timer); timer = null; } }
   function startAuto() {
