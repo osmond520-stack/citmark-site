@@ -307,6 +307,10 @@ button { font: inherit; }
   .matrix td.q { max-width: 150px; font-size: 12.5px; }
   .bar-row .nm { width: 88px; }
 }
+@media (max-width: 480px) {
+  .matrix { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .matrix td.q { min-width: 200px; max-width: 240px; }
+}
 @media (max-width: 380px) {
   .ring { width: 140px; height: 140px; }
   .ring .val b { font-size: 36px; }
