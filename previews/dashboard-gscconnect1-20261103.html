@@ -1166,6 +1166,28 @@ kept apart from the gate-row pill set. */
 .t7-evi p{margin:0;font-size:14px;line-height:1.55;white-space:pre-wrap}
 .t7-evi .t7-cites{margin-top:8px;font-size:12.5px;color:var(--muted)}
 </style>
+<script>
+/* PREVIEW GUARD (TD previews discipline 2026-11-15): this demo file must never
+   write to production. All POST/PUT/DELETE/PATCH fetches are answered locally
+   with demo shapes; reads pass through. Not part of any live landing. */
+(function () {
+  var realFetch = window.fetch.bind(window);
+  window.fetch = function (input, init) {
+    var method = ((init && init.method) || (input && input.method) || "GET").toUpperCase();
+    if (method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH") {
+      var url = typeof input === "string" ? input : (input && input.url) || "";
+      var body = url.indexOf("/auth/register") >= 0
+        ? { user_id: "demo", email: "", verified: false, email_sent: true }
+        : { ok: true };
+      return Promise.resolve(new Response(JSON.stringify(body), {
+        status: url.indexOf("/auth/register") >= 0 ? 201 : 200,
+        headers: { "Content-Type": "application/json" }
+      }));
+    }
+    return realFetch(input, init);
+  };
+})();
+</script>
 </head>
 <body>
 
