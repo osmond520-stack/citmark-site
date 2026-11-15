@@ -1668,8 +1668,8 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <button class="btn small" type="button" id="teamInviteBtn">Send invite</button>
 <p class="form-msg" id="teamInviteMsg" role="alert" style="margin-top:10px"></p>
 <p id="teamInviteLink" style="display:none;margin-top:6px;word-break:break-all"></p></div>
-<div class="card gate-hide-team"><h3>Members</h3>
-<p>No member data yet. Member list will appear here once members are added.</p>
+<div class="card gate-hide-team"><h3>Members <button type="button" class="tool-info-btn" data-tool-info="s_team" aria-label="About Team">?</button></h3>
+<div id="teamMembers"><p id="teamMembersMsg">Loading members…</p></div>
 <p>Seats: <span id="teamSeats">1 seat</span></p></div></section>
 
 <section class="view" id="view-connections"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
@@ -4883,6 +4883,70 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
     if (t) { try { window.$crisp.push(["do", "session:reset"]); } catch (err) {} }
   }, true);
 })();
+</script>
+<script>
+/* Team members wiring (lane-1 cell 1, 2026-11-13): GET /teams/{team_id}/members.
+   team_id from the session layer's /auth/me (same source as the invite handler).
+   States: ok -> member rows (+ owner-only pending invites); true empty -> the
+   original empty copy; any failure -> failure face with retry, never an
+   empty-list pose. Seats line follows the payload count. */
+(function () {
+  "use strict";
+  var started = false;
+  function esc(x) { return String(x == null ? "" : x).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function failFace() {
+    var box = document.getElementById("teamMembers");
+    if (!box) return;
+    box.innerHTML = '<p class="form-msg">Could not load members.</p><button class="btn small ghost" type="button" id="teamMembersRetry">Retry</button>';
+    var rb = document.getElementById("teamMembersRetry");
+    if (rb) rb.addEventListener("click", function () { load(); });
+  }
+  function render(data) {
+    var box = document.getElementById("teamMembers");
+    if (!box) return;
+    var members = (data && data.members) || [];
+    var pending = (data && data.pending_invites) || [];
+    if (!members.length && !pending.length) {
+      box.innerHTML = "<p>No member data yet. Member list will appear here once members are added.</p>";
+    } else {
+      var html = "";
+      members.forEach(function (m) {
+        html += '<div class="switch-row"><div><b>' + esc(m.name || m.email) + '</b><p class="muted">' + esc(m.email) + '</p></div><span class="muted">' + esc(m.role) + '</span></div>';
+      });
+      pending.forEach(function (p) {
+        html += '<div class="switch-row"><div><b>' + esc(p.email) + '</b><p class="muted">Invite pending</p></div><span class="muted">' + esc(p.role) + '</span></div>';
+      });
+      box.innerHTML = html;
+    }
+    var seats = document.getElementById("teamSeats");
+    if (seats && members.length) seats.textContent = members.length + (members.length === 1 ? " seat" : " seats");
+  }
+  function load() {
+    var box = document.getElementById("teamMembers");
+    if (box) box.innerHTML = '<p id="teamMembersMsg">Loading members…</p>';
+    fetch("/auth/me", { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("me"); return r.json(); })
+      .then(function (me) {
+        if (!me || !me.team_id) throw new Error("noteam");
+        return fetch("/teams/" + encodeURIComponent(me.team_id) + "/members", { credentials: "same-origin" });
+      })
+      .then(function (r) { if (!r.ok) throw new Error("members"); return r.json(); })
+      .then(function (data) { render(data); started = true; })
+      .catch(failFace);
+  }
+  window.__loadTeamMembers = load;
+  document.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest('[data-go="team"], [data-view="team"]') : null;
+    if (t && !started) { started = true; load(); }
+  });
+})();
+</script>
+<script>
+/* Help-? attached mark: s_team entry (copy: product supplement batch 2026-11-13, verbatim). */
+TOOL_INFO.s_team = { name: "Team", q: "",
+  what: "Team seats let other people in your company use CitMark under your plan. Team is available on Growth plans and above.",
+  how: ["Open Team to invite members and manage seats."],
+  get: "Shared access without sharing your login." };
 </script>
 <script>
 /* Tools faces wiring (lane-1, 2026-11-15) per product spec 14a27617 and the
