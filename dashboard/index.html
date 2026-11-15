@@ -1526,37 +1526,14 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
 <p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
 </section>
-<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot><div class="big">◎</div><p><b>Nothing to track yet.</b><br/>Impact tracking starts with your first snapshot and the fixes you make from it.</p></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card tk-action" data-demo-layer><h3>Re-run quota <span class="badge-ok" id="tkP0Status">Available</span></h3>
-<p id="tkP0Reason" class="tk-reason">Within quota. Re-runs run normally.</p>
-<button type="button" class="btn" id="tkRunBtn">Re-run</button>
-
-</div>
-<div class="tk-details" data-demo-layer>
-<p class="tk-foot">Details</p>
-<div class="card"><h3>Quota numbers</h3>
-<p class="desc">Per-tier re-run quota. Usage figures are samples.</p>
-<div class="tk-state-row" role="group" aria-label="Preview state">
-<button type="button" class="tk-state active" data-tk-state="normal">Normal</button>
-<button type="button" class="tk-state" data-tk-state="near">Near limit</button>
-<button type="button" class="tk-state" data-tk-state="reached">Quota reached</button>
-<button type="button" class="tk-state" data-tk-state="breaker">Account limit</button>
-</div>
-<p class="tk-foot">Preview state (demo control &mdash; it switches the displayed sample state only; it does not change live enforcement.)</p>
-<div class="tk-meter"><div class="tk-meter-top"><span>Questions</span><span><b id="tkQUsed">812</b> / <span id="tkQCap">1,317</span> (sample)</span></div><div class="bar"><i id="tkQBar" style="width:62%"></i></div></div>
-
-
-
-</div>
-</div></section>
-<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot><div class="big">◎</div><p><b>No checkup yet.</b><br/>Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-demo-layer><h3>Suggestions &amp; results &middot; Store <span class="tk-badge-notconn">Not connected</span></h3>
-<p class="desc">Sample run &mdash; at most 3 suggestions per run. Old rows are kept, never silently overwritten.</p>
-<ol class="tk-sugg">
-<li><b>Add a comparison table to the main product page</b> <span class="badge-ok">done</span></li>
-<li><b>Rewrite the category page intro for the AI shortlist</b> <span class="tk-badge-note">Pending re-run</span></li>
-<li><b>Claim a citation on a listicle that mentions competitors</b> <span class="tk-badge-note">Insufficient evidence</span></li>
-<li class="tk-superseded"><b>Shorten the home page hero copy</b> <span class="tk-badge-note">superseded</span> <span class="tk-note">Superseded by #2 &mdash; old row kept, not overwritten.</span></li>
-</ol>
-<div class="tk-gate-blocked"><b>Withheld by the honesty gate</b><p>1 suggestion withheld (a factual claim with no source cited). It is not shown as fact, and no claim content is displayed for withheld items.</p></div></div>
+<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot id="impEmpty"><div class="big">◎</div><p><b>Nothing to track yet.</b><br/>Impact tracking starts with your first snapshot and the fixes you make from it.</p></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card" data-live-layer id="impActionsCard" hidden><h3>Fixes</h3><div id="impActions"></div></div>
+<div class="card" data-live-layer id="impSeriesCard" hidden><h3>Score history</h3><div id="impSeries"></div><p class="desc" id="impWithheld" hidden></p></div>
+<div class="card" data-live-layer id="impFeedCard" hidden><h3>This week</h3><div id="impFeed"></div></div>
+<div class="empty" data-live-layer id="impError" hidden><div class="big">◎</div><p><b>Couldn't load your impact data.</b><br/>Check your connection and try again.</p><p><button class="btn small" type="button" id="impRetry">Retry</button></p></div></section>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot id="chkEmpty"><div class="big">◎</div><p><b>No checkup yet.</b><br/>Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><p class="tk-errline" id="chkCap" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
+<div class="card" data-live-layer id="chkResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="chkSummary"></p><div id="chkResults"></div></div>
+<div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div><div class="tk-compare"><label>From <select id="chkFrom"></select></label><label>To <select id="chkTo"></select></label><button class="btn small" type="button" id="chkCompareBtn">Compare</button><div id="chkCompareOut"></div></div></div>
+<div class="empty" data-live-layer id="chkError" hidden><div class="big">◎</div><p><b>Couldn't load your checkups.</b><br/>Check your connection and try again.</p><p><button class="btn small" type="button" id="chkRetry">Retry</button></p></div>
 </section>
 <section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
@@ -2958,6 +2935,18 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
 #sessionGate h2{margin:0 0 8px;font-size:20px;color:var(--ink)}
 #sessionGate .sg-copy{color:var(--muted);font-size:14px;margin:0 0 16px}
 </style>
+<style>
+.tk-row{padding:10px 0;border-top:1px solid var(--line)}
+.tk-row:first-child{border-top:0}
+.tk-row .tk-t{font-weight:600;color:var(--ink)}
+.tk-row .tk-s{color:var(--muted);font-size:13px;margin-top:2px}
+.tk-row .tk-d{color:var(--muted);font-size:13px;margin-top:2px}
+.tk-field{display:block;font-size:13px;color:var(--muted);margin:0 0 10px}
+.tk-field input{display:block;width:100%;margin-top:4px}
+.tk-errline{color:#b3261e;font-size:13px;margin:0 0 10px}
+.tk-compare{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tk-compare label{font-size:13px;color:var(--muted)}
+</style>
 <div id="sessionGate" style="display:none" role="dialog" aria-modal="true" aria-labelledby="sessionGateTitle"><div class="sg-card"><p class="sg-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="sessionGateTitle">You are not signed in</h2><p class="sg-copy">Sign in to open your CitMark dashboard.</p><a class="btn" href="/">Sign in</a></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -3943,6 +3932,7 @@ window.__dlObjPinAttempt = !!(window.__dlKeys.object && window.__dlKeys.view && 
     var status = document.getElementById('tkP0Status');
     var reason = document.getElementById('tkP0Reason');
     var run = document.getElementById('tkRunBtn');
+    if (status) {
     if (cur.state === 'near') {
       qUse = Math.round(t.qCap * 0.95); cUse = +(t.cCap * 0.95).toFixed(2);
       status.textContent = 'Near limit'; status.className = 'tk-badge-warn';
@@ -3965,6 +3955,7 @@ window.__dlObjPinAttempt = !!(window.__dlKeys.object && window.__dlKeys.view && 
     document.getElementById('tkQUsed').textContent = fmt(qUse);
     document.getElementById('tkQCap').textContent = fmt(t.qCap);
     document.getElementById('tkQBar').style.width = Math.min(100, Math.round(qUse / t.qCap * 100)) + '%';
+    }
     document.querySelectorAll('.tk-teams-state').forEach(function (el) {
       if (cur.tier === 'teams') { el.textContent = 'Available'; el.className = 'badge-ok tk-teams-state'; }
       else { el.textContent = 'Locked \u00b7 Requires Teams'; el.className = 'tk-badge-lock tk-teams-state'; }
@@ -4891,6 +4882,186 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
     var t = e.target && e.target.closest ? e.target.closest('[data-acct="logout"]') : null;
     if (t) { try { window.$crisp.push(["do", "session:reset"]); } catch (err) {} }
   }, true);
+})();
+</script>
+<script>
+/* Tools faces wiring (lane-1, 2026-11-15) per product spec 14a27617 and the
+   live shapes in IMPACT-TOOLKIT-SHAPES.md. p0 shows only the three real
+   containers (fix actions / score series / weekly feed); the quota cards are
+   retired with their demo script guarded off. p1 is a readiness CHECKUP
+   (pass/fail/couldn't verify), not a suggestion lifecycle; withheld lives on
+   p0 only. Dictionary-gated values (retest_status wording, the score-series
+   withheld tail key) stay hidden until the backend dictionary lands:
+   RETEST_DICT and WITHHELD_KEY below are the two single fill points. */
+(function () {
+  var RETEST_DICT = { queued: "Retest queued", done: "Retest done", failed: "Retest failed" };
+  var STATUS_DICT = { planned: "Planned", done: "Done", dropped: "Dropped" };
+  var WITHHELD_KEY = "withheld_count"; /* backend dictionary 2026-11-15: series.py tail key, counts evidence_sufficient=false points */
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmtDate(iso) { var d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
+  function getJSON(url) { return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); }); }
+  function brandDomain() { try { return (state.snapshot && state.snapshot.brand && state.snapshot.brand.domain) || null; } catch (e) { return null; } }
+  function badge(text, cls) { var b = el("span", cls, text); b.style.marginLeft = "8px"; return b; }
+  function retestLine(v) { if (!v) return null; var t = RETEST_DICT[v]; if (!t) return null; return el("div", "tk-s", t); }
+
+  /* ---------------- p0: impact ---------------- */
+  function actionRow(a) {
+    var row = el("div", "tk-row");
+    var t = el("span", "tk-t", a.title || "");
+    row.appendChild(t);
+    if (STATUS_DICT[a.status]) row.appendChild(badge(STATUS_DICT[a.status], a.status === "done" ? "badge-ok" : "tk-badge-note"));
+    var bits = [];
+    if (a.occurred_at) bits.push("Started " + fmtDate(a.occurred_at));
+    if (a.done_at) bits.push("Done " + fmtDate(a.done_at));
+    if (bits.length) row.appendChild(el("div", "tk-s", bits.join(" · ")));
+    var rt = retestLine(a.retest_status); if (rt) row.appendChild(rt);
+    return row;
+  }
+  function seriesRow(p) {
+    var row = el("div", "tk-row");
+    var sc = p.score || {};
+    if (p.evidence_sufficient === false) {
+      row.appendChild(el("span", "tk-t", "Withheld — not enough evidence"));
+    } else {
+      row.appendChild(el("span", "tk-t", (typeof sc.value === "number" ? sc.value.toFixed(1) : "—")));
+      var sub = [];
+      if (typeof sc.hits === "number" && typeof sc.n_valid === "number") sub.push(sc.hits + "/" + sc.n_valid + " hits");
+      if (typeof sc.ci_low === "number" && typeof sc.ci_high === "number") sub.push("CI " + sc.ci_low.toFixed(1) + "–" + sc.ci_high.toFixed(1));
+      if (sub.length) row.appendChild(el("div", "tk-s", sub.join(" · ")));
+    }
+    if (p.started_at) row.appendChild(el("div", "tk-s", fmtDate(p.started_at)));
+    if (p.version_changed_from_previous) row.appendChild(badge("Question set changed", "tk-badge-note"));
+    return row;
+  }
+  function loadImpact() {
+    var empty = document.getElementById("impEmpty"), err = document.getElementById("impError");
+    var cA = document.getElementById("impActionsCard"), cS = document.getElementById("impSeriesCard"), cF = document.getElementById("impFeedCard");
+    var domain = brandDomain();
+    if (!domain) { if (empty) empty.style.display = ""; [cA, cS, cF].forEach(function (c) { if (c) c.hidden = true; }); if (err) err.hidden = true; return; }
+    var q = "?brand_domain=" + encodeURIComponent(domain);
+    var now = new Date(); var mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
+    var wq = q + "&window_start=" + encodeURIComponent(mon.toISOString()) + "&window_end=" + encodeURIComponent(now.toISOString());
+    Promise.all([getJSON("/impact/actions" + q), getJSON("/impact/score-series" + q), getJSON("/impact/weekly-feed" + wq)]).then(function (res) {
+      var actions = (res[0] && res[0].actions) || [];
+      var points = (res[1] && res[1].points) || [];
+      var feed = (res[2] && res[2].actions) || [];
+      if (err) err.hidden = true;
+      /* Per-container empty states (product ruling 2026-11-15): each container
+         renders or empties on its own data; no whole-face fallback. */
+      if (empty) empty.style.display = "none";
+      var box = document.getElementById("impActions"); box.textContent = "";
+      if (!actions.length) { box.appendChild(el("p", "desc", "Nothing to track yet.")); }
+      actions.forEach(function (a) { box.appendChild(actionRow(a)); }); cA.hidden = false;
+      var sb = document.getElementById("impSeries"); sb.textContent = "";
+      if (!points.length) { sb.appendChild(el("p", "desc", "No scores yet.")); }
+      points.forEach(function (p) { sb.appendChild(seriesRow(p)); });
+      var wl = document.getElementById("impWithheld");
+      if (WITHHELD_KEY && typeof res[1][WITHHELD_KEY] === "number" && res[1][WITHHELD_KEY] > 0) { wl.textContent = res[1][WITHHELD_KEY] === 1 ? "1 run withheld" : res[1][WITHHELD_KEY] + " runs withheld"; wl.hidden = false; } else { wl.hidden = true; }
+      cS.hidden = false;
+      var fb = document.getElementById("impFeed"); fb.textContent = "";
+      if (!feed.length) { fb.appendChild(el("p", "desc", "No fixes completed this week.")); }
+      feed.forEach(function (a) { var r = el("div", "tk-row"); r.appendChild(el("span", "tk-t", a.title || "")); if (a.done_at) r.appendChild(el("div", "tk-s", "Done " + fmtDate(a.done_at))); var rt = retestLine(a.retest_status); if (rt) r.appendChild(rt); fb.appendChild(r); });
+      cF.hidden = false;
+    }).catch(function () {
+      if (empty) empty.style.display = "none"; [cA, cS, cF].forEach(function (c) { if (c) c.hidden = true; }); if (err) err.hidden = false;
+    });
+  }
+
+  /* ---------------- p1: checkup ---------------- */
+  var STATE_TXT = { pass: "Pass", fail: "Fail", unknown: "Couldn't verify" };
+  var STATE_CLS = { pass: "badge-ok", fail: "tk-badge-stop", unknown: "tk-badge-note" };
+  function summaryLine(sm) { if (!sm) return ""; return (sm.pass || 0) + " pass · " + (sm.fail || 0) + " fail · " + (sm.unknown || 0) + " couldn't verify"; }
+  function renderRun(run) {
+    var card = document.getElementById("chkResultsCard");
+    document.getElementById("chkSummary").textContent = summaryLine(run.summary) + (run.home_url ? " · " + run.home_url : "") + (run.created_at ? " · " + fmtDate(run.created_at) : "");
+    var box = document.getElementById("chkResults"); box.textContent = "";
+    (run.results || []).forEach(function (r) {
+      var row = el("div", "tk-row");
+      if (r.group) row.appendChild(el("div", "tk-s", r.group));
+      row.appendChild(el("span", "tk-t", r.title || ""));
+      row.appendChild(badge(STATE_TXT[r.status] || "", STATE_CLS[r.status] || "tk-badge-note"));
+      if (r.detail) row.appendChild(el("div", "tk-d", r.detail));
+      box.appendChild(row);
+    });
+    card.hidden = false;
+  }
+  function renderHistory(runs) {
+    var card = document.getElementById("chkHistoryCard"), box = document.getElementById("chkHistory");
+    var empty = document.getElementById("chkEmpty");
+    box.textContent = "";
+    if (!runs.length) { card.hidden = true; if (empty) empty.style.display = ""; return; }
+    if (empty) empty.style.display = "none";
+    runs.forEach(function (run) {
+      var row = el("div", "tk-row");
+      row.appendChild(el("span", "tk-t", run.home_url || ""));
+      var bits = [];
+      if (run.created_at) bits.push(fmtDate(run.created_at));
+      bits.push(summaryLine(run.summary));
+      if (run.checkset_version) bits.push("Checklist " + run.checkset_version + (run.checkset_updated ? " (" + run.checkset_updated + ")" : ""));
+      row.appendChild(el("div", "tk-s", bits.filter(Boolean).join(" · ")));
+      box.appendChild(row);
+    });
+    var f = document.getElementById("chkFrom"), t = document.getElementById("chkTo");
+    [f, t].forEach(function (sel) { sel.textContent = ""; runs.forEach(function (run) { var o = el("option", null, fmtDate(run.created_at) + " · " + (run.home_url || "")); o.value = run.id; sel.appendChild(o); }); });
+    if (runs.length > 1) { f.value = runs[runs.length - 1].id; t.value = runs[0].id; }
+    card.hidden = false;
+    renderRun(runs[0]);
+  }
+  function loadCheckup() {
+    var err = document.getElementById("chkError");
+    getJSON("/toolkit/readiness/history?limit=50").then(function (data) {
+      if (err) err.hidden = true;
+      renderHistory((data && data.runs) || []);
+    }).catch(function () { if (err) err.hidden = false; });
+  }
+  function runCheckup() {
+    var urlEl = document.getElementById("chkUrl"), urlErr = document.getElementById("chkUrlErr"), cap = document.getElementById("chkCap"), btn = document.getElementById("chkRunBtn");
+    urlErr.hidden = true; cap.hidden = true;
+    var url = urlEl.value.trim();
+    if (!url) { urlErr.textContent = "Enter a valid URL."; urlErr.hidden = false; return; }
+    btn.disabled = true; btn.textContent = "Running…";
+    fetch("/toolkit/readiness/run", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: url }) }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (data) { return { status: r.status, data: data }; });
+    }).then(function (res) {
+      if (res.status === 422) { urlErr.textContent = "Enter a valid URL."; urlErr.hidden = false; return; }
+      if (res.status === 429) { var d = res.data || {}; cap.textContent = "This period's checkup limit is reached." + (typeof d.used === "number" && typeof d.cap === "number" ? " " + d.used + " of " + d.cap + " checkups used this period." : ""); cap.hidden = false; return; }
+      if (res.status >= 200 && res.status < 300 && res.data && res.data.run) { renderRun(res.data.run); loadCheckup(); return; }
+      urlErr.textContent = "Couldn't run this checkup. Please try again."; urlErr.hidden = false;
+    }).catch(function () { urlErr.textContent = "Couldn't run this checkup. Please try again."; urlErr.hidden = false; })
+      .finally(function () { btn.disabled = false; btn.textContent = "Run checkup"; });
+  }
+  var REASONS = { COMPARABLE_SAME_VERSION: "Same checklist version", COMPARABLE_ADDED_ONLY: "New checks added — still comparable", INCOMPARABLE_LINEAGE_BREAK: "Can't compare — the checklist changed.", INCOMPARABLE_REMOVED: "Can't compare — the checklist changed.", INCOMPARABLE_CHANGED: "Can't compare — the checklist changed." };
+  function compare() {
+    var f = document.getElementById("chkFrom").value, t = document.getElementById("chkTo").value, out = document.getElementById("chkCompareOut");
+    out.textContent = "";
+    if (!f || !t || f === t) { out.appendChild(el("p", "desc", "Pick two different checkups to compare.")); return; }
+    getJSON("/toolkit/readiness/compare?from=" + encodeURIComponent(f) + "&to=" + encodeURIComponent(t)).then(function (data) {
+      if (data.reason && REASONS[data.reason]) out.appendChild(el("p", "desc", REASONS[data.reason]));
+      if (data.comparable) {
+        (data.items || []).forEach(function (it) {
+          var row = el("div", "tk-row");
+          row.appendChild(el("span", "tk-t", it.key || ""));
+          row.appendChild(el("div", "tk-s", (STATE_TXT[it.from_state] || it.from_state || "—") + " → " + (STATE_TXT[it.to_state] || it.to_state || "—") + (it.delta ? " · " + it.delta : "")));
+          out.appendChild(row);
+        });
+      }
+    }).catch(function () { out.appendChild(el("p", "desc", "Couldn't compare these checkups. Please try again.")); });
+  }
+  document.getElementById("impRetry").addEventListener("click", loadImpact);
+  document.getElementById("chkRetry").addEventListener("click", loadCheckup);
+  document.getElementById("chkRunBtn").addEventListener("click", runCheckup);
+  document.getElementById("chkCompareBtn").addEventListener("click", compare);
+  if (typeof window.go === "function") {
+    var orig = window.go;
+    window.go = function (v) {
+      var r = orig.apply(this, arguments);
+      if (document.documentElement.getAttribute("data-state") !== "demo") {
+        if (v === "tools-p0") loadImpact();
+        if (v === "tools-p1") loadCheckup();
+      }
+      return r;
+    };
+  }
 })();
 </script>
 </body>
