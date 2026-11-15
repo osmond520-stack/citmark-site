@@ -1168,14 +1168,50 @@ kept apart from the gate-row pill set. */
 .t7-evi p{margin:0;font-size:14px;line-height:1.55;white-space:pre-wrap}
 .t7-evi .t7-cites{margin-top:8px;font-size:12.5px;color:var(--muted)}
 </style>
+
+<style>
+/* v2 repair (2026-11-08): phone-width overflow hardening for brand-bearing rows */
+.bs-text{min-width:0}
+.bs-name,.bs-domain{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov-head>div{min-width:0}
+.ov-brand{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;min-width:0;max-width:100%}
+.ov-brand b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ov-brand span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:0}
+.dtc{min-width:0}
+.dtc-meta{overflow-wrap:anywhere}
+/* Top actions zero-state ruling (product, 2026-11-08): the card renders only
+   when the current brand has at least one completed snapshot; in the
+   zero-brand and zero-snapshot states (gate state "empty") the whole card
+   collapses — no empty frame, no placeholder. */
+html[data-state="empty"] .ov-sug{display:none!important}
+html[data-state="loading"] .ov-sug{visibility:hidden}
+/* Gate layer, demo exemption (v10, 2026-11-08): in a demo document the brand
+   switcher is never held by the live identity boot. */
+html[data-demo-doc] .brand-switcher{visibility:visible!important}
+/* Score strip, zero-brand only (TD, 2026-11-08): the whole Overview head
+   strip (brand name / domain / freshness line / Run button) collapses when
+   no brand exists — data that does not exist is not rendered. Brand-present
+   states, including a brand with no snapshots yet, are untouched. */
+html[data-brand-none]:not([data-state="demo"]) .ov-head{display:none!important}
+html[data-state="loading"] .ov-head{visibility:hidden}
+/* Score strip, brand with no snapshots (register 2026-11-08, sec.3.1): the
+   name renders truly and the value position carries the first-run action
+   (the Run entry, already in the strip); the change slot (freshness line)
+   hides — no basis, no rendering, and never a fake 0. Keyed on gate state
+   "empty" WITH a brand resolved, so the zero-brand state (whole strip
+   hidden above) and data states are untouched. */
+html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important}
+@media (max-width:900px){ .ov-head{align-items:stretch} }
+.ov-brand b{max-width:100%}
+</style>
 </head>
 <body>
 
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
-      <a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-      <div class="side-id"><span class="side-brand">Bombas</span><span class="tier-badge" id="tierBadge">STARTER</span></div>
+      <div class="brand-top"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a><span class="tier-badge" id="tierBadge">STARTER</span></div>
+      <div class="side-id"><div class="brand-switcher" id="brandSwitcher"><button type="button" class="bs-head" id="bsHead" aria-haspopup="listbox" aria-expanded="false"><span class="bs-ava" id="bsAva">?</span><span class="bs-text"><span class="bs-name" id="bsName"></span><span class="bs-domain" id="bsDomain"></span></span><span class="bs-caret" aria-hidden="true">▾</span></button><div class="bs-menu" id="bsMenu" role="listbox" aria-label="Switch brand" hidden><div class="bs-list" id="bsList"></div><button type="button" class="bs-add" id="bsAdd">+ Add a brand</button><button type="button" class="bs-add bs-upgrade" id="bsUpgrade" hidden></button></div></div></div>
     </div>
     <nav class="nav" id="sideNav">
       <button data-view="overview" class="active" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
@@ -1579,11 +1615,24 @@ kept apart from the gate-row pill set. */
 <section class="view" id="view-brand-edit"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h2>Brand profile</h2>
 <p class="desc">Brand name and domain shown across Overview, Visibility score and Weekly report.</p>
-<div class="row"><div class="field"><label>Brand name</label><input type="text" id="brandNameInput" value="" placeholder="No brand yet" readonly aria-readonly="true"></div>
-<div class="field"><label>Domain</label><input type="text" id="brandDomainInput" value="" placeholder="No domain yet" readonly aria-readonly="true"></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
+<div class="row"><div class="field"><label>Brand name</label><input type="text" id="brandNameInput" value="" placeholder="No brand"></div>
+<div class="field"><label>Domain</label><input type="text" id="brandDomainInput" value="" placeholder="No domain"></div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<button class="btn brand-save" type="button" id="brandSaveBtn">Save changes</button>
 <button class="btn brand-cancel" type="button" data-go="settings">Cancel</button>
+<span class="brand-save-note" id="brandSaveNote" role="status"></span>
 </div></div></section>
+<section class="view" id="view-brands-new"><button class="back-btn" type="button" data-go="overview" aria-label="Back to Overview">← Back to Overview</button>
+<div class="card"><ol class="bn-steps" aria-label="Setup steps"><li class="on" aria-current="step"><span class="bn-n">1</span>Brand</li><li><span class="bn-n">2</span>Questions</li><li><span class="bn-n">3</span>Connections</li><li><span class="bn-n">4</span>First snapshot</li></ol>
+<h2>Add a brand</h2>
+<p class="desc">Add the brand you want to track. You can add its questions and run the first snapshot right after.</p>
+<form id="bnForm" novalidate>
+<div class="row"><div class="field"><label for="bnDomain">Website</label><input type="text" id="bnDomain" placeholder="yourbrand.com" autocomplete="url"></div>
+<div class="field"><label for="bnName">Brand name</label><input type="text" id="bnName" placeholder="Your brand" autocomplete="organization"></div></div>
+<p class="bn-err" id="bnErr" role="alert" hidden></p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" type="submit" id="bnSubmit">Add brand</button><button class="btn ghost" type="button" data-go="overview">Cancel</button></div>
+</form></div></section>
+
 <section class="view" id="view-security"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="card"><h3>Security &amp; account</h3>
 <div class="sec-list">
@@ -1753,6 +1802,129 @@ kept apart from the gate-row pill set. */
 </aside>
 <div id="planChangeModal" aria-hidden="true"><div class="modal-mask" id="planChangeModalMask"></div><div class="modal-card" role="dialog" aria-label="Confirm plan change"><button class="modal-close" type="button" id="planChangeModalClose" aria-label="Close">✕</button><h3 id="planChangeModalTitle">Change plan</h3><p class="modal-price"><b id="planChangeModalPromo"></b> <s id="planChangeModalStandard"></s></p><p class="modal-note" id="planChangeModalNote"></p><p class="modal-founding" id="planChangeModalFounding"></p><div class="modal-actions"><a class="btn small" href="/cdn-cgi/l/email-protection#5f2c2a2f2f302d2b1f3c362b323e2d34713c3032">Contact support to change plan</a><button class="btn small ghost" type="button" id="planChangeModalCancel">Cancel</button></div></div></div>
  <div id="cancelModal" aria-hidden="true"><div class="modal-mask" id="cancelModalMask"></div><div class="modal-card" role="dialog" aria-label="Before you cancel"><button class="modal-close" type="button" id="cancelModalClose" aria-label="Close">✕</button><h3>Before you cancel</h3><p class="modal-note">To cancel your subscription, contact support — we'll confirm the cancellation and its effective date by email.</p><div class="modal-actions"><a class="btn small danger" href="/cdn-cgi/l/email-protection#8cfff9fcfce3fef8ccefe5f8e1edfee7a2efe3e1">Contact support to cancel</a><button class="btn small ghost" type="button" id="cancelKeep">Keep subscription</button></div></div></div> <div id="secConfirm" aria-hidden="true"><div class="modal-mask" id="secConfirmMask"></div><div class="modal-card" role="dialog" aria-label="Confirm"><button class="modal-close" type="button" id="secConfirmClose" aria-label="Close">✕</button><h3 id="secConfirmTitle">Confirm</h3><p class="modal-note" id="secConfirmMsg"></p><div class="modal-actions"><button class="btn small" type="button" id="secConfirmGo">Confirm</button><button class="btn small ghost" type="button" id="secConfirmBack">Cancel</button></div></div></div> <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* demo self-containment layer (v18, 2026-11-07): when this file is served as the
+   standalone demo document (any path outside /dashboard), fence the network,
+   the storage surface and the exits before the shell boots: a demo session +
+   fixture answers are pinned in-file; auth-related storage keys are shadowed
+   at the Storage.prototype level for this document only (reads return the
+   in-memory shadow, writes land in the shadow; the real store is never read,
+   written or cleared); exits to the live site (brand wordmark, sign-in gate
+   link, Log out) are inert; history writes are fenced so the URL the demo
+   produces can never resolve to the live app. On the live /dashboard path
+   this layer does not run. */
+(function () {
+  if (location.pathname === "/dashboard" || location.pathname.indexOf("/dashboard/") === 0) return;
+  /* demo brand persistence (v7, 2026-11-08): the demo brand row survives
+     reloads of this document (same tab) via sessionStorage. */
+  var DBK = "citmark_demo_brand_row", dbRow = null;
+  try { var dbRaw = sessionStorage.getItem(DBK); if (dbRaw) dbRow = JSON.parse(dbRaw); } catch (e) {}
+  try {
+    Object.defineProperty(window, "__bsDemoBrandRow", {
+      configurable: true,
+      get: function () { return dbRow; },
+      set: function (v) { dbRow = v || null; try { if (v) sessionStorage.setItem(DBK, JSON.stringify(v)); else sessionStorage.removeItem(DBK); } catch (e) {} }
+    });
+  } catch (e) { if (dbRow) window.__bsDemoBrandRow = dbRow; }
+  var KEY_RE = /auth|login|signin|session|token|email|user/i;
+  var shadowByStore = new WeakMap();
+  function shadowMap(store) {
+    var m = shadowByStore.get(store);
+    if (!m) { m = new Map(); shadowByStore.set(store, m); }
+    return m;
+  }
+  var S = window.Storage && window.Storage.prototype;
+  if (S) {
+    var _get = S.getItem, _set = S.setItem, _rem = S.removeItem;
+    S.getItem = function (k) {
+      if (typeof k === "string" && KEY_RE.test(k)) { var m = shadowMap(this); return m.has(k) ? m.get(k) : null; }
+      return _get.call(this, k);
+    };
+    S.setItem = function (k, v) {
+      if (typeof k === "string" && KEY_RE.test(k)) { shadowMap(this).set(k, String(v)); return; }
+      return _set.call(this, k, v);
+    };
+    S.removeItem = function (k) {
+      if (typeof k === "string" && KEY_RE.test(k)) { shadowMap(this).delete(k); return; }
+      return _rem.call(this, k);
+    };
+  }
+  var FIX = {
+    "/auth/me": { user_id: "demo-user", email: "demo@citmark.com", team_id: "demo-team", tier: "starter", subscription_status: "active" },
+    "/auth/logout": {},
+    "/snapshots/history": { runs: [], locked_weeks: 0 },
+    "/brands": { brands: [] },
+    "/brands/suggest-name": { name: null },
+    "/notifications/prefs": { email_negative: true, email_changes: true },
+    "/connections": []
+  };
+  var realFetch = window.fetch.bind(window);
+  function jsonRes(body, status) { return Promise.resolve(new Response(JSON.stringify(body), { status: status, headers: { "Content-Type": "application/json" } })); }
+  window.fetch = function (input, init) {
+    var url = (typeof input === "string") ? input : (input && input.url) || "";
+    var path = "";
+    try { path = new URL(url, location.href).pathname; } catch (e) { path = ""; }
+    var method = "GET";
+    try { method = String((init && init.method) || (typeof input !== "string" && input && input.method) || "GET").toUpperCase(); } catch (e) {}
+    /* mutable demo brand store (v9, 2026-11-08): /brands is stateful in the
+       demo — POST creates, PATCH updates, GET reads back, so the
+       create -> read-back loop closes at the data layer too. */
+    if (path === "/brands" && method === "POST") {
+      var nb = null;
+      try { nb = JSON.parse((init && init.body) || "{}"); } catch (e) {}
+      if (nb && nb.domain) {
+        var row = { id: "demo", name: nb.name || nb.domain, domain: nb.domain };
+        window.__bsDemoBrandRow = row;
+        setTimeout(function () { if (window.__bsRefresh) window.__bsRefresh(); }, 0);
+        return jsonRes(row, 201);
+      }
+      return jsonRes({ detail: "brand_domain_required" }, 422);
+    }
+    if (path === "/brands" && method === "GET") {
+      return jsonRes({ brands: dbRow ? [dbRow] : [] }, 200);
+    }
+    if (path.indexOf("/brands/") === 0 && method === "PATCH") {
+      var pb = null;
+      try { pb = JSON.parse((init && init.body) || "{}"); } catch (e) {}
+      if (dbRow && pb) {
+        var merged = { id: dbRow.id, name: dbRow.name, domain: dbRow.domain };
+        if (pb.name != null) merged.name = pb.name;
+        if (pb.domain != null) merged.domain = pb.domain;
+        window.__bsDemoBrandRow = merged;
+        setTimeout(function () { if (window.__bsRefresh) window.__bsRefresh(); }, 0);
+        return jsonRes(merged, 200);
+      }
+      return jsonRes({ detail: "brand_not_found" }, 404);
+    }
+    if (Object.prototype.hasOwnProperty.call(FIX, path)) {
+      return jsonRes(FIX[path], 200);
+    }
+    if (method !== "GET" && method !== "HEAD") {
+      return Promise.resolve(new Response(JSON.stringify({ detail: "demo_mode" }), { status: 503, headers: { "Content-Type": "application/json" } }));
+    }
+    return realFetch(input, init);
+  };
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest('a[href="/"], [data-acct="logout"], [data-connect], #unbindShopifyRow') : null;
+    if (a) { ev.preventDefault(); ev.stopPropagation(); }
+  }, true);
+  var _push = history.pushState.bind(history), _repl = history.replaceState.bind(history);
+  function fenceUrl(u) {
+    if (u == null) return u;
+    var url;
+    try { url = new URL(u, location.href); } catch (e) { return u; }
+    if (url.pathname === "/dashboard" || url.pathname.indexOf("/dashboard/") === 0) return location.pathname + url.search + url.hash;
+    return u;
+  }
+  history.pushState = function (s, t, u) { return _push(s, t, fenceUrl(u)); };
+  history.replaceState = function (s, t, u) { return _repl(s, t, fenceUrl(u)); };
+  window.__demoShim = true;
+  /* demo-document marker (v10, 2026-11-08): the gate's identity-hold must
+     not hold the brand switcher hostage in a document whose identity is a
+     fixture — the CSS layer exempts demo documents outright. */
+  document.documentElement.setAttribute("data-demo-doc", "1");
+})();
+</script>
+<script>
 "use strict";
 /* =====================================================================
    CitMark dashboard demo — data layer (replays real measured data since 2026-10-24).
@@ -2053,6 +2225,7 @@ const state = { snapshot: null, score: null, answers: null, running: false };
 /* ---------------- router ---------------- */
 const TITLES = {
   overview:    ["Overview", "Your brand's AI visibility at a glance"],
+  'brands-new': ["Add a brand", "Tell us which brand to track"],
   score:       ["Visibility score", "Your brand's AI visibility, with confidence intervals"],
   report:      ["Weekly report", "Per-question results, raw answers, suggestions"],
   questions:   ["Prompts", "Questions you track"],
@@ -2112,6 +2285,9 @@ window.addEventListener('popstate', function () {
     go('settings');
   }
   if (cur && cur.id === 'view-plan') {
+    go('overview');
+  }
+  if (cur && cur.id === 'view-brands-new') {
     go('overview');
   }
   if (cur && cur.id === 'view-pricing-cards') {
@@ -3584,6 +3760,47 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 })();
 </script>
 <style>
+/* add-brand page + brand profile save (form B seg2, 2026-11-07) */
+.bn-steps{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0 0 16px;padding:0}
+.bn-steps li{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px}
+.bn-steps li .bn-n{width:20px;height:20px;border-radius:50%;background:var(--bg-sink);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800}
+.bn-steps li.on{color:var(--ink);border-color:var(--skin-accent)}
+.bn-steps li.on .bn-n{background:var(--skin-accent);color:#fff}
+.bn-err{color:#b91c1c;font-size:13.5px;margin:10px 0 0}
+.brand-save-note{font-size:13.5px;color:var(--muted)}
+.brand-save-note.err{color:#b91c1c}
+#view-brands-new .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+#view-brands-new .field input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}
+#view-brands-new .field input[type=text]:focus{outline:2px solid var(--skin-accent);outline-offset:1px;border-color:transparent}
+#view-brands-new .field select,#view-brand-edit .field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink);box-sizing:border-box}
+#view-brands-new .field select:focus,#view-brand-edit .field select:focus{outline:2px solid var(--skin-accent);outline-offset:1px;border-color:transparent}
+#view-brands-new .row{display:flex;flex-wrap:nowrap;gap:8px}
+#view-brands-new .row > *{min-width:0;flex:1 1 0}
+#view-brands-new input[type=text]{box-sizing:border-box;min-width:0}
+@media (max-width:560px){#view-brands-new .row{flex-wrap:wrap} #view-brands-new .row > *{flex:1 1 100%}}
+/* brand switcher (form B, 2026-11-07) */
+html:not([data-identity="set"]):not([data-state="demo"]) .brand-switcher{visibility:hidden}
+.side-id{width:100%;box-sizing:border-box}
+.brand-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand-switcher{position:relative;flex:1 1 0;min-width:0}
+.bs-add[hidden]{display:none!important}
+#tierBadge{flex:none}
+.bs-head{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;padding:4px 6px;border-radius:10px;cursor:pointer;text-align:left;font:inherit;color:var(--ink)}
+.bs-head:hover{background:var(--bg-sink)}
+.bs-ava{width:30px;height:30px;border-radius:9px;background:var(--skin-accent);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.bs-ava.sm{width:26px;height:26px;border-radius:8px;font-size:12px}
+.bs-text{display:flex;flex-direction:column;min-width:0}
+.bs-name{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bs-domain{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bs-caret{margin-left:auto;color:var(--muted);flex:none;font-size:11px}
+.bs-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(20,21,25,.14);padding:6px;z-index:80}
+.bs-row{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;padding:7px 8px;border-radius:10px;cursor:pointer;text-align:left;font:inherit;color:var(--ink)}
+.bs-row:hover{background:var(--bg-sink)}
+.bs-row.cur{background:var(--bg-sink)}
+.bs-check{margin-left:auto;color:var(--skin-accent);font-weight:800;flex:none}
+.bs-add{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;border-top:1px solid var(--line);margin-top:5px;padding:9px 8px 5px;cursor:pointer;text-align:left;font:inherit;font-weight:700;font-size:13.5px;color:var(--accent-deep)}
+.bs-upgrade{justify-content:space-between;font-weight:600;color:var(--muted)}
+.bs-upg-link{color:var(--accent-deep);font-weight:700}
 /* naming batch: tool info ("?") cards — content lives in TOOL_INFO (single source, shared with the tool first-run guide) */
 .tool-info-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 6px; vertical-align: 2px; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; color: var(--ink-2); font-size: 12px; font-weight: 700; line-height: 1; cursor: pointer; padding: 0; }
 .tool-info-btn:hover { border-color: var(--ink-2); }
@@ -3692,7 +3909,7 @@ window.__dlParse = function () {
       if (v) out[k] = v;
     });
     var p = window.location.pathname || "";
-    var i = p.indexOf("/dashboard");
+    var i = p.indexOf("/dashboard/"); if (i < 0 && (p === "/dashboard" || p.slice(-10) === "/dashboard")) i = p.length - 10;
     if (i >= 0) {
       var segs = p.slice(i + "/dashboard".length).split("/").filter(function (x) { return !!x; });
       if (segs.length) {
@@ -3701,6 +3918,7 @@ window.__dlParse = function () {
       }
     }
   } catch (e) {}
+  if (out.view === "brands" && out.object === "new") { out.view = "brands-new"; out.object = null; }
   return out;
 };
 window.__dlKeys = window.__dlParse();
@@ -4105,7 +4323,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
   };
   function basePath() {
     var p = window.location.pathname || "";
-    var i = p.indexOf("/dashboard");
+    var i = p.indexOf("/dashboard/"); if (i < 0 && (p === "/dashboard" || p.slice(-10) === "/dashboard")) i = p.length - 10;
     return i >= 0 ? "/dashboard" : p;
   }
   function pairFromDom() {
@@ -4116,13 +4334,13 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
   function compose(view) {
     var v = view || st.view || "overview";
     var path = basePath();
-    if (window.location.pathname.indexOf("/dashboard") >= 0 && v !== "overview") path += "/" + v;
+    if ((window.location.pathname === "/dashboard" || window.location.pathname.indexOf("/dashboard/") === 0) && v !== "overview") path += "/" + (v === "brands-new" ? "brands/new" : v);
     var obj = null;
     if (window.__dlObjViews[v]) {
       if (v === "tools-p6") obj = st.object;
       else obj = (typeof state !== "undefined" && state.snapshot && state.snapshot.id) || st.object;
     }
-    if (obj && window.location.pathname.indexOf("/dashboard") >= 0) path += "/" + encodeURIComponent(obj);
+    if (obj && (window.location.pathname === "/dashboard" || window.location.pathname.indexOf("/dashboard/") === 0)) path += "/" + encodeURIComponent(obj);
     var pr = pairFromDom() || ((st.from_run && st.to_run) ? { f: st.from_run, t: st.to_run } : null);
     var qs = [];
     if (st.brand) qs.push("brand=" + encodeURIComponent(st.brand));
@@ -4236,7 +4454,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
   function setState(v) { root.setAttribute("data-state", v); window.__dataState = v; }
   var http = false;
   try { http = (typeof api !== "undefined" && api.mode === "http"); } catch (e) {}
-  if (!http) { setState("demo"); return; }
+  if (!http) { setState(window.__demoShim ? "empty" : "demo"); return; }
   setState("loading");
   window.__gateUpgrade = function () { if (root.getAttribute("data-state") === "empty") setState("real"); };
   function probe(attempt) {
@@ -4298,7 +4516,8 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     var h = document.getElementById("hubBrandStatus");
     if (h) h.textContent = b ? (b.name + (b.domain ? " · " + b.domain : "")) : "No brand yet";
     var sb = document.querySelector(".side-brand");
-    if (sb) sb.textContent = b ? b.name : "No brand yet";
+    if (sb) sb.textContent = b ? b.name : "No brand";
+    if (!window.__bsLoaded) { var bn = document.getElementById("bsName"); if (bn) bn.textContent = b ? b.name : "No brand"; var bd = document.getElementById("bsDomain"); if (bd) bd.textContent = b ? (b.domain || "") : ""; var ba = document.getElementById("bsAva"); if (ba) ba.textContent = b && b.name ? b.name.charAt(0).toUpperCase() : "?"; }
     var ib = document.getElementById("idBrandName");
     if (ib) ib.textContent = b ? b.name : "No brand yet";
     var on = document.getElementById("ovBrandName");
@@ -4313,6 +4532,245 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
   }
   window.__fillBrandSurfaces = fillBrandSurfaces;
   fillBrandSurfaces();
+})();
+</script>
+<script>
+/* brand switcher (form B, 2026-11-07): list from GET /brands; current = ?brand= -> gate brand -> first */
+(function () {
+  var head = document.getElementById("bsHead");
+  if (!head) return;
+  var menu = document.getElementById("bsMenu"), list = document.getElementById("bsList"),
+      addBtn = document.getElementById("bsAdd"), upgBtn = document.getElementById("bsUpgrade"),
+      nameEl = document.getElementById("bsName"), domEl = document.getElementById("bsDomain"),
+      avaEl = document.getElementById("bsAva");
+  var CAPS = { starter: 1, growth: 1, pro: 1, teams: 10 };
+  var brands = null, failed = false;
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function tierKey() { return document.documentElement.getAttribute("data-skin") || "starter"; }
+  function tierLabel() { var t = tierKey(); return t.charAt(0).toUpperCase() + t.slice(1); }
+  function setHead(b) {
+    if (b) { nameEl.textContent = b.name; domEl.textContent = b.domain || ""; avaEl.textContent = (b.name || "?").charAt(0).toUpperCase(); }
+    else { nameEl.textContent = "No brand"; domEl.textContent = ""; avaEl.textContent = "?"; }
+  }
+  function resolveCurrent() {
+    if (!brands || !brands.length) return null;
+    var q = null;
+    try { q = new URLSearchParams(location.search).get("brand"); } catch (e) {}
+    var i;
+    if (q) for (i = 0; i < brands.length; i++) if (brands[i].id === q) return brands[i];
+    if (window.__bsCurrentId) for (i = 0; i < brands.length; i++) if (brands[i].id === window.__bsCurrentId) return brands[i];
+    var g = window.__gateBrand;
+    if (g && g.name) for (i = 0; i < brands.length; i++) if (brands[i].name === g.name && brands[i].domain === g.domain) return brands[i];
+    return brands[0];
+  }
+  function render() {
+    var cur = resolveCurrent();
+    window.__bsCurrentId = cur ? cur.id : null; window.__bsCurrentBrand = cur || null;
+    setHead(cur);
+    var hb = document.querySelector('.set-link[aria-label="Brand profile"]');
+    if (hb) hb.setAttribute("data-go", cur ? "brand-edit" : "brands-new");
+    var rb0 = document.getElementById("ovRunBtn");
+    if (rb0) { if (brands && brands.length === 0) rb0.style.setProperty("display", "none", "important"); else rb0.style.removeProperty("display"); }
+    document.documentElement.toggleAttribute("data-brand-none", !(brands && brands.length));
+    var slot = document.querySelector("#view-overview [data-empty-slot]");
+    if (slot && brands && brands.length > 0 && slot.getAttribute("data-bn-done")) {
+      slot.removeAttribute("data-bn-done");
+      if (window.__ovSlotOrig !== undefined) slot.innerHTML = window.__ovSlotOrig;
+    }
+    if (brands && brands.length === 0) {
+      if (slot && !slot.getAttribute("data-bn-done")) {
+        if (window.__ovSlotOrig === undefined) window.__ovSlotOrig = slot.innerHTML;
+        slot.setAttribute("data-bn-done", "1");
+        slot.innerHTML = '<div class="big">\u25CE</div><p><b>No brand.</b><br/>Add your brand to run your first snapshot and see how AI describes it.</p><p style="margin-top:12px"><button class="btn" type="button" id="ovAddBrand">Add your brand</button></p>';
+        var ob = document.getElementById("ovAddBrand");
+        if (ob) ob.addEventListener("click", function () { if (typeof window.go === "function") window.go("brands-new"); });
+      }
+    }
+    list.innerHTML = (brands || []).map(function (b) {
+      var on = cur && b.id === cur.id;
+      return '<button type="button" class="bs-row' + (on ? " cur" : "") + '" role="option" aria-selected="' + !!on + '" data-bid="' + esc(b.id) + '"><span class="bs-ava sm">' + esc((b.name || "?").charAt(0).toUpperCase()) + '</span><span class="bs-text"><span class="bs-name">' + esc(b.name) + '</span><span class="bs-domain">' + esc(b.domain || "") + '</span></span>' + (on ? '<span class="bs-check" aria-hidden="true">\u2713</span>' : "") + '</button>';
+    }).join("");
+    var cap = CAPS[tierKey()] || 1;
+    var atCap = (brands || []).length >= cap;
+    addBtn.hidden = atCap;
+    upgBtn.hidden = !atCap;
+    if (atCap) upgBtn.innerHTML = '<span>' + esc(tierLabel()) + " includes " + cap + (cap === 1 ? " brand" : " brands") + '.</span><span class="bs-upg-link">Upgrade</span>';
+    window.__bsLoaded = true;
+  }
+  function openMenu() { if (failed || !brands) return; render(); menu.hidden = false; head.setAttribute("aria-expanded", "true"); }
+  function closeMenu() { menu.hidden = true; head.setAttribute("aria-expanded", "false"); }
+  head.addEventListener("click", function () { if (menu.hidden) openMenu(); else closeMenu(); });
+  document.addEventListener("click", function (e) { if (!menu.hidden && !document.getElementById("brandSwitcher").contains(e.target)) closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+  list.addEventListener("click", function (e) {
+    var row = e.target.closest("[data-bid]");
+    if (!row) return;
+    var id = row.getAttribute("data-bid");
+    var cur = resolveCurrent();
+    closeMenu();
+    if (cur && cur.id === id) return;
+    var u = new URL(location.href);
+    u.searchParams.set("brand", id);
+    location.href = u.toString();
+  });
+  addBtn.addEventListener("click", function () { closeMenu(); if (typeof window.go === "function") window.go("brands-new"); });
+  upgBtn.addEventListener("click", function () { closeMenu(); if (typeof window.go === "function") window.go("plan"); });
+  function refresh() {
+  if (window.__bsDemoBrandRow) { brands = [window.__bsDemoBrandRow]; failed = false; render(); return; }
+  fetch("/brands", { credentials: "same-origin" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (resp) {
+      if (!resp || !Array.isArray(resp.brands)) throw new Error("bad brands resp");
+      brands = resp.brands;
+      render();
+    })
+    .catch(function () {
+      if (document.documentElement.getAttribute("data-state") === "demo") {
+        var g = window.__gateBrand || { name: "Bombas", domain: "bombas.com" };
+        brands = [{ id: "demo", name: g.name, domain: g.domain }];
+        render();
+        return;
+      }
+      failed = true;
+      head.setAttribute("aria-disabled", "true");
+    });
+  }
+  window.__bsRefresh = refresh;
+  refresh();
+})();
+</script>
+<script>
+/* add-brand page + brand profile save (form B seg2, 2026-11-07) */
+(function () {
+  var ERR = { brand_name_required: "Enter a brand name.", brand_name_too_long: "That brand name is too long.", brand_domain_required: "Enter a domain.", brand_domain_invalid: "That domain doesn't look right.", brand_domain_taken: "Another brand in this workspace already uses that domain.", brand_not_found: "That brand no longer exists.", team_required: "We could not set up your workspace just now. Please try again.", brands_unavailable: "Brand storage is unavailable right now. Try again shortly." };
+  function msg(code) { return ERR[code] || "Something went wrong. Please try again."; }
+  function isDemo() { return document.documentElement.getAttribute("data-state") === "demo"; }
+  var BN_PATH_DEMO = !(location.pathname === "/dashboard" || location.pathname.indexOf("/dashboard/") === 0);
+  function isDemoCtx() { return isDemo() || BN_PATH_DEMO; }
+  var form = document.getElementById("bnForm");
+  if (form) {
+    var domIn = document.getElementById("bnDomain"), nameIn = document.getElementById("bnName"),
+        err = document.getElementById("bnErr"), submit = document.getElementById("bnSubmit");
+    var nameTouched = false;
+    nameIn.addEventListener("input", function () { nameTouched = true; });
+    function deriveName(v) {
+      var raw = v.replace(/^https?:\/\//i, "").replace(/^www\./i, "").split("/")[0].split(":")[0];
+      var root = raw.split(".")[0];
+      if (!root) return "";
+      return root.split(/[-_]+/).filter(Boolean).map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ");
+    }
+    domIn.addEventListener("change", function () {
+      if (nameTouched || nameIn.value.trim()) return;
+      var v = domIn.value.trim();
+      if (!v) return;
+      if (isDemoCtx()) { nameIn.value = deriveName(v); return; }
+      fetch("/brands/suggest-name", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: v }) })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { if (!nameTouched && !nameIn.value.trim()) nameIn.value = (j && j.name) || deriveName(v); })
+        .catch(function () { if (!nameTouched && !nameIn.value.trim()) nameIn.value = deriveName(v); });
+    });
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      err.hidden = true;
+      var name = nameIn.value.trim(), domain = domIn.value.trim();
+      if (!name) { err.textContent = msg("brand_name_required"); err.hidden = false; return; }
+      if (!domain) { err.textContent = msg("brand_domain_required"); err.hidden = false; return; }
+      if (isDemoCtx()) {
+        var nb = { id: "demo", name: name, domain: domain };
+        window.__gateBrand = { name: name, domain: domain };
+        window.__bsCurrentId = nb.id; window.__bsCurrentBrand = nb; window.__bsDemoBrandRow = nb;
+        if (window.__fillBrandSurfaces) window.__fillBrandSurfaces();
+        if (window.__bsRefresh) window.__bsRefresh();
+        if (typeof window.go === "function") window.go("brand-edit");
+        return;
+      }
+      submit.disabled = true;
+      var old = submit.textContent; submit.textContent = "Adding\u2026";
+      function bnPayload(n, d) { return { name: n, domain: d }; }
+      fetch("/brands", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(bnPayload(name, domain)) })
+        .then(function (r) { return r.json().catch(function () { return null; }).then(function (body) { return { ok: r.ok, body: body }; }); })
+        .then(function (res) {
+          if (res.ok && res.body && res.body.id) { location.href = "/dashboard?brand=" + encodeURIComponent(res.body.id); return; }
+          submit.disabled = false; submit.textContent = old;
+          err.textContent = msg(res.body && res.body.detail);
+          err.hidden = false;
+        })
+        .catch(function () {
+          submit.disabled = false; submit.textContent = old;
+          err.textContent = "Something went wrong. Please try again.";
+          err.hidden = false;
+        });
+    });
+  }
+  var saveBtn = document.getElementById("brandSaveBtn");
+  if (saveBtn) {
+    var note = document.getElementById("brandSaveNote");
+    saveBtn.addEventListener("click", function () {
+      var nIn = document.getElementById("brandNameInput"), dIn = document.getElementById("brandDomainInput");
+      var name = (nIn.value || "").trim(), domain = (dIn.value || "").trim();
+      note.textContent = ""; note.classList.remove("err");
+      if (!name) { note.textContent = msg("brand_name_required"); note.classList.add("err"); return; }
+      if (!domain) { note.textContent = msg("brand_domain_required"); note.classList.add("err"); return; }
+      if (isDemoCtx()) {
+        window.__bsDemoBrandRow = { id: window.__bsCurrentId || "demo", name: name, domain: domain };
+        if (window.__bsRefresh) window.__bsRefresh();
+        window.__gateBrand = { name: name, domain: domain };
+        if (window.__fillBrandSurfaces) window.__fillBrandSurfaces();
+        note.textContent = "Saved.";
+        return;
+      }
+      var id = window.__bsCurrentId || null;
+      function patchPayload() { return { name: name, domain: domain }; }
+      function patch(pid) {
+        saveBtn.disabled = true;
+        fetch("/brands/" + encodeURIComponent(pid), { method: "PATCH", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(patchPayload()) })
+          .then(function (r) { return r.json().catch(function () { return null; }).then(function (body) { return { ok: r.ok, body: body }; }); })
+          .then(function (res) {
+            saveBtn.disabled = false;
+            if (res.ok && res.body) {
+              window.__gateBrand = { name: res.body.name, domain: res.body.domain };
+              if (window.__fillBrandSurfaces) window.__fillBrandSurfaces();
+              if (window.__bsRefresh) window.__bsRefresh();
+              note.textContent = "Saved.";
+            } else {
+              note.textContent = msg(res.body && res.body.detail);
+              note.classList.add("err");
+            }
+          })
+          .catch(function () { saveBtn.disabled = false; note.textContent = "Something went wrong. Please try again."; note.classList.add("err"); });
+      }
+      if (id) { patch(id); return; }
+      fetch("/brands", { credentials: "same-origin" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (resp) {
+          var g = window.__gateBrand;
+          var hit = null;
+          if (resp && Array.isArray(resp.brands) && g) for (var i = 0; i < resp.brands.length; i++) if (resp.brands[i].name === g.name && resp.brands[i].domain === g.domain) { hit = resp.brands[i]; break; }
+          if (hit) patch(hit.id);
+          else { note.textContent = "Add a brand before saving."; note.classList.add("err"); }
+        })
+        .catch(function () { note.textContent = "Something went wrong. Please try again."; note.classList.add("err"); });
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* brand-state arbiter (v2 repair, 2026-11-08): ONE source for brand state.
+   The switcher's resolution is authoritative; the gate brand follows it,
+   so the sidebar and the main area can never disagree. */
+(function () {
+  var tries = 0;
+  (function wait() {
+    if (window.__bsLoaded) {
+      var b = window.__bsCurrentBrand || null;
+      window.__gateBrand = b ? { name: b.name || "", domain: b.domain || "" } : undefined;
+      if (window.__fillBrandSurfaces) window.__fillBrandSurfaces();
+      return;
+    }
+    if (++tries < 120) setTimeout(wait, 50);
+  })();
 })();
 </script>
 <script>
