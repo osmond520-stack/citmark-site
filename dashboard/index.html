@@ -1634,6 +1634,10 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <p class="current-pos" id="planPos">For one brand getting started with AI visibility. Weekly full measurement, plus an alert when AI turns negative.</p>
 <p class="current-price"><b id="planPromoPrice">$25/mo</b> <s id="planStandardPrice">$35/mo</s> <span class="current-price-note" id="planPriceNote">for the first 12 months, then $35/mo</span></p>
 <p class="current-founding" id="planFounding">Founding members: $12.50/mo for the first 12 months.</p> <p class="plan-history" id="planHistoryRow">History: last 4 weeks</p></div>
+<div class="card" id="billingSummaryCard" hidden><h3>Billing summary</h3>
+<div id="billingSummaryRows"></div>
+<p id="billingSummaryErr" hidden>Couldn't load your billing summary. <button class="btn small ghost" type="button" id="billingSummaryRetry">Retry</button></p>
+</div>
 <div class="card" id="upgradeCard"><button class="cp-toggle" type="button" id="changePlanToggle" aria-expanded="false" aria-controls="changePlanBody"><span class="cp-toggle-title">Change plan</span><span class="cp-chevron" aria-hidden="true">▾</span></button><div class="cp-body" id="changePlanBody"><div class="cp-body-inner">
 <button class="drawer-tier-card" type="button" data-tier="starter" data-name="Starter" data-promo="$25/mo" data-standard="$35/mo" data-founding="$12.50/mo" aria-pressed="false"><span class="dtc-tier">Starter</span><span class="dtc-pos">For one brand getting started with AI visibility. Weekly full measurement, plus an alert when AI turns negative.</span><span class="dtc-price"><b>$25/mo</b><s>$35/mo</s></span><span class="dtc-note">for the first 12 months, then $35/mo</span><span class="dtc-founding">Founding members: $12.50/mo for the first 12 months.</span><span class="dtc-meta">1 seat · 3 AI engines · 1 site</span></button>
 <button class="drawer-tier-card" type="button" data-tier="growth" data-name="Growth" data-promo="$49/mo" data-standard="$70/mo" data-founding="$24.50/mo" aria-pressed="false"><span class="dtc-tier">Growth</span><span class="dtc-pos">For growing brands tracking more questions and competitors. Everything in Starter, plus more questions.</span><span class="dtc-price"><b>$49/mo</b><s>$70/mo</s></span><span class="dtc-note">for the first 12 months, then $70/mo</span><span class="dtc-founding">Founding members: $24.50/mo for the first 12 months.</span><span class="dtc-meta">3 seats · 4 AI engines (including Grok) · 1 site</span></button>
@@ -5157,6 +5161,92 @@ TOOL_INFO.s_team = { name: "Team", q: "",
         if (v === "tools-p0") loadImpact();
         if (v === "tools-p1") loadCheckup();
       }
+      return r;
+    };
+  }
+})();
+</script>
+<script>
+/* Billing summary wiring (lane-1, 2026-11-15) per BILLING-VIEW-SHAPE-FREEZE
+   c0dfb7a0: GET /billing/view on plan-view entry (http mode only).
+   source="demo" -> placeholder state, never real-looking values.
+   source="live" -> rows only for data that is present:
+     last_paid (invoice-row convention), next_charge (date always;
+     amount only when amount_state="derived", shown with a before-tax
+     note; while "pending_period_persistence" the amount is never
+     filled in by the face), cancel_at_period_end, pending_change.
+   Failure -> failure line + Retry; an all-null live view hides the card
+   (the no-plan / past-due cards above carry those states). */
+(function () {
+  "use strict";
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmtDate(iso) {
+    if (!iso) return "";
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+  function fmtMoney(amount, currency) {
+    if (amount == null) return "";
+    if (currency === "USD") return "$" + amount;
+    return String(currency || "") + " " + amount;
+  }
+  function cap(x) { x = String(x == null ? "" : x); return x ? x.charAt(0).toUpperCase() + x.slice(1) : ""; }
+  var card = document.getElementById("billingSummaryCard");
+  var rowsBox = document.getElementById("billingSummaryRows");
+  var errLine = document.getElementById("billingSummaryErr");
+  var retryBtn = document.getElementById("billingSummaryRetry");
+  if (!card || !rowsBox) return;
+  function fail() {
+    card.hidden = false;
+    rowsBox.textContent = "";
+    if (errLine) errLine.hidden = false;
+  }
+  function render(v) {
+    if (errLine) errLine.hidden = true;
+    rowsBox.textContent = "";
+    if (!v || v.source === "demo") {
+      card.hidden = false;
+      rowsBox.appendChild(el("p", null, "Billing details aren't available in this demo view."));
+      return;
+    }
+    var n = 0;
+    if (v.last_paid) {
+      rowsBox.appendChild(el("p", null, "Last payment: " + fmtMoney(v.last_paid.amount, v.last_paid.currency) + " \u00b7 " + fmtDate(v.last_paid.paid_at)));
+      n++;
+    }
+    if (v.next_charge && !v.cancel_at_period_end) {
+      var line = "Next charge: " + fmtDate(v.next_charge.date);
+      if (v.next_charge.amount_state === "derived" && v.next_charge.amount != null) {
+        line += " \u00b7 " + fmtMoney(v.next_charge.amount, v.next_charge.currency) + " (before tax)";
+      }
+      rowsBox.appendChild(el("p", null, line));
+      n++;
+    }
+    if (v.cancel_at_period_end) {
+      rowsBox.appendChild(el("p", null, "Your plan will cancel at the end of the current period."));
+      n++;
+    }
+    if (v.pending_change) {
+      rowsBox.appendChild(el("p", null, "Your plan switches to " + cap(v.pending_change.tier) + " on " + fmtDate(v.pending_change.effective_at) + "."));
+      n++;
+    }
+    card.hidden = n === 0;
+  }
+  function load() {
+    fetch("/billing/view", { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("billing-view"); return r.json(); })
+      .then(render)
+      .catch(fail);
+  }
+  if (retryBtn) retryBtn.addEventListener("click", load);
+  var _go = window.go;
+  if (typeof _go === "function") {
+    window.go = function (view) {
+      var r = _go.apply(this, arguments);
+      try {
+        if (view === "plan" && document.documentElement.getAttribute("data-state") !== "demo") load();
+      } catch (e) {}
       return r;
     };
   }
