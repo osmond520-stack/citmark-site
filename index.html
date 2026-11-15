@@ -1062,18 +1062,24 @@ tr.sr-dots{display:none}
           </div>
           <div class="hero-mini-wrap"><aside class="hero-mini" aria-label="Sample visibility report for Good Molecules">
             <div class="hero-mini-head"><span class="hero-mini-title">Visibility score</span></div>
-            <p class="hero-mini-brand"><b>Good Molecules</b><span>22.2 overall</span></p>
-<div class="hero-mini-score"><span id="miniScore">33</span><small>/100</small></div>
-<p class="hero-mini-label">on <span id="miniEngine">ChatGPT</span> · <span id="miniMention">mentioned in 1 of 3 buyer questions</span></p>
+<p class="hero-mini-brand"><b>Good Molecules</b><span>41.7 overall</span></p>
+<div class="hero-mini-score"><span id="miniScore">41.7</span><small>/100</small></div>
+<p class="hero-mini-label">measured on ChatGPT, Perplexity, Gemini and Grok</p>
+<p class="tcov-tier" id="miniTier">Starter — 3 engines</p>
 <div class="hero-mini-rows" id="miniRows">
-<div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Perplexity" aria-label="Show Perplexity score">Perplexity</button><span class="hero-mini-track"><span style="width:0%"></span></span><b>0</b></div>
-<div class="hero-mini-row"><button type="button" class="hero-mini-eng" data-mini-eng="Gemini" aria-label="Show Gemini score">Gemini</button><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
-<div class="hero-mini-row hero-mini-summary"><a href="#sample-table">Full sample below</a></div>
+<div class="hero-mini-row"><span class="hero-mini-eng">ChatGPT</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
+<div class="hero-mini-row"><span class="hero-mini-eng">Perplexity</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
+<div class="hero-mini-row"><span class="hero-mini-eng">Gemini</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
+<div class="hero-mini-row"><span class="hero-mini-eng">Grok</span><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
 </div>
+<p class="hm-synth">DeepSeek <b>33</b> — synthetic run (search-injected; not engine-grounded)</p>
+<p class="hm-extra" id="miniExtra">All 3 engines are in the sample above.</p>
+<p class="hero-mini-note" id="miniCov">1 website · 30 questions · last 4 weeks</p>
+<div class="hero-mini-summary"><a href="#sample-table">Full sample below</a></div>
 <div class="hero-mini-dots" id="miniDots"></div>
-<p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Nov 13, 2026.</p>
+<p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Nov 15, 2026.</p>
 </aside>
-            <p class="hero-mini-caption" style="font-size:11.5px;line-height:1.55;color:var(--muted);margin:10px 4px 0">Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash. Question set v2 — the same 3 buyer questions as the free check.</p></div>
+            <p class="hero-mini-caption" style="font-size:11.5px;line-height:1.55;color:var(--muted);margin:10px 4px 0">Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash · Grok grok-4.20-0309-non-reasoning. DeepSeek deepseek-chat ran synthetically (search-injected). Question set v2 — the same 3 buyer questions as the free check.</p></div>
           <div class="hero-chips">
             <span><b>3</b> AI engines tracked — ChatGPT, Perplexity and Gemini from day one.</span>
             <span><b>Ongoing</b> checks, not one-off scans</span>
@@ -3391,100 +3397,85 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
 })();
 </script>
 <script>
-/* Sample mini card carousel, restored 2026-11-14 (his pick; supersedes the 2026-11-13 same-screen static form). Data: the Nov 13, 2026 real run for Good Molecules, 3 engines as run (mentions of 3 buyer questions per engine; score = mention rate). Auto-advance 4.0s, >=1024px only, reduced-motion = static; swipe/drag switches states. Product pause rule (2026-10-30): any manual interaction pauses auto-advance 8s, then it resumes at 4.0s. Card off-viewport or page hidden pauses. Ported from the Oct 28 original (git 4b7ccf4918) with 3-state data; the "+ N more engines" summary rewrite is dropped (3 engines: the summary row is a plain link to the full sample). */
+/* Tier carousel B v3 (measured anchor, fixed height): the measured layer —
+   41.7 overall plus the four measured engine bars — is identical on every
+   plan page and is the only animated layer (one same-clock rAF loop drives
+   the number and the bars together). Plan differences are static small text:
+   a tier line, ONE compact extra-engines line (no bar, no number, so an
+   engine that was not in the sample run can never read as a 0 score), and a
+   coverage line. Card height is the same on all four pages. */
 (function () {
-  var DATA = [
-  { name: "ChatGPT", score: 33, mentions: 1 },
-  { name: "Perplexity", score: 0, mentions: 0 },
-  { name: "Gemini", score: 33, mentions: 1 }
-];
+  var SCORE = 41.7;
+  var BARS = [33, 33, 33, 67];
+  var STATES = [
+    { tier: "Starter — 3 engines", cov: "1 website · 30 questions · last 4 weeks", extra: "All 3 engines are in the sample above." },
+    { tier: "Growth — 4 engines", cov: "1 website · 100 questions · last 3 months", extra: "All 4 engines are in the sample above." },
+    { tier: "Pro — 5 engines", cov: "1 website · 300 questions · full history", extra: "DeepSeek ran synthetically — marked above." }
+  ];
   var card = document.querySelector(".hero-mini");
   if (!card) return;
   var scoreEl = document.getElementById("miniScore");
-  var engEl = document.getElementById("miniEngine");
-  var menEl = document.getElementById("miniMention");
-  var rowsWrap = document.getElementById("miniRows");
+  var tierEl = document.getElementById("miniTier");
+  var covEl = document.getElementById("miniCov");
+  var extraEl = document.getElementById("miniExtra");
   var dotsWrap = document.getElementById("miniDots");
+  var bars = card.querySelectorAll("#miniRows .hero-mini-track > span");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var wide = window.matchMedia("(min-width: 1024px)");
-  var idx = 0, curScore = DATA[0].score, curBar = [0, 0], timer = null, raf = null;
+  var idx = 0, timer = null;
   var resumeTimer = null, pausedUntil = 0, inView = true;
-  DATA.forEach(function (d, i) {
+  STATES.forEach(function (d, i) {
     var dot = document.createElement("button");
     dot.type = "button"; dot.className = "hero-mini-dot" + (i === 0 ? " on" : "");
-    dot.setAttribute("aria-label", "Show " + d.name + " score");
+    dot.setAttribute("aria-label", "Show " + d.tier.split(" — ")[0] + " plan");
     if (i === 0) dot.setAttribute("aria-current", "true");
-    dot.addEventListener("click", function () { manualPause(); render(i, true); });
+    dot.addEventListener("click", function () { manualPause(); render(i); });
     dotsWrap.appendChild(dot);
   });
   var dots = dotsWrap.querySelectorAll(".hero-mini-dot");
-  var rowEls = rowsWrap.querySelectorAll(".hero-mini-row:not(.hero-mini-summary)");
-  rowEls.forEach(function (row) {
-    /* preview19: the whole row is the click target (name, track and score),
-       not just the engine-name button; the target engine is read at click time
-       because render() rewrites each row's engine per state. */
-    row.style.cursor = "pointer";
-    row.addEventListener("click", function () {
-      var name = row.querySelector(".hero-mini-eng").getAttribute("data-mini-eng");
-      var i = DATA.findIndex(function (d) { return d.name === name; });
-      if (i >= 0) { manualPause(); render(i, true); }
-    });
-  });
-  function render(next, animate) {
-    /* Same-clock sync (his pick, 2026-11-14): the big number and the row bars are
-       driven by ONE rAF loop with ONE eased progress, interpolated from their
-       current displayed values; the CSS width transition is removed, so no
-       quantity runs on its own clock and no frame mixes states. */
-    var d = DATA[next];
-    if (raf) cancelAnimationFrame(raf);
-    engEl.textContent = d.name;
-    menEl.textContent = "mentioned in " + d.mentions + " of 3 buyer questions";
-    var others = DATA.filter(function (x) { return x.name !== d.name; }).slice(0, 3);
-    var barEls = [];
-    rowEls.forEach(function (row, i) {
-      var o = others[i], btn = row.querySelector(".hero-mini-eng");
-      btn.textContent = o.name;
-      btn.setAttribute("data-mini-eng", o.name);
-      btn.setAttribute("aria-label", "Show " + o.name + " score");
-      row.querySelector("b").textContent = o.score;
-      barEls.push(row.querySelector(".hero-mini-track > span"));
-    });
+  var curScore = 0, curBar = [0, 0, 0, 0], rafId = null;
+  function fmt(v) { return (Math.round(v * 10) / 10).toFixed(1); }
+  function paint() {
+    scoreEl.textContent = fmt(curScore);
+    bars.forEach(function (el, i) { el.style.width = curBar[i] + "%"; });
+  }
+  function snap() {
+    curScore = SCORE; curBar = BARS.slice();
+    scoreEl.textContent = "41.7";
+    bars.forEach(function (el, i) { el.style.width = BARS[i] + "%"; });
+  }
+  function animate() {
+    if (rafId) cancelAnimationFrame(rafId);
+    if (reduce) { snap(); return; }
+    var fromS = curScore, fromB = curBar.slice(), t0 = null, DUR = 600;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
+      curScore = fromS + (SCORE - fromS) * e;
+      curBar = fromB.map(function (v, i) { return v + (BARS[i] - v) * e; });
+      if (p >= 1) { snap(); rafId = null; return; }
+      paint();
+      rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  }
+  function render(next) {
+    var d = STATES[next];
+    tierEl.textContent = d.tier;
+    covEl.textContent = d.cov;
+    extraEl.textContent = d.extra;
     dots.forEach(function (dot, i) {
       dot.classList.toggle("on", i === next);
       if (i === next) { dot.setAttribute("aria-current", "true"); } else { dot.removeAttribute("aria-current"); }
     });
     idx = next;
-    if (animate && !reduce) {
-      var fromS = curScore, toS = d.score;
-      var fromB = curBar.slice();
-      var toB = others.map(function (o) { return o.score; });
-      var t0 = performance.now(), DUR = 600;
-      var step = function (t) {
-        var p = Math.min(1, (t - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
-        curScore = fromS + (toS - fromS) * e;
-        scoreEl.textContent = Math.round(curScore);
-        barEls.forEach(function (el, i) {
-          curBar[i] = fromB[i] + (toB[i] - fromB[i]) * e;
-          el.style.width = curBar[i] + "%";
-        });
-        if (p < 1) { raf = requestAnimationFrame(step); }
-        else {
-          curScore = toS; scoreEl.textContent = toS;
-          barEls.forEach(function (el, i) { curBar[i] = toB[i]; el.style.width = toB[i] + "%"; });
-          raf = null;
-        }
-      };
-      raf = requestAnimationFrame(step);
-    } else {
-      curScore = d.score; scoreEl.textContent = d.score;
-      barEls.forEach(function (el, i) { curBar[i] = others[i].score; el.style.width = others[i].score + "%"; });
-    }
+    animate();
   }
   function clearTimer() { if (timer) { clearInterval(timer); timer = null; } }
   function startAuto() {
     if (reduce || !wide.matches || timer || document.hidden || !inView) return;
     if (Date.now() < pausedUntil) return;
-    timer = setInterval(function () { render((idx + 1) % DATA.length, true); }, 4000);
+    timer = setInterval(function () { render((idx + 1) % STATES.length); }, 4000);
   }
   function manualPause() {
     clearTimer();
@@ -3502,11 +3493,6 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
       if (inView) { startAuto(); } else { clearTimer(); }
     }, { threshold: 0.2 }).observe(card);
   }
-  /* Swipe / drag layer (preview18): horizontal pointer drag on the card switches the
-     featured engine, cycling all 3 states in DATA order (left = next, right = previous).
-     touch-action: pan-y keeps vertical page scroll native; a committed drag suppresses
-     the click that follows it. Drag feedback and the swap use transform/opacity only,
-     timed with the carousel's own 600ms easeOutCubic (same curve as the count animation). */
   card.style.touchAction = "pan-y";
   var dragX = null, dragY = null, dragged = false;
   function swapFx(dir) {
@@ -3545,7 +3531,7 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
     if (wasDrag && Math.abs(dx) >= 40) {
       var dir = dx < 0 ? 1 : -1;
       manualPause();
-      render((idx + dir + DATA.length) % DATA.length, true);
+      render((idx + dir + STATES.length) % STATES.length);
       swapFx(dir);
       var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
       card.addEventListener("click", kill, { capture: true, once: true });
@@ -3557,7 +3543,7 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
     dragX = null; dragY = null; dragged = false;
     card.style.transform = "";
   });
-  render(0, false);
+  render(0);
   startAuto();
 })();
 </script>
@@ -3597,5 +3583,23 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
 #faq{padding:20px 0 29px}
 #join{padding:18px 0 29px}
 }
-</style></body>
+</style><style id="tier-css-b3">
+.tcov-tier { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); margin: 0 0 6px; }
+.hm-extra { font-size: 12px; line-height: 1.45; color: var(--muted); margin: 10px 0 0; padding-top: 9px; border-top: 1px dashed var(--line-strong); }
+.hm-synth { font-size: 12px; line-height: 1.45; color: var(--muted); margin: 10px 0 0; padding-top: 9px; border-top: 1px dashed var(--line-strong); }
+.hm-synth b { color: var(--ink); font-family: "IBM Plex Mono", monospace; font-weight: 600; }
+@media (max-width:480px){.hm-extra,.hm-synth{font-size:11px;letter-spacing:-.02em}}
+</style>
+<style id="join-c2">
+@media (min-width:1024px){
+#join .final h2{ max-width: 680px; text-wrap: wrap; }
+#join .final p{ max-width: 620px; }
+#join .final form.waitlist{ max-width: 820px; }
+#join .final .form-note{ max-width: 620px; }
+#join .final .form-msg{ max-width: 620px; }
+#join .final .consent{ max-width: 700px; }
+#join .final p.form-note:last-child{ margin-top: 20px; }
+}
+</style>
+</body>
 </html>
