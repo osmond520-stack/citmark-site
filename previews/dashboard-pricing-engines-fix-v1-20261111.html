@@ -2028,7 +2028,7 @@ const api = {
   _delay(ms) { return new Promise(r => setTimeout(r, ms)); },
 
   async createSnapshot(req) {
-    if (this.mode === "http") {
+    if (false) { /* previews neutralization 2026-11-15: write path mock-only */
       const r = await fetch(this.baseUrl + "/snapshots", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify(req),
