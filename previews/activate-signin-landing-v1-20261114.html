@@ -20,7 +20,29 @@ footer{border-top:1px solid var(--line)}footer .in{max-width:780px;margin:0 auto
 button.go{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit}
 button.go[disabled]{opacity:.55;cursor:default}
 a.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:600;text-decoration:none}
-</style></head>
+</style><script>
+/* PREVIEW GUARD (TD previews discipline 2026-11-15): this demo file must never
+   write to production. All POST/PUT/DELETE/PATCH fetches are answered locally
+   with demo shapes; reads pass through. Not part of any live landing. */
+(function () {
+  var realFetch = window.fetch.bind(window);
+  window.fetch = function (input, init) {
+    var method = ((init && init.method) || (input && input.method) || "GET").toUpperCase();
+    if (method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH") {
+      var url = typeof input === "string" ? input : (input && input.url) || "";
+      var body = url.indexOf("/auth/register") >= 0
+        ? { user_id: "demo", email: "", verified: false, email_sent: true }
+        : { ok: true };
+      return Promise.resolve(new Response(JSON.stringify(body), {
+        status: url.indexOf("/auth/register") >= 0 ? 201 : 200,
+        headers: { "Content-Type": "application/json" }
+      }));
+    }
+    return realFetch(input, init);
+  };
+})();
+</script>
+</head>
 <body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
 <a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
 <a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav><main>
