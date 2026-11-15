@@ -884,6 +884,8 @@ body:not(.session-ready) .sess-slot > * { visibility: hidden; }
           <p>Your receipt is on its way to your inbox. Go to your dashboard to get started.</p>
           <p>Didn't get the receipt? Check your spam folder, or contact support.</p>
           <p class="success-ref" id="successRef" hidden></p>
+          <p class="success-processing" id="successProcessing" hidden>Processing…</p>
+          <dl class="success-values" id="successValues" hidden></dl>
           <p class="success-actions">
             <a class="btn" href="/dashboard/">Back to dashboard</a>
             <a class="btn ghost" href="mailto:support@citmark.com">Contact support</a>
@@ -2211,6 +2213,83 @@ body:not(.session-ready) .sess-slot > * { visibility: hidden; }
   }
   check();
   window.addEventListener("pageshow", check);
+})();
+</script>
+<style id="success-values-css">
+.success-processing{color:var(--muted,#62666e);font-size:15px}
+.success-values{margin:14px auto 4px;max-width:340px;text-align:left}
+.success-values .sv-row{display:flex;justify-content:space-between;gap:16px;padding:7px 2px;border-top:1px solid var(--line,#e5e7eb)}
+.success-values dt{color:var(--muted,#62666e);font-size:14px}
+.success-values dd{margin:0;font-weight:700;font-size:14px}
+</style>
+<script>
+(function () {
+  "use strict";
+  /* Success confirmation face — real values (2026-11-15, Lane-3 item 5):
+     plan from the subscription row via /auth/me (tier), amount actually charged
+     from the newest paid invoice via /billing/invoices (same fmtAmount as the
+     invoice face), subscription status rendered verbatim from the first
+     status field the account payload carries. Until the row has landed, the
+     face shows the processing state only — no tier or amount is pre-rendered.
+     No session -> the static face stays exactly as before. */
+  var proc = document.getElementById("successProcessing");
+  var box = document.getElementById("successValues");
+  if (!proc || !box) return;
+  var tries = 0, done = false;
+  function fmtAmount(inv) {
+    var a = Number(inv.amount);
+    if (isNaN(a)) return "";
+    var t = (a % 1 === 0) ? String(a) : a.toFixed(2);
+    if (inv.currency === "USD") return "$" + t;
+    return (inv.currency ? inv.currency + " " : "") + t;
+  }
+  function cap(v) { v = String(v || ""); return v ? v.charAt(0).toUpperCase() + v.slice(1) : ""; }
+  function row(label, value) {
+    var d = document.createElement("div"); d.className = "sv-row";
+    var dt = document.createElement("dt"); dt.textContent = label;
+    var dd = document.createElement("dd"); dd.textContent = value;
+    d.appendChild(dt); d.appendChild(dd); return d;
+  }
+  function render(me, inv) {
+    box.textContent = "";
+    box.appendChild(row("Plan", cap(me.tier)));
+    var st = me.subscription_status || "";
+    if (st) box.appendChild(row("Status", cap(st)));
+    if (inv) box.appendChild(row("Amount paid", fmtAmount(inv)));
+    proc.hidden = true; box.hidden = false; done = true;
+  }
+  function attempt() {
+    if (done) return;
+    fetch("/auth/me", { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("me " + r.status); return r.json(); })
+      .then(function (me) {
+        if (!me) { schedule(); return null; }
+        if (!me.tier) {
+          if (me.subscription_status) { box.textContent = ""; box.appendChild(row("Status", cap(me.subscription_status))); proc.hidden = true; box.hidden = false; done = true; }
+          else schedule();
+          return null;
+        }
+        return fetch("/billing/invoices", { credentials: "same-origin" })
+          .then(function (r) { if (!r.ok) throw new Error("inv " + r.status); return r.json(); })
+          .then(function (data) {
+            var list = (data && data.invoices) || [];
+            var paid = list.filter(function (x) { return x && x.status === "paid"; });
+            paid.sort(function (a, b) { return String(b.created_at || "").localeCompare(String(a.created_at || "")); });
+            if (!paid.length) { schedule(); return; }
+            render(me, paid[0]);
+          })
+          .catch(function () { schedule(); });
+      })
+      .catch(function () { /* no session or read failure: static face stays */ proc.hidden = true; done = true; });
+  }
+  function schedule() {
+    if (done) return;
+    tries += 1;
+    if (tries === 1) proc.hidden = false;
+    if (tries > 10) return; /* leave the honest processing line; never invent values */
+    setTimeout(attempt, 3000);
+  }
+  attempt();
 })();
 </script>
 <script>
