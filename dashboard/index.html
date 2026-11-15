@@ -1554,7 +1554,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status">Growth and above · 1 seat now</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
+      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
 <div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_negative" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
 <div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_changes" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
 </div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
@@ -4932,6 +4932,7 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
     }
     var seats = document.getElementById("teamSeats");
     if (seats && members.length) seats.textContent = members.length + (members.length === 1 ? " seat" : " seats");
+    feedHub(members);
   }
   function load() {
     var box = document.getElementById("teamMembers");
@@ -4946,10 +4947,31 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
       .then(function (data) { render(data); started = true; })
       .catch(failFace);
   }
+  /* Hub Team row seat count (product ruling 2026-11-15): same source as
+     #teamSeats (the members payload). Until a count settles, the hub row
+     shows the "Growth and above" prefix only -- never a static number. */
+  var hubStarted = false;
+  function feedHub(members) {
+    var hub = document.getElementById("hubTeamStatus");
+    if (hub && members && members.length) hub.textContent = "Growth and above \u00b7 " + members.length + (members.length === 1 ? " seat now" : " seats now");
+  }
+  function loadHub() {
+    fetch("/auth/me", { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("me"); return r.json(); })
+      .then(function (me) {
+        if (!me || !me.team_id) throw new Error("noteam");
+        return fetch("/teams/" + encodeURIComponent(me.team_id) + "/members", { credentials: "same-origin" });
+      })
+      .then(function (r) { if (!r.ok) throw new Error("members"); return r.json(); })
+      .then(function (data) { feedHub((data && data.members) || []); })
+      .catch(function () { /* count unsettled: prefix only */ });
+  }
   window.__loadTeamMembers = load;
   document.addEventListener("click", function (e) {
     var t = e.target && e.target.closest ? e.target.closest('[data-go="team"], [data-view="team"]') : null;
     if (t && !started) { started = true; load(); }
+    var st = e.target && e.target.closest ? e.target.closest('[data-go="settings"]') : null;
+    if (st && !hubStarted) { hubStarted = true; loadHub(); }
   });
 })();
 </script>
