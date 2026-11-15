@@ -1015,6 +1015,36 @@ tr.sr-dots{display:none}
 .tkfold{display:contents}
 .fold-on .tkfold{display:none}
 </style>
+
+<style id="carousel-redesign">
+
+.hero-mini .hm-rowline{ border-top: 1px dashed var(--line-strong); border-bottom: 1px solid var(--line); margin: 0; padding: 8px 0; }
+.hero-mini .hero-mini-rows{ border-bottom: 0; }
+@media (min-width:1024px){
+.hero-mini .hm-rowline{ font-size: 11px; letter-spacing: -.03em; white-space: nowrap; }
+}
+
+</style>
+
+<style id="copy-v3">
+.hero-mini-caption .cap-l{ display: block; }
+.sample-run-note{ font-size: 11px; line-height: 1.45; color: var(--muted); margin: 10px 4px 0; max-width: 860px; }
+.hero-mini-head{ display: flex; justify-content: space-between; align-items: baseline; }
+.hero-mini .hm-tag{ font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 9.5px; border: 1px solid currentColor; border-radius: 999px; padding: 1px 6px; vertical-align: 1px; }
+.hero-mini .hm-cnote{ opacity: .85; }
+.hero-mini-head .hm-date{ font-size: 12px; color: var(--muted); }
+</style>
+
+<style id="left-c">
+
+.hero-copy .hero-tag{ margin-bottom: 16px; }
+.hero-copy .hero-sub{ margin-top: 28px; }
+.hero-copy .waitlist{ margin-top: 44px; display: flex; gap: 0; background: #fff; border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px; }
+.hero-copy .waitlist input[type="email"]{ border: 0; background: transparent; flex: 1; }
+.hero-copy .waitlist .btn{ border-radius: 999px; white-space: nowrap; }
+.hero-copy .form-note{ margin-top: 10px; }
+
+</style>
 </head>
   <body>
     <header class="topbar">
@@ -1049,8 +1079,8 @@ tr.sr-dots{display:none}
           <div class="hero-copy">
           <span class="hero-tag"><span class="pulse"></span>Now open for new accounts</span>
           <!-- 原 H1（已上线版本）：When buyers ask AI, does it name you — or your competitors? -->
-          <h1>See why AI recommends your <span class="hl">competitors</span> <span class="h1-tail">— not you.</span></h1>
-          <p class="hero-sub">CitMark checks your site in ChatGPT, Perplexity and Gemini. It tells you — in plain English — whether your site gets mentioned, gets cited, or gets skipped. Then it tells you exactly what to fix.</p>
+          <h1>When buyers ask AI, it names your <span class="hl">competitors</span> <span class="h1-tail">— not you.</span></h1>
+          <p class="hero-sub">Mentioned? Cited? Or skipped? CitMark checks your site in ChatGPT, Perplexity and Gemini, tells you in plain English, and shows you exactly what to fix.</p>
           <form class="waitlist" data-register data-source="hero" novalidate>
             <label class="mono" style="position:absolute;left:-9999px" for="email-hero">Work email</label>
             <input id="email-hero" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required />
@@ -1058,28 +1088,26 @@ tr.sr-dots{display:none}
             <button class="btn" type="submit">Create your free account</button>
           </form>
           <p class="form-msg" role="status"></p>
-          <p class="form-note">Create your free account — no card required. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
+          <p class="form-note">No card required. See our <a href="#privacy" class="privacy-link">Privacy Policy</a>.</p>
           </div>
           <div class="hero-mini-wrap"><aside class="hero-mini" aria-label="Sample visibility report for Good Molecules">
             <div class="hero-mini-head"><span class="hero-mini-title">Visibility score</span></div>
-<p class="hero-mini-brand"><b>Good Molecules</b><span>41.7 overall</span></p>
+<p class="hero-mini-brand"><b>Good Molecules</b></p>
 <div class="hero-mini-score"><span id="miniScore">41.7</span><small>/100</small></div>
-<p class="hero-mini-label">measured on ChatGPT, Perplexity, Gemini and Grok</p>
+<p class="hero-mini-label">measured on ChatGPT · Perplexity · Gemini · Grok</p>
 <p class="tcov-tier" id="miniTier">Starter — 3 engines</p>
 <div class="hero-mini-rows" id="miniRows">
 <div class="hero-mini-row"><span class="hero-mini-eng">ChatGPT</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
 <div class="hero-mini-row"><span class="hero-mini-eng">Perplexity</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
 <div class="hero-mini-row"><span class="hero-mini-eng">Gemini</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
 <div class="hero-mini-row"><span class="hero-mini-eng">Grok</span><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
+<p class="hm-synth hm-rowline">DeepSeek <b>33</b> <span class="hm-tag">synthetic</span> <span class="hm-cnote">(search-injected; not engine-grounded)</span></p>
 </div>
-<p class="hm-synth">DeepSeek <b>33</b> — synthetic run (search-injected; not engine-grounded)</p>
-<p class="hm-extra" id="miniExtra">All 3 engines are in the sample above.</p>
-<p class="hero-mini-note" id="miniCov">1 website · 30 questions · last 4 weeks</p>
+<p class="hero-mini-note" id="miniCov">1 site · 30 questions · last 4 weeks</p>
 <div class="hero-mini-summary"><a href="#sample-table">Full sample below</a></div>
 <div class="hero-mini-dots" id="miniDots"></div>
-<p class="hero-mini-note">Sample report — a real CitMark run for Good Molecules on Nov 15, 2026.</p>
 </aside>
-            <p class="hero-mini-caption" style="font-size:11.5px;line-height:1.55;color:var(--muted);margin:10px 4px 0">Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash · Grok grok-4.20-0309-non-reasoning. DeepSeek deepseek-chat ran synthetically (search-injected). Question set v2 — the same 3 buyer questions as the free check.</p></div>
+            <p class="hero-mini-caption" style="font-size:10.5px;line-height:1.4;color:var(--muted);margin:8px 4px 0">A real CitMark run · Nov 15, 2026 (DeepSeek synthetic)</p></div>
           <div class="hero-chips">
             <span><b>3</b> AI engines tracked — ChatGPT, Perplexity and Gemini from day one.</span>
             <span><b>Ongoing</b> checks, not one-off scans</span>
@@ -1159,6 +1187,7 @@ tr.sr-dots{display:none}
           <p>Independent sample. CitMark is not affiliated with or endorsed by the brands shown.</p>
           <p>Scores change week to week and vary by brand.</p></div>
           </div>
+<p class="sample-run-note">From the score-card run above (Good Molecules, Nov 15, 2026): Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash · Grok grok-4.20-0309-non-reasoning · DeepSeek deepseek-chat (synthetic, search-injected). Questions: set v2 — the free check's 3 buyer questions.</p>
 
           <div class="inline-cta">
             <div class="inline-cta-copy">
@@ -3408,16 +3437,15 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
   var SCORE = 41.7;
   var BARS = [33, 33, 33, 67];
   var STATES = [
-    { tier: "Starter — 3 engines", cov: "1 website · 30 questions · last 4 weeks", extra: "All 3 engines are in the sample above." },
-    { tier: "Growth — 4 engines", cov: "1 website · 100 questions · last 3 months", extra: "All 4 engines are in the sample above." },
-    { tier: "Pro — 5 engines", cov: "1 website · 300 questions · full history", extra: "DeepSeek ran synthetically — marked above." }
+    { tier: "Starter — 3 engines", cov: "1 site · 30 questions · last 4 weeks" },
+    { tier: "Growth — 4 engines", cov: "1 site · 100 questions · last 3 months" },
+    { tier: "Pro — 5 engines", cov: "1 site · 300 questions · full history" }
   ];
   var card = document.querySelector(".hero-mini");
   if (!card) return;
   var scoreEl = document.getElementById("miniScore");
   var tierEl = document.getElementById("miniTier");
   var covEl = document.getElementById("miniCov");
-  var extraEl = document.getElementById("miniExtra");
   var dotsWrap = document.getElementById("miniDots");
   var bars = card.querySelectorAll("#miniRows .hero-mini-track > span");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -3463,7 +3491,6 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
     var d = STATES[next];
     tierEl.textContent = d.tier;
     covEl.textContent = d.cov;
-    extraEl.textContent = d.extra;
     dots.forEach(function (dot, i) {
       dot.classList.toggle("on", i === next);
       if (i === next) { dot.setAttribute("aria-current", "true"); } else { dot.removeAttribute("aria-current"); }
