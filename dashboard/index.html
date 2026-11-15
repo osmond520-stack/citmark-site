@@ -65,10 +65,10 @@ html[data-state="empty"] [data-empty-slot]{display:block!important}
   --skin-badge-fg: #ffffff;
 }
 [data-skin="growth"] {
-  --skin-accent: #e8a020;
-  --skin-accent-deep: #b97a08;
-  --skin-hero-wash: linear-gradient(180deg, rgba(232,160,32,.12), rgba(232,160,32,0) 70%);
-  --skin-badge-bg: linear-gradient(135deg, #f2b33d, #b97a08);
+  --skin-accent: #B45309;
+  --skin-accent-deep: #92400E;
+  --skin-hero-wash: linear-gradient(180deg, rgba(180,83,9,.12), rgba(180,83,9,0) 70%);
+  --skin-badge-bg: linear-gradient(135deg, #D97706, #B45309);
   --skin-badge-fg: #ffffff;
 }
 [data-skin="pro"] {
@@ -892,9 +892,6 @@ html[data-state="demo"] [data-live-layer]{display:none!important}
 .ring .val span{top:calc(50% + 30px)}
 .ring.lg .val span{top:calc(50% + 34px)}
 @media (max-width:380px){.ring .val span{top:calc(50% + 26px)}}
-/* (7) badge unification: flat orange bg, white text, both positions, all tiers */
-.tier-badge{background:#ff5a1f!important;background-image:none!important;color:#fff!important}
-#acctMenu .id-badge{background:#ff5a1f!important;background-image:none!important;color:#fff!important}
 </style> <style>
 /* ===== merge1 port: toolkit subpages (from subpages-r1 e87012a5), selectors pruned to #view-tools-pN / .tk- ; D12 margin set to 18px (S1) ===== */
 #view-tools-p0 .card,
@@ -2924,7 +2921,8 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
   });
   document.querySelectorAll('.more-item').forEach(function (b) { b.addEventListener('click', closeMenu); });
   var mb = document.getElementById('menuTierBadge');
-  var MAP = { starter: { t: 'STARTER', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' }, growth: { t: 'GROWTH', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' }, pro: { t: 'PRO', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' }, teams: { t: 'TEAMS', bg: '#ff5a1f', fg: '#ffffff', bd: '1px solid transparent' } };
+  var MAP = { starter: { t: 'STARTER', bg: '#ff5a1f', fg: '#141519', bd: '1px solid transparent' }, growth: { t: 'GROWTH', bg: '#B45309', fg: '#ffffff', bd: '1px solid transparent' }, pro: { t: 'PRO', bg: '#5B21B6', fg: '#ffffff', bd: '1px solid transparent' }, teams: { t: 'TEAMS', bg: '#C9A96A', fg: '#141519', bd: '1px solid #7A5F2E' } };
+  window.__tierBadgeMap = MAP;
   /* P1 wiring 20261028: the menu tier badge follows /auth/me, not the skin switch. */
 })();
 </script>
@@ -3622,6 +3620,20 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     if (meta) meta.querySelectorAll('span').forEach(function (s) { if (s.textContent.trim() === '(demo)') s.remove(); });
     var state = tierKey ? 'active' : (me.subscription_status === 'past_due' ? 'past_due' : 'noplan');
     setBadge(tierKey ? NAMES[tierKey].toUpperCase() : (state === 'past_due' ? 'PAST DUE' : 'NO PLAN'));
+    var bm = tierKey && window.__tierBadgeMap ? window.__tierBadgeMap[tierKey] : null;
+    ['menuTierBadge', 'tierBadge'].forEach(function (bid) {
+      var bEl = $(bid);
+      if (!bEl) return;
+      if (bm) {
+        bEl.style.setProperty('background', bm.bg, 'important');
+        bEl.style.setProperty('color', bm.fg, 'important');
+        bEl.style.setProperty('border', bm.bd, 'important');
+      } else {
+        bEl.style.removeProperty('background');
+        bEl.style.removeProperty('color');
+        bEl.style.removeProperty('border');
+      }
+    });
     if (typeof window.syncGating === 'function') window.syncGating(tierKey);
     applyPlanState(state);
   }
