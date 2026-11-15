@@ -4727,10 +4727,9 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
         return;
       }
       var id = window.__bsCurrentId || null;
-      function patchPayload() { return { name: name, domain: domain }; }
-      function patch(pid) {
+      function patch(pid, payload) {
         saveBtn.disabled = true;
-        fetch("/brands/" + encodeURIComponent(pid), { method: "PATCH", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(patchPayload()) })
+        fetch("/brands/" + encodeURIComponent(pid), { method: "PATCH", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
           .then(function (r) { return r.json().catch(function () { return null; }).then(function (body) { return { ok: r.ok, body: body }; }); })
           .then(function (res) {
             saveBtn.disabled = false;
@@ -4746,14 +4745,22 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
           })
           .catch(function () { saveBtn.disabled = false; note.textContent = "Something went wrong. Please try again."; note.classList.add("err"); });
       }
-      if (id) { patch(id); return; }
+      var base = window.__bsCurrentBrand || null;
+      if (id && base) {
+        var payload = {};
+        if (name !== base.name) payload.name = name;
+        if (domain !== (base.domain || "")) payload.domain = domain;
+        if (!payload.name && !payload.domain) { note.textContent = "No changes to save."; return; }
+        patch(id, payload); return;
+      }
+      if (id) { patch(id, { name: name, domain: domain }); return; }
       fetch("/brands", { credentials: "same-origin" })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (resp) {
           var g = window.__gateBrand;
           var hit = null;
           if (resp && Array.isArray(resp.brands) && g) for (var i = 0; i < resp.brands.length; i++) if (resp.brands[i].name === g.name && resp.brands[i].domain === g.domain) { hit = resp.brands[i]; break; }
-          if (hit) patch(hit.id);
+          if (hit) patch(hit.id, { name: name, domain: domain });
           else { note.textContent = "Add a brand before saving."; note.classList.add("err"); }
         })
         .catch(function () { note.textContent = "Something went wrong. Please try again."; note.classList.add("err"); });
