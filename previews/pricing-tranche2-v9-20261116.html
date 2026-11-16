@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pricing — CitMark</title>
+<meta name="description" content="CitMark pricing: Starter $25, Growth $49, Pro $129." />
+<style>
+:root{--ink:#141519;--muted:#62666e;--line:#e5e7eb;--bg:#ffffff;--raise:#f9fafb;--accent:#ff5a1f;--accent-deep:#e04a10}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-deep)}nav{border-bottom:1px solid var(--line)}nav .in{max-width:780px;margin:0 auto;padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.wordmark{font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.wordmark .dot{color:var(--accent)}nav a.n{color:var(--muted);text-decoration:none;font-size:14px}nav a.n:hover{color:var(--ink)}
+main{max-width:780px;margin:0 auto;padding:32px 20px 48px}h1{font-size:32px;line-height:1.2;letter-spacing:-.015em;margin:0 0 8px}h2{font-size:22px;margin:32px 0 8px}h3{font-size:18px;margin:24px 0 6px}p{margin:0 0 14px}ul{margin:0 0 14px;padding-left:22px}li{margin-bottom:6px}.lede{color:var(--muted);font-size:18px}
+footer{border-top:1px solid var(--line)}footer .in{max-width:780px;margin:0 auto;padding:28px 20px 48px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;background:var(--raise)}
+.card p{margin-bottom:9px}
+
+
+.card h3{margin-top:0}.price{font-size:28px;font-weight:800}.strike{color:var(--muted);text-decoration:line-through;font-size:16px;font-weight:400}
+.badge{display:inline-block;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
+.small{color:var(--muted);font-size:14px}.spec{list-style:none;padding:0;margin:0 0 10px}.spec li{margin-bottom:5px}.spec .names{color:var(--muted);font-size:14.5px}.cta{display:inline-block;margin-top:6px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:9px 18px;border-radius:999px}.cta:hover{background:var(--accent-deep)}.cta.current{background:var(--raise);color:var(--muted);border:1px solid var(--line)}hr{border:0;border-top:1px solid var(--line);margin:28px 0}
+</style><link rel="canonical" href="https://citmark.com/pricing/" />
+<script>
+/* PREVIEW GUARD (TD previews discipline 2026-11-15): this demo file must never
+   write to production. All POST/PUT/DELETE/PATCH fetches are answered locally
+   with demo shapes; reads pass through. Not part of any live landing. */
+(function () {
+  var realFetch = window.fetch.bind(window);
+  window.fetch = function (input, init) {
+    var method = ((init && init.method) || (input && input.method) || "GET").toUpperCase();
+    if (method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH") {
+      var url = typeof input === "string" ? input : (input && input.url) || "";
+      var body = url.indexOf("/auth/register") >= 0
+        ? { user_id: "demo", email: "", verified: false, email_sent: true }
+        : { ok: true };
+      return Promise.resolve(new Response(JSON.stringify(body), {
+        status: url.indexOf("/auth/register") >= 0 ? 201 : 200,
+        headers: { "Content-Type": "application/json" }
+      }));
+    }
+    return realFetch(input, init);
+  };
+})();
+</script>
+</head>
+<body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
+<a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
+<a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav><main><h1>Pricing</h1><p class="lede">Simple pricing, no surprises. Every plan includes the full product — measurement across AI engines. Plans differ only in scale: more sites, more questions, more engines, longer history. Checks run on demand on every plan. An optional daily watch keeps an eye on the few questions that matter most.</p><div class="card"><h3>Founding offer — first 50 members, 50% off for 12 months</h3><p>Join as a founding member and get <strong>50% off for 12 months</strong> on Starter, Growth and Pro: Starter $12.50/mo, Growth $24.50/mo, Pro $64.50/mo. After 12 months, your plan renews at the standard price. Founding spots are limited to the first 50 members — once they're gone, they're gone.</p></div><div class="card"><h3>Starter <span class="badge">LAUNCH OFFER</span></h3><p>For one brand getting started with AI visibility. Full measurement on every snapshot you run.</p><p><span class="strike">$35</span> <span class="price">$25/mo</span></p><ul class="spec"><li><strong>60 questions</strong> / week</li><li>4 AI engines <span class="names">— ChatGPT · Perplexity · Gemini · Grok</span></li><li><strong>1 site</strong></li><li>History: last 4 weeks</li></ul><p class="small">≈ 1,040 checks a month — $24.0 per 1,000 checks at launch ($33.7 standard)</p><p class="small">Top-ups: +500 checks $21.90 · +2,000 checks $86</p><p><a class="cta" data-tier="starter" href="/signup">Start with Starter</a></p></div><div class="card"><h3>Growth <span class="badge">LAUNCH OFFER</span></h3><p>For growing brands tracking more questions and competitors. Everything in Starter, plus more sites and questions.</p><p><span class="strike">$70</span> <span class="price">$49/mo</span></p><ul class="spec"><li><strong>150 questions</strong> / week</li><li>4 AI engines <span class="names">— ChatGPT · Perplexity · Gemini · Grok</span></li><li><strong>3 sites</strong></li><li>History: last 3 months</li></ul><p class="small">≈ 2,600 checks a month — $18.8 per 1,000 checks at launch ($26.9 standard)</p><p class="small">Top-ups: +500 checks $22.90 · +2,000 checks $88</p><p><a class="cta" data-tier="growth" href="/signup">Start with Growth</a></p></div><div class="card"><h3>Pro <span class="badge">LAUNCH OFFER</span></h3><p>For brands that live on AI answers and need deeper coverage. Everything in Growth, plus more sites and questions.</p><p><span class="strike">$169</span> <span class="price">$129/mo</span></p><ul class="spec"><li><strong>400 questions</strong> / week</li><li>5 AI engines <span class="names">— ChatGPT · Perplexity · Gemini · Grok · DeepSeek</span></li><li><strong>10 sites</strong></li><li>History: full history</li></ul><p class="small">≈ 8,667 checks a month — $14.9 per 1,000 checks at launch ($19.5 standard)</p><p class="small">Top-ups: +500 checks $24.90 · +2,000 checks $96</p><p><a class="cta" data-tier="pro" href="/signup">Start with Pro</a></p></div><div class="card"><h3>Teams</h3><p>For multi-brand teams and agencies. Everything in Pro, plus the most sites and questions.</p><p>6 AI engines</p><p>History: full history</p><p><span class="badge">COMING SOON</span></p></div><p class="small">Every plan runs from one shared pool of questions for your whole account — split it across your sites any way you like.</p><p class="small">Run low? Top-up packs add runs instantly; in any 30 days you can buy up to your pool’s size again.</p><p class="small">Daily watch (Pro add-on): pick up to 5 core questions — we check them daily and alert you to changes.</p><p><p>Cancel anytime — your access continues until the end of the current billing period. See our <a href="/terms/">Terms</a> for the refund policy.</p><hr /><p class="small">Launch pricing is limited to the first 100 paying members across the whole site (the founding 50 included). Join during the launch pricing period and your promo price is locked for 12 months; after that, your plan renews at the standard price. Founding members' 50% discount also lasts 12 months, then renews at the standard price. Once the 100 spots are gone, new signups pay the standard price.</p><hr /><h2>FAQ</h2><h3>What happens when my 12-month founding discount ends?</h3><p>Your plan renews at the standard price.</p><h3>What happens when my 12-month promo price lock ends?</h3><p>Same thing: your plan renews at the standard price.</p><h3>Can I upgrade or downgrade later?</h3><p>Yes. Please contact our support team and we'll sort it out with you.</p><h3>What if I cancel?</h3><p>You keep access until the end of the current billing period, and you won't be charged again. Your data is handled per our <a href="/privacy/">Privacy Policy</a>.</p></main><footer><div class="in"><p><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></p>
+<p><a href="/pricing/">Pricing</a> · <a href="/methodology/">Methodology</a> · <a href="/about/">About</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a></p>
+<p>Questions: support@citmark.com · Security issues: security@citmark.com</p>
+<p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p></div></footer><script type="text/javascript">
+  window.$crisp = [];
+  window.CRISP_WEBSITE_ID = "7fc49d53-a991-4a0f-9884-730d9fce1cdb";
+  (function () {
+    var d = document;
+    var s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+</script>
+<script>
+(function () {
+  "use strict";
+  /* Pricing CTAs, logged-in states (2026-11-15, Lane-3 item 9.2): the frozen
+     button-state matrix — same tier "Current plan" (no action), higher
+     "Upgrade to X", lower "Switch to X", Teams never carries a CTA.
+     Visitor labels are the default markup; the swap happens only after
+     /auth/me resolves (anti-flicker), and any read failure keeps them. */
+  var ORDER = { starter: 1, growth: 2, pro: 3, teams: 4 };
+  var NAMES = { starter: "Starter", growth: "Growth", pro: "Pro" };
+  fetch("/auth/me", { credentials: "same-origin" })
+    .then(function (r) { if (!r.ok) throw new Error("me " + r.status); return r.json(); })
+    .then(function (me) {
+      var mine = String((me && me.tier) || "").toLowerCase();
+      if (!ORDER[mine]) return;
+      document.querySelectorAll("a.cta[data-tier]").forEach(function (a) {
+        var t = a.getAttribute("data-tier");
+        if (ORDER[t] === ORDER[mine]) {
+          var span = document.createElement("span");
+          span.className = "cta current"; span.textContent = "Current plan";
+          a.replaceWith(span);
+        } else if (ORDER[t] > ORDER[mine]) {
+          a.textContent = "Upgrade to " + NAMES[t]; a.setAttribute("href", "/dashboard/");
+        } else {
+          a.textContent = "Switch to " + NAMES[t]; a.setAttribute("href", "/dashboard/");
+        }
+      });
+    })
+    .catch(function () { /* visitor state stays */ });
+})();
+</script>
+</body>
+</html>
