@@ -605,6 +605,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 .sec-arrow{color:var(--muted);font-weight:400}
 .login-list{display:flex;flex-direction:column}
 .login-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+#lhMore[hidden]{display:none !important}
 .login-row:last-child{border-bottom:0}
 .login-device{font-size:14px;font-weight:600;min-width:0}
 .login-time{font-size:13px;color:var(--muted);flex:none}
@@ -1539,14 +1540,14 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
 <p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
 </section>
-<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot id="impEmpty"><div class="big">◎</div><p><b>Nothing to track yet.</b><br/>Impact tracking starts with your first snapshot and the fixes you make from it.</p></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card" data-live-layer id="impActionsCard" hidden><h3>Fixes</h3><div id="impActions"></div></div>
+<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-http-slot id="impEmpty"><div class="state-eyebrow">Impact tracker</div><p class="state-title">Nothing to track yet.</p><p class="state-desc">Impact tracking starts with your first snapshot and the fixes you make from it.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card" data-live-layer id="impActionsCard" hidden><h3>Fixes</h3><div id="impActions"></div></div>
 <div class="card" data-live-layer id="impSeriesCard" hidden><h3>Score history</h3><div id="impSeries"></div><p class="desc" id="impWithheld" hidden></p></div>
 <div class="card" data-live-layer id="impFeedCard" hidden><h3>This week</h3><div id="impFeed"></div></div>
-<div class="empty" data-live-layer id="impError" hidden><div class="big">◎</div><p><b>Couldn't load your impact data.</b><br/>Check your connection and try again.</p><p><button class="btn small" type="button" id="impRetry">Retry</button></p></div></section>
-<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-http-slot id="chkEmpty"><div class="big">◎</div><p><b>No checkup yet.</b><br/>Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><p class="tk-errline" id="chkCap" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
+<div class="card state-card fail" data-live-layer id="impError" hidden><div class="state-eyebrow">Impact tracker</div><p class="state-title">Couldn't load your impact data.</p><div class="state-actions"><button class="btn" type="button" id="impRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-http-slot id="chkEmpty"><div class="state-eyebrow">Page checkup</div><p class="state-title">No checkup yet.</p><p class="state-desc">Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><p class="tk-errline" id="chkCap" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
 <div class="card" data-live-layer id="chkResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="chkSummary"></p><div id="chkResults"></div></div>
 <div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div><div class="tk-compare"><label>From <select id="chkFrom"></select></label><label>To <select id="chkTo"></select></label><button class="btn small" type="button" id="chkCompareBtn">Compare</button><div id="chkCompareOut"></div></div></div>
-<div class="empty" data-live-layer id="chkError" hidden><div class="big">◎</div><p><b>Couldn't load your checkups.</b><br/>Check your connection and try again.</p><p><button class="btn small" type="button" id="chkRetry">Retry</button></p></div>
+<div class="card state-card fail" data-live-layer id="chkError" hidden><div class="state-eyebrow">Page checkup</div><p class="state-title">Couldn't load your checkups.</p><div class="state-actions"><button class="btn" type="button" id="chkRetry">Retry</button></div></div>
 </section>
 <section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
@@ -1554,7 +1555,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
 <section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
-            <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No notifications yet.</b><br/>Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
+            <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-empty-slot><div class="state-eyebrow">Notifications</div><p class="state-title">No notifications yet.</p><p class="state-desc">Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
 <h2>Notifications</h2>
 <p class="desc">Snapshot, score, report and alert updates for your brand.</p>
 </div>
@@ -1583,14 +1584,14 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div>
 <p class="form-msg" id="pwResetMsg" role="alert" style="margin-top:10px"></p></div></section>
 <section class="view" id="view-security-logins"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="empty" data-http-slot id="lhEmpty"><div class="big">◎</div><p><b>No login history available yet.</b></p></div><div class="card" data-demo-layer><h3>Login history</h3>
+<div class="card state-card" data-http-slot id="lhEmpty"><div class="state-eyebrow">Login history</div><p class="state-title">No login history available yet.</p></div><div class="card" data-demo-layer><h3>Login history</h3>
 <div class="login-list">
 <div class="login-row"><span class="login-device">Chrome · macOS <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-25 09:12</span></div>
 <div class="login-row"><span class="login-device">Safari · iPhone <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-24 21:40</span></div>
 </div></div><div class="card" data-live-layer id="lhCard" hidden><h3>Login history</h3>
 <p class="desc" style="margin:0 0 6px">This log covers password sign-ins only — Google and Shopify sign-ins aren't recorded here. We record the time and IP address of each attempt; device and browser aren't recorded.</p>
 <div class="login-list" id="lhRows"></div>
-<p style="margin:10px 0 0"><button class="btn small" type="button" id="lhMore" hidden>Load more</button></p></div><div class="empty" data-live-layer id="lhError" hidden><div class="big">◎</div><p><b>Couldn't load your login history.</b></p><p><button class="btn small" type="button" id="lhRetry">Retry</button></p></div>
+<p style="margin:10px 0 0"><button class="btn small" type="button" id="lhMore" hidden>Load more</button></p></div><div class="card state-card fail" data-live-layer id="lhError" hidden><div class="state-eyebrow">Login history</div><p class="state-title">Couldn't load your login history.</p><div class="state-actions"><button class="btn" type="button" id="lhRetry">Retry</button></div></div>
 </section>
 <section class="view" id="view-security-delete"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="danger-block">
@@ -1637,12 +1638,12 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="empty" data-http-slot id="invEmpty"><div class="big">▤</div><p><b>No invoices yet.</b><br/>Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
+<div class="card state-card" data-http-slot id="invEmpty"><div class="state-eyebrow">Invoices</div><p class="state-title">No invoices yet.</p><p class="state-desc">Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody><tr><td>Oct 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document?download=1">Download</a></td></tr>
 <tr><td>Sep 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document?download=1">Download</a></td></tr></tbody></table></div><div class="card" data-live-layer id="invCard" hidden><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
-<tbody id="invRows"></tbody></table></div><div class="empty" data-live-layer id="invError" hidden><div class="big">▤</div><p><b>Couldn't load your invoices.</b></p><p><button class="btn small" type="button" id="invRetry">Retry</button></p></div>
+<tbody id="invRows"></tbody></table></div><div class="card state-card fail" data-live-layer id="invError" hidden><div class="state-eyebrow">Invoices</div><p class="state-title">Couldn't load your invoices.</p><div class="state-actions"><button class="btn" type="button" id="invRetry">Retry</button></div></div>
 
 </section>
 
@@ -4941,6 +4942,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     var err = document.getElementById("lhError");
     var more = document.getElementById("lhMore");
     if (!empty || !card || !list || loading) return;
+    if (append && !cursor) return;
     loading = true;
     var url = "/auth/login-history?limit=50";
     if (append && cursor) url += "&cursor=" + encodeURIComponent(cursor);
@@ -5525,6 +5527,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
 .state-strip p{margin:0;font-size:13.5px;color:var(--ink-2)}
 .state-foot{display:none;font-size:13px;color:var(--muted);margin:12px 0 0}
 #view-questions .state-strip .btn, #view-competitors .state-strip .btn, #view-questions .state-card .btn, #view-competitors .state-card .btn{background:var(--skin-accent);border:1px solid var(--skin-accent);color:#fff}
+#view-tools-p0 .state-card .btn, #view-tools-p1 .state-card .btn, #view-billing .state-card .btn, #view-notifications .state-card .btn, #view-security-logins .state-card .btn{background:var(--skin-accent);border:1px solid var(--skin-accent);color:#fff}
 @media (max-width:560px){.state-strip{flex-direction:column;align-items:flex-start}}
 html[data-brand-empty] .state-strip{display:flex !important}
 html[data-brand-empty] .state-foot{display:block !important}
