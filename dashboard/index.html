@@ -1261,7 +1261,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
           <button class="btn" id="ovRunBtn">▶&nbsp; Run new snapshot</button>
         </div>
         <div id="ovDone" class="ov-done" style="display:none;">✓ Snapshot complete — your overview is up to date.</div>
-        <div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot yet.</b><br/>Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.</p></div><div class="grid2" data-sample-layer>
+        <div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.</p></div><div class="grid2" data-sample-layer>
 <div class="card">
             <h2>Overview</h2>
             <p class="desc">Overall visibility</p>
@@ -1317,10 +1317,16 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
       <!-- ============ VIEW: SCORE ============ -->
       <section class="view" id="view-score"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-        <div id="scoreEmpty" class="empty" data-empty-slot>
-          <div class="big">◎</div>
-          <p><b>No snapshot yet.</b><br/>Run a snapshot first to see your visibility score.</p>
-          <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview</button>
+        <div id="scoreEmpty" class="card state-card" data-empty-slot>
+          <div class="state-eyebrow">Visibility score</div>
+          <p class="state-title">No snapshot.</p>
+          <p class="state-desc">Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.</p>
+          <div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div>
+        </div>
+        <div id="scoreFail" class="card state-card fail" style="display:none;">
+          <div class="state-eyebrow">Visibility score</div>
+          <p class="state-title">Couldn't load your score.</p>
+          <div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div>
         </div>
         <div id="scoreBody" style="display:none;" data-sample-layer>
           <div class="score-hero">
@@ -1372,10 +1378,16 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
       <!-- ============ VIEW: REPORT ============ -->
       <section class="view" id="view-report"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-        <div id="reportEmpty" class="empty" data-empty-slot>
-          <div class="big">▤</div>
-          <p><b>No report yet.</b><br/>Run a snapshot first to see suggestions here. Weekly report emails are coming soon.</p>
-          <button class="btn ghost" data-goto="overview" style="margin-top:12px;">Go to Overview</button>
+        <div id="reportEmpty" class="card state-card" data-empty-slot>
+          <div class="state-eyebrow">Weekly report</div>
+          <p class="state-title">No report.</p>
+          <p class="state-desc">Run a snapshot first — your report appears here.</p>
+          <div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div>
+        </div>
+        <div id="reportFail" class="card state-card fail" style="display:none;">
+          <div class="state-eyebrow">Weekly report</div>
+          <p class="state-title">Couldn't load your report.</p>
+          <div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div>
         </div>
         <div id="reportBody" style="display:none;" data-sample-layer>
           <div class="card">
@@ -1416,9 +1428,10 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
         </div>
       </section>
       <!-- ============ VIEW: QUESTIONS (shell, Phase 3) ============ -->
-      <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot yet.</b><br/>Questions you track appear here after your first snapshot.</p></div><div class="card" data-sample-layer>
+      <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Questions you track appear here after your first snapshot.</p></div><div id="questionsFail" class="card state-card fail" style="display:none;"><div class="state-eyebrow">Prompts</div><p class="state-title">Couldn't load your questions.</p><div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div></div><div class="card" data-sample-layer data-bface="main">
 <h2>Prompts</h2>
 <p class="desc">Questions you track, plus templates and suggestions.</p>
+<div class="state-strip"><p>No snapshot. Questions you track appear here after your first snapshot.</p><button class="btn small" type="button" data-state-run>Run a snapshot</button></div>
 
 <div class="table-wrap"><table>
 <thead><tr><th>Question</th><th>Mentioned on</th><th>Sentiment</th><th>Visibility</th><th>Tags</th></tr></thead>
@@ -1427,7 +1440,8 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <tr class="clickable" data-q="q2"><td class="q"><b>Best socks for a runner that needs extra cushioning?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts</span></td><td data-label="Mentioned on">ChatGPT</td><td data-label="Sentiment"><span class="tag">Negative</span></td><td data-label="Visibility">25% (1/4)</td><td data-label="Tags">—</td></tr>
 <tr class="clickable" data-q="q3"><td class="q"><b>I run marathons with a $100 budget and need socks that are moisture-wicking and blister-proof. What should I buy?</b><br><span style="color:var(--muted);font-size:13px">Click row for engine excerpts · Gemini 1 answer missing (rate-limited)</span></td><td data-label="Mentioned on">—</td><td data-label="Sentiment"><span class="tag">Not classified</span></td><td data-label="Visibility">0% (0/3)</td><td data-label="Tags">—</td></tr>
 </tbody></table>
-<p class="sent-note">"Not classified" means AI did not classify this answer. Not a system error.</p></div>
+<p class="sent-note">"Not classified" means AI did not classify this answer. Not a system error.</p>
+<p class="state-foot">Data columns appear after your first snapshot.</p></div>
 </div>
 
 <div class="card">
@@ -1443,14 +1457,16 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: COMPETITORS (shell, Phase 3) ============ -->
-      <section class="view" id="view-competitors"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot yet.</b><br/>Competitor comparisons appear here after your first snapshot.</p></div><div class="card" data-sample-layer>
+      <section class="view" id="view-competitors"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Competitor comparisons appear here after your first snapshot.</p></div><div id="competitorsFail" class="card state-card fail" style="display:none;"><div class="state-eyebrow">Competitors</div><p class="state-title">Couldn't load your competitors.</p><div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div></div><div class="card" data-sample-layer data-bface="main">
 <h2>Competitors</h2>
 <p class="desc">Your visibility vs tracked competitors.</p>
+<div class="state-strip"><p>No snapshot. Competitor comparisons appear here after your first snapshot.</p><button class="btn small" type="button" data-state-run>Run a snapshot</button></div>
 <div class="bar-row"><span class="nm">Bombas</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2 · 2/11</span></div>
 <div class="bar-row"><span class="nm">Balega</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 <div class="bar-row"><span class="nm">Feetures</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 <div class="bar-row"><span class="nm">Injinji</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 <div class="bar-row"><span class="nm">Darn Tough</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
+<p class="state-foot">Data columns appear after your first snapshot.</p>
 </div>
 
 <div class="card" data-sample-layer>
@@ -1459,12 +1475,12 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="bar-row"><span class="nm">2026-10-24</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2</span></div>
 </div>
 
-<div class="card">
+<div class="card" data-bface="side">
 <h3>Overtaking alerts</h3>
 <div class="empty">No data: without competitor mention data this is an empty-state note; no invented “who overtook you”.</div>
 </div>
 
-<div class="card">
+<div class="card" data-bface="side">
 <h3>Recommended instead of you</h3>
 <div class="empty">No competitor recommendations recorded yet. This snapshot only records own-brand mentions (Claude × Q1 on the score matrix). Run a new snapshot to gather more answers.</div>
 </div></section>
@@ -1475,7 +1491,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <p class="desc">Where AI gets its answers.</p>
 <div class="table-wrap"><table>
 <thead><tr><th>Cited domain</th><th>Cited URL</th><th>Domain type</th></tr></thead>
-<tbody><tr><td colspan="3"><div class="empty" style="margin:0">No cited sources yet. Run a new snapshot to gather cited sources.</div></td></tr></tbody>
+<tbody><tr><td colspan="3"><div class="empty" style="margin:0">No cited sources. Run a new snapshot to gather cited sources.</div></td></tr></tbody>
 </table></div>
 <h3 style="margin-top:18px">Source types</h3> <p class="desc">What kind of site each cited domain is.</p> <!-- categories only, not data -->
 <p><span class="tag" style="background:#dbeafe;color:#1e40af">Brand site</span> <span class="tag" style="background:#fef3c7;color:#92400e">News media</span> <span class="tag" style="background:#dcfce7;color:#166534">Community forums</span> <span class="tag" style="background:#ede9fe;color:#5b21b6">Encyclopedia &amp; Q&amp;A</span> <span class="tag">Other</span></p>
@@ -1622,7 +1638,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <tbody><tr><td>Oct 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document?download=1">Download</a></td></tr>
 <tr><td>Sep 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document?download=1">Download</a></td></tr></tbody></table></div><div class="card" data-live-layer id="invCard" hidden><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
-<tbody id="invRows"></tbody></table></div><div class="empty" data-live-layer id="invError" hidden><div class="big">▤</div><p><b>Couldn't load your invoices.</b><br/>Check your connection and try again.</p><p><button class="btn small" type="button" id="invRetry">Retry</button></p></div>
+<tbody id="invRows"></tbody></table></div><div class="empty" data-live-layer id="invError" hidden><div class="big">▤</div><p><b>Couldn't load your invoices.</b></p><p><button class="btn small" type="button" id="invRetry">Retry</button></p></div>
 
 </section>
 
@@ -4099,7 +4115,7 @@ function selectRun(id){
 }
 function optList(sel){ return RUNS.map(function(r){ return '<option value="'+r.run_id+'"'+(r.run_id===sel?" selected":"")+'>'+dstr(r.started_at)+" · "+esc(r.question_set_version)+"</option>"; }).join(""); }
 function renderCompare(){
- if(RUNS.length < 2){ cmpEl.innerHTML = '<div class="empty">' + (RUNS.length === 0 ? 'No runs yet. Changes appear when a second run completes.' : 'Only one run so far. Changes appear when a second run completes.') + '</div>'; return; }
+ if(RUNS.length < 2){ cmpEl.innerHTML = '<div class="empty">' + (RUNS.length === 0 ? 'No runs. Changes appear when a second run completes.' : 'Only one run so far. Changes appear when a second run completes.') + '</div>'; return; }
  var after = RUNS[0], before = RUNS[1];
  /* Deep-link window: from_run/to_run preselect the pair when both keys are
     present and both runs are in the loaded list; any other shape falls back
@@ -4294,7 +4310,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
       .then(function (r) { if (!r.ok) throw new Error("list"); return r.json(); })
       .then(function (resp) {
         var runs = resp.runs || [];
-        if (!runs.length) return;
+        if (!runs.length) { if (window.__brandNoRuns) window.__brandNoRuns(); return; }
         var run = runs[0];
         return fetch("/snapshots/history/" + encodeURIComponent(run.run_id), { credentials: "same-origin" })
           .then(function (r) { if (!r.ok) throw new Error("detail"); return r.json(); })
@@ -4307,7 +4323,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
             } catch (e) {}
           });
       })
-      .catch(function () {});
+      .catch(function () { if (window.__brandFetchFailed) window.__brandFetchFailed(); });
   });
 })();
 </script>
@@ -4415,13 +4431,13 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
       .then(function (r) { if (!r.ok) throw new Error("list"); return r.json(); })
       .then(function (resp) {
         var runs = resp.runs || [];
-        if (!runs.length) return;
+        if (!runs.length) { if (window.__brandNoRuns) window.__brandNoRuns(); return; }
         var run = runs[0];
         return fetch("/snapshots/history/" + encodeURIComponent(run.run_id), { credentials: "same-origin" })
           .then(function (r) { if (!r.ok) throw new Error("detail"); return r.json(); })
           .then(function (detail) { fillFromDetail(run, detail); });
       })
-      .catch(function () {});
+      .catch(function () { if (window.__brandFetchFailed) window.__brandFetchFailed(); });
   }
   document.addEventListener("DOMContentLoaded", function () {
     var http = (typeof api !== "undefined" && api.mode === "http");
@@ -5257,6 +5273,96 @@ TOOL_INFO.s_team = { name: "Team", q: "",
       return r;
     };
   }
+})();
+</script>
+<style>
+/* Selected-brand empty/failed forms (brand-empty fix): the account-level
+   state gate cannot express per-brand emptiness, so a root flag re-lights
+   the per-view empty slots and failure faces, and suppresses sample
+   layers and stale bodies in the snapshot-family views. */
+/* v3 state faces (design freeze 6ac855d1, copy freeze 4abc10d5): component A
+   state cards + component B column-level forms on the unchanged flags. */
+.state-eyebrow{font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.state-title{font-size:16px;font-weight:700;margin:8px 0 0}
+.state-desc{font-size:14px;line-height:1.55;color:var(--muted);margin:4px 0 0;max-width:56ch}
+.state-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.state-card{position:relative;overflow:hidden}
+.state-card.fail .state-eyebrow{color:var(--warn)}
+.state-card.fail::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--warn)}
+.state-strip{display:none;align-items:center;justify-content:space-between;gap:12px;background:var(--bg-sink);border-radius:10px;padding:12px 14px;margin:0 0 6px}
+.state-strip p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.state-foot{display:none;font-size:13px;color:var(--muted);margin:12px 0 0}
+#view-questions .state-strip .btn, #view-competitors .state-strip .btn, #view-questions .state-card .btn, #view-competitors .state-card .btn{background:var(--skin-accent);border:1px solid var(--skin-accent);color:#fff}
+@media (max-width:560px){.state-strip{flex-direction:column;align-items:flex-start}}
+html[data-brand-empty] .state-strip{display:flex !important}
+html[data-brand-empty] .state-foot{display:block !important}
+html[data-brand-empty] #scoreEmpty, html[data-brand-empty] #reportEmpty,
+html[data-brand-failed] #scoreFail, html[data-brand-failed] #reportFail,
+html[data-brand-failed] #questionsFail, html[data-brand-failed] #competitorsFail { display: block !important; }
+html[data-brand-empty] #scoreBody, html[data-brand-empty] #reportBody,
+html[data-brand-failed] #scoreBody, html[data-brand-failed] #reportBody,
+html[data-brand-failed] #view-questions [data-sample-layer],
+html[data-brand-failed] #view-competitors [data-sample-layer],
+html[data-brand-failed] #view-competitors [data-bface="side"] { display: none !important; }
+html[data-brand-empty] #view-questions [data-sample-layer]:not([data-bface="main"]),
+html[data-brand-empty] #view-competitors [data-sample-layer]:not([data-bface="main"]),
+html[data-brand-empty] #view-competitors [data-bface="side"] { display: none !important; }
+html[data-brand-failed] #scoreEmpty, html[data-brand-failed] #reportEmpty { display: none !important; }
+html[data-brand-empty] #view-questions th:nth-child(2), html[data-brand-empty] #view-questions td:nth-child(2),
+html[data-brand-empty] #view-questions th:nth-child(3), html[data-brand-empty] #view-questions td:nth-child(3),
+html[data-brand-empty] #view-questions th:nth-child(4), html[data-brand-empty] #view-questions td:nth-child(4) { display: none !important; }
+html[data-brand-empty] #view-questions td.q span, html[data-brand-empty] #view-questions .sent-note { display: none !important; }
+html[data-brand-empty] #view-questions tbody tr { pointer-events: none; }
+html[data-brand-empty] #view-competitors .bar-row .bar, html[data-brand-empty] #view-competitors .bar-row .val { display: none !important; }
+html[data-brand-empty] #view-competitors .bar-row { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--line); }
+html[data-brand-empty] #view-competitors .bar-row .nm { font-weight: 700; font-size: 13.5px; }
+</style>
+<script>
+/* Brand-empty orchestration: the two brand chains call __brandNoRuns on an
+   empty run list and __brandFetchFailed on a failed list fetch for the
+   SELECTED brand. Retry re-runs the same list+detail chain and hands a
+   found run to the standard fill. */
+(function () {
+  var root = document.documentElement;
+  function brandKey() {
+    var st = window.__dlState || {}, K = window.__dlKeys || {};
+    return st.brand || K.brand || null;
+  }
+  window.__brandNoRuns = function () {
+    root.removeAttribute("data-brand-failed");
+    root.setAttribute("data-brand-empty", "1");
+  };
+  window.__brandFetchFailed = function () {
+    root.removeAttribute("data-brand-empty");
+    root.setAttribute("data-brand-failed", "1");
+  };
+  window.__brandRetry = function () {
+    var key = brandKey();
+    if (!key) return;
+    fetch("/snapshots/history?brand=" + encodeURIComponent(key) + "&limit=1", { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("list"); return r.json(); })
+      .then(function (resp) {
+        var runs = resp.runs || [];
+        if (!runs.length) { window.__brandNoRuns(); return; }
+        var run = runs[0];
+        return fetch("/snapshots/history/" + encodeURIComponent(run.run_id), { credentials: "same-origin" })
+          .then(function (r) { if (!r.ok) throw new Error("detail"); return r.json(); })
+          .then(function (detail) {
+            root.removeAttribute("data-brand-empty");
+            root.removeAttribute("data-brand-failed");
+            if (window.__dlFillFromDetail) window.__dlFillFromDetail(run, detail);
+          });
+      })
+      .catch(function () { window.__brandFetchFailed(); });
+  };
+  document.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest("[data-brand-retry]") : null;
+    if (t) window.__brandRetry();
+  }, true);
+  document.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest("[data-state-run]") : null;
+    if (t && typeof window.openRunDrawer === "function") window.openRunDrawer();
+  }, true);
 })();
 </script>
 </body>
