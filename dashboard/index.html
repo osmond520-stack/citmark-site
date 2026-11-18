@@ -5551,6 +5551,10 @@ html[data-brand-empty] #view-questions tbody tr { pointer-events: none; }
 html[data-brand-empty] #view-competitors .bar-row .bar, html[data-brand-empty] #view-competitors .bar-row .val { display: none !important; }
 html[data-brand-empty] #view-competitors .bar-row { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--line); }
 html[data-brand-empty] #view-competitors .bar-row .nm { font-weight: 700; font-size: 13.5px; }
+html[data-brand-empty] #view-questions [data-sample-layer][data-bface="main"], html[data-brand-empty] #view-competitors [data-sample-layer][data-bface="main"] { display: block !important; }
+html[data-brand-failed] #view-questions [data-sample-layer], html[data-brand-failed] #view-competitors [data-sample-layer] { display: none !important; }
+html[data-brand-failed] #view-questions [data-empty-slot], html[data-brand-failed] #view-competitors [data-empty-slot] { display: none !important; }
+html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { display: none !important; }
 </style>
 <script>
 /* Brand-empty orchestration: the two brand chains call __brandNoRuns on an
