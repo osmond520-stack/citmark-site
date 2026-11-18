@@ -1583,11 +1583,15 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div>
 <p class="form-msg" id="pwResetMsg" role="alert" style="margin-top:10px"></p></div></section>
 <section class="view" id="view-security-logins"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
-<div class="empty" data-http-slot><div class="big">◎</div><p><b>No login history available yet.</b></p></div><div class="card" data-demo-layer><h3>Login history</h3>
+<div class="empty" data-http-slot id="lhEmpty"><div class="big">◎</div><p><b>No login history available yet.</b></p></div><div class="card" data-demo-layer><h3>Login history</h3>
 <div class="login-list">
 <div class="login-row"><span class="login-device">Chrome · macOS <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-25 09:12</span></div>
 <div class="login-row"><span class="login-device">Safari · iPhone <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-24 21:40</span></div>
-</div></div></section>
+</div></div><div class="card" data-live-layer id="lhCard" hidden><h3>Login history</h3>
+<p class="desc" style="margin:0 0 6px">This log covers password sign-ins only — Google and Shopify sign-ins aren't recorded here. We record the time and IP address of each attempt; device and browser aren't recorded.</p>
+<div class="login-list" id="lhRows"></div>
+<p style="margin:10px 0 0"><button class="btn small" type="button" id="lhMore" hidden>Load more</button></p></div><div class="empty" data-live-layer id="lhError" hidden><div class="big">◎</div><p><b>Couldn't load your login history.</b></p><p><button class="btn small" type="button" id="lhRetry">Retry</button></p></div>
+</section>
 <section class="view" id="view-security-delete"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
 <div class="danger-block">
 <p class="danger-title">⚠ Delete account</p>
@@ -4880,6 +4884,79 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     window.go = function (v) {
       var r = orig.apply(this, arguments);
       if (v === "billing" && document.documentElement.getAttribute("data-state") !== "demo") loadInvoices();
+      return r;
+    };
+  }
+})();
+</script>
+<script>
+(function () {
+  /* Login history wiring (lane-1, contract login-history-20261112):
+     GET /auth/login-history {rows:[{at, success, ip}], total, next_cursor}.
+     Password sign-ins only (OAuth is not recorded — see the note on the card).
+     Rows are time / outcome / IP; there is no device data to show. */
+  var cursor = null;
+  var loading = false;
+  function fmtAt(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleString(undefined, { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+  function lhRow(r) {
+    var row = document.createElement("div"); row.className = "login-row";
+    var left = document.createElement("span"); left.className = "login-device";
+    left.textContent = r.success ? "Signed in" : "Failed attempt";
+    if (r.ip) {
+      var ip = document.createElement("span");
+      ip.style.cssText = "color:var(--muted);font-weight:400";
+      ip.textContent = " · " + r.ip;
+      left.appendChild(ip);
+    }
+    var right = document.createElement("span"); right.className = "login-time";
+    right.textContent = fmtAt(r.at);
+    row.appendChild(left); row.appendChild(right);
+    return row;
+  }
+  function loadLogins(append) {
+    var empty = document.getElementById("lhEmpty");
+    var card = document.getElementById("lhCard");
+    var list = document.getElementById("lhRows");
+    var err = document.getElementById("lhError");
+    var more = document.getElementById("lhMore");
+    if (!empty || !card || !list || loading) return;
+    loading = true;
+    var url = "/auth/login-history?limit=50";
+    if (append && cursor) url += "&cursor=" + encodeURIComponent(cursor);
+    fetch(url, { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) { throw new Error("http " + r.status); } return r.json(); })
+      .then(function (data) {
+        loading = false;
+        var rows = (data && data.rows) || [];
+        if (!append) list.textContent = "";
+        if (err) err.hidden = true;
+        if (!append && !rows.length) { card.hidden = true; empty.style.display = ""; if (more) more.hidden = true; return; }
+        rows.forEach(function (r) { list.appendChild(lhRow(r)); });
+        empty.style.display = "none";
+        card.hidden = false;
+        cursor = (data && data.next_cursor) || null;
+        if (more) more.hidden = !cursor;
+      })
+      .catch(function () {
+        loading = false;
+        /* Failure state (never fake rows, never pass off as empty). */
+        if (!append) { empty.style.display = "none"; card.hidden = true; }
+        if (err) err.hidden = false;
+      });
+  }
+  var rt = document.getElementById("lhRetry");
+  if (rt) rt.addEventListener("click", function () { loadLogins(false); });
+  var mb = document.getElementById("lhMore");
+  if (mb) mb.addEventListener("click", function () { loadLogins(true); });
+  if (typeof window.go === "function") {
+    var orig = window.go;
+    window.go = function (v) {
+      var r = orig.apply(this, arguments);
+      if (v === "security-logins" && document.documentElement.getAttribute("data-state") !== "demo") { cursor = null; loadLogins(false); }
       return r;
     };
   }
