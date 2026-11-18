@@ -2958,6 +2958,22 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
 #sessionGate .sg-copy{color:var(--muted);font-size:14px;margin:0 0 16px}
 </style>
 <style>
+#ppGuide{position:fixed;inset:0;z-index:280;background:rgba(20,21,25,.45);align-items:center;justify-content:center;padding:16px}
+#ppGuide .pp-card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;max-width:420px;width:100%;max-height:92vh;overflow:auto}
+#ppGuide .pp-mark{margin:0 0 12px;font-size:20px;color:var(--ink)}
+#ppGuide h2{margin:0 0 6px;font-size:20px;color:var(--ink)}
+#ppGuide .pp-sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+#ppGuide .pp-row{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+#ppGuide .pp-row span{color:var(--muted)}
+#ppGuide .pp-choice{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+#ppGuide .pp-choice h3{margin:0 0 4px;font-size:15px;color:var(--ink)}
+#ppGuide .pp-desc{color:var(--muted);font-size:13px;margin:0 0 10px}
+#ppGuide .pp-field{display:block;font-size:13px;color:var(--muted);margin:0 0 10px}
+#ppGuide .pp-field input{display:block;width:100%;margin-top:4px}
+#ppGuide .pp-err{color:#b3261e;font-size:13px;margin:0 0 10px}
+#ppGuide .pp-skip{display:block;margin:16px auto 0;background:none;border:0;color:var(--muted);font-size:14px;cursor:pointer}
+</style>
+<style>
 .tk-row{padding:10px 0;border-top:1px solid var(--line)}
 .tk-row:first-child{border-top:0}
 .tk-row .tk-t{font-weight:600;color:var(--ink)}
@@ -2970,6 +2986,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
 .tk-compare label{font-size:13px;color:var(--muted)}
 </style>
 <div id="sessionGate" style="display:none" role="dialog" aria-modal="true" aria-labelledby="sessionGateTitle"><div class="sg-card"><p class="sg-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="sessionGateTitle">You are not signed in</h2><p class="sg-copy">Sign in to open your CitMark dashboard.</p><a class="btn" href="/">Sign in</a></div></div>
+<div id="ppGuide" style="display:none" role="dialog" aria-modal="true" aria-labelledby="ppGuideTitle"><div class="pp-card"><p class="pp-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="ppGuideTitle">Thank you.</h2><p class="pp-sub">Your payment is complete.</p><div id="ppConfirm"><div class="pp-row"><span>Plan</span><b id="ppTier">Processing</b></div><div class="pp-row"><span>Status</span><b id="ppStatus">Processing</b></div><div class="pp-row"><span>Amount paid</span><b id="ppAmount">Processing</b></div></div><div class="pp-choice"><h3>Start with your brand</h3><p class="pp-desc">Add your brand so CitMark can track how AI answers talk about it.</p><label class="pp-field">Brand name<input id="ppBrandName" type="text" autocomplete="organization"></label><label class="pp-field">Domain<input id="ppBrandDomain" type="text" placeholder="yourbrand.com" autocomplete="url"></label><p class="pp-err" id="ppBrandErr" hidden></p><button class="btn" id="ppBrandBtn" type="button" style="width:100%">Add your brand</button></div><div class="pp-choice"><h3>Or run your first snapshot</h3><p class="pp-desc">See how AI answers talk about your brand today.</p><label class="pp-field" id="ppRunDomainWrap" hidden>Domain<input id="ppRunDomain" type="text" placeholder="yourbrand.com"></label><p class="pp-err" id="ppRunErr" hidden></p><button class="btn ghost" id="ppRunBtn" type="button" style="width:100%">Run your first snapshot</button></div><button class="pp-skip" id="ppSkip" type="button">Skip</button></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 /* Audit trial c 20261025: toast + demo actions + account gating + data-go */
@@ -4998,6 +5015,144 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
     var t = e.target && e.target.closest ? e.target.closest('[data-acct="logout"]') : null;
     if (t) { try { window.$crisp.push(["do", "session:reset"]); } catch (err) {} }
   }, true);
+})();
+</script>
+<script>
+/* Post-purchase guide (family window segment 3, lane-1 2026-11-15):
+   single card, confirmation + first-step two-choice, per spec 572a1c4d and
+   TD's shape ruling: seen-marker = users.post_purchase_guide_seen_at (migration
+   076), read as /auth/me guide_seen; first purchase = guide unseen + exactly one
+   paid invoice + entry via the paid landing (session flag set by the /success
+   face). Amount paid reads the latest paid INVOICE row (real charge incl.
+   founding discount/tax), never the price card. Seen write (TD ruling
+   2026-11-15, backend line-1 confirmed): POST /auth/post-purchase-guide/seen at
+   display time; the server re-checks (marker empty + team's first paid invoice)
+   and an already-set response suppresses the card again. */
+(function () {
+  var WRITE_PATH = "/auth/post-purchase-guide/seen";
+  var MIRROR = "citmark_pp_guide_seen";
+  var PAID_FLAG = "citmark_paid_return";
+  function ssGet(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+  function ssDel(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function cap(t) { return t ? t.charAt(0).toUpperCase() + t.slice(1) : t; }
+  function fmtAmount(inv) {
+    var a = Number(inv.amount);
+    if (isNaN(a)) return "Processing";
+    var t = (a % 1 === 0) ? String(a) : a.toFixed(2);
+    if (inv.currency === "USD") return "$" + t;
+    return (inv.currency ? inv.currency + " " : "") + t;
+  }
+  function getJSON(url) {
+    return fetch(url, { credentials: "same-origin" }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    });
+  }
+  function postJSON(url, body) {
+    return fetch(url, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json().catch(function () { return {}; });
+    });
+  }
+  function markSeen() {
+    lsSet(MIRROR, "1");
+    try {
+      fetch(WRITE_PATH, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: "{}" })
+        .then(function (r) { return r.ok ? r.json().catch(function () { return null; }) : null; })
+        .then(function (d) {
+          /* Contract response {guide_seen, seen_at} (backend line-1, 2026-11-15):
+             an already-set marker returns its ORIGINAL seen_at, long before this
+             display; a fresh write returns ~now. Suppress only on the former. */
+          if (d && d.guide_seen === true && d.seen_at) {
+            var t = Date.parse(d.seen_at);
+            if (!isNaN(t) && t < Date.now() - 30000) hide();
+          }
+        })
+        .catch(function () {});
+    } catch (e) {}
+  }
+  var tries = 0;
+  (function boot() {
+    if (document.documentElement.getAttribute("data-state") === "demo") return;
+    if (!(window.__p1 && window.__p1.meLoaded)) { if (++tries < 40) setTimeout(boot, 150); return; }
+    if (ssGet(PAID_FLAG) !== "1") return;
+    ssDel(PAID_FLAG); /* the paid entry is consumed by this check either way */
+    if (lsGet(MIRROR)) return;
+    getJSON("/auth/me").then(function (me) {
+      if (me && me.guide_seen) return;
+      pollInvoices(me, 0);
+    }).catch(function () {});
+  })();
+  function pollInvoices(me, n) {
+    getJSON("/billing/invoices").then(function (data) {
+      var list = (data && data.invoices) || [];
+      var paid = list.filter(function (i) { return i.status === "paid"; });
+      if (paid.length >= 2) return; /* not a first purchase: never show */
+      if (paid.length === 1) { show(me, paid[0]); return; }
+      /* No paid row yet: the paid chain may still be writing. Show the honest
+         processing state and keep filling; withdraw if a second paid row
+         proves this was not a first purchase. */
+      show(me, null);
+      (function fill(k) {
+        if (k >= 15) return;
+        setTimeout(function () {
+          getJSON("/billing/invoices").then(function (d2) {
+            var p2 = ((d2 && d2.invoices) || []).filter(function (i) { return i.status === "paid"; });
+            if (p2.length >= 2) { hide(); return; }
+            if (p2.length === 1) { fillValues(me, p2[0]); return; }
+            fill(k + 1);
+          }).catch(function () { fill(k + 1); });
+        }, 2000);
+      })(0);
+    }).catch(function () { if (n < 3) setTimeout(function () { pollInvoices(me, n + 1); }, 2000); });
+  }
+  function fillValues(me, inv) {
+    if (me && me.tier) document.getElementById("ppTier").textContent = cap(me.tier);
+    if (me && me.subscription_status) document.getElementById("ppStatus").textContent = cap(me.subscription_status);
+    if (inv) document.getElementById("ppAmount").textContent = fmtAmount(inv);
+  }
+  function hide() { document.getElementById("ppGuide").style.display = "none"; }
+  function show(me, inv) {
+    var g = document.getElementById("ppGuide");
+    if (g.style.display !== "none") return;
+    markSeen(); /* seen on display, not on completion */
+    fillValues(me, inv);
+    g.style.display = "flex";
+  }
+  function addBrand(name, domain) {
+    return postJSON("/brands", { name: name, domain: domain });
+  }
+  document.getElementById("ppSkip").addEventListener("click", hide);
+  document.getElementById("ppBrandBtn").addEventListener("click", function () {
+    var name = document.getElementById("ppBrandName").value.trim();
+    var domain = document.getElementById("ppBrandDomain").value.trim();
+    var err = document.getElementById("ppBrandErr");
+    if (!name || !domain) { err.textContent = "Add a brand name and a domain."; err.hidden = false; return; }
+    err.hidden = true;
+    addBrand(name, domain).then(function () {
+      hide();
+      if (typeof window.showToast === "function") window.showToast("Brand added.");
+      if (typeof window.go === "function") window.go("overview");
+    }).catch(function () { err.textContent = "Couldn't save your brand. Please try again."; err.hidden = false; });
+  });
+  document.getElementById("ppRunBtn").addEventListener("click", function () {
+    var err = document.getElementById("ppRunErr");
+    err.hidden = true;
+    var known = null;
+    try { known = state.snapshot && state.snapshot.brand && state.snapshot.brand.domain; } catch (e) {}
+    function proceed() {
+      hide();
+      if (typeof window.openRunDrawer === "function") window.openRunDrawer();
+    }
+    if (known) { proceed(); return; }
+    var wrap = document.getElementById("ppRunDomainWrap");
+    var domain = document.getElementById("ppRunDomain").value.trim();
+    if (wrap.hidden) { wrap.hidden = false; if (domain) proceed(); return; }
+    if (!domain) { err.textContent = "Add a domain to run your first snapshot."; err.hidden = false; return; }
+    addBrand(domain, domain).then(proceed).catch(function () { err.textContent = "Couldn't save your brand. Please try again."; err.hidden = false; });
+  });
 })();
 </script>
 <script>
