@@ -1549,10 +1549,10 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div><div class="tk-compare"><label>From <select id="chkFrom"></select></label><label>To <select id="chkTo"></select></label><button class="btn small" type="button" id="chkCompareBtn">Compare</button><div id="chkCompareOut"></div></div></div>
 <div class="card state-card fail" data-live-layer id="chkError" hidden><div class="state-eyebrow">Page checkup</div><p class="state-title">Couldn't load your checkups.</p><div class="state-actions"><button class="btn" type="button" id="chkRetry">Retry</button></div></div>
 </section>
-<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
-<section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
-<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
-<section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div></section>
+<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="winCard" hidden><h3>Citation gaps</h3><div id="winList"></div></div><div class="card" data-live-layer id="winNoneCard" hidden><h3>Cited by neither you nor your rivals</h3><div id="winNoneList"></div></div><div class="card state-card" data-live-layer id="winEmpty" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No snapshot.</p><p class="state-desc">Win citations reads your latest snapshot. Run one to see which sites cite your rivals but not you.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card state-card fail" data-live-layer id="winError" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">Couldn't load your win citations.</p><div class="state-actions"><button class="btn" type="button" id="winRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="rdRunCard" hidden><h3>Run a checkup</h3><div class="tk-run"><input id="rdUrl" type="url" inputmode="url" autocomplete="url"><button class="btn" type="button" id="rdRunBtn">Run checkup</button></div><p class="desc" id="rdUrlErr" hidden></p><p class="desc" id="rdCap" hidden></p><p class="desc" id="rdNone" hidden>No checkups yet for this brand.</p></div><div class="card" data-live-layer id="rdResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="rdSummary"></p><div id="rdResults"></div></div><div class="card" data-live-layer id="rdHistoryCard" hidden><h3>History</h3><div id="rdHistory"></div></div><div class="card state-card fail" data-live-layer id="rdError" hidden><div class="state-eyebrow">AI readiness</div><p class="state-title">Couldn't load your readiness data.</p><div class="state-actions"><button class="btn" type="button" id="rdRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="bmListCard" hidden><h3>Cases</h3><div id="bmList"></div></div><div class="card state-card" data-live-layer id="bmArmed" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title" id="bmArmedText"></p></div><div class="card" data-live-layer id="bmNewCard" hidden><h3>Open a case manually</h3><p class="desc" id="bmNewNote"></p><label class="tk-s" id="bmClaimLabel" for="bmClaim"></label><textarea id="bmClaim" rows="3" style="width:100%"></textarea><label class="tk-s" id="bmWhereLabel" for="bmWhere"></label><input id="bmWhere" type="text" style="width:100%"><p class="desc" id="bmNewErr" hidden></p><div class="state-actions"><button class="btn" type="button" id="bmCreateBtn">Open case</button></div></div><div class="card" data-live-layer id="bmDetailCard" hidden><button class="btn small" type="button" id="bmBackBtn">Back to cases</button><h3 id="bmClaimText"></h3><p class="desc" id="bmMeta"></p><div id="bmBaseline"></div><div id="bmProposal"></div><div id="bmAccurate"></div><div id="bmSteps"></div><div id="bmDraftBox"></div></div><div class="card state-card fail" data-live-layer id="bmError" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title">Couldn't load your cases.</p><div class="state-actions"><button class="btn" type="button" id="bmRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="llmCard" hidden><h3>Your llms.txt</h3><p class="desc" id="llmStatus">No llms.txt generated.</p><pre id="llmPreview" hidden style="white-space:pre-wrap;word-break:break-word;font-size:12px"></pre><div class="state-actions"><button class="btn" type="button" id="llmGenBtn">Generate llms.txt</button><a class="btn" id="llmDl" href="#" hidden>Download</a></div></div><div class="card state-card fail" data-live-layer id="llmError" hidden><div class="state-eyebrow">llms.txt generator</div><p class="state-title">Couldn't load your llms.txt status.</p><div class="state-actions"><button class="btn" type="button" id="llmRetry">Retry</button></div></div></section>
 <section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
             <section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-empty-slot><div class="state-eyebrow">Notifications</div><p class="state-title">No notifications yet.</p><p class="state-desc">Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
@@ -5604,5 +5604,391 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   }, true);
 })();
 </script>
+
+<script>
+/* Tools wiring p2/p3/p5 (lane-1, 2026-11-19): brand-keyed /tools routes; the selected brand's
+   site is carried in automatically — no connect step, no Not connected state. Copy: draft. */
+(function () {
+  if (window.__toolsWire) return; window.__toolsWire = true;
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; }
+  function brand() { var b = window.__bsCurrentBrand; return b && b.id ? b : null; }
+  function getJ(url) {
+    return fetch(url, { credentials: "same-origin" }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status); return r.json();
+    });
+  }
+  function postJ(url, body) {
+    return fetch(url, { method: "POST", credentials: "same-origin",
+      headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { status: r.status, data: d }; }); });
+  }
+  function hideWalls(viewId) {
+    var sec = $(viewId); if (!sec) return;
+    sec.querySelectorAll(":scope > .card:not([data-live-layer])").forEach(function (c) { c.style.display = "none"; });
+  }
+  function fmtD(iso) { if (!iso) return ""; var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
+
+  /* ---------------- p2: win citations ---------------- */
+  var WIN_LABEL = { "new": "New", drafted: "Drafted", sent: "Sent", replied: "Replied", archived: "Archived" };
+  var WIN_ACTIONS = { "new": [["sent", "Mark sent"], ["archived", "Archive"]],
+    drafted: [["sent", "Mark sent"], ["archived", "Archive"]],
+    sent: [["replied", "Mark replied"], ["archived", "Archive"]],
+    replied: [["archived", "Archive"]], archived: [] };
+  function winRow(item) {
+    var row = document.createElement("div"); row.className = "tk-row";
+    var bits = [];
+    if (item.questions_count != null) bits.push(item.questions_count + " questions");
+    if (item.competitor_count != null) bits.push(item.competitor_count + " rivals");
+    if (item.engine_count != null) bits.push(item.engine_count + " engines");
+    if (item.gap_score != null) bits.push("gap " + item.gap_score);
+    var acts = (WIN_ACTIONS[item.tracking_state] || []).map(function (a) {
+      return '<button class="btn small" type="button" data-win-act="' + a[0] + '" data-win-domain="' + esc(item.source_domain) + '">' + a[1] + "</button>";
+    }).join(" ");
+    row.innerHTML = '<div class="tk-row-top"><span class="tk-t">' + esc(item.source_domain) + '</span>' +
+      '<span class="tk-badge-note">' + esc(WIN_LABEL[item.tracking_state] || item.tracking_state || "New") + "</span></div>" +
+      (bits.length ? '<div class="tk-s">' + esc(bits.join(" · ")) + "</div>" : "") +
+      (acts ? '<div class="state-actions">' + acts + "</div>" : "");
+    return row;
+  }
+  function loadWin() {
+    var b = brand(); if (!b) return;
+    hideWalls("view-tools-p2");
+    getJ("/tools/win-citations?brand_id=" + encodeURIComponent(b.id)).then(function (d) {
+      $("winError").hidden = true;
+      if (d.reason === "no_snapshots" || !d.run_id) {
+        $("winCard").hidden = true; $("winNoneCard").hidden = true; $("winEmpty").hidden = false; return;
+      }
+      $("winEmpty").hidden = true;
+      var list = $("winList"); list.textContent = "";
+      (d.opportunities || []).forEach(function (it) { list.appendChild(winRow(it)); });
+      $("winCard").hidden = false;
+      var nl = $("winNoneList"); nl.textContent = "";
+      (d.none_layer || []).forEach(function (it) {
+        var r = document.createElement("div"); r.className = "tk-row";
+        r.innerHTML = '<span class="tk-t">' + esc(it.source_domain || it.domain || "") + "</span>"; nl.appendChild(r);
+      });
+      $("winNoneCard").hidden = !(d.none_layer || []).length;
+    }).catch(function () {
+      $("winCard").hidden = true; $("winNoneCard").hidden = true; $("winEmpty").hidden = true; $("winError").hidden = false;
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-win-act]"); if (!btn) return;
+    var b = brand(); if (!b) return;
+    var body = { brand_id: b.id, source_domain: btn.getAttribute("data-win-domain"), target_state: btn.getAttribute("data-win-act") };
+    if (body.target_state === "sent") body.sent_at = new Date().toISOString();
+    btn.disabled = true;
+    postJ("/tools/win-citations/tracking", body).then(function (res) {
+      if (res.status >= 200 && res.status < 300) loadWin();
+      else btn.disabled = false;
+    }).catch(function () { btn.disabled = false; });
+  });
+  var wr = $("winRetry"); if (wr) wr.addEventListener("click", loadWin);
+
+  /* ---------------- p3: ai readiness (brand-keyed) ---------------- */
+  var RD_TXT = { pass: "Pass", fail: "Fail", unknown: "Couldn't verify" };
+  var RD_CLS = { pass: "badge-ok", fail: "tk-badge-stop", unknown: "tk-badge-note" };
+  function rdSummary(sm) { if (!sm) return ""; return (sm.pass || 0) + " pass · " + (sm.fail || 0) + " fail · " + (sm.unknown || 0) + " couldn't verify"; }
+  function renderRdRun(env) {
+    $("rdSummary").textContent = rdSummary(env.summary) + (env.url ? " · " + env.url : "") + (env.created_at ? " · " + fmtD(env.created_at) : "");
+    var box = $("rdResults"); box.textContent = "";
+    (env.results || []).forEach(function (r) {
+      var row = document.createElement("div"); row.className = "tk-row";
+      row.innerHTML = (r.group ? '<div class="tk-s">' + esc(r.group) + "</div>" : "") +
+        '<span class="tk-t">' + esc(r.title || "") + '</span> <span class="' + (RD_CLS[r.status] || "tk-badge-note") + '">' + esc(RD_TXT[r.status] || "") + "</span>" +
+        (r.detail ? '<div class="tk-d">' + esc(r.detail) + "</div>" : "");
+      box.appendChild(row);
+    });
+    $("rdResultsCard").hidden = false;
+  }
+  function loadRd() {
+    var b = brand(); if (!b) return;
+    hideWalls("view-tools-p3");
+    var urlEl = $("rdUrl");
+    if (urlEl && !urlEl.value) urlEl.value = "https://" + b.domain + "/";
+    $("rdRunCard").hidden = false;
+    Promise.all([
+      getJ("/tools/ai-readiness/latest?brand_id=" + encodeURIComponent(b.id)),
+      getJ("/tools/ai-readiness/runs?brand_id=" + encodeURIComponent(b.id))
+    ]).then(function (rs) {
+      $("rdError").hidden = true;
+      var latest = rs[0], runs = (rs[1] && rs[1].runs) || [];
+      if (latest && latest.run_id) renderRdRun(latest); else if (latest && latest.run) { /* run:null form */ }
+      if (latest && !latest.run_id && !latest.results) $("rdResultsCard").hidden = true;
+      var box = $("rdHistory"); box.textContent = "";
+      runs.forEach(function (r) {
+        var row = document.createElement("div"); row.className = "tk-row";
+        row.innerHTML = '<span class="tk-t">' + esc(fmtD(r.created_at)) + '</span><div class="tk-s">' + esc(rdSummary(r.summary)) + "</div>";
+        box.appendChild(row);
+      });
+      $("rdHistoryCard").hidden = !runs.length;
+      $("rdNone").hidden = !!runs.length;
+    }).catch(function () { $("rdError").hidden = false; });
+  }
+  var rb = $("rdRunBtn");
+  if (rb) rb.addEventListener("click", function () {
+    var b = brand(); if (!b) return;
+    var urlEl = $("rdUrl"), err = $("rdUrlErr"), cap = $("rdCap");
+    err.hidden = true; cap.hidden = true;
+    var url = (urlEl.value || "").trim();
+    if (!url) { err.textContent = "Enter a valid URL."; err.hidden = false; return; }
+    rb.disabled = true; rb.textContent = "Running…";
+    postJ("/tools/ai-readiness/runs", { brand_id: b.id, url: url }).then(function (res) {
+      if (res.status === 422) { err.textContent = "Enter a valid URL."; err.hidden = false; return; }
+      if (res.status === 429) {
+        var d = res.data || {};
+        cap.textContent = "This period's checkup limit is reached." +
+          (typeof d.used === "number" && typeof d.cap === "number" ? " " + d.used + " of " + d.cap + " checkups used this period." : "");
+        cap.hidden = false; return;
+      }
+      if (res.status >= 200 && res.status < 300) { renderRdRun(res.data); loadRd(); return; }
+      err.textContent = "Couldn't run this checkup. Please try again."; err.hidden = false;
+    }).catch(function () { err.textContent = "Couldn't run this checkup. Please try again."; err.hidden = false; })
+      .finally(function () { rb.disabled = false; rb.textContent = "Run checkup"; });
+  });
+  var rr = $("rdRetry"); if (rr) rr.addEventListener("click", loadRd);
+
+  /* ---------------- p5: llms.txt ---------------- */
+  var llmPoll = 0;
+  function renderLlm(d) {
+    var st = $("llmStatus"), pv = $("llmPreview"), dl = $("llmDl"), btn = $("llmGenBtn");
+    $("llmError").hidden = true; $("llmCard").hidden = false;
+    if (d.status === "ready") {
+      st.textContent = "Generated " + fmtD(d.generated_at) + (d.entry_count != null ? " · " + d.entry_count + " entries" : "") + ".";
+      if (d.content_preview) { pv.textContent = d.content_preview; pv.hidden = false; } else pv.hidden = true;
+      if (d.download_url) { dl.href = d.download_url; dl.hidden = false; } else dl.hidden = true;
+      btn.textContent = "Regenerate";
+    } else if (d.status === "generating") {
+      st.textContent = "Generating…"; pv.hidden = true; dl.hidden = true;
+      if (llmPoll < 30) { llmPoll++; setTimeout(loadLlm, 2000); }
+    } else if (d.status === "failed") {
+      st.textContent = "Generation failed. Please try again."; pv.hidden = true; dl.hidden = true; btn.textContent = "Try again";
+    } else {
+      st.textContent = "No llms.txt generated."; pv.hidden = true; dl.hidden = true; btn.textContent = "Generate llms.txt";
+    }
+  }
+  function loadLlm() {
+    var b = brand(); if (!b) return;
+    hideWalls("view-tools-p5");
+    getJ("/tools/llms-txt?brand_id=" + encodeURIComponent(b.id)).then(renderLlm)
+      .catch(function () { $("llmCard").hidden = true; $("llmError").hidden = false; });
+  }
+  var gb = $("llmGenBtn");
+  if (gb) gb.addEventListener("click", function () {
+    var b = brand(); if (!b) return;
+    gb.disabled = true; llmPoll = 0;
+    postJ("/tools/llms-txt/generate", { brand_id: b.id }).then(function (res) {
+      if (res.status >= 200 && res.status < 300) loadLlm();
+      else { $("llmStatus").textContent = "Couldn't start generation. Please try again."; }
+    }).catch(function () { $("llmStatus").textContent = "Couldn't start generation. Please try again."; })
+      .finally(function () { gb.disabled = false; });
+  });
+  var lr = $("llmRetry"); if (lr) lr.addEventListener("click", loadLlm);
+
+  /* ---------------- entry ---------------- */
+  var prevGo = window.go;
+  window.go = function (v) {
+    var r = prevGo.apply(this, arguments);
+    if (document.documentElement.getAttribute("data-state") !== "demo" && location.pathname.indexOf("/dashboard") === 0) {
+      if (v === "tools-p2") loadWin();
+      else if (v === "tools-p3") loadRd();
+      else if (v === "tools-p5") loadLlm();
+    }
+    return r;
+  };
+})();
+</script>
+
+
+<script>
+/* T5 Fix a bad mention wiring (lane-1, 2026-11-19): /toolkit/bad-mention case family.
+   Buyer-facing strings render from each payload's `presentation` (frozen set, verbatim);
+   chrome labels absent from PRESENT are draft copy. No send endpoint exists by contract. */
+(function () {
+  if (window.__bmWire) return; window.__bmWire = true;
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; }
+  function getJ(url) { return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); }); }
+  function postJ(url, body) { return fetch(url, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { status: r.status, data: d }; }); }); }
+  function hideWalls() { var sec = $("view-tools-p4"); if (!sec) return; sec.querySelectorAll(":scope > .card:not([data-live-layer])").forEach(function (c) { c.style.display = "none"; }); }
+  var P = null;         // presentation dict from the latest payload
+  var current = null;   // current case detail
+  var SLOT_LABEL = { brand: "Brand", claim_text: "The claim", quoted_statement: "The statement", correct_fact: "The correct fact",
+    fact_link: "Link to the fact", documentation_link: "Documentation link", source_url: "Source link", sender: "Your name (sender)",
+    engine: "Where it appeared (engine)", question: "The question asked", date: "Date seen", action_taken: "What you did", specific_point: "The specific point raised" };
+  var SLOT_PREFILL = { brand: function () { var b = window.__bsCurrentBrand; return b ? b.name : ""; },
+    claim_text: function () { return current ? current.claim_text : ""; },
+    quoted_statement: function () { return current ? current.claim_text : ""; } };
+  var SLOTS = { "TPL-T5-A": ["brand", "claim_text", "correct_fact", "date", "engine", "fact_link", "question", "sender"],
+    "TPL-T5-B": ["brand", "correct_fact", "documentation_link", "fact_link", "quoted_statement", "sender", "source_url"],
+    "TPL-T5-C": ["brand", "correct_fact", "fact_link"],
+    "TPL-T5-D": ["action_taken", "brand", "specific_point"] };
+
+  function classLabel(c) { return (P && P.class_labels && P.class_labels[c]) || (c === "pending" ? "Pending" : c); }
+  function loadList() {
+    hideWalls();
+    getJ("/toolkit/bad-mention/cases").then(function (d) {
+      P = d.presentation || P;
+      $("bmError").hidden = true; $("bmDetailCard").hidden = true;
+      if (d.armed) {
+        $("bmListCard").hidden = true; $("bmNewCard").hidden = true;
+        $("bmArmedText").textContent = d.text || (P && P.armed_text) || "";
+        $("bmArmed").hidden = false; return;
+      }
+      $("bmArmed").hidden = true;
+      var box = $("bmList"); box.textContent = "";
+      (d.cases || []).forEach(function (c) {
+        var row = document.createElement("div"); row.className = "tk-row";
+        row.innerHTML = '<div class="tk-row-top"><span class="tk-t">' + esc((c.claim_text || "").slice(0, 110)) + '</span>' +
+          '<span class="tk-badge-note">' + esc(classLabel(c.classification)) + "</span></div>" +
+          '<div class="tk-s">' + esc(c.retest && c.retest.label ? c.retest.label : "") + (c.origin === "manual" ? " · Manual case" : "") + "</div>";
+        var btn = document.createElement("button"); btn.className = "btn small"; btn.type = "button"; btn.textContent = "Open";
+        btn.addEventListener("click", function () { openCase(c.id); });
+        row.appendChild(btn); box.appendChild(row);
+      });
+      $("bmListCard").hidden = false;
+      if (P) {
+        $("bmNewNote").textContent = P.manual_header_note || "";
+        $("bmClaimLabel").textContent = P.manual_field_claim || "";
+        $("bmWhereLabel").textContent = P.manual_field_where || "";
+      }
+      $("bmNewCard").hidden = false;
+    }).catch(function () { $("bmError").hidden = false; });
+  }
+  function basisHtml(basis) {
+    if (!basis) return "";
+    var cols = (P && P.basis_columns) || ["What was said", "Your confirmed fact"];
+    var rows = "";
+    if (Array.isArray(basis)) rows = basis.map(function (r) {
+      if (typeof r === "string") return "<tr><td>" + esc(r) + "</td><td></td></tr>";
+      var a = r.said || r.claim || r.claim_text || r.what_was_said || "";
+      var b = r.fact || r.confirmed || r.fact_text || r.your_fact || "";
+      return "<tr><td>" + esc(a) + "</td><td>" + esc(b) + "</td></tr>";
+    }).join("");
+    else rows = '<tr><td colspan="2">' + esc(basis) + "</td></tr>";
+    return '<table class="inv-table"><thead><tr><th>' + esc(cols[0]) + "</th><th>" + esc(cols[1]) + "</th></tr></thead><tbody>" + rows + "</tbody></table>";
+  }
+  function renderDetail(c) {
+    current = c; P = c.presentation || P;
+    $("bmListCard").hidden = true; $("bmNewCard").hidden = true; $("bmArmed").hidden = true; $("bmError").hidden = true;
+    $("bmClaimText").textContent = c.claim_text || "";
+    var meta = [classLabel(c.classification), c.retest && c.retest.label, c.status].filter(Boolean);
+    $("bmMeta").textContent = meta.join(" · ");
+    // baseline missing
+    var bl = $("bmBaseline"); bl.innerHTML = "";
+    if (c.baseline_missing && P) {
+      bl.innerHTML = '<div class="card state-card"><div class="state-eyebrow">Fix a bad mention</div>' +
+        '<p class="state-title">' + esc(P.baseline_missing_title) + '</p><p class="state-desc">' + esc(P.baseline_missing_body) + "</p></div>";
+    }
+    // proposal (pending with a proposal)
+    var pr = $("bmProposal"); pr.innerHTML = "";
+    if (c.classification === "pending" && c.proposed_classification && P) {
+      var wrap = document.createElement("div"); wrap.className = "card";
+      wrap.innerHTML = "<h3>" + esc(P.proposal_title) + '</h3><p class="desc">' + esc(P.basis_intro) + "</p>" + basisHtml(c.classification_basis) +
+        '<p class="desc">' + esc(P.gate_note) + "</p>";
+      var conf = document.createElement("button"); conf.className = "btn"; conf.type = "button"; conf.textContent = P.confirm_button;
+      conf.addEventListener("click", function () { decide(c.id, c.proposed_classification); });
+      wrap.appendChild(conf);
+      var ch = document.createElement("p"); ch.className = "desc"; ch.textContent = P.change_prompt; wrap.appendChild(ch);
+      Object.keys(P.class_labels || {}).forEach(function (k) {
+        if (k === c.proposed_classification) return;
+        var b = document.createElement("button"); b.className = "btn small"; b.type = "button"; b.textContent = P.class_labels[k];
+        b.addEventListener("click", function () { decide(c.id, k); });
+        wrap.appendChild(b);
+      });
+      pr.appendChild(wrap);
+    }
+    if (c.classification === "pending" && !c.proposed_classification && !c.baseline_missing && P) {
+      var cw = document.createElement("div"); cw.className = "card";
+      var ch3 = document.createElement("h3"); ch3.textContent = "Classify this mention"; cw.appendChild(ch3);
+      Object.keys(P.class_labels || {}).forEach(function (k) {
+        var b2 = document.createElement("button"); b2.className = "btn small"; b2.type = "button"; b2.textContent = P.class_labels[k];
+        b2.addEventListener("click", function () { decide(c.id, k); });
+        cw.appendChild(b2);
+      });
+      pr.appendChild(cw);
+    }
+    // accurate
+    var ac = $("bmAccurate"); ac.innerHTML = "";
+    if (c.classification === "neutral_accurate" && P) {
+      ac.innerHTML = '<div class="card state-card"><div class="state-eyebrow">' + esc(P.accurate_status_label) + '</div>' +
+        '<p class="state-title">' + esc(P.accurate_title) + '</p><p class="state-desc">' + esc(P.accurate_body) + "</p></div>";
+    }
+    // checklist steps
+    var st = $("bmSteps"); st.innerHTML = "";
+    (c.checklist || []).forEach(function (step) {
+      var row = document.createElement("div"); row.className = "tk-row";
+      row.innerHTML = '<div class="tk-row-top"><span class="tk-t">' + esc(step.n != null ? step.n + ". " : "") + esc(step.title || "") + "</span></div>" +
+        '<div class="tk-d">' + esc(step.action || "") + "</div>" +
+        (step.exit ? '<div class="tk-s">' + esc(step.exit) + "</div>" : "");
+      if (step.template_ref) {
+        var db = document.createElement("button"); db.className = "btn small"; db.type = "button"; db.textContent = "Create draft";
+        db.addEventListener("click", function () { draftForm(step.template_ref); });
+        row.appendChild(db);
+      }
+      st.appendChild(row);
+    });
+    if ((c.checklist || []).length) { var h = document.createElement("h3"); h.textContent = "Checklist"; st.insertBefore(h, st.firstChild); }
+    $("bmDraftBox").innerHTML = "";
+    $("bmDetailCard").hidden = false;
+  }
+  function decide(id, cls) {
+    postJ("/toolkit/bad-mention/cases/" + encodeURIComponent(id) + "/classification", { classification: cls }).then(function (res) {
+      if (res.status >= 200 && res.status < 300) openCase(id);
+    });
+  }
+  function openCase(id) {
+    getJ("/toolkit/bad-mention/cases/" + encodeURIComponent(id)).then(renderDetail)
+      .catch(function () { $("bmError").hidden = false; });
+  }
+  function draftForm(tpl) {
+    var box = $("bmDraftBox"); box.innerHTML = "";
+    var card = document.createElement("div"); card.className = "card";
+    var h = document.createElement("h3"); h.textContent = "Draft details"; card.appendChild(h);
+    var inputs = {};
+    (SLOTS[tpl] || []).forEach(function (slot) {
+      var lab = document.createElement("label"); lab.className = "tk-s"; lab.textContent = SLOT_LABEL[slot] || slot;
+      var inp = document.createElement("input"); inp.type = "text"; inp.style.width = "100%";
+      if (SLOT_PREFILL[slot]) inp.value = SLOT_PREFILL[slot]();
+      inputs[slot] = inp; card.appendChild(lab); card.appendChild(inp);
+    });
+    var msg = document.createElement("p"); msg.className = "desc"; msg.hidden = true; card.appendChild(msg);
+    var go2 = document.createElement("button"); go2.className = "btn"; go2.type = "button"; go2.textContent = "Generate draft";
+    go2.addEventListener("click", function () {
+      var facts = {}; Object.keys(inputs).forEach(function (k) { facts[k] = inputs[k].value.trim(); });
+      go2.disabled = true; msg.hidden = true;
+      postJ("/toolkit/bad-mention/cases/" + encodeURIComponent(current.id) + "/draft", { template_key: tpl, facts: facts }).then(function (res) {
+        if (res.status >= 200 && res.status < 300) { msg.textContent = "Draft created — find it in your approval inbox. Nothing is sent from here."; msg.hidden = false; }
+        else { msg.textContent = "Couldn't generate the draft." + (res.data && res.data.detail ? " (" + res.data.detail + ")" : ""); msg.hidden = false; }
+      }).catch(function () { msg.textContent = "Couldn't generate the draft. Please try again."; msg.hidden = false; })
+        .finally(function () { go2.disabled = false; });
+    });
+    card.appendChild(go2); box.appendChild(card);
+  }
+  var cb = $("bmCreateBtn");
+  if (cb) cb.addEventListener("click", function () {
+    var claim = $("bmClaim").value.trim(), err = $("bmNewErr");
+    if (!claim) { err.textContent = "Describe the mention first."; err.hidden = false; return; }
+    err.hidden = true; cb.disabled = true;
+    var body = { claim_text: claim };
+    var where = $("bmWhere").value.trim(); if (where) body.claim_source = { url: where };
+    postJ("/toolkit/bad-mention/cases", body).then(function (res) {
+      if (res.status >= 200 && res.status < 300) { $("bmClaim").value = ""; $("bmWhere").value = ""; openCase(res.data.id); }
+      else { err.textContent = "Couldn't open the case." + (res.data && res.data.detail ? " (" + res.data.detail + ")" : ""); err.hidden = false; }
+    }).catch(function () { err.textContent = "Couldn't open the case. Please try again."; err.hidden = false; })
+      .finally(function () { cb.disabled = false; });
+  });
+  var bb = $("bmBackBtn"); if (bb) bb.addEventListener("click", loadList);
+  var rt = $("bmRetry"); if (rt) rt.addEventListener("click", loadList);
+  var prevGo2 = window.go;
+  window.go = function (v) {
+    var r = prevGo2.apply(this, arguments);
+    if (v === "tools-p4" && document.documentElement.getAttribute("data-state") !== "demo" && location.pathname.indexOf("/dashboard") === 0) loadList();
+    return r;
+  };
+})();
+</script>
+
 </body>
 </html>
