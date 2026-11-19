@@ -5292,6 +5292,44 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     if (p.version_changed_from_previous) row.appendChild(badge("Question set changed", "tk-badge-note"));
     return row;
   }
+  var BP_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function bpNoteRow(b) {
+    var row = el("div", "bp-note");
+    row.appendChild(el("span", "bp-dash"));
+    var parts = String(b.date || "").split("-");
+    var label = (BP_MON[parseInt(parts[1], 10) - 1] || "") + " " + parseInt(parts[2], 10) + " \u00B7 " + (b.cause || "");
+    row.appendChild(el("span", "bp-note-t", label));
+    if (b.grade) row.appendChild(el("span", "bp-src", "Source \u00B7 " + b.grade));
+    return row;
+  }
+  /* Breakpoint note rows (design §七 list-host variant): calendared measurement
+     breaks interleaved into the score-series list by date. Fail-soft: any read
+     failure or partial shape renders nothing; the plain list stands. */
+  function paintBreaks(sb, points) {
+    if (document.documentElement.getAttribute("data-state") === "demo" || location.pathname.indexOf("/dashboard") !== 0) return;
+    var dates = points.map(function (p) { return String(p.started_at || "").slice(0, 10); });
+    if (dates.some(function (d) { return !/^\d{4}-\d{2}-\d{2}$/.test(d); })) return;
+    var sorted = dates.slice().sort(); var from = sorted[0], to = sorted[sorted.length - 1];
+    fetch("/public/breakpoints?from=" + from + "&to=" + to, { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function (d) {
+        var list = (d && d.breakpoints) || (Array.isArray(d) ? d : null);
+        if (!list) return;
+        var breaks = list.filter(function (b) { return b && b.date >= from && b.date <= to; });
+        if (!breaks.length) return;
+        var desc = dates.length > 1 && dates[0] > dates[dates.length - 1];
+        var items = points.map(function (p, i) { return { d: dates[i], p: p, k: 1 }; })
+          .concat(breaks.map(function (b) { return { d: b.date, b: b, k: 0 }; }));
+        items.sort(function (x, y) {
+          if (x.d !== y.d) return desc ? (x.d > y.d ? -1 : 1) : (x.d < y.d ? -1 : 1);
+          return desc ? (y.k - x.k) : (x.k - y.k);
+        });
+        sb.textContent = "";
+        items.forEach(function (it) { sb.appendChild(it.p ? seriesRow(it.p) : bpNoteRow(it.b)); });
+        sb.appendChild(el("p", "bp-legend", "Breaks are changes in how this was measured. Runs above and below a break aren't comparable."));
+      })
+      .catch(function (e) { try { console.warn("[breakpoints] read failed; notes suppressed", e && e.message); } catch (x) {} });
+  }
   function loadImpact() {
     var empty = document.getElementById("impEmpty"), err = document.getElementById("impError");
     var cA = document.getElementById("impActionsCard"), cS = document.getElementById("impSeriesCard"), cF = document.getElementById("impFeedCard");
@@ -5314,6 +5352,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
       var sb = document.getElementById("impSeries"); sb.textContent = "";
       if (!points.length) { sb.appendChild(el("p", "desc", "No scores yet.")); }
       points.forEach(function (p) { sb.appendChild(seriesRow(p)); });
+      if (points.length) paintBreaks(sb, points);
       var wl = document.getElementById("impWithheld");
       if (WITHHELD_KEY && typeof res[1][WITHHELD_KEY] === "number" && res[1][WITHHELD_KEY] > 0) { wl.textContent = res[1][WITHHELD_KEY] === 1 ? "1 run withheld" : res[1][WITHHELD_KEY] + " runs withheld"; wl.hidden = false; } else { wl.hidden = true; }
       cS.hidden = false;
@@ -5555,6 +5594,11 @@ html[data-brand-empty] #view-questions [data-sample-layer][data-bface="main"], h
 html[data-brand-failed] #view-questions [data-sample-layer], html[data-brand-failed] #view-competitors [data-sample-layer] { display: none !important; }
 html[data-brand-failed] #view-questions [data-empty-slot], html[data-brand-failed] #view-competitors [data-empty-slot] { display: none !important; }
 html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { display: none !important; }
+.bp-note{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.bp-dash{flex:0 0 24px;border-top:2px dashed rgba(20,21,25,.4)}
+.bp-note-t{color:var(--muted);font-size:13px}
+.bp-src{margin-left:auto;color:var(--muted);font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;white-space:nowrap;background:transparent}
+.bp-legend{color:var(--muted);font-size:13px;padding:8px 0 2px;margin:0}
 </style>
 <script>
 /* Brand-empty orchestration: the two brand chains call __brandNoRuns on an
