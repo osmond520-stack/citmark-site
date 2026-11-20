@@ -5876,8 +5876,25 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   var SLOT_PREFILL = { brand: function () { var b = window.__bsCurrentBrand; return b ? b.name : ""; },
     claim_text: function () { return current ? current.claim_text : ""; },
     quoted_statement: function () { return current ? current.claim_text : ""; },
-    correct_fact: function () { return current && current.facts ? (current.facts.correct_fact || "") : ""; },
-    fact_link: function () { return current && current.facts ? (current.facts.fact_link || "") : ""; } };
+    correct_fact: function () {
+      if (!current) return "";
+      if (current.facts && current.facts.correct_fact) return current.facts.correct_fact;
+      var pf = current.__pair && current.__pair.facts;
+      if (pf && pf.correct_fact) return pf.correct_fact;
+      var bs = current.classification_basis;
+      if (Array.isArray(bs) && bs.length && bs[0] && typeof bs[0] === "object") return bs[0].fact || bs[0].confirmed || bs[0].fact_text || bs[0].your_fact || "";
+      return "";
+    },
+    fact_link: function () {
+      if (!current) return "";
+      if (current.facts && current.facts.fact_link) return current.facts.fact_link;
+      var pf = current.__pair && current.__pair.facts;
+      if (pf && pf.fact_link) return pf.fact_link;
+      var cf = SLOT_PREFILL.correct_fact();
+      var links = current.__pair && current.__pair.links;
+      if (cf && links && links[cf]) return links[cf];
+      return "";
+    } };
   var SLOTS = { "TPL-T5-A": ["brand", "claim_text", "correct_fact", "date", "engine", "fact_link", "question", "sender"],
     "TPL-T5-B": ["brand", "correct_fact", "documentation_link", "fact_link", "quoted_statement", "sender", "source_url"],
     "TPL-T5-C": ["brand", "correct_fact", "fact_link"],
@@ -5928,8 +5945,24 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     else rows = '<tr><td colspan="2">' + esc(basis) + "</td></tr>";
     return '<table class="inv-table"><thead><tr><th>' + esc(cols[0]) + "</th><th>" + esc(cols[1]) + "</th></tr></thead><tbody>" + rows + "</tbody></table>";
   }
+  function pairSources(c) {
+    // Real-shape pairing sources for draft-form prefill (TD fix order 2026-11-20):
+    // the case payload carries no facts key; pairing lives in the linked draft
+    // detail (stored/derived facts) and in the brand's confirmed facts set.
+    c.__pair = {};
+    if (c.draft_ref) getJ("/agent/inbox/" + encodeURIComponent(c.draft_ref)).then(function (d) {
+      if (d && d.facts) c.__pair.facts = d.facts;
+    }).catch(function () {});
+    var b = window.__bsCurrentBrand;
+    if (b && b.id) getJ("/brands/" + encodeURIComponent(b.id) + "/facts").then(function (d) {
+      var map = {};
+      ((d && d.facts) || []).forEach(function (f) { if (f && f.status === "confirmed" && f.statement) map[f.statement] = f.source_link || ""; });
+      c.__pair.links = map;
+    }).catch(function () {});
+  }
   function renderDetail(c) {
     current = c; P = c.presentation || P;
+    pairSources(c);
     $("bmListCard").hidden = true; $("bmNewCard").hidden = true; $("bmArmed").hidden = true; $("bmError").hidden = true;
     $("bmClaimText").textContent = c.claim_text || "";
     var meta = [classLabel(c.classification), c.retest && c.retest.label, c.status].filter(Boolean);
@@ -6098,7 +6131,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var box = $("inboxList"); box.textContent = "";
     sorted.forEach(function (e) {
       var row = document.createElement("div"); row.className = "tk-row inbox-row"; row.setAttribute("data-draft-id", e.draft_id);
-      row.innerHTML = '<div class="tk-row-top"><span class="tk-t">' + esc(e.purpose_label || PURPOSE[e.template_key] || "Draft") + "</span>" + chipHtml(e.status) + "</div>" +
+      row.innerHTML = '<div class="tk-row-top"><span class="tk-t">' + esc(e.purpose_label || PURPOSE[e.template_id || e.template_key] || "Draft") + "</span>" + chipHtml(e.status) + "</div>" +
         '<div class="tk-s">' + esc(e.brand_name || "") + (e.claim_excerpt ? " \u00B7 " + esc(e.claim_excerpt) : "") + "</div>" +
         '<div class="tk-s">' + esc(fmtDate(e.created_at)) + "</div>";
       row.addEventListener("click", function () { openDetail(e.draft_id); });
@@ -6134,14 +6167,14 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var e = entries.filter(function (x) { return x.draft_id === id; })[0]; if (!e) return;
     current = e; currentBody = "";
     $("inboxListCard").hidden = true; $("inboxEmpty").hidden = true; $("inboxError").hidden = true;
-    $("inboxMeta").textContent = (e.purpose_label || PURPOSE[e.template_key] || "Draft") + " \u00B7 " + (e.brand_name || "") + " \u00B7 " + fmtDate(e.created_at);
+    $("inboxMeta").textContent = (e.purpose_label || PURPOSE[e.template_id || e.template_key] || "Draft") + " \u00B7 " + (e.brand_name || "") + " \u00B7 " + fmtDate(e.created_at);
     var chip = $("inboxChip"); var c = CHIP[e.status || "waiting"] || CHIP.waiting; chip.textContent = c[0]; chip.className = c[1];
     $("inboxMsg").hidden = true;
     $("inboxProv").innerHTML = "";
     var box = $("inboxBodyBox"); box.innerHTML = '<p class="desc">Loading\u2026</p>';
     $("inboxDetailCard").hidden = false;
     getJ("/agent/inbox/" + encodeURIComponent(id)).then(function (d) {
-      currentBody = (d && d.body) || "";
+      currentBody = (d && (d.content || d.body)) || "";
       box.innerHTML = "";
       var body = document.createElement("div"); body.className = "inbox-body"; body.id = "inboxBodyText"; body.textContent = currentBody;
       box.appendChild(body);
