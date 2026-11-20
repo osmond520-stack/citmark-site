@@ -2489,13 +2489,42 @@ document.getElementById("cfgDone").addEventListener("click", () => {
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeRunDrawer(); });
 
+async function resolveRunBrand() {
+  if (window.__bsCurrentBrand && window.__bsCurrentBrand.name) return window.__bsCurrentBrand;
+  try {
+    const r = await fetch("/brands", { credentials: "same-origin" });
+    if (!r.ok) return null;
+    const resp = await r.json();
+    const list = Array.isArray(resp) ? resp : ((resp && resp.brands) || []);
+    if (!list.length) return null;
+    let q = null;
+    try { q = new URLSearchParams(location.search).get("brand"); } catch (e) {}
+    const want = q || (window.__dlState && window.__dlState.brand) || window.__bsCurrentId;
+    if (want) for (let i = 0; i < list.length; i++) if (list[i].id === want) return list[i];
+    return list[0];
+  } catch (e) { return null; }
+}
+function runRowMeta(e) { return ENGINE_META[e] || { short: String(e).slice(0, 3).toUpperCase(), name: String(e) }; }
+
 async function runSnapshot() {
   if (state.running) return;
   state.running = true;
   const btn = document.getElementById("runBtn");
-  btn.disabled = true; btn.textContent = "Running…";
+  btn.disabled = true; btn.textContent = "Running\u2026";
   const errBox = document.getElementById("runErr");
   errBox.className = ""; errBox.textContent = "";
+  let selBrand = null;
+  if (api.mode === "http") {
+    selBrand = await resolveRunBrand();
+    if (!selBrand) {
+      errBox.className = "state-err";
+      errBox.style.marginBottom = "12px";
+      errBox.textContent = "Add a brand before running a snapshot.";
+      state.running = false;
+      btn.disabled = false; btn.textContent = "\u25B6  Run snapshot";
+      return;
+    }
+  }
   document.getElementById("runConfirm").style.display = "none";
   document.getElementById("runConfig").style.display = "none";
   const prog = document.getElementById("runProgress");
@@ -2504,6 +2533,7 @@ async function runSnapshot() {
   prog.style.display = "block";
   fill.style.width = "0%";
 
+  if (api.mode !== "http") {
   const engines = MOCK.snapshot.engines;
   const n = MOCK.snapshot.questions.length;
   rows.innerHTML = engines.map(e => `
@@ -2542,6 +2572,57 @@ async function runSnapshot() {
   } finally {
     state.running = false;
     btn.disabled = false; btn.textContent = "▶  Run snapshot";
+  }
+    return;
+  }
+
+  /* http path: create for the selected brand, read back by the returned
+     run id, and show that run's real engine set in the progress rows. */
+  rows.innerHTML = "";
+  try {
+    const created = await api.createSnapshot({ tier: document.documentElement.dataset.skin || "starter", brand: { name: selBrand.name, domain: selBrand.domain } });
+    const runId = created && (created.snapshot_id || created.id || created.run_id);
+    if (!runId) throw new Error("snapshot failed: no run id returned");
+    const [scoreResp, answers] = await Promise.all([
+      api.getScore(runId), api.getAnswers(runId)]);
+    const score = (scoreResp && scoreResp.score) ? scoreResp.score : scoreResp;
+    const engines = (scoreResp && scoreResp.run && Array.isArray(scoreResp.run.engines)) ? scoreResp.run.engines : [];
+    const n = score && (score.n_valid || score.n);
+    rows.innerHTML = engines.map(e => {
+      const m = runRowMeta(e);
+      return `
+    <div class="run-row" id="rr-${e}">
+      <div class="engine-ico">${m.short}</div>
+      <div class="nm">${m.name}</div>
+      <div class="st"><span class="spin"></span><span>waiting\u2026</span></div>
+    </div>`;
+    }).join("");
+    for (let i = 0; i < engines.length; i++) {
+      const e = engines[i];
+      const row = document.getElementById("rr-" + e);
+      row.querySelector(".st").innerHTML = `<span class="spin"></span><span>running${n ? " " + n + " questions" : ""}\u2026</span>`;
+      await new Promise(r => setTimeout(r, 900 + Math.random() * 700));
+      row.querySelector(".st").innerHTML = `<span class="st-ok">\u2713 done</span>`;
+      fill.style.width = Math.round(((i + 1) / engines.length) * 100) + "%";
+    }
+    state.snapshot = { id: runId, brand: { name: selBrand.name, domain: selBrand.domain }, engines: engines, competitors: [], created_at: new Date().toISOString() };
+    state.score = score; state.answers = answers;
+    renderOverview(); renderScore(); renderReport();
+    state.running = false;
+    closeRunDrawer();
+    go("overview");
+    const done = document.getElementById("ovDone");
+    done.style.display = "block";
+    setTimeout(() => { done.style.display = "none"; }, 4000);
+  } catch (err) {
+    prog.style.display = "none";
+    document.getElementById("runConfirm").style.display = "block";
+    errBox.className = "state-err";
+    errBox.style.marginBottom = "12px";
+    errBox.textContent = "Snapshot failed: " + err.message + ". Please retry.";
+  } finally {
+    state.running = false;
+    btn.disabled = false; btn.textContent = "\u25B6  Run snapshot";
   }
 }
 document.getElementById("runBtn").addEventListener("click", runSnapshot);
