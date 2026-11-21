@@ -130,6 +130,21 @@ a { color: var(--accent-deep); }
 }
 </style>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+.comp-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+.comp-row .comp-name { flex: 1 1 42%; }
+.comp-row .comp-domain { flex: 1 1 42%; }
+.comp-row .comp-remove { flex: 0 0 auto; background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 10px; width: 42px; height: 46px; font-size: 17px; cursor: pointer; }
+.coframe { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; }
+.coframe h3 { font-size: 15px; margin: 0 0 10px; }
+.coframe-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 8px 0; border-top: 1px dashed var(--line); font-size: 14.5px; }
+.coframe-row:first-of-type { border-top: 0; }
+.coframe-name { font-weight: 700; flex: 1 1 auto; }
+.coframe-chip { flex: 0 0 auto; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); }
+.coframe-chip.yes { color: var(--good); border-color: var(--good); }
+.coframe-band { flex: 0 0 auto; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.report-foot { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; font-size: 14.5px; }
+</style>
 </head>
 <body>
 <div class="topbar">
@@ -166,6 +181,12 @@ a { color: var(--accent-deep); }
         placeholder="trailweave.com" maxlength="253" />
       <div class="err" id="errDomain">Please enter a valid domain (e.g. example.com).</div>
     </div>
+    <div class="field" id="compField">
+      <label>Competitors <span>— optional, up to 3. We run the same 3 questions for each and show them next to your score.</span></label>
+      <div id="compRows"></div>
+      <button type="button" id="addCompBtn" style="background:none;border:1px dashed var(--line-strong);color:var(--ink-2);border-radius:10px;padding:9px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;margin-top:2px">+ Add a competitor</button>
+      <div class="err" id="errComp"></div>
+    </div>
     <div class="field">
       <label for="email">Work email <span>— where we send your report</span></label>
       <input id="email" name="email" type="email" autocomplete="email"
@@ -188,6 +209,7 @@ a { color: var(--accent-deep); }
 
     <div class="state ok" id="stateOk"></div>
     <div class="state err" id="stateErr"></div>
+    <div class="state ok" id="stateDropped"></div>
   </form>
 </div>
 
@@ -321,7 +343,9 @@ form.addEventListener("submit", function (ev) {
   ev.preventDefault();
   document.getElementById("stateOk").classList.remove("show");
   document.getElementById("stateErr").classList.remove("show");
+  document.getElementById("stateDropped").classList.remove("show");
   var values = validate();
+  if (values && !validateCompetitors()) return;
   if (!values) return;
   if (!currentToken) {
     var hint = document.getElementById("tsHint");
@@ -334,6 +358,8 @@ form.addEventListener("submit", function (ev) {
   var payload = {
     brand: { name: values.brand, domain: values.domain },
     email: values.email,
+    competitors: collectCompetitors(),
+    via: readVia(),
     turnstile_token: currentToken
   };
   submitBtn.disabled = true;
@@ -361,7 +387,9 @@ form.addEventListener("submit", function (ev) {
   }).then(function (body) {
     if (body && (body.detail === "email_verification_required" || body.status === "email_verification_required")) {
       showGate(values.email, body.verification_sent);
+      showDropped(body.dropped);
       form.reset();
+      clearCompetitorRows();
       return;
     }
     document.getElementById("stateOk").innerHTML =
@@ -369,7 +397,9 @@ form.addEventListener("submit", function (ev) {
       escapeHtml(values.brand) + " — your report is on its way to " +
       escapeHtml(values.email) + ".";
     document.getElementById("stateOk").classList.add("show");
+    showDropped(body && body.dropped);
     form.reset();
+    clearCompetitorRows();
   }).catch(function (err) {
     var detail = ((err && err.detail) || "").toString();
     if (detail === "email_verification_required") {
@@ -643,9 +673,25 @@ function renderReport(body) {
       html += "<div class=\"r-line\">Mentioned in " + sc.hits + " of " + sc.n_valid + " valid answers.</div>";
     }
   }
+  var frame = (body.frame && Array.isArray(body.frame.competitors)) ? body.frame.competitors : [];
+  if (frame.length) {
+    html += "<div class=\"coframe\"><h3>Same check, side by side</h3>";
+    frame.forEach(function (c) {
+      var cs = c.score || {};
+      html += "<div class=\"coframe-row\"><span class=\"coframe-name\">" + escapeHtml(c.name || c.domain || "") + "</span>"
+        + "<span class=\"coframe-chip" + (c.mentioned ? " yes" : "") + "\">" + (c.mentioned ? "Mentioned" : "Not mentioned") + "</span>";
+      if (typeof cs.value === "number" && typeof cs.ci_low === "number" && typeof cs.ci_high === "number") {
+        html += "<span class=\"coframe-band\">" + cs.value.toFixed(1) + " (95% CI " + cs.ci_low.toFixed(1) + "\u2013" + cs.ci_high.toFixed(1) + ")</span>";
+      }
+      html += "</div>";
+    });
+    html += "</div>";
+  }
   if (typeof sc.note === "string" && sc.note) {
     html += "<div class=\"r-note\">" + escapeHtml(sc.note) + "</div>";
   }
+  var via = readVia();
+  html += "<div class=\"report-foot\">Keep tracking " + escapeHtml(brand) + " — <a href=\"/signup/" + (via ? "?via=" + encodeURIComponent(via) : "") + "\">Claim this brand</a></div>";
   el.innerHTML = html;
   panel.hidden = false;
   if (panel.scrollIntoView) { try { panel.scrollIntoView({ block: "center" }); } catch (e) {} }
@@ -684,6 +730,87 @@ function renderReport(body) {
   }
   var stored = landingRead("citmark_resume_handle");
   if (stored) { pollResumeStatus(stored, 48); }
+})();
+
+/* ---- competitors (co-frame, dingxing f77fcf6b; contract frozen 2026-11-21) ---- */
+function readVia() {
+  var q = landingQuery();
+  var v = q ? (q.get("via") || "") : "";
+  return v.trim().slice(0, 64);
+}
+function competitorRows() { return Array.prototype.slice.call(document.querySelectorAll("#compRows .comp-row")); }
+function clearCompetitorRows() { document.getElementById("compRows").innerHTML = ""; syncCompBtn(); }
+function syncCompBtn() {
+  var b = document.getElementById("addCompBtn");
+  if (b) b.style.display = competitorRows().length >= 3 ? "none" : "";
+}
+function checkCompDup() {
+  var seen = {}, dup = false;
+  var own = cleanDomain(document.getElementById("domain").value);
+  if (own) seen[own] = true;
+  competitorRows().forEach(function (row) {
+    var inp = row.querySelector(".comp-domain");
+    var d = cleanDomain(inp.value);
+    inp.classList.toggle("invalid", !!d && !!seen[d]);
+    if (d && seen[d]) dup = true;
+    if (d) seen[d] = true;
+  });
+  var err = document.getElementById("errComp");
+  err.textContent = dup ? "That domain is already in this check — duplicates are not run or counted." : "";
+  err.classList.toggle("show", dup);
+  return !dup;
+}
+function validateCompetitors() {
+  var ok = checkCompDup();
+  competitorRows().forEach(function (row) {
+    var nameInp = row.querySelector(".comp-name");
+    var domInp = row.querySelector(".comp-domain");
+    var name = nameInp.value.trim();
+    var dom = cleanDomain(domInp.value);
+    domInp.value = dom;
+    var badDom = (name.length > 0 || dom.length > 0) && !validDomain(dom);
+    var badName = dom.length > 0 && name.length === 0;
+    if (badDom) { domInp.classList.add("invalid"); ok = false; }
+    if (badName) { nameInp.classList.add("invalid"); ok = false; } else { nameInp.classList.remove("invalid"); }
+  });
+  return ok;
+}
+function collectCompetitors() {
+  var out = [];
+  competitorRows().forEach(function (row) {
+    var name = row.querySelector(".comp-name").value.trim();
+    var dom = cleanDomain(row.querySelector(".comp-domain").value);
+    if (name && dom) out.push({ name: name, domain: dom });
+  });
+  return out.slice(0, 3);
+}
+function showDropped(dropped) {
+  if (!Array.isArray(dropped) || !dropped.length) return;
+  var parts = dropped.map(function (d) {
+    var label = escapeHtml(d.name || d.domain || "");
+    var why = d.reason === "own_domain" ? "same as your domain" : "listed twice";
+    return label + " (" + why + ")";
+  });
+  var el = document.getElementById("stateDropped");
+  el.innerHTML = "<b>Not run:</b> " + parts.join(", ") + " — duplicates are not run or counted.";
+  el.classList.add("show");
+}
+(function initCompetitors() {
+  var addBtn = document.getElementById("addCompBtn");
+  if (!addBtn) return;
+  document.getElementById("domain").addEventListener("input", checkCompDup);
+  addBtn.addEventListener("click", function () {
+    if (competitorRows().length >= 3) return;
+    var div = document.createElement("div");
+    div.className = "comp-row";
+    div.innerHTML = '<input class="comp-name" type="text" placeholder="Competitor name" maxlength="100" />'
+      + '<input class="comp-domain" type="text" inputmode="url" placeholder="competitor.com" maxlength="253" />'
+      + '<button type="button" class="comp-remove" aria-label="Remove competitor">×</button>';
+    div.querySelector(".comp-remove").addEventListener("click", function () { div.remove(); syncCompBtn(); checkCompDup(); });
+    div.querySelector(".comp-domain").addEventListener("input", checkCompDup);
+    document.getElementById("compRows").appendChild(div);
+    syncCompBtn();
+  });
 })();
 
 function escapeHtml(s) {
