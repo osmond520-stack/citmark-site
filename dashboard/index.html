@@ -185,6 +185,9 @@ a.wordmark { color: inherit; text-decoration: none; }
 .run-row .nm { font-weight: 700; font-size: 14.5px; }
 .run-row .st { margin-left: auto; font-size: 13px; color: var(--muted); display: flex;
   align-items: center; gap: 8px; }
+.wait-panel { border: 1px solid var(--line, #e3e1da); border-radius: 12px; padding: 14px 16px; margin-top: 12px; font-size: 14px; background: var(--card, #fff); }
+.wait-panel b { font-weight: 800; }
+.wait-panel .wait-elapsed { margin-top: 6px; font-size: 13.5px; opacity: .85; }
 .spin { width: 16px; height: 16px; border-radius: 50%; flex: none;
   border: 2.5px solid var(--line-strong); border-top-color: var(--skin-accent);
   animation: spin 0.8s linear infinite; }
@@ -2549,6 +2552,7 @@ async function runSnapshot() {
   const fill = document.getElementById("progFill");
   prog.style.display = "block";
   fill.style.width = "0%";
+  window.__runWait = window.__waitStart ? window.__waitStart(prog, "Running your snapshot.", null, rows) : { stop: function () {} };
 
   if (api.mode !== "http") {
   const engines = MOCK.snapshot.engines;
@@ -2572,6 +2576,7 @@ async function runSnapshot() {
     }
     const [score, answers] = await Promise.all([
       api.getScore(MOCK.snapshot.id), api.getAnswers(MOCK.snapshot.id)]);
+    if (window.__runWait) window.__runWait.stop();
     state.snapshot = MOCK.snapshot; state.score = score; state.answers = answers;
     renderOverview(); renderScore(); renderReport();
     state.running = false;
@@ -2602,6 +2607,7 @@ async function runSnapshot() {
     if (!runId) throw new Error("no run id returned");
     const [scoreResp, answers] = await Promise.all([
       api.getScore(runId), api.getAnswers(runId)]);
+    if (window.__runWait) window.__runWait.stop();
     const score = (scoreResp && scoreResp.score) ? scoreResp.score : scoreResp;
     const engines = (scoreResp && scoreResp.run && Array.isArray(scoreResp.run.engines)) ? scoreResp.run.engines : [];
     const n = score && (score.n_valid || score.n);
@@ -4816,10 +4822,12 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
       var v = domIn.value.trim();
       if (!v) return;
       if (isDemoCtx()) { nameIn.value = deriveName(v); return; }
+      var __w = window.__waitStart ? window.__waitStart(nameIn.closest(".field") || nameIn.parentNode, "Looking up a name for this site.", "a few seconds") : { stop: function () {} };
       fetch("/brands/suggest-name", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: v }) })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (j) { if (!nameTouched && !nameIn.value.trim()) nameIn.value = (j && j.name) || deriveName(v); })
-        .catch(function () { if (!nameTouched && !nameIn.value.trim()) nameIn.value = deriveName(v); });
+        .catch(function () { if (!nameTouched && !nameIn.value.trim()) nameIn.value = deriveName(v); })
+        .then(function () { __w.stop(); });
     });
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
@@ -5538,6 +5546,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     var url = urlEl.value.trim();
     if (!url) { urlErr.textContent = "Enter a valid URL."; urlErr.hidden = false; return; }
     btn.disabled = true; btn.textContent = "Running\u2026";
+    var __w = window.__waitStart ? window.__waitStart(document.getElementById("chkRunCard"), "Running your page checkup.", "about a minute") : { stop: function () {} };
     fetch("/toolkit/page-checkup/run", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: url }) }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (data) { return { status: r.status, data: data }; });
     }).then(function (res) {
@@ -5545,7 +5554,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
       if (res.status >= 200 && res.status < 300 && res.data && res.data.id) { renderRun(res.data); loadCheckup(); return; }
       urlErr.textContent = "Couldn't run this checkup. Please try again."; urlErr.hidden = false;
     }).catch(function () { urlErr.textContent = "Couldn't run this checkup. Please try again."; urlErr.hidden = false; })
-      .finally(function () { btn.disabled = false; btn.textContent = "Run checkup"; });
+      .finally(function () { __w.stop(); btn.disabled = false; btn.textContent = "Run checkup"; });
   }
   document.getElementById("impRetry").addEventListener("click", loadImpact);
   document.getElementById("chkRetry").addEventListener("click", loadCheckup);
@@ -5767,6 +5776,18 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   function $(id) { return document.getElementById(id); }
   function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; }
   function brand() { var b = window.__bsCurrentBrand; return b && b.id ? b : null; }
+  window.__waitStart = function (mount, action, eta, beforeEl) {
+    if (!mount) return { stop: function () {} };
+    var old = mount.querySelector(".wait-panel"); if (old) old.remove();
+    var el = document.createElement("div"); el.className = "wait-panel";
+    el.innerHTML = "<b></b>" + (eta ? " This takes " + eta + "." : "") + '<div class="wait-elapsed">Elapsed <span class="wait-clock">0:00</span></div>';
+    el.querySelector("b").textContent = action;
+    if (beforeEl && beforeEl.parentNode === mount) mount.insertBefore(el, beforeEl); else mount.appendChild(el);
+    var clock = el.querySelector(".wait-clock"); var t0 = Date.now(); var stopped = false;
+    function paint() { var sec = Math.max(0, Math.floor((Date.now() - t0) / 1000)); var m = Math.floor(sec / 60), s = sec % 60; clock.textContent = m + ":" + (s < 10 ? "0" : "") + s; }
+    paint(); var iv = setInterval(paint, 1000);
+    return { stop: function () { if (stopped) return; stopped = true; clearInterval(iv); el.remove(); } };
+  };
   function getJ(url) {
     return fetch(url, { credentials: "same-origin" }).then(function (r) {
       if (!r.ok) throw new Error("http " + r.status); return r.json();
@@ -5935,6 +5956,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var url = (urlEl.value || "").trim();
     if (!url) { err.textContent = "Enter a valid URL."; err.hidden = false; return; }
     rb.disabled = true; rb.textContent = "Running…";
+    var __w = window.__waitStart ? window.__waitStart(document.getElementById("rdRunCard"), "Running your readiness check.", "about a minute") : { stop: function () {} };
     postJ("/tools/ai-readiness/runs", { brand_id: b.id, url: url }).then(function (res) {
       if (res.status === 422) { err.textContent = "Enter a valid URL."; err.hidden = false; return; }
       if (res.status === 429) {
@@ -5946,13 +5968,14 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
       if (res.status >= 200 && res.status < 300) { renderRdRun(res.data); loadRd(); return; }
       err.textContent = "Couldn't run this checkup. Please try again."; err.hidden = false;
     }).catch(function () { err.textContent = "Couldn't run this checkup. Please try again."; err.hidden = false; })
-      .finally(function () { rb.disabled = false; rb.textContent = "Run checkup"; });
+      .finally(function () { __w.stop(); rb.disabled = false; rb.textContent = "Run checkup"; });
   });
   var rr = $("rdRetry"); if (rr) rr.addEventListener("click", loadRd);
 
   /* ---------------- p5: llms.txt ---------------- */
   var llmPoll = 0;
   function renderLlm(d) {
+    if (d && d.status !== "generating" && window.__llmWait) window.__llmWait.stop();
     var st = $("llmStatus"), pv = $("llmPreview"), dl = $("llmDl"), btn = $("llmGenBtn");
     $("llmError").hidden = true; $("llmCard").hidden = false;
     if (d.status === "ready") {
@@ -5979,10 +6002,12 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   if (gb) gb.addEventListener("click", function () {
     var b = brand(); if (!b) return;
     gb.disabled = true; llmPoll = 0;
+    if (window.__llmWait) window.__llmWait.stop();
+    window.__llmWait = window.__waitStart ? window.__waitStart(document.getElementById("llmCard"), "Generating your llms.txt.", "about a minute") : { stop: function () {} };
     postJ("/tools/llms-txt/generate", { brand_id: b.id }).then(function (res) {
       if (res.status >= 200 && res.status < 300) loadLlm();
-      else { $("llmStatus").textContent = "Couldn't start generation. Please try again."; }
-    }).catch(function () { $("llmStatus").textContent = "Couldn't start generation. Please try again."; })
+      else { if (window.__llmWait) window.__llmWait.stop(); $("llmStatus").textContent = "Couldn't start generation. Please try again."; }
+    }).catch(function () { if (window.__llmWait) window.__llmWait.stop(); $("llmStatus").textContent = "Couldn't start generation. Please try again."; })
       .finally(function () { gb.disabled = false; });
   });
   var lr = $("llmRetry"); if (lr) lr.addEventListener("click", loadLlm);
@@ -6207,12 +6232,13 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     go2.addEventListener("click", function () {
       var facts = {}; Object.keys(inputs).forEach(function (k) { facts[k] = inputs[k].value.trim(); });
       go2.disabled = true; msg.hidden = true;
+      var __w = window.__waitStart ? window.__waitStart(card, "Writing your draft.", "10 to 60 seconds") : { stop: function () {} };
       postJ("/toolkit/bad-mention/cases/" + encodeURIComponent(current.id) + "/draft", { template_key: tpl, facts: facts }).then(function (res) {
         if (res.status >= 200 && res.status < 300) { msg.textContent = "Draft created — find it in your approval inbox. Nothing is sent from here."; msg.hidden = false;
           if (!document.getElementById("bmInboxBtn")) { var ib = document.createElement("button"); ib.id = "bmInboxBtn"; ib.className = "btn small"; ib.type = "button"; ib.textContent = "View in approval inbox"; ib.addEventListener("click", function () { window.go("inbox"); }); msg.parentNode.insertBefore(ib, msg.nextSibling); } }
         else { msg.textContent = "Couldn't generate the draft." + (res.data && res.data.detail ? " (" + res.data.detail + ")" : ""); msg.hidden = false; }
       }).catch(function () { msg.textContent = "Couldn't generate the draft. Please try again."; msg.hidden = false; })
-        .finally(function () { go2.disabled = false; });
+        .finally(function () { __w.stop(); go2.disabled = false; });
     });
     card.appendChild(go2); box.appendChild(card);
   }
