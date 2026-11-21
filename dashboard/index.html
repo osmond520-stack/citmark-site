@@ -2644,6 +2644,7 @@ async function runSnapshot() {
     errBox.style.marginBottom = "12px";
     errBox.textContent = err.detail || ("Snapshot failed: " + err.message + ". Please retry.");
   } finally {
+    if (window.__runWait) window.__runWait.stop();
     state.running = false;
     btn.disabled = false; btn.textContent = "\u25B6  Run snapshot";
   }
