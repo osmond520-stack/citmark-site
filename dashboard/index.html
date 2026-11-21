@@ -5547,7 +5547,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     var url = urlEl.value.trim();
     if (!url) { urlErr.textContent = "Enter a valid URL."; urlErr.hidden = false; return; }
     btn.disabled = true; btn.textContent = "Running\u2026";
-    var __w = window.__waitStart ? window.__waitStart(document.getElementById("chkRunCard"), "Running your page checkup.", "about a minute") : { stop: function () {} };
+    var __w = window.__waitStart ? window.__waitStart(document.getElementById("chkRunCard"), "Running your page checkup.", "a few seconds") : { stop: function () {} };
     fetch("/toolkit/page-checkup/run", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: url }) }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (data) { return { status: r.status, data: data }; });
     }).then(function (res) {
@@ -5991,7 +5991,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var url = (urlEl.value || "").trim();
     if (!url) { err.textContent = "Enter a valid URL."; err.hidden = false; return; }
     rb.disabled = true; rb.textContent = "Running…";
-    var __w = window.__waitStart ? window.__waitStart(document.getElementById("rdRunCard"), "Running your readiness check.", "about a minute") : { stop: function () {} };
+    var __w = window.__waitStart ? window.__waitStart(document.getElementById("rdRunCard"), "Running your readiness check.", "a few seconds") : { stop: function () {} };
     postJ("/tools/ai-readiness/runs", { brand_id: b.id, url: url }).then(function (res) {
       if (res.status === 422) { err.textContent = "Enter a valid URL."; err.hidden = false; return; }
       if (res.status === 429) {
@@ -6038,7 +6038,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var b = brand(); if (!b) return;
     gb.disabled = true; llmPoll = 0;
     if (window.__llmWait) window.__llmWait.stop();
-    window.__llmWait = window.__waitStart ? window.__waitStart(document.getElementById("llmCard"), "Generating your llms.txt.", "about a minute") : { stop: function () {} };
+    window.__llmWait = window.__waitStart ? window.__waitStart(document.getElementById("llmCard"), "Generating your llms.txt.", "a few seconds") : { stop: function () {} };
     postJ("/tools/llms-txt/generate", { brand_id: b.id }).then(function (res) {
       if (res.status >= 200 && res.status < 300) loadLlm();
       else { if (window.__llmWait) window.__llmWait.stop(); $("llmStatus").textContent = "Couldn't start generation. Please try again."; }
