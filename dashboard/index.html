@@ -1553,7 +1553,8 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div></div>
 <div class="card state-card fail" data-live-layer id="chkError" hidden><div class="state-eyebrow">Page checkup</div><p class="state-title">Couldn't load your checkups.</p><div class="state-actions"><button class="btn" type="button" id="chkRetry">Retry</button></div></div>
 </section>
-<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="winCard" hidden><h3>Citation gaps</h3><div id="winList"></div></div><div class="card" data-live-layer id="winNoneCard" hidden><h3>Cited by neither you nor your rivals</h3><div id="winNoneList"></div></div><div class="card state-card" data-live-layer id="winEmpty" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No snapshot.</p><p class="state-desc">Win citations reads your latest snapshot. Run one to see which sites cite your rivals but not you.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card state-card" data-live-layer id="winZero" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No citation gaps.</p><p class="state-desc">Your latest snapshot found no sources that cite competitors but not you.</p></div><div class="card state-card fail" data-live-layer id="winError" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">Couldn't load your win citations.</p><div class="state-actions"><button class="btn" type="button" id="winRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="winDomHint" hidden><p class="desc" style="margin:0">Some rivals have no domain on file, so domain-based sources can't be matched yet. <button class="btn small" type="button" data-go="brand-edit">Add competitor domains</button></p></div>
+<div class="card" data-live-layer id="winCard" hidden><h3>Citation gaps</h3><div id="winList"></div><p class="desc" id="winDomNote" hidden style="margin:10px 0 0">Domain-based sources join this list once competitor domains are on file.</p></div><div class="card" data-live-layer id="winNoneCard" hidden><h3>Cited by neither you nor your rivals</h3><div id="winNoneList"></div></div><div class="card state-card" data-live-layer id="winEmpty" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No snapshot.</p><p class="state-desc">Win citations reads your latest snapshot. Run one to see which sites cite your rivals but not you.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card state-card" data-live-layer id="winZero" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No citation gaps.</p><p class="state-desc">Your latest snapshot found no sources that cite competitors but not you.</p></div><div class="card state-card fail" data-live-layer id="winError" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">Couldn't load your win citations.</p><div class="state-actions"><button class="btn" type="button" id="winRetry">Retry</button></div></div></section>
 <section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="rdRunCard" hidden><h3>Run a checkup</h3><div class="tk-run"><input id="rdUrl" type="url" inputmode="url" autocomplete="url"><button class="btn" type="button" id="rdRunBtn">Run checkup</button></div><p class="desc" id="rdUrlErr" hidden></p><p class="desc" id="rdCap" hidden></p><p class="desc" id="rdNone" hidden>No checkups yet for this brand.</p></div><div class="card" data-live-layer id="rdResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="rdSummary"></p><div id="rdResults"></div></div><div class="card" data-live-layer id="rdHistoryCard" hidden><h3>History</h3><div id="rdHistory"></div></div><div class="card state-card fail" data-live-layer id="rdError" hidden><div class="state-eyebrow">AI readiness</div><p class="state-title">Couldn't load your readiness data.</p><div class="state-actions"><button class="btn" type="button" id="rdRetry">Retry</button></div></div></section>
 <section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="bmListCard" hidden><h3>Cases</h3><div id="bmList"></div></div><div class="card state-card" data-live-layer id="bmArmed" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title" id="bmArmedText"></p></div><div class="card" data-live-layer id="bmNewCard" hidden><h3>Open a case manually</h3><p class="desc" id="bmNewNote"></p><label class="tk-s" id="bmClaimLabel" for="bmClaim"></label><textarea id="bmClaim" rows="3" style="width:100%"></textarea><label class="tk-s" id="bmWhereLabel" for="bmWhere"></label><input id="bmWhere" type="text" style="width:100%"><p class="desc" id="bmNewErr" hidden></p><div class="state-actions"><button class="btn" type="button" id="bmCreateBtn">Open case</button></div></div><div class="card" data-live-layer id="bmDetailCard" hidden><button class="btn small" type="button" id="bmBackBtn">Back to cases</button><h3 id="bmClaimText"></h3><p class="desc" id="bmMeta"></p><div id="bmBaseline"></div><div id="bmProposal"></div><div id="bmAccurate"></div><div id="bmSteps"></div><div id="bmDraftBox"></div></div><div class="card state-card fail" data-live-layer id="bmError" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title">Couldn't load your cases.</p><div class="state-actions"><button class="btn" type="button" id="bmRetry">Retry</button></div></div></section>
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="llmCard" hidden><h3>Your llms.txt</h3><p class="desc" id="llmStatus">No llms.txt generated.</p><pre id="llmPreview" hidden style="white-space:pre-wrap;word-break:break-word;font-size:12px"></pre><div class="state-actions"><button class="btn" type="button" id="llmGenBtn">Generate llms.txt</button><a class="btn" id="llmDl" href="#" hidden>Download</a></div></div><div class="card state-card fail" data-live-layer id="llmError" hidden><div class="state-eyebrow">llms.txt generator</div><p class="state-title">Couldn't load your llms.txt status.</p><div class="state-actions"><button class="btn" type="button" id="llmRetry">Retry</button></div></div></section>
@@ -1620,6 +1621,13 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <button class="btn brand-save" type="button" id="brandSaveBtn">Save changes</button>
 <button class="btn brand-cancel" type="button" data-go="settings">Cancel</button>
 <span class="brand-save-note" id="brandSaveNote" role="status"></span>
+</div></div>
+<div class="card"><h3>Competitor domains</h3>
+<p class="desc">Win citations matches some sources by domain. Add a rival's domain here and those sources join your gap list; rivals without one are still tracked by name everywhere else.</p>
+<div id="compDomList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<button class="btn brand-save" type="button" id="compDomSaveBtn">Save domains</button>
+<span class="brand-save-note" id="compDomNote" role="status"></span>
 </div></div> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go-facts aria-label="Confirmed facts"><span class="set-link-text"><span class="set-link-label" title="Confirmed facts">Confirmed facts</span></span><span aria-hidden="true">›</span></button> </div></div></section>
 <section class="view" id="view-brands-new"><button class="back-btn" type="button" data-go="overview" aria-label="Back to Overview">← Back to Overview</button>
 <div class="card"><ol class="bn-steps" aria-label="Setup steps"><li class="on" aria-current="step"><span class="bn-n">1</span>Brand</li><li><span class="bn-n">2</span>Questions</li><li><span class="bn-n">3</span>Connections</li><li><span class="bn-n">4</span>First snapshot</li></ol>
@@ -5797,6 +5805,48 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
       (acts ? '<div class="state-actions">' + acts + "</div>" : "");
     return row;
   }
+  /* W-1 prep: competitor domains + win-face hint (tools scope; contract seams marked) */
+  function compListOf(b) { return (b && b.competitors) || []; }
+  function compMapOf(b) { return (b && b.competitor_domains) || {}; }
+  function renderCompDomains() {
+    var box = document.getElementById("compDomList"); if (!box) return;
+    var b = brand(); var list = compListOf(b); var map = compMapOf(b);
+    box.textContent = "";
+    if (!list.length) { box.innerHTML = '<p class="desc">No competitors on this brand yet.</p>'; return; }
+    list.forEach(function (name) {
+      var row = document.createElement("div"); row.className = "row";
+      var f = document.createElement("div"); f.className = "field";
+      var lab = document.createElement("label"); lab.textContent = name;
+      var inp = document.createElement("input"); inp.type = "text";
+      inp.setAttribute("data-comp-domain", name); inp.value = map[name] || ""; inp.placeholder = "rival.com";
+      f.appendChild(lab); f.appendChild(inp); row.appendChild(f); box.appendChild(row);
+    });
+  }
+  function saveCompDomains() {
+    var b = brand(); if (!b) return;
+    var note = document.getElementById("compDomNote"); if (note) note.textContent = "";
+    var domains = {};
+    document.querySelectorAll("[data-comp-domain]").forEach(function (inp) {
+      var v = inp.value.trim(); if (v) domains[inp.getAttribute("data-comp-domain")] = v;
+    });
+    fetch("/brands/" + encodeURIComponent(b.id) + "/competitor-domains", {
+      method: "PUT", credentials: "same-origin", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ domains: domains })
+    }).then(function (r) { if (!r.ok) throw new Error("save failed"); return r.json().catch(function () { return null; }); }).then(function (data) { b.competitor_domains = (data && data.competitor_domains) || domains; if (note) note.textContent = "Saved."; })
+      .catch(function () { if (note) note.textContent = "Couldn't save those domains. Please try again."; });
+  }
+  function winDomainsMissing(b, d) {
+    if (d && typeof d.domains_missing === "boolean") return d.domains_missing;
+    var list = compListOf(b); if (!list.length) return false;
+    var map = compMapOf(b);
+    return list.some(function (n) { return !map[n]; });
+  }
+  function updateWinDomainHint(d) {
+    var missing = winDomainsMissing(brand(), d);
+    var hint = document.getElementById("winDomHint"), note = document.getElementById("winDomNote");
+    if (hint) hint.hidden = !missing;
+    if (note) note.hidden = !missing;
+  }
   function loadWin() {
     var b = brand(); if (!b) return;
     hideWalls("view-tools-p2");
@@ -5806,6 +5856,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
         $("winCard").hidden = true; $("winNoneCard").hidden = true; $("winZero").hidden = true; $("winEmpty").hidden = false; return;
       }
       $("winEmpty").hidden = true;
+      updateWinDomainHint(d);
       var zeroGaps = !(d.opportunities || []).length && !(d.none_layer || []).length;
       $("winZero").hidden = !zeroGaps;
       if (zeroGaps) { $("winCard").hidden = true; $("winNoneCard").hidden = true; return; }
@@ -5834,6 +5885,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     }).catch(function () { btn.disabled = false; });
   });
   var wr = $("winRetry"); if (wr) wr.addEventListener("click", loadWin);
+  var cdsBtn = document.getElementById("compDomSaveBtn"); if (cdsBtn) cdsBtn.addEventListener("click", saveCompDomains);
 
   /* ---------------- p3: ai readiness (brand-keyed) ---------------- */
   var RD_TXT = { pass: "Pass", fail: "Fail", unknown: "Couldn't verify" };
@@ -5941,6 +5993,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var r = prevGo.apply(this, arguments);
     if (document.documentElement.getAttribute("data-state") !== "demo" && location.pathname.indexOf("/dashboard") === 0) {
       if (v === "tools-p2") loadWin();
+      else if (v === "brand-edit") renderCompDomains();
       else if (v === "tools-p3") loadRd();
       else if (v === "tools-p5") loadLlm();
     }
