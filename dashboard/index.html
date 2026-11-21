@@ -2195,7 +2195,12 @@ const api = {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify(req),
       });
-      if (!r.ok) throw new Error("snapshot failed: HTTP " + r.status);
+      if (!r.ok) {
+        let det = null;
+        try { const j = await r.json(); if (j && typeof j.detail === "string") det = j.detail; } catch (e) {}
+        if (det) { const er = new Error(det); er.detail = det; throw er; }
+        throw new Error("HTTP " + r.status);
+      }
       return r.json();
     }
     await this._delay(400);
@@ -2205,7 +2210,7 @@ const api = {
   async getScore(id) {
     if (this.mode === "http") {
       const r = await fetch(this.baseUrl + "/snapshots/" + id);
-      if (!r.ok) throw new Error("score failed: HTTP " + r.status);
+      if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
     }
     await this._delay(300);
@@ -2215,7 +2220,7 @@ const api = {
   async getAnswers(id) {
     if (this.mode === "http") {
       const r = await fetch(this.baseUrl + "/snapshots/" + id + "/answers");
-      if (!r.ok) throw new Error("answers failed: HTTP " + r.status);
+      if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
     }
     await this._delay(300);
@@ -2568,7 +2573,7 @@ async function runSnapshot() {
     document.getElementById("runConfirm").style.display = "block";
     errBox.className = "state-err";
     errBox.style.marginBottom = "12px";
-    errBox.textContent = "Snapshot failed: " + err.message + ". Please retry.";
+    errBox.textContent = err.detail || ("Snapshot failed: " + err.message + ". Please retry.");
   } finally {
     state.running = false;
     btn.disabled = false; btn.textContent = "▶  Run snapshot";
@@ -2582,7 +2587,7 @@ async function runSnapshot() {
   try {
     const created = await api.createSnapshot({ tier: document.documentElement.dataset.skin || "starter", brand: { name: selBrand.name, domain: selBrand.domain } });
     const runId = created && (created.snapshot_id || created.id || created.run_id);
-    if (!runId) throw new Error("snapshot failed: no run id returned");
+    if (!runId) throw new Error("no run id returned");
     const [scoreResp, answers] = await Promise.all([
       api.getScore(runId), api.getAnswers(runId)]);
     const score = (scoreResp && scoreResp.score) ? scoreResp.score : scoreResp;
@@ -2619,7 +2624,7 @@ async function runSnapshot() {
     document.getElementById("runConfirm").style.display = "block";
     errBox.className = "state-err";
     errBox.style.marginBottom = "12px";
-    errBox.textContent = "Snapshot failed: " + err.message + ". Please retry.";
+    errBox.textContent = err.detail || ("Snapshot failed: " + err.message + ". Please retry.");
   } finally {
     state.running = false;
     btn.disabled = false; btn.textContent = "\u25B6  Run snapshot";
