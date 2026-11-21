@@ -210,6 +210,7 @@ a { color: var(--accent-deep); }
     <div class="state ok" id="stateOk"></div>
     <div class="state err" id="stateErr"></div>
     <div class="state ok" id="stateDropped"></div>
+    <div class="state" id="stateWait" style="background:var(--bg-sink);border:1px solid var(--line);color:var(--ink-2)"></div>
   </form>
 </div>
 
@@ -364,6 +365,7 @@ form.addEventListener("submit", function (ev) {
   };
   submitBtn.disabled = true;
   submitBtn.textContent = "Running your snapshot…";
+  showSubmitWait(values);
   fetch(SNAPSHOT_API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -393,9 +395,7 @@ form.addEventListener("submit", function (ev) {
       return;
     }
     document.getElementById("stateOk").innerHTML =
-      "<b>Snapshot requested.</b> We are running the check for " +
-      escapeHtml(values.brand) + " — your report is on its way to " +
-      escapeHtml(values.email) + ".";
+      "<b>Done</b> — your report is on its way to " + escapeHtml(values.email) + ".";
     document.getElementById("stateOk").classList.add("show");
     showDropped(body && body.dropped);
     form.reset();
@@ -423,6 +423,7 @@ form.addEventListener("submit", function (ev) {
     document.getElementById("stateErr").innerHTML = copy;
     document.getElementById("stateErr").classList.add("show");
   }).finally(function () {
+    hideSubmitWait();
     submitBtn.disabled = false;
     submitBtn.textContent = "Get my free snapshot";
     /* Tokens are single-use: refresh after an attempt (best effort). */
@@ -731,6 +732,38 @@ function renderReport(body) {
   var stored = landingRead("citmark_resume_handle");
   if (stored) { pollResumeStatus(stored, 48); }
 })();
+
+/* ---- submit waiting face (PD dingzi 2026-11-21): the direct POST blocks
+   until the run finishes (about a minute per brand); show the eta sentence
+   plus a live elapsed timer for the whole wait, hide it when it settles. */
+var submitWaitTimer = null, submitWaitBase = null;
+function submitElapsedText() {
+  if (!submitWaitBase) return "0:00";
+  var sec = Math.max(0, Math.floor((Date.now() - submitWaitBase) / 1000));
+  var m = Math.floor(sec / 60), s2 = sec % 60;
+  return m + ":" + (s2 < 10 ? "0" : "") + s2;
+}
+function showSubmitWait(values) {
+  var brands = 1 + collectCompetitors().length;
+  var eta = brands === 1 ? "about 1 minute" : "about " + brands + " minutes";
+  var el = document.getElementById("stateWait");
+  el.innerHTML = "<b>Running your snapshot.</b> This takes " + eta +
+    " — you can leave this page; your report will be emailed to " +
+    escapeHtml(values.email) + "." +
+    "<div class=\"wait-elapsed\">Elapsed <span id=\"submitElapsed\">0:00</span></div>";
+  el.classList.add("show");
+  submitWaitBase = Date.now();
+  if (submitWaitTimer) clearInterval(submitWaitTimer);
+  submitWaitTimer = setInterval(function () {
+    var e2 = document.getElementById("submitElapsed");
+    if (e2) e2.textContent = submitElapsedText();
+  }, 1000);
+}
+function hideSubmitWait() {
+  if (submitWaitTimer) { clearInterval(submitWaitTimer); submitWaitTimer = null; }
+  submitWaitBase = null;
+  document.getElementById("stateWait").classList.remove("show");
+}
 
 /* ---- competitors (co-frame, dingxing f77fcf6b; contract frozen 2026-11-21) ---- */
 function readVia() {
