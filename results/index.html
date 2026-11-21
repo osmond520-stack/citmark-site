@@ -438,6 +438,12 @@ button { font: inherit; }
       <span><i style="background:var(--bg-sink);"></i>not mentioned</span>
     </div>
   </div>
+  <div class="card" id="sourcesCard" hidden>
+    <h2>Sources behind this run</h2>
+    <p class="desc">The pages the engines drew on, as returned with the answers themselves, deduplicated for this run.</p>
+    <div id="srcList"></div>
+    <p class="desc" id="srcEmpty" hidden>No sources came back with this run's answers.</p>
+  </div>
   <div class="card">
     <h2>How this snapshot was measured</h2>
     <p class="desc">We asked ChatGPT, Perplexity and Gemini the questions buyers ask in your category, and recorded whether your brand was named. Your score is the share of valid answers that mention your brand, and the band beside it is a 95% Wilson interval at this run's real sample size — a wider band means fewer answers, not a weaker method.</p>
@@ -699,7 +705,8 @@ const MOCK = {
       "title": "One name owns the shelf",
       "body": "The Ordinary is named in <b>8 of 9</b> answers across all three engines; CeraVe follows at 6 of 9. For Good Molecules — ChatGPT 1/3, Perplexity 0/3, Gemini 1/3 — the gap is cross-engine, not one engine's quirk."
     }
-  ]
+  ],
+  "sources": []
 };
 
 /* ---------------- API client: replay adapter (default) ---------------- */
@@ -932,6 +939,29 @@ function trunc(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 renderScore();
 renderReport();
 loadCountdown();
+
+/* ---------------- sources (evidence beat; fail-soft) ---------------- */
+function renderSources(list) {
+  var box = document.getElementById("srcList");
+  var empty = document.getElementById("srcEmpty");
+  if (!list.length) { box.innerHTML = ""; empty.hidden = false; return; }
+  empty.hidden = true;
+  box.innerHTML = list.map(function (s) {
+    return '<div class="kv"><a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener">' + escapeHtml(s.hostname) + '</a><span>' + escapeHtml(s.entity || "") + '</span></div>';
+  }).join("");
+}
+function loadSources() {
+  /* REL #102 form: sources is the report payload's sixth key, returned with the report.
+     Key absent = this run predates the projection -> section stays hidden (never faked).
+     Key present (possibly empty) = render the list or the signed empty line. */
+  var list = null;
+  if (state && Array.isArray(state.sources)) list = state.sources;
+  else if (typeof MOCK !== "undefined" && Array.isArray(MOCK.sources)) list = MOCK.sources;
+  if (!list) return;
+  renderSources(list);
+  document.getElementById("sourcesCard").hidden = false;
+}
+loadSources();
 </script>
 </body>
 </html>
