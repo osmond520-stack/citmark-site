@@ -2552,7 +2552,7 @@ async function runSnapshot() {
   const fill = document.getElementById("progFill");
   prog.style.display = "block";
   fill.style.width = "0%";
-  window.__runWait = window.__waitStart ? window.__waitStart(prog, "Running your snapshot.", null, rows) : { stop: function () {} };
+  window.__runWait = window.__waitStart ? window.__waitStart(prog, "Running your snapshot.", "about 1\u20132 minutes", rows) : { stop: function () {} };
 
   if (api.mode !== "http") {
   const engines = MOCK.snapshot.engines;
