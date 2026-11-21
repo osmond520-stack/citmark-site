@@ -23,6 +23,10 @@ html[data-state="demo"] [data-http-slot]{display:none!important}
 /* Tier/brand labels hold neutral until the identity read lands (no Starter flash). */
 html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #tierBadge,html:not([data-identity="set"]):not([data-state="demo"]) #planName,html:not([data-identity="set"]):not([data-state="demo"]) #wsTier,html:not([data-identity="set"]):not([data-state="demo"]) #idBrandName,html:not([data-identity="set"]):not([data-state="demo"]) #acctMenu .acct-meta>span:last-child{visibility:hidden}
 html[data-state="empty"] [data-empty-slot]{display:block!important}
+.tk-brief{white-space:pre-line;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.55}
+.tk-fix{border-top:1px dashed var(--line);padding:10px 0}
+.tk-fix .tk-ba{font-size:13.5px;color:var(--muted)}
+.tk-fix .tk-ba b{color:var(--ink);font-weight:700}
 </style>
 <title>Dashboard — CitMark</title>
 <meta name="description" content="CitMark dashboard demo: run a visibility snapshot, see your score, read the report." />
@@ -1544,9 +1548,9 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card" data-live-layer id="impSeriesCard" hidden><h3>Score history</h3><div id="impSeries"></div><p class="desc" id="impWithheld" hidden></p></div>
 <div class="card" data-live-layer id="impFeedCard" hidden><h3>This week</h3><div id="impFeed"></div></div>
 <div class="card state-card fail" data-live-layer id="impError" hidden><div class="state-eyebrow">Impact tracker</div><p class="state-title">Couldn't load your impact data.</p><div class="state-actions"><button class="btn" type="button" id="impRetry">Retry</button></div></div></section>
-<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-http-slot id="chkEmpty"><div class="state-eyebrow">Page checkup</div><p class="state-title">No checkup yet.</p><p class="state-desc">Page checkup reads your snapshot data — run your first snapshot to get suggestions.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><p class="tk-errline" id="chkCap" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
-<div class="card" data-live-layer id="chkResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="chkSummary"></p><div id="chkResults"></div></div>
-<div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div><div class="tk-compare"><label>From <select id="chkFrom"></select></label><label>To <select id="chkTo"></select></label><button class="btn small" type="button" id="chkCompareBtn">Compare</button><div id="chkCompareOut"></div></div></div>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-http-slot id="chkEmpty"><div class="state-eyebrow">Page checkup</div><p class="state-title">No checkup yet.</p><p class="state-desc">Page checkup fetches one page and checks it the way AI reads it — whether AI can quote it, how it is structured, and whether its facts are fresh. Run one on any page URL.</p><div class="state-actions"><button class="btn" type="button" id="chkEmptyRun">Run a checkup</button></div></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
+<div class="card" data-live-layer id="chkResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="chkSummary"></p><div id="chkResults"></div><div id="chkFixesWrap" hidden><h3 style="margin-top:16px">Priority fixes</h3><div id="chkFixes"></div></div><div id="chkBriefWrap" hidden><h3 style="margin-top:16px">Fix brief</h3><p class="desc">Hand this brief to whoever edits the page.</p><div class="tk-brief" id="chkBrief"></div><div class="state-actions" style="margin-top:10px"><button class="btn small" type="button" id="chkBriefCopy">Copy brief</button><span class="brand-save-note" id="chkBriefNote" role="status"></span></div></div></div>
+<div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div></div>
 <div class="card state-card fail" data-live-layer id="chkError" hidden><div class="state-eyebrow">Page checkup</div><p class="state-title">Couldn't load your checkups.</p><div class="state-actions"><button class="btn" type="button" id="chkRetry">Retry</button></div></div>
 </section>
 <section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="winCard" hidden><h3>Citation gaps</h3><div id="winList"></div></div><div class="card" data-live-layer id="winNoneCard" hidden><h3>Cited by neither you nor your rivals</h3><div id="winNoneList"></div></div><div class="card state-card" data-live-layer id="winEmpty" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No snapshot.</p><p class="state-desc">Win citations reads your latest snapshot. Run one to see which sites cite your rivals but not you.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card state-card" data-live-layer id="winZero" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No citation gaps.</p><p class="state-desc">Your latest snapshot found no sources that cite competitors but not you.</p></div><div class="card state-card fail" data-live-layer id="winError" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">Couldn't load your win citations.</p><div class="state-actions"><button class="btn" type="button" id="winRetry">Retry</button></div></div></section>
@@ -5466,16 +5470,32 @@ TOOL_INFO.s_team = { name: "Team", q: "",
   function summaryLine(sm) { if (!sm) return ""; return (sm.pass || 0) + " pass · " + (sm.fail || 0) + " fail · " + (sm.unknown || 0) + " couldn't verify"; }
   function renderRun(run) {
     var card = document.getElementById("chkResultsCard");
-    document.getElementById("chkSummary").textContent = summaryLine(run.summary) + (run.home_url ? " · " + run.home_url : "") + (run.created_at ? " · " + fmtDate(run.created_at) : "");
+    document.getElementById("chkSummary").textContent = summaryLine(run.summary) + (run.page_url ? " · " + run.page_url : "") + (run.created_at ? " · " + fmtDate(run.created_at) : "");
     var box = document.getElementById("chkResults"); box.textContent = "";
-    (run.results || []).forEach(function (r) {
+    (run.findings || []).forEach(function (r) {
       var row = el("div", "tk-row");
       if (r.group) row.appendChild(el("div", "tk-s", r.group));
       row.appendChild(el("span", "tk-t", r.title || ""));
       row.appendChild(badge(STATE_TXT[r.status] || "", STATE_CLS[r.status] || "tk-badge-note"));
       if (r.detail) row.appendChild(el("div", "tk-d", r.detail));
+      var ea = r.evidence_anchor || {};
+      if (ea.quote) row.appendChild(el("div", "tk-d", "\u201C" + ea.quote + "\u201D" + (ea.locator ? " — " + ea.locator : "")));
       box.appendChild(row);
     });
+    var fixes = run.fixes || [];
+    var fw = document.getElementById("chkFixesWrap"), fb = document.getElementById("chkFixes");
+    fb.textContent = "";
+    fixes.forEach(function (fx) {
+      var wrap = el("div", "tk-fix");
+      if (fx.instruction) wrap.appendChild(el("div", "tk-t", fx.instruction));
+      if (fx.before) { var b = el("div", "tk-ba"); b.innerHTML = "<b>Before:</b> "; b.appendChild(document.createTextNode(fx.before)); wrap.appendChild(b); }
+      if (fx.after) { var a = el("div", "tk-ba"); a.innerHTML = "<b>After:</b> "; a.appendChild(document.createTextNode(fx.after)); wrap.appendChild(a); }
+      fb.appendChild(wrap);
+    });
+    fw.hidden = !fixes.length;
+    var bw = document.getElementById("chkBriefWrap"), bb = document.getElementById("chkBrief");
+    if (run.brief) { bb.textContent = run.brief; bw.hidden = false; }
+    else { bb.textContent = ""; bw.hidden = true; }
     card.hidden = false;
   }
   function renderHistory(runs) {
@@ -5486,7 +5506,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     if (empty) empty.style.display = "none";
     runs.forEach(function (run) {
       var row = el("div", "tk-row");
-      row.appendChild(el("span", "tk-t", run.home_url || ""));
+      row.appendChild(el("span", "tk-t", run.page_url || ""));
       var bits = [];
       if (run.created_at) bits.push(fmtDate(run.created_at));
       bits.push(summaryLine(run.summary));
@@ -5494,56 +5514,43 @@ TOOL_INFO.s_team = { name: "Team", q: "",
       row.appendChild(el("div", "tk-s", bits.filter(Boolean).join(" · ")));
       box.appendChild(row);
     });
-    var f = document.getElementById("chkFrom"), t = document.getElementById("chkTo");
-    [f, t].forEach(function (sel) { sel.textContent = ""; runs.forEach(function (run) { var o = el("option", null, fmtDate(run.created_at) + " · " + (run.home_url || "")); o.value = run.id; sel.appendChild(o); }); });
-    if (runs.length > 1) { f.value = runs[runs.length - 1].id; t.value = runs[0].id; }
     card.hidden = false;
     renderRun(runs[0]);
   }
   function loadCheckup() {
     var err = document.getElementById("chkError");
-    getJSON("/toolkit/readiness/history?limit=50").then(function (data) {
+    getJSON("/toolkit/page-checkup/history?limit=50").then(function (data) {
       if (err) err.hidden = true;
       renderHistory((data && data.runs) || []);
     }).catch(function () { if (err) err.hidden = false; });
   }
   function runCheckup() {
-    var urlEl = document.getElementById("chkUrl"), urlErr = document.getElementById("chkUrlErr"), cap = document.getElementById("chkCap"), btn = document.getElementById("chkRunBtn");
-    urlErr.hidden = true; cap.hidden = true;
+    var urlEl = document.getElementById("chkUrl"), urlErr = document.getElementById("chkUrlErr"), btn = document.getElementById("chkRunBtn");
+    urlErr.hidden = true;
     var url = urlEl.value.trim();
     if (!url) { urlErr.textContent = "Enter a valid URL."; urlErr.hidden = false; return; }
-    btn.disabled = true; btn.textContent = "Running…";
-    fetch("/toolkit/readiness/run", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: url }) }).then(function (r) {
+    btn.disabled = true; btn.textContent = "Running\u2026";
+    fetch("/toolkit/page-checkup/run", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: url }) }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (data) { return { status: r.status, data: data }; });
     }).then(function (res) {
       if (res.status === 422) { urlErr.textContent = "Enter a valid URL."; urlErr.hidden = false; return; }
-      if (res.status === 429) { var d = res.data || {}; cap.textContent = "This period's checkup limit is reached." + (typeof d.used === "number" && typeof d.cap === "number" ? " " + d.used + " of " + d.cap + " checkups used this period." : ""); cap.hidden = false; return; }
-      if (res.status >= 200 && res.status < 300 && res.data && res.data.run) { renderRun(res.data.run); loadCheckup(); return; }
+      if (res.status >= 200 && res.status < 300 && res.data && res.data.id) { renderRun(res.data); loadCheckup(); return; }
       urlErr.textContent = "Couldn't run this checkup. Please try again."; urlErr.hidden = false;
     }).catch(function () { urlErr.textContent = "Couldn't run this checkup. Please try again."; urlErr.hidden = false; })
       .finally(function () { btn.disabled = false; btn.textContent = "Run checkup"; });
   }
-  var REASONS = { COMPARABLE_SAME_VERSION: "Same checklist version", COMPARABLE_ADDED_ONLY: "New checks added — still comparable", INCOMPARABLE_LINEAGE_BREAK: "Can't compare — the checklist changed.", INCOMPARABLE_REMOVED: "Can't compare — the checklist changed.", INCOMPARABLE_CHANGED: "Can't compare — the checklist changed." };
-  function compare() {
-    var f = document.getElementById("chkFrom").value, t = document.getElementById("chkTo").value, out = document.getElementById("chkCompareOut");
-    out.textContent = "";
-    if (!f || !t || f === t) { out.appendChild(el("p", "desc", "Pick two different checkups to compare.")); return; }
-    getJSON("/toolkit/readiness/compare?from=" + encodeURIComponent(f) + "&to=" + encodeURIComponent(t)).then(function (data) {
-      if (data.reason && REASONS[data.reason]) out.appendChild(el("p", "desc", REASONS[data.reason]));
-      if (data.comparable) {
-        (data.items || []).forEach(function (it) {
-          var row = el("div", "tk-row");
-          row.appendChild(el("span", "tk-t", it.key || ""));
-          row.appendChild(el("div", "tk-s", (STATE_TXT[it.from_state] || it.from_state || "—") + " → " + (STATE_TXT[it.to_state] || it.to_state || "—") + (it.delta ? " · " + it.delta : "")));
-          out.appendChild(row);
-        });
-      }
-    }).catch(function () { out.appendChild(el("p", "desc", "Couldn't compare these checkups. Please try again.")); });
-  }
   document.getElementById("impRetry").addEventListener("click", loadImpact);
   document.getElementById("chkRetry").addEventListener("click", loadCheckup);
   document.getElementById("chkRunBtn").addEventListener("click", runCheckup);
-  document.getElementById("chkCompareBtn").addEventListener("click", compare);
+  var ce = document.getElementById("chkEmptyRun");
+  if (ce) ce.addEventListener("click", function () { var c = document.getElementById("chkRunCard"); if (c) c.scrollIntoView(); var u = document.getElementById("chkUrl"); if (u) u.focus(); });
+  var cb = document.getElementById("chkBriefCopy");
+  if (cb) cb.addEventListener("click", function () {
+    var t = document.getElementById("chkBrief").textContent; var n = document.getElementById("chkBriefNote");
+    if (navigator.clipboard && t) navigator.clipboard.writeText(t).then(function () { if (n) n.textContent = "Copied."; }).catch(function () { if (n) n.textContent = "Copy failed — select the brief text instead."; });
+  });
+  
+  
   if (typeof window.go === "function") {
     var orig = window.go;
     window.go = function (v) {
