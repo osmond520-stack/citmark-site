@@ -5810,6 +5810,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     drafted: [["sent", "Mark sent"], ["archived", "Archive"]],
     sent: [["replied", "Mark replied"], ["archived", "Archive"]],
     replied: [["archived", "Archive"]], archived: [] };
+  var winDraftDone = {};
   function winRow(item) {
     var row = document.createElement("div"); row.className = "tk-row";
     var bits = [];
@@ -5820,10 +5821,15 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var acts = (WIN_ACTIONS[item.tracking_state] || []).map(function (a) {
       return '<button class="btn small" type="button" data-win-act="' + a[0] + '" data-win-domain="' + esc(item.source_domain) + '">' + a[1] + "</button>";
     }).join(" ");
+    if (item.tracking_state === "new") {
+      var db = '<button class="btn small" type="button" data-win-draft="' + esc(item.source_domain) + '">Draft outreach</button>';
+      acts = acts ? db + " " + acts : db;
+    }
     row.innerHTML = '<div class="tk-row-top"><span class="tk-t">' + esc(item.source_domain) + '</span>' +
       '<span class="tk-badge-note">' + esc(WIN_LABEL[item.tracking_state] || item.tracking_state || "New") + "</span></div>" +
       (bits.length ? '<div class="tk-s">' + esc(bits.join(" · ")) + "</div>" : "") +
-      (acts ? '<div class="state-actions">' + acts + "</div>" : "");
+      (acts ? '<div class="state-actions">' + acts + "</div>" : "") +
+      (winDraftDone[item.source_domain] ? '<div class="tk-s">A draft is waiting in your approval inbox. Nothing is sent from here.</div>' : "");
     return row;
   }
   /* W-1 prep: competitor domains + win-face hint (tools scope; contract seams marked) */
@@ -5872,6 +5878,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     var b = brand(); if (!b) return;
     hideWalls("view-tools-p2");
     getJ("/tools/win-citations?brand_id=" + encodeURIComponent(b.id)).then(function (d) {
+      window.__winData = d;
       $("winError").hidden = true;
       if (d.reason === "no_snapshots" || !d.run_id) {
         $("winCard").hidden = true; $("winNoneCard").hidden = true; $("winZero").hidden = true; $("winEmpty").hidden = false; return;
@@ -5895,6 +5902,33 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
     });
   }
   document.addEventListener("click", function (e) {
+    var dbtn = e.target.closest("[data-win-draft]");
+    if (dbtn) {
+      var dDomain = dbtn.getAttribute("data-win-draft");
+      var dRow = dbtn.closest(".tk-row"); if (!dRow) return;
+      var prevErr = dRow.querySelector(".win-draft-err"); if (prevErr) prevErr.remove();
+      dbtn.disabled = true;
+      var dw = window.__waitStart ? window.__waitStart(dRow, "Writing your outreach draft.", "10 to 60 seconds") : { stop: function () {} };
+      var dFail = function (msg) {
+        dw.stop(); dbtn.disabled = false;
+        var err = document.createElement("div"); err.className = "tk-s win-draft-err"; err.textContent = msg;
+        dRow.appendChild(err);
+      };
+      postJ("/toolkit/win-citations/draft", { source_domain: dDomain }).then(function (res) {
+        if (res.status === 200 && res.data) {
+          dw.stop();
+          winDraftDone[dDomain] = 1;
+          var items = (window.__winData && window.__winData.opportunities) || [];
+          for (var i = 0; i < items.length; i++) if (items[i].source_domain === dDomain) {
+            items[i].tracking_state = res.data.track_status || "drafted";
+            dRow.replaceWith(winRow(items[i])); break;
+          }
+        } else {
+          dFail((res.data && res.data.detail) || "Couldn\u2019t write the draft. Please try again.");
+        }
+      }).catch(function () { dFail("Couldn\u2019t write the draft. Please try again."); });
+      return;
+    }
     var btn = e.target.closest("[data-win-act]"); if (!btn) return;
     var b = brand(); if (!b) return;
     var body = { brand_id: b.id, source_domain: btn.getAttribute("data-win-domain"), target_state: btn.getAttribute("data-win-act") };
