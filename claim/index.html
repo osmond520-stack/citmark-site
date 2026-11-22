@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<title>Claim your account &middot; CitMark</title>
+<link rel="canonical" href="https://citmark.com/claim/" />
+<style>
+  :root { --bg: #f4f4f1; --ink: #141519; --ink-2: #3c3f45; --muted: #6d7076; --accent: #e8490f; --accent-deep: #c93a08; --line: #e3e1da; --warn: #b3261e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", sans-serif; font-size: 15px; line-height: 1.55; }
+  .wordmark-row { max-width: 1080px; margin: 0 auto; padding: 18px 20px 6px; }
+  .wordmark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 21px; color: var(--ink); text-decoration: none; }
+  .wordmark .dot { color: var(--accent); }
+  .claim-main { display: flex; justify-content: center; padding: 26px 16px 64px; }
+  .claim-card { width: 100%; max-width: 430px; background: rgba(255, 255, 255, .88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 18px 50px rgba(20, 21, 25, .10); padding: 28px 26px 22px; }
+  .claim-title { font-size: 21px; font-weight: 700; line-height: 1.25; margin: 0 0 6px; }
+  .claim-intro { color: var(--ink-2); margin: 0 0 18px; }
+  .claim-field { margin: 0 0 14px; }
+  .claim-field label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 6px; }
+  .claim-field input { width: 100%; height: 48px; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 14px; font: inherit; background: #fff; color: var(--ink); }
+  .claim-field input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .field-err { display: none; color: var(--warn); font-size: 13px; margin: 6px 0 0; }
+  .field-err.show { display: block; }
+  .claim-msg { display: none; color: var(--warn); font-size: 13.5px; margin: 4px 0 12px; }
+  .claim-msg.show { display: block; }
+  .btn-main { display: block; width: 100%; height: 48px; border: 0; border-radius: 999px; background: var(--accent); color: #fff; font: inherit; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; line-height: 48px; }
+  .btn-main:hover { background: var(--accent-deep); }
+  .btn-sub { display: block; width: 100%; height: 48px; border: 1.5px solid var(--ink-2); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+  .claim-foot { margin: 18px 0 0; text-align: center; color: var(--muted); font-size: 13.5px; }
+  .claim-foot a { color: var(--accent-deep); font-weight: 600; text-decoration: none; }
+  .claim-state { display: none; }
+  .claim-card.mode-form .state-form, .claim-card.mode-expired .state-expired, .claim-card.mode-success .state-success { display: block; }
+  .claim-card.mode-success .claim-foot, .claim-card.mode-expired .claim-foot { display: none; }
+  .state-success p { color: var(--ink-2); margin: 0 0 18px; }
+  .resend-note { display: none; color: var(--ink-2); font-size: 13.5px; margin: 12px 0 0; }
+  .resend-note.show { display: block; }
+</style>
+</head>
+<body>
+  <div class="wordmark-row"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></div>
+  <main class="claim-main">
+    <div class="claim-card" id="claimCard">
+      <h2 class="claim-title" id="claimTitle">Claim your account</h2>
+
+      <div class="claim-state state-form">
+        <p class="claim-intro">Set a password for your CitMark account &mdash; from now on you'll sign in with your email and this password.</p>
+        <form id="claimForm" novalidate>
+          <div class="claim-field">
+            <label for="claimPw">New password</label>
+            <input type="password" id="claimPw" autocomplete="new-password">
+            <p class="field-err" id="claimPwErr"></p>
+          </div>
+          <div class="claim-field">
+            <label for="claimPw2">Confirm password</label>
+            <input type="password" id="claimPw2" autocomplete="new-password">
+            <p class="field-err" id="claimPw2Err">Passwords don't match.</p>
+          </div>
+          <p class="claim-msg" id="claimMsg" role="alert"></p>
+          <button type="submit" class="btn-main" id="claimSubmit">Set your password</button>
+        </form>
+      </div>
+
+      <div class="claim-state state-expired">
+        <p class="claim-intro">This link has expired or has already been used.</p>
+        <form id="claimResendForm" novalidate>
+          <div class="claim-field">
+            <label for="claimEmail">Email</label>
+            <input type="email" id="claimEmail" autocomplete="email">
+            <p class="field-err" id="claimEmailErr">Enter a valid email address.</p>
+          </div>
+          <button type="submit" class="btn-sub" id="claimResendBtn">Email me a new link</button>
+          <p class="resend-note" id="claimResendNote"></p>
+        </form>
+      </div>
+
+      <div class="claim-state state-success">
+        <p>Your password is set &mdash; this account is yours.</p>
+        <a class="btn-main" href="/?auth=login">Sign in</a>
+      </div>
+
+      <p class="claim-foot">Already set your password? <a href="/?auth=login">Log in</a></p>
+    </div>
+  </main>
+<script>
+(function () {
+  var API = "https://citmark.com";
+  /* Password rule (claim 定格 87980001, nailed 2026-11-22): at least 10
+     characters with a letter and a number — the site-wide rule. The inline
+     line reuses the register flow's signed phrasing of the same rule. */
+  var CLAIM_PW_MIN = 10;
+  var card = document.getElementById("claimCard");
+  var title = document.getElementById("claimTitle");
+  var token = "";
+  try { token = new URLSearchParams(window.location.search).get("token") || ""; } catch (e) {}
+  function setState(name) {
+    card.classList.remove("mode-form", "mode-expired", "mode-success");
+    card.classList.add("mode-" + name);
+    if (name === "expired") title.textContent = "This link doesn't work";
+  }
+  function showMsg(text) {
+    var m = document.getElementById("claimMsg");
+    m.textContent = text || "";
+    m.classList.toggle("show", !!text);
+  }
+  if (!token) { setState("expired"); }
+  else {
+    fetch(API + "/auth/claim/introspect", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: token }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) { setState(d && d.valid ? "form" : "expired"); })
+      .catch(function () { setState("expired"); });
+  }
+  var form = document.getElementById("claimForm");
+  var busy = false;
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (busy) return;
+    var pw = document.getElementById("claimPw").value;
+    var pw2 = document.getElementById("claimPw2").value;
+    var pwErr = document.getElementById("claimPwErr");
+    var pw2Err = document.getElementById("claimPw2Err");
+    pwErr.classList.remove("show"); pw2Err.classList.remove("show"); showMsg("");
+    if (pw.length < CLAIM_PW_MIN || !/[a-zA-Z]/.test(pw) || !/[0-9]/.test(pw)) {
+      pwErr.textContent = "Choose a password — at least 10 characters, with a letter and a number.";
+      pwErr.classList.add("show"); return;
+    }
+    if (pw !== pw2) { pw2Err.classList.add("show"); return; }
+    busy = true;
+    fetch(API + "/auth/claim", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: token, password: pw }) })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (d) {
+          busy = false;
+          if (r.ok) { setState("success"); return; }
+          if (r.status === 400 && d && d.detail === "claim_token_invalid") { setState("expired"); return; }
+          showMsg((d && d.detail) || "Something went wrong. Please try again.");
+        });
+      })
+      .catch(function () { busy = false; showMsg("Something went wrong. Please try again."); });
+  });
+  var resendForm = document.getElementById("claimResendForm");
+  resendForm.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var email = document.getElementById("claimEmail").value.trim();
+    var eErr = document.getElementById("claimEmailErr");
+    var ok = /.+@.+\..+/.test(email);
+    eErr.classList.toggle("show", !ok);
+    if (!ok) return;
+    fetch(API + "/auth/claim/resend", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email }) })
+      .catch(function () {})
+      .then(function () {
+        /* Anti-enumeration: the confirmation shows the same way whether or
+           not the email matches an account (endpoint answers 200 either way).
+           Copy below is face-drafted, pending PD sign-off. */
+        var note = document.getElementById("claimResendNote");
+        note.textContent = "Check your inbox — if an account is waiting for this email, a new link is on its way.";
+        note.classList.add("show");
+      });
+  });
+})();
+</script>
+</body>
+</html>
