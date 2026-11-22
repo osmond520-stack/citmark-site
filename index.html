@@ -3702,13 +3702,14 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
 (function(){
 var btn=document.getElementById('prodBtn'),panel=document.getElementById('navMega');
 if(!btn||!panel)return;
-var fine=window.matchMedia('(pointer:fine)').matches,pinned=false;
-function set(open){panel.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');if(!open)pinned=false;}
-btn.addEventListener('click',function(e){e.stopPropagation();if(fine){if(panel.hidden){set(true);pinned=true;}else if(pinned){set(false);}else{pinned=true;}}else{set(panel.hidden);}});
+var fine=window.matchMedia('(pointer:fine)').matches;
+var closeTimer=null;
+function set(open){if(open&&closeTimer){clearTimeout(closeTimer);closeTimer=null;}panel.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');}
+btn.addEventListener('click',function(e){e.stopPropagation();if(fine){if(panel.hidden)set(true);}else{set(panel.hidden);}});
 document.addEventListener('click',function(e){if(!panel.hidden&&!panel.contains(e.target))set(false);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
 var wrap=btn.parentElement;
-if(fine){wrap.addEventListener('mouseenter',function(){set(true);});wrap.addEventListener('mouseleave',function(){if(!pinned)set(false);});}
+if(fine){var scheduleClose=function(){if(closeTimer)clearTimeout(closeTimer);closeTimer=setTimeout(function(){closeTimer=null;set(false);},350);};wrap.addEventListener('mouseenter',function(){set(true);});wrap.addEventListener('mouseleave',scheduleClose);panel.addEventListener('mouseenter',function(){if(closeTimer){clearTimeout(closeTimer);closeTimer=null;}});panel.addEventListener('mouseleave',scheduleClose);}
 panel.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
 })();
 </script>
