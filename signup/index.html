@@ -795,7 +795,7 @@ body { margin: 0; background: var(--bg); color: var(--ink);
 .su-split { max-width: 1240px; margin: 0 auto; padding: 12px 28px 56px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
 .su-value { padding: 40px 8px 0; display: flex; flex-direction: column; justify-content: space-between; }
-.su-value h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800;
+.su-value h1 { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800;
   font-size: 31px; line-height: 1.25; letter-spacing: -.01em; margin: 0 0 30px; max-width: 24em; }
 .su-ev { display: grid; gap: 0; }
 .su-ev p { margin: 0; padding: 18px 0; border-top: 1px solid var(--line);
@@ -852,6 +852,35 @@ html { scrollbar-gutter: stable; }
 </style>
 <link rel="canonical" href="https://citmark.com/signup/" />
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+<style id="signup-wall-yi">
+/* SIGNUP WALL (2026-11-22): register mode = Google primary + email-only to checkout;
+   the password is set from the post-payment email. Login / reset / pending unchanged. */
+#authCard.mode-register .pw-field, #authCard.mode-register .cf-field,
+#authCard.mode-register .cf-field + .field-err, #authCard.mode-register .auth-card-forgot-row { display: none !important; }
+#authCard.mode-register .auth-card-oauth-row { display: block; margin: 2px 0 0; }
+#authCard.mode-register #authCardGoogleBtn { width: 100%; height: 48px; font-size: 15.5px; border: 1.5px solid var(--ink-2); }
+.email-intro { display: none; font-size: 13.5px; line-height: 19px; color: var(--ink-2); margin: 10px 0 12px; text-align: left; }
+#authCard.mode-register .email-intro { display: block; }
+</style>
+<style>
+.auth-card-neutraldone { display: none; text-align: center; }
+#authCard.mode-neutraldone .auth-card-neutraldone { display: block; }
+.auth-card-neutraldone p { font-size: 15px; line-height: 1.55; color: var(--ink-2); margin: 0; }
+#authCard.mode-neutraldone form, #authCard.mode-neutraldone .auth-card-oauth-row,
+#authCard.mode-neutraldone .auth-card-divider, #authCard.mode-neutraldone .auth-card-foot { display: none !important; }
+</style>
+<style id="type-fix-b4">
+/* TYPE-FIX BATCH 4 merged into the signup-wall line (2026-11-22, spec \u00a711.1/11.6):
+   PD-signed H1 + Jakarta normalization above; mobile trims below pull the
+   form above the 390 fold and hold the H1 to two lines. */
+@media (max-width: 1023px) {
+  .su-value h1 { font-size: 20px; line-height: 1.2; margin-bottom: 20px; }
+  .su-ev p { padding: 12px 0; }
+  .su-split { padding-left: 16px; padding-right: 16px; }
+  .su-value { padding-left: 0; padding-right: 0; }
+  .su-card-side { padding-top: 4px; }
+}
+</style>
 </head>
 <body>
 <header class="su-top">
@@ -864,31 +893,25 @@ html { scrollbar-gutter: stable; }
 </header>
 <main class="su-split">
   <section class="su-value">
-    <h1>For small brands already paying for traffic: CitMark measures your AI visibility from real answers you can audit, question by question &mdash; at a starter price small brands can pay.</h1>
-    <div class="su-ev">
-      <p><strong>Real answers, real scores.</strong> Every score is counted from recorded AI answers you can audit &mdash; the sample on our homepage shows a full run, including our own 0 out of 21 answers.</p>
-      <p><strong>Start free.</strong> No card required to create an account; paid plans start at $25/mo.</p>
-      <p><strong>Three engines to five.</strong> Starter watches ChatGPT, Perplexity and Gemini; Growth the same three; Pro adds DeepSeek, Teams adds Mistral.</p>
-    </div>
+    
+    
   </section>
   <section class="su-card-side">
 <div class="auth-card" id="authCard" role="dialog" aria-modal="true" aria-label="Log in">
         <div class="auth-card-top-row">
           <p class="auth-card-logo"><span class="wordmark">CitMark<span class="dot">.</span></span></p>
         </div>
-                <div class="auth-card-reset-head">
+        <div class="auth-card-oauth-row">
+        <button class="btn-capsule" type="button" id="authCardGoogleBtn" aria-disabled="false"><svg width="20" height="20" viewBox="0 0 48 48" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
+        </div>
+        <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
+        <div class="auth-card-reset-head">
           <h3>Reset your password</h3>
           <p>Enter the email you signed up with. If an account exists for it, we'll email you a reset link.</p>
         </div>
         <form id="authCardLoginForm" novalidate>
-        <div class="auth-card-names">
-          <div class="capsule-field">
-            <label class="sr-only" for="authCardFullName">Full name</label>
-            <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            <input type="text" id="authCardFullName" name="full_name" autocomplete="name" placeholder="Full name" required>
-          </div>
-          
-        </div>
+          <p class="email-intro">Or sign up with email — no password to create now.</p>
+        
           <div class="capsule-field">
             <label class="sr-only" for="authCardLoginEmail">Email</label>
             <span class="capsule-chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3.5 6.8 12 12.8 20.5 6.8"/></svg></span>
@@ -925,7 +948,12 @@ html { scrollbar-gutter: stable; }
           <p class="auth-card-pending-msg" id="authCardPendingMsg" role="status" hidden></p>
           <p class="pending-actions"><button type="button" class="pending-link-btn" id="authCardPendingBack">Use a different email</button></p>
         </div>
+        
+        <div class="auth-card-neutraldone" id="authCardNeutralDone">
+          <p>You're all set &mdash; if this email has anything waiting, we've sent a link to continue. Check your inbox.</p>
+        </div>
         <p class="auth-card-foot"><span id="authCardFootText">New to CitMark?</span> <a href="#" id="authCardModeToggle">Sign up</a></p>
+        
       </div>
   </section>
 </main>
@@ -938,7 +966,6 @@ html { scrollbar-gutter: stable; }
   var form = document.getElementById("authCardLoginForm");
   var emailInput = document.getElementById("authCardLoginEmail");
   var pwInput = document.getElementById("authCardLoginPassword");
-  var fnInput = document.getElementById("authCardFullName");
   
   var submitBtn = document.getElementById("authCardLoginSubmit");
   var submitTxt = submitBtn ? submitBtn.querySelector(".sb-txt") : null;
@@ -995,15 +1022,16 @@ html { scrollbar-gutter: stable; }
   }
   function setMode(next) {
     mode = next; resetMode = false;
+    if (next === "register") cmTrack("signup_view");
     card.classList.toggle("mode-register", next === "register");
     card.classList.toggle("mode-pending", next === "pending");
     card.classList.remove("mode-reset");
-    if (submitBtn) submitBtn.setAttribute("aria-label", mode === "register" ? "Create account" : "Log in");
-    if (submitTxt) submitTxt.textContent = mode === "register" ? "Create account" : "Log in";
+    if (submitBtn) submitBtn.setAttribute("aria-label", mode === "register" ? "Continue to checkout" : "Log in");
+    if (submitTxt) submitTxt.textContent = mode === "register" ? "Continue to checkout" : "Log in";
     if (footText) footText.textContent = mode === "register" ? "Already have an account?" : "New to CitMark?";
     if (toggle) toggle.textContent = mode === "register" ? "Log in" : "Sign up";
     if (pwInput) pwInput.setAttribute("autocomplete", mode === "register" ? "new-password" : "current-password");
-    if (mode === "register") showMsg("At least 10 characters, with a letter and a number.", false);
+    if (mode === "register") showMsg("After payment, we'll email you a link to set your password and claim your account.", false);
     else showMsg("", false);
   }
   function setResetMode(on) {
@@ -1078,10 +1106,71 @@ html { scrollbar-gutter: stable; }
     pwInput.setAttribute("type", show ? "text" : "password");
     eyeBtn.setAttribute("aria-pressed", show ? "true" : "false");
   });
+  /* Funnel analytics hook points (2026-11-22): the four signup-funnel events
+     fire here; the analytics transport binds via window.__cmTrackHandler or
+     dataLayer when it ships. No transport is bundled in this face. */
+  function cmTrack(name) {
+    try {
+      if (typeof window.__cmTrackHandler === "function") window.__cmTrackHandler(name);
+      if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name });
+    } catch (e) {}
+  }
+  cmTrack("signup_view");
+  /* REL #109 (real contract, TD 2026-11-22): POST /auth/email-start {email}
+     answers { ok: true, email } to everyone; new / pending signups also carry
+     a checkout grant in the response (field name checkout_grant, confirmed). With a grant, POST /billing/checkout with the
+     grant and follow checkout_url. Without one (paid_unclaimed / credentialed
+     / google_linked), the face must NOT enter checkout: it shows the neutral
+     completion state below, whose copy is pending PD sign-off (cell empty). */
+  var EMAIL_START_URL = "https://citmark.com/auth/email-start";
+  var BILLING_CHECKOUT_URL = "https://citmark.com/billing/checkout";
+  function checkoutFail(data) {
+    busy = false;
+    if (submitBtn) submitBtn.removeAttribute("aria-disabled");
+    showMsg((data && data.detail) || "Couldn't start checkout. Please try again.", true);
+  }
+  function showNeutralDone() {
+    busy = false;
+    if (submitBtn) submitBtn.removeAttribute("aria-disabled");
+    /* Neutral completion state (no-grant branch): copy pending PD sign-off;
+       this cell stays empty until the signed copy lands. */
+    card.classList.add("mode-neutraldone");
+    showMsg("", false);
+  }
+  function startCheckout(email) {
+    busy = true;
+    if (submitBtn) submitBtn.setAttribute("aria-disabled", "true");
+    showMsg("", false);
+    var body = { email: email };
+    if (window.__citmarkTier) body.tier = window.__citmarkTier;
+    fetch(EMAIL_START_URL, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (resp) {
+        return resp.json().catch(function () { return {}; }).then(function (data) {
+          if (!resp.ok) { checkoutFail(data); return; }
+          var grant = data && data.checkout_grant;
+          if (!grant) { showNeutralDone(); return; }
+          cmTrack("checkout_start");
+          /* Step 2 (confirmed contract): tier/period echo the email-start
+             response's effective values; success_url matches the live
+             checkout flow. Grant errors (400 invalid / 400 mismatch /
+             409 used / 401 switch off) surface their detail verbatim. */
+          var step2 = { tier: data.tier, period: data.period, success_url: "https://citmark.com/success", checkout_grant: grant };
+          fetch(BILLING_CHECKOUT_URL, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify(step2) })
+            .then(function (resp2) {
+              return resp2.json().catch(function () { return {}; }).then(function (data2) {
+                if (resp2.ok && data2 && data2.checkout_url) { window.location.href = data2.checkout_url; return; }
+                checkoutFail(data2);
+              });
+            })
+            .catch(function () { checkoutFail(null); });
+        });
+      })
+      .catch(function () { checkoutFail(null); });
+  }
   function gatedNav(url) {
     window.location.href = url;
   }
-  if (googleBtn) googleBtn.addEventListener("click", function () { gatedNav("https://citmark.com/auth/google/login"); });
+  if (googleBtn) googleBtn.addEventListener("click", function () { if (mode === "register") cmTrack("google_click"); gatedNav("https://citmark.com/auth/google/login"); });
   if (shopifyBtn) shopifyBtn.addEventListener("click", function () { gatedNav("https://citmark.com/auth/shopify/login?intent=login"); });
 
   if (form) form.addEventListener("submit", function (ev) {
@@ -1103,13 +1192,12 @@ html { scrollbar-gutter: stable; }
         .then(function () { busy = false; });
       return;
     }
-    var fullName = "";
     if (mode === "register") {
-      fullName = fnInput ? fnInput.value.trim() : "";
-      
-      if (!fullName) { showMsg("Enter your full name.", true); return; }
-      if (!cfInp || !cfInp.value || cfBad()) { showCf(true); return; }
-      
+      /* Email-first: no password at signup; checkout starts here and the
+         password is set from the post-payment email (REL #109). */
+      cmTrack("email_submit");
+      startCheckout(email);
+      return;
     }
     var password = pwInput ? pwInput.value : "";
     if (!email || email.indexOf("@") < 0) { showMsg("Enter a valid email address.", true); return; }
@@ -1121,7 +1209,6 @@ html { scrollbar-gutter: stable; }
     var tier = window.__citmarkTier || null;
     var payload = { email: email, password: password };
     if (mode === "register" && tier) payload.tier = tier;
-    if (mode === "register") { payload.full_name = fullName;  }
     fetch(url, { method: "POST", credentials: "include",
       headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(function (resp) {
