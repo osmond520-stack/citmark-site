@@ -7,6 +7,16 @@
 - [CitMark home](https://citmark.com/): What CitMark measures, a sample report from real brand data, and how the monitoring works.
 - [Pricing](https://citmark.com/pricing/): Plans and prices — Starter, Growth, Pro and Teams — with a full feature comparison.
 
+## Key pages in Markdown
+
+Plain-text Markdown versions of the key pages, for tools that read Markdown directly:
+
+- [Pricing (Markdown)](https://citmark.com/pricing.md): Plans and prices — Starter, Growth, Pro and Teams — in Markdown.
+- [Product (Markdown)](https://citmark.com/product.md): The Measure–Diagnose–Draft loop and the tools in it, in Markdown.
+- [Compare (Markdown)](https://citmark.com/compare.md): CitMark comparisons with the concessions in writing, in Markdown.
+- [CitMark vs Otterly (Markdown)](https://citmark.com/compare/otterly.md): The Otterly comparison table, concessions included, in Markdown.
+- [CitMark vs Profound (Markdown)](https://citmark.com/compare/profound.md): The Profound comparison table, concessions included, in Markdown.
+
 ## How it works
 
 - [Methodology](https://citmark.com/methodology/): Exactly how the visibility score is calculated — the questions asked, the engines covered, and how mentions and citations are counted. No black box.
