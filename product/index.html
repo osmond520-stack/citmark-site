@@ -1112,6 +1112,31 @@ tr.sr-dots{display:none}
 @media (max-width:900px){.p-hero{grid-template-columns:1fr}.steps,.tiers,.method-grid{grid-template-columns:1fr}}
 @media (max-width:560px){.sample-table{font-size:12.5px}.sample-table th,.sample-table td{padding:7px 6px}.modtable th,.modtable td{padding:12px 12px}}
 </style>
+
+<style id="hdr-fix-860">
+/* Repair wave 2026-11-23: header-shell containment for the 721-900 band.
+   The desktop topbar (wordmark + five-link nav + fixed 332px session slot) needs ~900px and
+   overflows tablets; extend the existing <=720px header package (nav folds into the mobile
+   menu, session slot 65px, hamburger shown) up to 900px (this shell's desktop header measures 873/885px wide, so its fit point sits above the homepage's 860px). Rules copied verbatim from that package. */
+@media (max-width:900px){
+.topnav{display:none}
+.topbar .btn{margin-left:auto}
+.topbar-in .topbar-login{display:none}
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;margin-left:10px;padding:0;background:transparent;color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer}
+.nav-toggle-bars{display:block;width:20px}
+.nav-toggle-bars span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .25s ease}
+.nav-toggle-bars span+span{margin-top:5px}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg-raise);border-bottom:1px solid var(--line-strong);box-shadow:var(--shadow);padding:8px 24px 20px;visibility:hidden;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
+.mobile-menu.open{visibility:visible;opacity:1;transform:none;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
+.mobile-menu nav a{display:flex;align-items:center;min-height:48px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;border-bottom:1px solid var(--line)}
+.mobile-menu nav a:active{color:var(--accent-deep)}
+.mobile-menu .btn{width:100%;margin:14px 0 0;min-height:48px}
+.sess-slot{width:65px;margin-left:auto}
+}
+</style>
 </head>
 <body class="session-ready">
 <header class="topbar">
@@ -1146,46 +1171,46 @@ tr.sr-dots{display:none}
       <p class="sec-kicker">PRODUCT</p>
       <h1>Measure. Diagnose. Draft.</h1>
       <p class="p-sub">CitMark measures how AI engines answer about your brand, diagnoses what's keeping you out, and drafts the corrections — from your confirmed facts, straight into your approval inbox.</p>
+<p class="loop-band">Measure &#8594; Diagnose &#8594; Draft &#8594; re-measures</p>
       <div class="p-cta-row">
         <a class="btn" href="/signup/">Create your free account</a>
         <a href="/#report">See the sample report</a>
       </div>
     </div>
-    <div class="chain" role="img" aria-label="The Measure, Diagnose, Draft loop: measure, diagnose, draft, then the next run re-measures.">
-      <div class="chain-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21v-7"/><path d="M11 21V5"/><path d="M16 21v-10"/><path d="M21 21V8"/></svg></span><div><b class="lab">MEASURE</b><p>Your score, run over run</p></div></div>
-      <div class="chain-arrow" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 1v17"/><path d="M3 13l6 6 6-6"/></svg></div>
-      <div class="chain-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7"/><path d="M21 21l-5.2-5.2"/></svg></span><div><b class="lab">DIAGNOSE</b><p>Gaps and wrong facts, pinpointed</p></div></div>
-      <div class="chain-arrow" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 1v17"/><path d="M3 13l6 6 6-6"/></svg></div>
-      <div class="chain-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14h6"/><path d="M9 17.5h4"/></svg></span><div><b class="lab">DRAFT</b><p>Corrections drafted, ready for your review</p></div></div>
-      <div class="chain-loop"><b>Draft &#8594; Measure:</b> the next run re-measures</div>
-    </div>
+    <aside class="loop-col">
+<p class="loop-eyebrow">THE LOOP</p>
+<div class="loop-row"><span class="loop-name">Measure</span><span class="loop-sub">Your score, run over run</span></div>
+<div class="loop-row"><span class="loop-name">Diagnose</span><span class="loop-sub">Gaps and wrong facts, pinpointed</span></div>
+<div class="loop-row"><span class="loop-name">Draft</span><span class="loop-sub">Corrections drafted, ready for your review</span></div>
+<p class="loop-note">Draft &#8594; Measure: the next run re-measures</p>
+</aside>
   </div>
 </section>
 
 <section id="how">
   <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">THE LOOP</p><h2>One loop, three steps</h2></div>
+    <div class="sec-head reveal"><h2>One loop, three steps</h2></div>
     <div class="steps">
       <div class="step reveal" id="measure">
         <span class="verb">MEASURE</span>
         <h3>A score you can re-check</h3>
         <p>The same buyer questions, put to every engine on your plan, with every answer recorded. Run it again and the change is measured, not guessed.</p>
         <ul><li>Visibility score with a 95% Wilson band</li><li>Mention rate per engine</li><li>Run-over-run change</li></ul>
-        <div class="vis"><div class="row"><span>Visibility score</span><b>22.2</b></div><div class="row"><span>Good Molecules</span><span>95% CI 6.3–54.7</span></div><div class="row"><span>Sample run</span><span>Nov 13, 2026</span></div></div>
+        <div class="vis"><div class="row"><span>Visibility score</span><span class="lead" aria-hidden="true"></span><b>22.2</b></div><div class="row"><span>Good Molecules</span><span class="lead" aria-hidden="true"></span><span>95% CI 6.3–54.7</span></div><div class="row"><span>Sample run</span><span class="lead" aria-hidden="true"></span><span>Nov 13, 2026</span></div></div>
       </div>
       <div class="step reveal" id="diagnose">
         <span class="verb">DIAGNOSE</span>
         <h3>What's keeping you out — and why</h3>
         <p>Every answer is read for who got cited instead of you, what's stated about you that's wrong, and whether AI can read your pages at all.</p>
         <ul><li>Citation gaps: sources citing rivals, not you</li><li>Wrong facts, found and classified</li><li>Readiness issues on your key pages</li></ul>
-        <div class="vis"><div class="row"><span class="tag">CITATION GAP</span><span>A guide cites 4 rivals, not you</span></div><div class="row"><span class="tag">FACTUAL ERROR</span><span>A claim your facts contradict</span></div><div class="row"><span class="tag">READINESS</span><span>A key page AI can't parse</span></div></div>
+        <div class="vis"><div class="row"><span class="tag">CITATION GAP</span><span class="lead" aria-hidden="true"></span><span>A guide cites 4 rivals, not you</span></div><div class="row"><span class="tag">FACTUAL ERROR</span><span class="lead" aria-hidden="true"></span><span>A claim your facts contradict</span></div><div class="row"><span class="tag">READINESS</span><span class="lead" aria-hidden="true"></span><span>A key page AI can't parse</span></div></div>
       </div>
       <div class="step reveal" id="draft">
         <span class="verb">DRAFT</span>
         <h3>Corrections drafted. Nothing sent.</h3>
         <p>For each wrong fact, CitMark drafts the correction and files it in your approval inbox. <span class="sig">Written from your confirmed facts</span> — and <span class="sig">Nothing is sent from here.</span></p>
         <ul><li>Correction drafts in your approval inbox</li><li>Your facts — the only source a draft may use</li></ul>
-        <div class="vis"><div class="row"><span>Draft filed</span><span class="tag">APPROVAL INBOX</span></div><div class="row"><span>Status</span><span>Waiting for your review</span></div></div>
+        <div class="vis"><div class="row"><span>Draft filed</span><span class="lead" aria-hidden="true"></span><span class="tag">APPROVAL INBOX</span></div><div class="row"><span>Status</span><span class="lead" aria-hidden="true"></span><span>Waiting for your review</span></div></div>
       </div>
     </div>
     <p class="trust reveal">Drafts wait in your approval inbox. You review, you send — CitMark never publishes or contacts a source for you.</p>
@@ -1231,7 +1256,7 @@ tr.sr-dots{display:none}
 
 <section>
   <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">PLANS</p><h2>Every plan runs the full Measure–Diagnose–Draft loop</h2></div>
+    <div class="sec-head wide reveal"><p class="sec-kicker">PLANS</p><h2>Every plan runs the full Measure–Diagnose–<span style="white-space:nowrap">Draft loop</span></h2></div>
     <div class="tiers reveal">
       <div class="tier"><h3>Starter</h3><p>The loop, from your first snapshot.</p></div>
       <div class="tier"><h3>Growth</h3><p>The loop, across more of your market.</p></div>
@@ -1351,5 +1376,33 @@ tr.sr-dots{display:none}
   });
 })();
 </script>
+<style id="product-rd">
+.loop-col{display:none}
+h1,h2{text-wrap:balance}
+.sec-head.wide{max-width:none}
+.loop-band{display:none}
+@media (min-width:1024px){
+ .p-hero{grid-template-columns:minmax(0,1fr) 318px;gap:52px;align-items:stretch}
+ .loop-col{display:flex;flex-direction:column;padding:6px 0 0 8px}
+}
+.p-hero h1{font-size:clamp(34px,4.6vw,54px)}
+.loop-eyebrow{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 12px}
+.loop-row{padding:13px 0;border-bottom:1px solid var(--line)}
+.loop-name{display:block;font-weight:600;font-size:15px;line-height:1.45}
+.loop-sub{display:block;font-size:15px;line-height:1.5;margin-top:2px}
+.loop-note{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:11.5px;color:var(--muted);margin:auto 0 0;padding-top:12px}
+@media (max-width:1023.5px){
+ .loop-band{display:block;font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:11.5px;letter-spacing:.06em;color:var(--muted);margin:14px 0 0}
+}
+.steps{display:block}
+.step{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:28px 0;display:block}
+.step p{font-size:17px;line-height:1.6;color:var(--ink);max-width:760px}
+.step ul{font-size:17px;line-height:1.6;max-width:760px}
+.step .vis{background:transparent;border-radius:0;padding:0;margin-top:18px;max-width:760px;font-size:15px}
+.step .vis .row{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:none}
+.step .vis .row .lead{flex:1;border-bottom:2px dotted var(--line-strong);min-width:24px}
+.trust{background:transparent;border:none;border-radius:0;padding:0;color:var(--muted)}
+.method-grid .mcard{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:20px 0 0}
+</style>
 </body>
 </html>
