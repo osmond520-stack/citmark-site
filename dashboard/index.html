@@ -1579,7 +1579,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
+      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro+</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
 <div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_negative" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
 <div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_changes" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
 </div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
@@ -3130,17 +3130,26 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
   var PLAN_PRICES = { starter: '$25/mo for the first 12 months, then $35/mo', growth: '$49/mo for the first 12 months, then $70/mo', pro: '$129/mo for the first 12 months, then $169/mo', teams: '$199/mo for the first 12 months, then $300/mo' };
   var TIERS = { starter: 0, growth: 1, pro: 2, teams: 3 };
   function syncGating(skin) {
-    var multi = skin !== 'starter';
+    var multi = skin === 'growth' || skin === 'pro' || skin === 'teams';
     var dev = skin === 'pro' || skin === 'teams';
     document.querySelectorAll('.cond-team').forEach(function (el) { el.style.display = multi ? '' : 'none'; });
     document.querySelectorAll('.cond-dev').forEach(function (el) { el.style.display = dev ? '' : 'none'; });
-    document.querySelectorAll('.gate-team').forEach(function (el) { el.style.display = skin === 'starter' ? '' : 'none'; });
-    document.querySelectorAll('.gate-hide-team').forEach(function (el) { el.style.display = skin === 'starter' ? 'none' : ''; });
+    document.querySelectorAll('.gate-team').forEach(function (el) { el.style.display = multi ? 'none' : ''; });
+    document.querySelectorAll('.gate-hide-team').forEach(function (el) { el.style.display = multi ? '' : 'none'; });
     document.querySelectorAll('.gate-dev').forEach(function (el) { el.style.display = dev ? 'none' : ''; });
     document.querySelectorAll('.gate-hide-dev').forEach(function (el) { el.style.display = dev ? '' : 'none'; });
     document.querySelectorAll('.cond-non-teams').forEach(function (el) { el.style.display = skin === 'teams' ? 'none' : ''; });
     document.querySelectorAll('.cond-upgrade').forEach(function (el) { el.style.display = skin === 'teams' ? 'none' : ''; });
     document.querySelectorAll('.cond-downgrade').forEach(function (el) { el.style.display = skin === 'starter' ? 'none' : ''; });
+    var gtH = document.querySelector('.gate-team h3');
+    var gtD = document.querySelector('.gate-team .desc');
+    if (skin === 'noplan') {
+      if (gtH) gtH.textContent = 'Invite teammates on Growth';
+      if (gtD) gtD.textContent = 'Growth includes 3 seats, Pro 10.';
+    } else {
+      if (gtH) gtH.textContent = 'Team is available on Growth and above';
+      if (gtD) gtD.textContent = 'Starter includes 1 seat. Upgrade to invite members and manage roles.';
+    }
     var curIdx = (skin in TIERS) ? TIERS[skin] : -1;
     document.querySelectorAll('.up-row').forEach(function (el) { el.style.display = curIdx < TIERS[el.dataset.tier] ? '' : 'none'; });
     var upEmpty = document.getElementById('upEmpty');
@@ -3768,7 +3777,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     var tierKey = me.tier ? String(me.tier).toLowerCase() : null;
     if (!NAMES[tierKey]) tierKey = null;
     window.__p1.tier = tierKey;
-    document.documentElement.dataset.skin = tierKey || 'starter';
+    document.documentElement.dataset.skin = tierKey || 'noplan';
     document.documentElement.setAttribute('data-identity', 'set');
     var nameEl = document.querySelector('#acctMenu .acct-name');
     if (nameEl && me.email) nameEl.textContent = me.email;
@@ -3790,7 +3799,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
         bEl.style.removeProperty('border');
       }
     });
-    if (typeof window.syncGating === 'function') window.syncGating(tierKey);
+    if (typeof window.syncGating === 'function') window.syncGating(tierKey || 'noplan');
     applyPlanState(state);
   }
   window.__p1ApplyMe = applyMe;
@@ -4753,7 +4762,9 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     var atCap = (brands || []).length >= cap;
     addBtn.hidden = atCap;
     upgBtn.hidden = !atCap;
-    if (atCap) upgBtn.innerHTML = '<span>' + esc(tierLabel()) + " includes " + cap + (cap === 1 ? " brand" : " brands") + '.</span><span class="bs-upg-link">Upgrade</span>';
+    if (atCap) upgBtn.innerHTML = tierKey() === 'noplan'
+      ? '<span>No plan yet.</span><span class="bs-upg-link">Upgrade</span>'
+      : '<span>' + esc(tierLabel()) + " includes " + cap + (cap === 1 ? " brand" : " brands") + '.</span><span class="bs-upg-link">Upgrade</span>';
     window.__bsLoaded = true;
   }
   function openMenu() { if (failed || !brands) return; render(); menu.hidden = false; head.setAttribute("aria-expanded", "true"); }
