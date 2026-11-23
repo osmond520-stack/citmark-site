@@ -1291,99 +1291,238 @@ body{background:var(--bg);color:var(--ink)}
 .sec-head .sec-kicker,section .sec-kicker{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--or-ink)}
 .sec-kicker::before{content:"4 "}
 </style>
+<style id="guides-article">
+/* guides article bundle — package citmark.css extracts (type roles, sections, hero, rows, contrast, cards, split, faq, §22) */
+.display{font-size:var(--t-display);line-height:1.02;letter-spacing:-.045em;font-weight:800}
+.display .serif{font-size:1.12em;line-height:.9;letter-spacing:-.02em}
+.h2{font-size:var(--t-h2);line-height:1.04;letter-spacing:-.042em;font-weight:800}
+.h2 .serif{font-size:1.1em;letter-spacing:-.015em}
+.h3{font-size:var(--t-h3);line-height:1.1;letter-spacing:-.035em;font-weight:800}
+.h4{font-size:var(--t-h4);line-height:1.25;letter-spacing:-.02em;font-weight:700}
+.lead{font-size:var(--t-lead);line-height:1.6;color:var(--ink-2)} .lead b{color:var(--ink);font-weight:650}
+.body{color:var(--ink-2)}
+.small{font-size:var(--t-small);color:var(--ink-3)}
+
+/* mono label: section eyebrows + data labels only. Never paragraphs. */
+.label{font-family:var(--f-mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:500}
+.label.ink{color:var(--ink-3)}
+.band-dark .label,.final .label{color:var(--or-2)}
+.link{font-weight:650;border-bottom:1.5px solid var(--or);padding-bottom:1px}
+.sec{padding:var(--s10) 0}
+.sec.tight{padding:var(--s9) 0}
+.sec.paper{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rule-top{border-top:2px solid var(--ink)}
+.hero{display:grid;grid-template-columns:540px 1fr;gap:40px;align-items:center;min-height:calc(900px - var(--nav-h));padding-bottom:var(--s6)}
+.hero .label{display:block;margin-bottom:var(--s5)}
+
+.rows{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:120px 1fr 360px;gap:var(--s5);align-items:center;padding:26px 0;border-bottom:1px solid var(--ink)}
+.row:last-child{border-bottom:2px solid var(--ink)}
+.row .n{font-family:var(--f-num);font-weight:800;font-size:64px;line-height:1;letter-spacing:-.06em}
+.row .t{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.row .d{font-size:16px;color:var(--ink-2);margin-top:6px}
+.row .x{font-family:var(--f-mono);font-size:13px;letter-spacing:.04em;color:var(--ink-3);text-align:right;text-transform:uppercase}
+.row.wide{grid-template-columns:120px 300px 1fr}.row.wide .d{font-size:18px;margin:0}
+.row .x s{text-decoration-color:var(--or);text-decoration-thickness:2px}
+
+.contrast{display:grid;grid-template-columns:200px 1fr 1fr;border-top:2px solid var(--ink)}
+.contrast>div{padding:22px 0;border-bottom:1px solid var(--ink);font-size:16px}
+.contrast .hd{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.contrast .us{font-weight:650;color:var(--ink)} .contrast .them{color:var(--ink-3)}
+.contrast .ax{font-weight:700}
+.statement{font-size:84px;line-height:.98;letter-spacing:-.05em;font-weight:800}
+.statement .serif{color:var(--or);font-size:1.1em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+
+.card{background:#fff;border:2px solid var(--ink);padding:28px 30px}
+.card.feature{box-shadow:var(--shadow-or)}      /* max ONE feature card per viewport */
+.card.quiet{background:var(--paper);border:1px solid var(--line)}
+.ticket .hd{display:flex;justify-content:space-between;gap:12px}
+.ticket .tg{display:inline-block;margin-top:14px;background:var(--ink);color:#fff;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;padding:5px 9px}
+.ticket .l{margin-top:16px;font-size:16px;line-height:1.5}
+.ticket .l .label{display:block;margin-bottom:4px;font-size:11px}
+.ticket .l s{color:var(--ink-3);text-decoration-color:var(--or);text-decoration-thickness:2px}
+.ticket .dr{background:#F6F2EA;padding:12px 14px;border-left:4px solid var(--or)}
+.ticket .st{display:flex;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:2px dashed #DDD6C8;font-size:14px;font-weight:650}.ticket .st b{color:var(--or-ink)}
+
+.split{display:grid;grid-template-columns:1fr 560px;gap:80px;align-items:center}
+.split.rev{grid-template-columns:560px 1fr}
+.bullets{list-style:none;margin-top:var(--s5);border-top:1px solid var(--line)}
+.bullets li{padding:12px 0 12px 26px;border-bottom:1px solid var(--line);position:relative;font-size:16px;color:var(--ink)}
+.bullets li:before{content:"";position:absolute;left:2px;top:20px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--or)}
+
+.faq{border-top:2px solid var(--ink)}
+.faq .q{display:grid;grid-template-columns:1fr 32px;gap:var(--s5);padding:24px 0;border-bottom:1px solid var(--ink)}
+.faq .q h4{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.faq .q p{font-size:16px;color:var(--ink-2);margin-top:10px;max-width:760px}
+.faq .q .pm{font-family:var(--f-mono);font-size:22px;text-align:right;line-height:1.2}
+.faq-grid{display:grid;grid-template-columns:380px 1fr;gap:var(--s8)}
+
+/* ---------- 22. Guides article ---------- */
+/* Body column is ~720 × 18/1.6. Kickers always use .label with the "— " prefix.
+   One CTA only: .final (no mid-page callout, no end-of-article snapshot links). */
+.nowrap{white-space:nowrap}
+.guide-loop{padding:8px 4px 32px}
+.hero.guide{align-items:start;min-height:0;padding-top:28px;padding-bottom:var(--s7);gap:48px}
+.hero.guide .copy .display{max-width:14ch}
+.hero.guide .display .paren{display:block;font-size:.58em;letter-spacing:-.035em;line-height:1.08;font-weight:800;margin-top:.14em}
+.hero.guide .lead{max-width:none;margin-top:var(--s6)}
+.guide-visual{display:grid;grid-template-columns:168px 1fr;gap:22px;align-items:stretch;width:100%;max-width:620px;justify-self:end;margin-top:8px}
+.guide-rank{border-top:2px solid var(--ink);padding-top:16px}
+.guide-rank ol{list-style:none;margin-top:14px}
+.guide-rank li{font-size:13px;color:var(--ink-3);padding:11px 0;border-bottom:1px solid var(--line);letter-spacing:-.01em;display:flex;justify-content:space-between;gap:8px}
+.guide-rank li b{font-weight:500;color:var(--ink-2)}
+.guide-rank li i{font-family:var(--f-mono);font-style:normal;font-size:10.5px;letter-spacing:.08em;color:var(--mute)}
+.guide-rank li.pg2{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.guide-answer{padding:28px 28px 24px}
+.guide-answer .ans{font-size:19px;line-height:1.45;letter-spacing:-.02em;font-weight:650;margin-top:14px;color:var(--ink)}
+.cite-track{margin-top:24px;border-top:1.5px solid var(--ink);padding-top:16px}
+.cite-bar{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:center;margin-top:10px}
+.cite-bar .nm{font-size:13px;font-weight:650;letter-spacing:-.01em}
+.cite-bar .track{height:10px;background:var(--line);position:relative}
+.cite-bar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+.cite-bar .pos{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.cite-bar.you .nm{color:var(--or)}
+.cite-bar.you .track{background:transparent;box-shadow:inset 0 0 0 1.5px var(--or);background-image:repeating-linear-gradient(90deg,var(--or) 0 6px,transparent 6px 12px);background-size:12px 2px;background-repeat:repeat-x;background-position:0 50%;height:10px}
+.cite-bar.you .pos{color:var(--or-ink)}
+.guide-visual .cap{margin-top:14px;font-size:13px;color:var(--ink-3);line-height:1.45}
+
+.guide-col{max-width:720px}
+.guide-col p,.guide-col li{font-size:18px;line-height:1.6;color:var(--ink-2)}
+.guide-col p + p{margin-top:18px}
+.guide-col p b{color:var(--ink);font-weight:650}
+.guide-col .h2{margin-top:14px}
+.guide-kicker{display:block}
+
+.guide-stats{display:grid;grid-template-columns:1.35fr .82fr .82fr;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin-top:var(--s8)}
+.guide-stats .mob-row{display:contents}
+.guide-stats .st{padding:36px 32px 32px 0}
+.guide-stats .st:not(.main){border-left:1.5px solid var(--ink);padding-left:32px}
+.guide-stats .n{font-family:var(--f-num);font-weight:800;letter-spacing:-.06em;line-height:.85;font-size:72px;display:inline-flex;align-items:baseline}
+.guide-stats .st.main .n{font-size:112px;color:var(--or)}
+.guide-stats .u{font-family:var(--f-mono);font-size:18px;font-weight:500;letter-spacing:0;color:var(--ink-3);margin-left:6px;line-height:1}
+.guide-stats .st.main .u{font-size:22px;color:var(--or-ink)}
+.guide-stats .lb{margin-top:14px;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.guide-stats .cap{margin-top:18px;grid-column:1/-1;padding:16px 0 4px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-3);line-height:1.5}
+
+.guide-pull{font-size:36px;font-weight:800;letter-spacing:-.035em;line-height:1.15;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:28px 0;max-width:720px;color:var(--ink);margin:8px 0 28px}
+.guide-facts{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink);margin-top:8px;max-width:720px}
+.guide-facts p{padding:22px 28px 22px 0;font-size:18px;line-height:1.5;color:var(--ink);font-weight:650}
+.guide-facts p + p{border-left:2px solid var(--ink);padding-left:28px;padding-right:0}
+
+.dissent{border-top:2px solid var(--ink);margin-top:var(--s6)}
+.dissent .it{display:grid;grid-template-columns:72px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--ink);align-items:start}
+.dissent .it:last-child{border-bottom:2px solid var(--ink)}
+.dissent .n{font-family:var(--f-num);font-weight:800;font-size:36px;letter-spacing:-.05em;line-height:1;color:var(--ink)}
+.dissent p{font-size:18px;line-height:1.6;color:var(--ink-2)}
+.dissent p b{color:var(--ink);font-weight:650}
+
+.guide-article .faq .q p{font-size:17px;line-height:1.6}
+.guide-article .faq .q:not(.open) p{display:none}
+
+.final .sub{max-width:540px;margin:20px auto 0;font-size:18px;line-height:1.5;color:var(--on-dark-2)}
+.final .cta{margin:28px auto 0;display:flex;justify-content:center}
+.final .btn.lg{box-shadow:5px 5px 0 var(--or-2)}
+.final .fine.long{max-width:560px;margin-left:auto;margin-right:auto;line-height:1.55}
+
+@media (max-width:600px){
+  .hero.guide{padding-top:12px;padding-bottom:40px}
+  .hero.guide .copy .display{max-width:none}
+  .guide-visual{display:block;max-width:none;margin-top:36px}
+  .guide-answer{padding:22px 18px 18px}
+  .guide-answer .ans{font-size:17px}
+  .cite-bar{grid-template-columns:1fr auto;gap:6px 10px}
+  .cite-bar .track{grid-column:1/-1;order:3}
+  .guide-col p,.guide-col li,.dissent p{font-size:17px}
+  .guide-stats{display:block;margin-top:var(--s6)}
+  .guide-stats .st{padding:24px 0;border-left:none!important;padding-left:0!important}
+  .guide-stats .st.main{border-bottom:1.5px solid var(--ink)}
+  .guide-stats .n{font-size:56px}
+  .guide-stats .st.main .n{font-size:84px}
+  .guide-stats .mob-row{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .guide-stats .mob-row .st + .st{border-left:1.5px solid var(--ink)!important;padding-left:20px!important}
+  .guide-pull{font-size:26px;padding:20px 0}
+  .guide-facts{display:block}
+  .guide-facts p + p{border-left:none;padding-left:0;border-top:2px solid var(--ink)}
+  .dissent .it{grid-template-columns:48px 1fr;gap:12px;padding:20px 0}
+  .dissent .n{font-size:28px}
+  .final h2 .nowrap{white-space:nowrap}
+  .final .sub{font-size:16px;padding:0 8px}
+  .guide-article .contrast{column-gap:16px}
+  .guide-article .contrast>div{overflow-wrap:break-word;line-height:1.4}
+}
+.row .x s{color:var(--ink-3)}
+.tool{border-top:2px solid var(--ink);padding:40px 0 8px}.tool:first-child{border-top:none;padding-top:0}.row.wide .t{font-size:21px}.guide-rank li b{font-weight:650}
+</style>
 </head>
 <body class="session-ready">
 <header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
 <nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
-<main id="top">
-<section style="padding-top:44px">
-  <div class="wrap">
-    <p class="sec-kicker">GUIDES</p>
-    <h1>The <span class="it">best</span> AI visibility tools</h1>
-    <p class="p-sub">Six tools that track whether AI engines mention your brand, checked against the same criteria on the same day. We make one of them — so our entry lists our shortcomings in the same format as everyone else's.</p>
-    <div class="p-cta-row">
-      <a class="btn" href="/free-snapshot/">Get my free snapshot</a>
-      <a href="/compare/">Compare CitMark head to head</a>
-    </div>
-  </div>
+<main id="top"><article class="guide-article">
+<section class="wrap hero sub guide">
+ <div class="copy">
+  <span class="label">— Guides</span>
+  <h1 class="display">The <span class="serif">best</span> AI visibility tools</h1>
+  <p class="lead">Six tools that track whether AI engines mention your brand, checked against the same criteria on the same day. We make one of them — so our entry lists our shortcomings in the same format as everyone else's.</p>
+  <p style="margin-top:20px"><a class="link" href="/compare/">Compare CitMark head to head</a></p>
+ </div>
+ <div class="guide-visual"><div class="guide-rank m-hide"><span class="label ink">— The criteria</span><ol><li><b>Engine coverage.</b><i>1</i></li><li><b>Auditable per question.</b><i>2</i></li><li><b>From measurement to a draft.</b><i>3</i></li><li><b>Quota and pricing transparency.</b><i>4</i></li><li><b>Entry price.</b><i>5</i></li></ol></div><div><div class="card feature guide-answer"><span class="label">— One list, one yardstick</span><p class="ans">Six tools that track whether AI engines mention your brand — our own entry lists our shortcomings in the same format as everyone else's.</p></div><p class="cap">Facts on this page checked November 23, 2026 against each tool's public pages. Illustrative layout — not a scan, no scores.</p></div></div>
 </section>
-<section>
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">THE CRITERIA, FIRST</p><h2>How this list was judged</h2></div>
-    <div class="reveal">
-      <p>Five criteria, published before the list, with no numeric weights — the weights depend on your situation, which is why the picking section at the end gives different answers for different needs:</p>
-      <p><b>Engine coverage.</b> How many AI engines the tool actually tracks on the plans you can buy.</p>
-      <p><b>Auditable per question.</b> Whether you can see the individual questions and answers behind a score, or only the score.</p>
-      <p><b>From measurement to a draft.</b> Whether the tool stops at showing you the problem, or carries the work through to a correction you can send.</p>
-      <p><b>Quota and pricing transparency.</b> Whether the unit you are charged in — credits, responses, points — is published, and what it buys.</p>
-      <p><b>Entry price.</b> The cheapest way in, at the prices published on the day this page was checked.</p>
-      <p>Facts on this page checked November 23, 2026 against each tool's public pages.</p>
-    </div>
+
+<section class="sec paper">
+ <div class="wrap">
+  <div class="guide-col" style="margin-bottom:var(--s7)">
+   <span class="label guide-kicker">— The criteria, first</span>
+   <h2 class="h2">How this list was judged</h2>
+   <p style="margin-top:28px">Five criteria, published before the list, with no numeric weights — the weights depend on your situation, which is why the picking section at the end gives different answers for different needs:</p>
   </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><h2>Otterly</h2></div>
-    <div class="reveal">
+  <div class="rows"><div class="row wide"><span class="n">01</span><div class="t">Engine coverage.</div><div class="d">How many AI engines the tool actually tracks on the plans you can buy.</div></div><div class="row wide"><span class="n">02</span><div class="t">Auditable per question.</div><div class="d">Whether you can see the individual questions and answers behind a score, or only the score.</div></div><div class="row wide"><span class="n">03</span><div class="t">From measurement to a draft.</div><div class="d">Whether the tool stops at showing you the problem, or carries the work through to a correction you can send.</div></div><div class="row wide"><span class="n">04</span><div class="t">Quota and pricing transparency.</div><div class="d">Whether the unit you are charged in — credits, responses, points — is published, and what it buys.</div></div><div class="row wide"><span class="n">05</span><div class="t">Entry price.</div><div class="d">The cheapest way in, at the prices published on the day this page was checked.</div></div></div>
+  <div class="guide-col"><p style="margin-top:24px">Facts on this page checked November 23, 2026 against each tool's public pages.</p></div>
+ </div>
+</section>
+
+<section class="sec">
+ <div class="wrap">
+  <div class="tool"><div class="guide-col"><h2 class="h2">Otterly</h2><div style="margin-top:20px">
       <p><b>What it is.</b> AI search visibility tracking — brand visibility and sentiment analysis, AI search optimization, and a GEO audit, with a wide surface of free tools.</p>
       <p><b>Where it genuinely wins.</b> Breadth you can start cheaply: 7 engines on the shelf (ChatGPT, Google AI Overviews, Google AI Mode, Perplexity, Microsoft Copilot, Gemini, Claude), unlimited countries and languages on every plan, a GEO Audit plus 14 free tools, and a free trial.</p>
       <p><b>Its shortcomings, as published.</b> Paid plans enable 4 of the 7 engines, metered in credits — and Claude costs 3 credits per answer, so the shelf is wider than any single plan. It is a dashboard: it shows scores, audits and gaps, and the fixing stays with you.</p>
       <p><b>Price.</b> From €29/mo (Lite, shown in EUR); the mid tier, Standard, is €189/mo.</p>
-    </div>
-  </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><h2>Profound</h2></div>
-    <div class="reveal">
+    </div></div></div><div class="tool"><div class="guide-col"><h2 class="h2">Profound</h2><div style="margin-top:20px">
       <p><b>What it is.</b> The enterprise benchmark: an AI Marketer agent plus answer-engine insights, sold as one enterprise product.</p>
       <p><b>Where it genuinely wins.</b> Depth: up to 10 answer engines, SOC 2 and SSO/SAML, and agents that draft and act across your team's workflows on credits.</p>
       <p><b>Its shortcomings, as published.</b> Since September 2026 it is enterprise-only — there is no self-serve plan to start with, and no public price to compare before a sales process.</p>
       <p><b>Price.</b> Enterprise, custom — no public prices.</p>
-    </div>
-  </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><h2>Peec</h2></div>
-    <div class="reveal">
+    </div></div></div><div class="tool"><div class="guide-col"><h2 class="h2">Peec</h2><div style="margin-top:20px">
       <p><b>What it is.</b> AI search analytics, built for teams tracking several markets.</p>
       <p><b>Where it genuinely wins.</b> Multi-market breadth: a self-serve pool of 8 engines, country slots by plan, unlimited languages, and a claimed reach of 80+ countries.</p>
       <p><b>Its shortcomings, as published.</b> Each plan chooses 3 engines from the pool, and Claude is not in the self-serve pool at all — it appears only on Enterprise, via API. There is no free tier, though there is a no-credit-card trial.</p>
       <p><b>Price.</b> From $95/mo on annual billing; Pro is $245/mo.</p>
-    </div>
-  </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><h2>Scrunch</h2></div>
-    <div class="reveal">
+    </div></div></div><div class="tool"><div class="guide-col"><h2 class="h2">Scrunch</h2><div style="margin-top:20px">
       <p><b>What it is.</b> AI visibility plus optimization execution: citation targets, pages optimized, pages generated, and agent pages.</p>
       <p><b>Where it genuinely wins.</b> It goes past measuring: the Core plan includes 10 pages optimized and 10 pages generated a month, across 8 LLMs — a measure-and-produce tool, not just a tracker.</p>
       <p><b>Its shortcomings, as published.</b> The entry price is the highest self-serve one on this list, and the producing layer is aimed at teams ready to publish generated pages, which is not every team's policy.</p>
       <p><b>Price.</b> From $250/mo (Core).</p>
-    </div>
-  </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><h2>AthenaHQ</h2></div>
-    <div class="reveal">
+    </div></div></div><div class="tool"><div class="guide-col"><h2 class="h2">AthenaHQ</h2><div style="margin-top:20px">
       <p><b>What it is.</b> “Action on AI Search” — tracking plus an agent layer: a recommendation engine and a content optimization agent.</p>
       <p><b>Where it genuinely wins.</b> The widest engine count here — 11 models — and an action layer that works on and off your pages, with share-of-voice and citation tracking.</p>
       <p><b>Its shortcomings, as published.</b> Its Starter price is not published: the pricing page and homepage we checked state credits (3,600 a month, one credit per AI response) and paid add-ons, but no dollar figure — so its entry price can't be compared here.</p>
       <p><b>Price.</b> Not published (checked November 23, 2026); Enterprise is custom.</p>
-    </div>
-  </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><h2>CitMark</h2></div>
-    <div class="reveal">
+    </div></div></div><div class="tool"><div class="guide-col"><h2 class="h2">CitMark</h2><div style="margin-top:20px">
       <p><b>What it is.</b> The Measure–Diagnose–Draft loop: measure whether AI engines mention and cite your brand, diagnose what is keeping you out, and draft the corrections into your approval inbox.</p>
       <p><b>Where it genuinely wins.</b> The loop closes: every answer behind a score is recorded and auditable per question, the diagnosis becomes a draft written from your confirmed facts, and the pricing unit is printed on the pricing page — one point, one question set. The entry price is the lowest on this list.</p>
       <p><b>Our shortcomings, in the same format.</b> Only 3 engines are on sale (ChatGPT, Perplexity, Gemini; Pro adds DeepSeek in a synthetic, marked form). Claude, Google AI Overviews, AI Mode, Copilot and Grok are not on sale. Coverage is a single market in English — no multi-country or multi-language breadth. There is no free tier and no trial account; the free face is a one-time snapshot (the same shape as Peec's no-free-tier stance, and unlike Otterly's trial). There is no content-generation or agent-execution layer — fixes are drafts in an approval inbox, and you send them. There is no sentiment or share-of-voice metric face; the score is a single mention-rate caliber. And our quota unit is a weekly question-set cap shown as monthly points, a different system from everyone else's credits and responses — the two don't convert, so compare the workloads, not the units.</p>
       <p><b>Price.</b> From $25/mo at launch pricing ($35 standard).</p>
-    </div>
-  </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">PICKING</p><h2>Different criteria, different first place</h2></div>
-    <div class="reveal">
+    </div></div></div>
+ </div>
+</section>
+
+<section class="sec paper">
+ <div class="wrap">
+  <div class="guide-col">
+   <span class="label guide-kicker">— Picking</span>
+   <h2 class="h2">Different criteria, different first place</h2>
+   <div style="margin-top:28px">
       <p>There is no single winner on this page, because the criteria rank differently by need:</p>
       <p><b>Widest shelf, cheapest start:</b> Otterly — 7 engines from €29, with free tools before you pay.</p>
       <p><b>Enterprise depth and agents that act:</b> Profound — if your procurement can run an enterprise process.</p>
@@ -1393,71 +1532,22 @@ body{background:var(--bg);color:var(--ink)}
       <p><b>The closed loop on a small budget:</b> CitMark — measurement that ends in a draft you can send, at the lowest entry price here, with the narrowest engine shelf here. That trade is stated, not hidden.</p>
     </div>
   </div>
-</section><section id="faq">
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">FAQ</p><h2>Straight answers</h2></div>
-    <div class="faq reveal">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Why should I trust a list written by one of the tools on it?<span class="chev">+</span></button><div class="faq-a"><p>Because the concessions are in the open, not just the text: every entry lists its subject's shortcomings in the same format — including ours, at the same length — every fact carries the date it was checked on this page, and we re-check on any rival price or plan change we spot, and quarterly at the latest. If a row is wrong, it is wrong in public, with a date on it.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">How did you decide the order?<span class="chev">+</span></button><div class="faq-a"><p>The criteria came first and are published above the list; the entries follow in the order checked, not in a ranked order. Different criteria produce a different first place — the picking section says which tool leads under which need, and there is no overall winner by design.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Which one should I pick?<span class="chev">+</span></button><div class="faq-a"><p>Start from the criterion that binds you: engine breadth, markets, enterprise requirements, a producing layer, or the loop from measurement to a draft — then read that entry's shortcomings before its strengths. The picking section maps each need to its tool.</p></div></div>
-    </div>
+ </div>
+</section>
+
+<section class="sec tight" id="faq">
+ <div class="wrap faq-grid">
+  <div>
+   <span class="label">— FAQ</span>
+   <h2 class="h2" style="margin-top:16px">Straight <span class="serif">answers.</span></h2>
   </div>
-</section><section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200" aria-hidden="true"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Close the gap</span><h2>See how AI sees your brand — free</h2><p class="fsub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p><div class="fcta-row"><a class="btn" href="/free-snapshot/">Get my free snapshot</a></div><div class="fine">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</div></div></section><section><div class="wrap"><div class="reveal"><p>Facts on this page checked November 23, 2026 against each tool's public pages.</p></div></div></section>
-</main>
-<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div>
-<p class="fineprint"><span>The sample report on this page is a real CitMark run from Nov 13, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p></footer>
-<script>
-(function () {
-  var navToggle = document.getElementById("navToggle");
-  var mobileMenu = document.getElementById("mobileMenu");
-  function setMenu(open) {
-    mobileMenu.classList.toggle("open", open);
-    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  }
-  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
-  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
-  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
-  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
+  <div class="faq"><div class="q open"><div><h4>Why should I trust a list written by one of the tools on it?</h4><p>Because the concessions are in the open, not just the text: every entry lists its subject's shortcomings in the same format — including ours, at the same length — every fact carries the date it was checked on this page, and we re-check on any rival price or plan change we spot, and quarterly at the latest. If a row is wrong, it is wrong in public, with a date on it.</p></div><span class="pm">–</span></div><div class="q"><div><h4>How did you decide the order?</h4><p>The criteria came first and are published above the list; the entries follow in the order checked, not in a ranked order. Different criteria produce a different first place — the picking section says which tool leads under which need, and there is no overall winner by design.</p></div><span class="pm">+</span></div><div class="q"><div><h4>Which one should I pick?</h4><p>Start from the criterion that binds you: engine breadth, markets, enterprise requirements, a producing layer, or the loop from measurement to a draft — then read that entry's shortcomings before its strengths. The picking section maps each need to its tool.</p></div><span class="pm">+</span></div></div>
+ </div>
+</section>
+</article></main>
+<section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Free snapshot</span><h2>See how AI sees<br><span class="nowrap">your brand — <span class="serif">free</span></span></h2><p class="sub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p><div class="cta"><a class="btn lg" href="/free-snapshot/">Get my free snapshot →</a></div><div class="fine long">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</div></div></section>
+<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div></footer>
 
-  document.querySelectorAll(".faq-item").forEach(function (item) {
-    var q = item.querySelector(".faq-q");
-    q.addEventListener("click", function () {
-      var open = item.classList.toggle("open");
-      q.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-  });
-
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
-  }
-
-  /* Final-CTA form: same shape as the homepage hero form. Validates the
-     email, then hands off to the real signup page to finish registering. */
-  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  document.querySelectorAll("form.waitlist").forEach(function (form) {
-    var input = form.querySelector('input[type="email"]');
-    var msg = form.parentElement.querySelector(".form-msg");
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var email = (input.value || "").trim();
-      msg.className = "form-msg"; msg.textContent = "";
-      if (!EMAIL_RE.test(email)) {
-        input.setAttribute("aria-invalid", "true");
-        msg.textContent = "That email doesn't look complete — check it and try again.";
-        msg.classList.add("show", "err"); input.focus(); return;
-      }
-      input.removeAttribute("aria-invalid");
-      window.location.href = "/signup/";
-    });
-  });
-})();
-</script>
 
 <style id="guide-frame-notes">
   h1, h2 { text-wrap: balance; }
@@ -1481,5 +1571,6 @@ body{background:var(--bg);color:var(--ink)}
   }
 </style>
 
+<script>(function(){document.querySelectorAll(".guide-article .faq .q").forEach(function(q){q.addEventListener("click",function(){var open=q.classList.toggle("open");var pm=q.querySelector(".pm");if(pm)pm.textContent=open?"\u2013":"+";});});})();</script>
 </body>
 </html>
