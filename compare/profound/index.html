@@ -1098,31 +1098,6 @@ tr.sr-dots{display:none}
 .sib{max-width:860px;margin-top:14px;font-size:14.5px}
 @media (max-width:900px){.tue,.price-cols,.hubcards{grid-template-columns:1fr}}
 </style>
-
-<style id="hdr-fix-860">
-/* Repair wave 2026-11-23: header-shell containment for the 721-900 band.
-   The desktop topbar (wordmark + five-link nav + fixed 332px session slot) needs ~900px and
-   overflows tablets; extend the existing <=720px header package (nav folds into the mobile
-   menu, session slot 65px, hamburger shown) up to 900px (this shell's desktop header measures 873/885px wide, so its fit point sits above the homepage's 860px). Rules copied verbatim from that package. */
-@media (max-width:900px){
-.topnav{display:none}
-.topbar .btn{margin-left:auto}
-.topbar-in .topbar-login{display:none}
-.nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;margin-left:10px;padding:0;background:transparent;color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer}
-.nav-toggle-bars{display:block;width:20px}
-.nav-toggle-bars span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .25s ease}
-.nav-toggle-bars span+span{margin-top:5px}
-.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2){opacity:0}
-.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg-raise);border-bottom:1px solid var(--line-strong);box-shadow:var(--shadow);padding:8px 24px 20px;visibility:hidden;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
-.mobile-menu.open{visibility:visible;opacity:1;transform:none;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
-.mobile-menu nav a{display:flex;align-items:center;min-height:48px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;border-bottom:1px solid var(--line)}
-.mobile-menu nav a:active{color:var(--accent-deep)}
-.mobile-menu .btn{width:100%;margin:14px 0 0;min-height:48px}
-.sess-slot{width:65px;margin-left:auto}
-}
-</style>
 </head>
 <body class="session-ready">
 <header class="topbar">
@@ -1150,14 +1125,27 @@ tr.sr-dots{display:none}
         </nav>
       </div>
     </header><main>
+<style id="frame-b">
+.wins-card{display:none}
+@media (min-width:1024px){
+ .head-grid{display:grid;grid-template-columns:minmax(0,1fr) 318px;gap:52px;align-items:stretch}
+ .wins-card{display:flex;flex-direction:column;margin-top:6px;padding:6px 0 0 8px}
+}
+.wins-eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 12px}
+.wins-item{flex:1;display:flex;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.wins-item .tag-win{flex:none}
+.wins-title{display:block;font-weight:600;font-size:15px;line-height:1.45}
+.wins-num{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);margin-top:3px}
+.wins-note{font-size:13.5px;line-height:1.5;color:var(--muted);margin:auto 0 0;padding-top:12px}
+</style>
 <section class="sec" style="padding-top:56px">
-  <div class="wrap">
+  <div class="wrap head-grid"><div class="head-main">
     <p class="eyebrow">COMPARE</p>
     <h1 style="font-size:clamp(32px,4.6vw,52px);letter-spacing:-.03em;margin:0 0 14px">CitMark vs Profound</h1>
     <p class="p-sub" style="max-width:44em">Profound is the enterprise benchmark for AI visibility — the deepest security and automation in the category. Since September 2026 it is also enterprise-only: there is no self-serve Profound to buy. This page concedes the depth, then compares how you actually get each tool.</p>
     <p class="asof">Facts on this page checked November 21, 2026 against Profound's public pages.</p>
     <p style="margin-top:18px"><a class="btn" href="/signup/">Create your free account</a> &nbsp;<a href="/product/">See the product</a></p>
-  </div>
+  </div><aside class="wins-card"><p class="wins-eyebrow">THEIR WINS, IN SHORT</p><div class="wins-item"><span class="tag-win">Their win</span><span class="wins-tb"><span class="wins-title">Enterprise depth</span><span class="wins-num">SOC 2 · SSO/SAML · — here</span></span></div><div class="wins-item"><span class="tag-win">Their win</span><span class="wins-tb"><span class="wins-title">More answer engines</span><span class="wins-num">Profound up to 10 · CitMark 3</span></span></div><div class="wins-item"><span class="tag-win">Their win</span><span class="wins-tb"><span class="wins-title">Agents that act</span><span class="wins-num">AI Marketer, on credits · — here</span></span></div><p class="wins-note">Conceded in the table below, row by row.</p></aside></div>
 </section>
 <section class="sec">
   <div class="wrap">
