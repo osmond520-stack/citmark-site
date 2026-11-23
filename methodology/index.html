@@ -1,27 +1,196 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How CitMark measures visibility — CitMark</title>
 <meta name="description" content="How CitMark measures AI search visibility: real buyer questions, real AI engines, measured not modeled." />
+<link rel="canonical" href="https://citmark.com/methodology/" />
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
-:root{--ink:#141519;--muted:#62666e;--line:#e5e7eb;--bg:#ffffff;--raise:#f9fafb;--accent:#ff5a1f;--accent-deep:#e04a10}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:var(--accent-deep)}nav{border-bottom:1px solid var(--line)}nav .in{max-width:780px;margin:0 auto;padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.wordmark{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
-.wordmark .dot{color:var(--accent)}nav a.n{color:var(--muted);text-decoration:none;font-size:14px}nav a.n:hover{color:var(--ink)}
-main{max-width:780px;margin:0 auto;padding:32px 20px 48px}h1{font-size:32px;font-weight:800;line-height:1.2;letter-spacing:-.015em;margin:0 0 8px}h2{font-size:22px;font-weight:700;margin:32px 0 8px}h3{font-size:18px;font-weight:700;margin:24px 0 6px}p{margin:0 0 14px}ul{margin:0 0 14px;padding-left:22px}li{margin-bottom:6px}.lede{color:var(--muted);font-size:18px}
-footer{border-top:1px solid var(--line)}footer .in{max-width:780px;margin:0 auto;padding:28px 20px 48px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}
-.card{border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0;background:var(--raise)}
-.card h3{margin-top:0}.price{font-size:28px;font-weight:800}.strike{color:var(--muted);text-decoration:line-through;font-size:16px;font-weight:400}
-.badge{display:inline-block;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
-.small{color:var(--muted);font-size:14px}hr{border:0;border-top:1px solid var(--line);margin:28px 0}
-</style><link rel="canonical" href="https://citmark.com/methodology/" />
-</head>
-<body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-<a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
-<a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav><main><h1>How CitMark measures visibility</h1><p class="lede">We ask AI assistants the questions your buyers actually ask, and record whether your brand gets mentioned in the answers. Measured, not modeled.</p><h2>What we measure</h2><p><strong>Organic visibility</strong> — whether AI assistants name your brand on their own in answers to real buying questions. Paid placements, including sponsored units shown on free plans, are outside the scope of measurement and are <strong>never counted</strong> in your score.</p><h2>The questions</h2><p>We use <strong>buyer-intent (category) questions</strong> — the kind a customer asks before they know your name: "best X for Y" lists, comparisons, scenario advice. We deliberately don't pad scores with branded questions ("tell me about [your brand]") — that's a vanity metric, not a buying moment.</p><h2>The engines</h2><p>Every full check runs your questions across <strong>3 AI engines: ChatGPT, Perplexity, and Gemini</strong>. Pro adds DeepSeek (synthetic); Mistral joins with Teams, which isn't on sale yet. If one engine has a bad day, it never blocks the others.</p><p>Claude was included in our measurement until 7 November 2026 and is no longer measured.</p><h2>The rhythm</h2><p>A full measurement runs whenever you start a snapshot, so every number comes from a real run. Automatic re-checks aren't live yet.</p><h2>What counts</h2><p>A mention = your brand appears in the answer. <strong>Visibility score = answers mentioning your brand ÷ valid answers × 100.</strong> Failed or timed-out runs don't count toward the score — they're reported separately as an error rate, so you can always see data quality.</p><p><strong>How the bands are computed.</strong> Every interval on this page is calculated from the answers actually collected for that run — a Wilson score interval at the run's real sample size, not a fixed constant. A wider band means fewer answers were collected; it is the uncertainty made visible, not a weaker method. Where a sample is too small to support a reading, we say so instead of showing a number.</p><p><strong>Category baselines.</strong> Baselines are published per category only after that category accumulates enough brands and repeated runs to support one. Until then, no baseline is shown for that category.</p><h2>The sources behind the answers</h2><p>Mentions are only half the picture. When an AI engine returns sources with its answer — links or references it drew on — CitMark records them and shows them attributed to that engine and that question, so you can see which sources AI models cite when answering questions in your category, and whether your site is among them.</p><p>When an engine doesn't return sources for an answer, that answer is marked "sources not provided." We never reconstruct, infer, or fill in a source list the engine didn't give — a citation you see in CitMark is one the engine actually returned.</p><h2>What you get</h2><p>Every run: your score change, what drove it, and concrete actions — across three fronts: on-site (your own website), off-site (where the web talks about you: reviews, forums, press), and technical (the structured signals AI engines read). (The dashboard's there if you want it.)</p><h2>What we don't do</h2><p>We don't guarantee AI recommendations or rankings — no honest tool can. We measure credibly, explain plainly, and help you improve.</p><h2>Step: Claim your business on ChatGPT first.</h2><p>Before you read third-party numbers, claim and verify your business profile in ChatGPT's Business Hub. Verification can use a code by text, call or email, a DNS TXT record, or your Shopify sign-in. The blue check is a separate, second step: identity verification through Persona. Local businesses can claim a listing that already exists in the US.</p><p>Claiming doesn't change how visible you are in ChatGPT. It gives you your profile's own aggregate stats — mentions, site clicks and discovery topics over 7 or 28 days. Share of voice isn't part of the Hub beta, and Business Agents can't take payments or bookings yet.</p><hr /><h2>FAQ</h2><h3>How do the checks actually work?</h3><p>Every time you run a check, we send your question set to each engine and capture the answers. We extract brand mentions and the sources cited, aggregate citations by site, and compute your visibility score. If an engine fails or times out, that run is excluded from the score and flagged as an error — we never silently fill gaps. The same rule applies to sources: if an engine returns no sources for an answer, we mark them as not provided instead of guessing.</p><h3>How can I see which sources AI models cite in my category?</h3><p>Run a check. For every answer where the engine returns sources, we extract them, aggregate them by site, and show them next to the question and engine they came from. Where an engine returns no sources, the answer is marked "sources not provided" rather than left blank or estimated.</p><h3>Which AI engines are covered?</h3><p>ChatGPT, Perplexity, and Gemini on every plan; Growth the same three, Pro adds DeepSeek (synthetic); Mistral joins with Teams, which isn't on sale yet. Every engine runs the same questions, so scores stay comparable across engines and over time.</p><h3>Do I need to install anything or share analytics access?</h3><p>No. There's nothing to install, and we don't need access to your analytics. If you later choose to connect Google Search Console, that's a separate, explicit authorization — always your call.</p></main><footer><div class="in"><p><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></p>
-<p><a href="/pricing/">Pricing</a> · <a href="/methodology/">Methodology</a> · <a href="/about/">About</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a></p>
-<p>Questions: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d5e585d5d425f596d4e4459404c5f46034e4240">[email&#160;protected]</a> · Security issues: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2754424452554e535e67444e534a46554c0944484a">[email&#160;protected]</a></p></div></footer><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
-</html>
+:root{
+  --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff; --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+  --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+  --accent:#e8490f; --accent-deep:#c43a08; --dark:#171512; --dark-2:#221f1b;
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
+.eyebrow::before{content:"— "}
+h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.it-org{color:var(--accent)}
+.it-grey{color:var(--ink-3)}
+.lede{font-size:18.5px;line-height:1.55;color:var(--ink-2)}
+.lede strong{color:var(--ink);font-weight:700}
+.topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:34px;height:72px}
+.wordmark{font-family:"Bricolage Grotesque",var(--sans);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none}
+.wordmark i{font-style:normal;color:var(--accent)}
+.topnav{display:flex;gap:28px;margin-left:12px}
+.topnav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:6px 0}
+.topnav a:hover{color:var(--ink)}
+.topnav a.cur{color:var(--ink);font-weight:600;box-shadow:0 2px 0 var(--accent)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.login-link{font-size:15px;font-weight:600;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:15.5px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--accent-deep)}
+.btn-dark{background:var(--ink)}
+.btn-dark:hover{background:#000}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px}
+.mmenu{display:none;border-bottom:1px solid var(--line);background:var(--bg);padding:10px 0 16px}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 40px;font-size:16.5px;font-weight:600;text-decoration:none}
+.mmenu a.cur{color:var(--accent-deep)}
+.pillform{display:flex;align-items:center;background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:5px;box-shadow:5px 5px 0 var(--ink);max-width:520px}
+.pillform input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--sans);font-size:16px;padding:10px 16px;color:var(--ink)}
+.pillform input::placeholder{color:var(--ink-3)}
+.pillform .btn{white-space:nowrap}
+.form-note{margin-top:14px;font-size:13.5px;color:var(--ink-3)}
+.textlink{font-weight:700;text-decoration:underline;text-underline-offset:4px;display:inline-block;margin-top:20px}
+.closing{background:var(--dark);color:#fff;padding:88px 0 96px;text-align:center;position:relative;overflow:hidden}
+.closing .eyebrow{color:#ff8a50}
+.closing h2{color:#fff;max-width:24ch;margin:18px auto 34px}
+.closing h2 .it{color:#ff8a50}
+.closing .pillform{margin:0 auto;background:transparent;border-color:rgba(255,255,255,.4);box-shadow:none}
+.closing .pillform input{color:#fff}
+.closing .pillform input::placeholder{color:#a49e93}
+.closing .form-note{color:#a49e93}
+.closing .form-msg{min-height:20px;font-size:14px;margin-top:12px;color:#c9c4ba}
+.closing .form-msg.err{color:#ffb59d}
+.footer{padding:64px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.foot-brand p{margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:30ch}
+.foot-col h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px}
+.foot-col a{display:block;text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:4.5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{border-top:1px solid var(--line-soft);margin-top:46px;padding-top:22px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+@media (max-width:860px){
+  .topnav,.top-right .login-link{display:none}
+  .burger{display:inline-flex}
+  .wrap{padding:0 20px}
+  .mmenu a{padding-left:20px;padding-right:20px}
+}
+@media (max-width:700px){
+  body{font-size:16.5px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .pillform{flex-direction:column;align-items:stretch;border-radius:18px;padding:7px;gap:7px}
+  .pillform input{padding:12px 14px}
+  .pillform .btn{justify-content:center;padding:14px 22px;min-height:48px}
+  .closing .pillform{flex-direction:column}
+  .closing{padding:64px 0 72px}
+}
+.doc{max-width:780px;margin:0 auto;padding:0 40px}
+.doc-hero{padding:64px 0 4px}
+.doc h1{font-size:clamp(30px,3.4vw,46px);line-height:1.08}
+.doc .lede{margin-top:16px}
+.doc-body{padding:24px 0 74px}
+.doc-body h2{font-size:24px;line-height:1.2;margin:38px 0 12px;letter-spacing:-.01em}
+.doc-body h3{font-size:19px;margin:28px 0 10px}
+.doc-body p{margin:0 0 14px}
+.doc-body hr{border:none;border-top:1px solid var(--line);margin:40px 0 6px}
+.doc-body a{color:var(--accent-deep)}
+@media(max-width:860px){.doc{padding:0 20px}.doc-hero{padding-top:46px}}
+</style></head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="/">CitMark<i>.</i></a>
+    <nav class="topnav">
+      <a href="/product/">Product</a>
+      <a href="/results/">Sample report</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/about/">About</a>
+      <a href="/pricing/#faq">FAQ</a>
+    </nav>
+    <div class="top-right">
+      <a class="login-link" href="/?auth=login">Log in</a>
+      <a class="btn" href="/signup/">Get started</a>
+      <button class="burger" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mmenu" id="mobileMenu">
+    <a href="/product/">Product</a>
+    <a href="/results/">Sample report</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/about/">About</a>
+    <a href="/pricing/#faq">FAQ</a>
+    <a href="/?auth=login">Log in</a>
+  </nav>
+</header>
+<main><div class="doc">
+<div class="doc-hero"><p class="eyebrow">Methodology</p>
+<h1>How CitMark <span class="it it-org">measures</span> visibility</h1>
+<p class="lede">We ask AI assistants the questions your buyers actually ask, and record whether your brand gets mentioned in the answers. Measured, not modeled.</p>
+</div>
+<div class="doc-body">
+<h2>What we measure</h2><p><strong>Organic visibility</strong> — whether AI assistants name your brand on their own in answers to real buying questions. Paid placements, including sponsored units shown on free plans, are outside the scope of measurement and are <strong>never counted</strong> in your score.</p><h2>The questions</h2><p>We use <strong>buyer-intent (category) questions</strong> — the kind a customer asks before they know your name: "best X for Y" lists, comparisons, scenario advice. We deliberately don't pad scores with branded questions ("tell me about [your brand]") — that's a vanity metric, not a buying moment.</p><h2>The engines</h2><p>Every full check runs your questions across <strong>3 AI engines: ChatGPT, Perplexity, and Gemini</strong>. Pro adds DeepSeek (synthetic); Mistral joins with Teams, which isn't on sale yet. If one engine has a bad day, it never blocks the others.</p><p>Claude was included in our measurement until 7 November 2026 and is no longer measured.</p><h2>The rhythm</h2><p>A full measurement runs whenever you start a snapshot, so every number comes from a real run. Automatic re-checks aren't live yet.</p><h2>What counts</h2><p>A mention = your brand appears in the answer. <strong>Visibility score = answers mentioning your brand ÷ valid answers × 100.</strong> Failed or timed-out runs don't count toward the score — they're reported separately as an error rate, so you can always see data quality.</p><p><strong>How the bands are computed.</strong> Every interval on this page is calculated from the answers actually collected for that run — a Wilson score interval at the run's real sample size, not a fixed constant. A wider band means fewer answers were collected; it is the uncertainty made visible, not a weaker method. Where a sample is too small to support a reading, we say so instead of showing a number.</p><p><strong>Category baselines.</strong> Baselines are published per category only after that category accumulates enough brands and repeated runs to support one. Until then, no baseline is shown for that category.</p><h2>The sources behind the answers</h2><p>Mentions are only half the picture. When an AI engine returns sources with its answer — links or references it drew on — CitMark records them and shows them attributed to that engine and that question, so you can see which sources AI models cite when answering questions in your category, and whether your site is among them.</p><p>When an engine doesn't return sources for an answer, that answer is marked "sources not provided." We never reconstruct, infer, or fill in a source list the engine didn't give — a citation you see in CitMark is one the engine actually returned.</p><h2>What you get</h2><p>Every run: your score change, what drove it, and concrete actions — across three fronts: on-site (your own website), off-site (where the web talks about you: reviews, forums, press), and technical (the structured signals AI engines read). (The dashboard's there if you want it.)</p><h2>What we don't do</h2><p>We don't guarantee AI recommendations or rankings — no honest tool can. We measure credibly, explain plainly, and help you improve.</p><h2>Step: Claim your business on ChatGPT first.</h2><p>Before you read third-party numbers, claim and verify your business profile in ChatGPT's Business Hub. Verification can use a code by text, call or email, a DNS TXT record, or your Shopify sign-in. The blue check is a separate, second step: identity verification through Persona. Local businesses can claim a listing that already exists in the US.</p><p>Claiming doesn't change how visible you are in ChatGPT. It gives you your profile's own aggregate stats — mentions, site clicks and discovery topics over 7 or 28 days. Share of voice isn't part of the Hub beta, and Business Agents can't take payments or bookings yet.</p><hr><h2>FAQ</h2><h3>How do the checks actually work?</h3><p>Every time you run a check, we send your question set to each engine and capture the answers. We extract brand mentions and the sources cited, aggregate citations by site, and compute your visibility score. If an engine fails or times out, that run is excluded from the score and flagged as an error — we never silently fill gaps. The same rule applies to sources: if an engine returns no sources for an answer, we mark them as not provided instead of guessing.</p><h3>How can I see which sources AI models cite in my category?</h3><p>Run a check. For every answer where the engine returns sources, we extract them, aggregate them by site, and show them next to the question and engine they came from. Where an engine returns no sources, the answer is marked "sources not provided" rather than left blank or estimated.</p><h3>Which AI engines are covered?</h3><p>ChatGPT, Perplexity, and Gemini on every plan; Growth the same three, Pro adds DeepSeek (synthetic); Mistral joins with Teams, which isn't on sale yet. Every engine runs the same questions, so scores stay comparable across engines and over time.</p><h3>Do I need to install anything or share analytics access?</h3><p>No. There's nothing to install, and we don't need access to your analytics. If you later choose to connect Google Search Console, that's a separate, explicit authorization — always your call.</p>
+</div></div></main>
+<section class="closing">
+  <div class="wrap">
+    <p class="eyebrow">Close the Gap</p>
+    <h2>Find out what AI says about you — <span class="it">before</span> your competitors do.</h2>
+    <form class="pillform waitlist" novalidate>
+      <input type="email" name="email" placeholder="you@yoursite.com" aria-label="Your site email" autocomplete="email">
+      <button class="btn" type="submit">Create your free account →</button>
+    </form>
+    <p class="form-msg" role="status" aria-live="polite"></p>
+    <p class="form-note">Free snapshot included · no card required</p>
+  </div>
+</section>
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="/">CitMark<i>.</i></a>
+        <p>AI visibility measurement for small, independent brands.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/pricing/#faq">FAQ</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="/about/">About</a><a href="/methodology/">Methodology</a><a href="/contact/">Contact</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Service</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span>
+      <span>support@citmark.com</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function setMenu(open) {
+    mobileMenu.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
+  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest(".topbar")) setMenu(false); });
+
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  document.querySelectorAll("form.waitlist").forEach(function (form) {
+    var input = form.querySelector('input[type="email"]');
+    var msg = form.parentElement.querySelector(".form-msg");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var email = (input.value || "").trim();
+      msg.className = "form-msg"; msg.textContent = "";
+      if (!EMAIL_RE.test(email)) {
+        input.setAttribute("aria-invalid", "true");
+        msg.textContent = "That email doesn't look complete — check it and try again.";
+        msg.classList.add("err"); input.focus(); return;
+      }
+      input.removeAttribute("aria-invalid");
+      window.location.href = "/signup/";
+    });
+  });
+})();
+</script>
+</body></html>
