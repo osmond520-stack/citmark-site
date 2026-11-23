@@ -1,28 +1,176 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Terms of Service — CitMark</title>
 <meta name="description" content="CitMark Terms of Service." />
+<link rel="canonical" href="https://citmark.com/terms/" />
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
-:root{--ink:#141519;--muted:#62666e;--line:#e5e7eb;--bg:#ffffff;--raise:#f9fafb;--accent:#ff5a1f;--accent-deep:#e04a10}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
-a{color:var(--accent-deep)}nav{border-bottom:1px solid var(--line)}nav .in{max-width:780px;margin:0 auto;padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.wordmark{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
-.wordmark .dot{color:var(--accent)}nav a.n{color:var(--muted);text-decoration:none;font-size:14px}nav a.n:hover{color:var(--ink)}
-main{max-width:780px;margin:0 auto;padding:32px 20px 48px}h1{font-size:32px;font-weight:800;line-height:1.2;letter-spacing:-.015em;margin:0 0 8px}h2{font-size:22px;font-weight:700;margin:32px 0 8px}h3{font-size:18px;font-weight:700;margin:24px 0 6px}p{margin:0 0 14px}ul{margin:0 0 14px;padding-left:22px}li{margin-bottom:6px}.lede{color:var(--muted);font-size:18px}
-footer{border-top:1px solid var(--line)}footer .in{max-width:780px;margin:0 auto;padding:28px 20px 48px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}
-.card{border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0;background:var(--raise)}
-.card h3{margin-top:0}.price{font-size:28px;font-weight:800}.strike{color:var(--muted);text-decoration:line-through;font-size:16px;font-weight:400}
-.badge{display:inline-block;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
-.small{color:var(--muted);font-size:14px}hr{border:0;border-top:1px solid var(--line);margin:28px 0}
-</style><link rel="canonical" href="https://citmark.com/terms/" />
+:root{
+  --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff; --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+  --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+  --accent:#e8490f; --accent-deep:#c43a08; --dark:#171512; --dark-2:#221f1b;
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
+.eyebrow::before{content:"— "}
+h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.it-org{color:var(--accent)}
+.it-grey{color:var(--ink-3)}
+.lede{font-size:18.5px;line-height:1.55;color:var(--ink-2)}
+.lede strong{color:var(--ink);font-weight:700}
+.topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:34px;height:72px}
+.wordmark{font-family:"Bricolage Grotesque",var(--sans);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none}
+.wordmark i{font-style:normal;color:var(--accent)}
+.topnav{display:flex;gap:28px;margin-left:12px}
+.topnav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:6px 0}
+.topnav a:hover{color:var(--ink)}
+.topnav a.cur{color:var(--ink);font-weight:600;box-shadow:0 2px 0 var(--accent)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.login-link{font-size:15px;font-weight:600;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:15.5px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--accent-deep)}
+.btn-dark{background:var(--ink)}
+.btn-dark:hover{background:#000}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px}
+.mmenu{display:none;border-bottom:1px solid var(--line);background:var(--bg);padding:10px 0 16px}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 40px;font-size:16.5px;font-weight:600;text-decoration:none}
+.mmenu a.cur{color:var(--accent-deep)}
+.pillform{display:flex;align-items:center;background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:5px;box-shadow:5px 5px 0 var(--ink);max-width:520px}
+.pillform input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--sans);font-size:16px;padding:10px 16px;color:var(--ink)}
+.pillform input::placeholder{color:var(--ink-3)}
+.pillform .btn{white-space:nowrap}
+.form-note{margin-top:14px;font-size:13.5px;color:var(--ink-3)}
+.textlink{font-weight:700;text-decoration:underline;text-underline-offset:4px;display:inline-block;margin-top:20px}
+.closing{background:var(--dark);color:#fff;padding:88px 0 96px;text-align:center;position:relative;overflow:hidden}
+.closing .eyebrow{color:#ff8a50}
+.closing h2{color:#fff;max-width:24ch;margin:18px auto 34px}
+.closing h2 .it{color:#ff8a50}
+.closing .pillform{margin:0 auto;background:transparent;border-color:rgba(255,255,255,.4);box-shadow:none}
+.closing .pillform input{color:#fff}
+.closing .pillform input::placeholder{color:#a49e93}
+.closing .form-note{color:#a49e93}
+.footer{padding:64px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.foot-brand p{margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:30ch}
+.foot-col h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px}
+.foot-col a{display:block;text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:4.5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{border-top:1px solid var(--line-soft);margin-top:46px;padding-top:22px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+@media (max-width:860px){
+  .topnav,.top-right .login-link{display:none}
+  .burger{display:inline-flex}
+  .wrap{padding:0 20px}
+  .mmenu a{padding-left:20px;padding-right:20px}
+}
+@media (max-width:700px){
+  body{font-size:16.5px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .pillform{flex-direction:column;align-items:stretch;border-radius:18px;padding:7px;gap:7px}
+  .pillform input{padding:12px 14px}
+  .pillform .btn{justify-content:center;padding:14px 22px;min-height:48px}
+  .closing .pillform{flex-direction:column}
+  .closing{padding:64px 0 72px}
+}
+.doc{max-width:780px;margin:0 auto;padding:0 40px}
+.doc-hero{padding:64px 0 4px}
+.doc h1{font-size:clamp(30px,3.4vw,46px);line-height:1.08}
+.doc .lede{margin-top:16px}
+.doc-body{padding:24px 0 74px}
+.doc-body h2{font-size:24px;line-height:1.2;margin:38px 0 12px;letter-spacing:-.01em}
+.doc-body h3{font-size:19px;margin:28px 0 10px}
+.doc-body p{margin:0 0 14px}
+.doc-body hr{border:none;border-top:1px solid var(--line);margin:40px 0 6px}
+.doc-body a{color:var(--accent-deep)}
+@media(max-width:860px){.doc{padding:0 20px}.doc-hero{padding-top:46px}}
+</style><style id="doc-page">
+.doc-meta{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin:14px 0 0}
+.doc-body ul{margin:0 0 14px;padding-left:22px}
+.doc-body li{margin:0 0 6px}
+.doc-body table{border-collapse:collapse;width:100%;margin:8px 0 16px;font-size:15.5px;line-height:1.5}
+.doc-body th,.doc-body td{border:0;border-bottom:1px solid var(--line-soft);padding:12px;text-align:left;vertical-align:top}
+.doc-body th{font-size:13.5px;font-weight:700;color:var(--ink-2)}
+@media (max-width:700px){
+.doc-body th{display:none}
+.doc-body td{display:block;border-bottom:0;padding:3px 12px}
+.doc-body tr{display:block;border-bottom:1px solid var(--line-soft);padding:8px 0}
+}
+</style>
 </head>
-<body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-<a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
-<a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav><main><h1>Terms of Service</h1><p><strong>Effective date:</strong> October 25, 2026</p><h2>1. What CitMark does</h2><p>CitMark measures how often AI assistants mention your brand in their answers — <em>measured, not modeled</em>. We explain what we find and suggest what to do next. In short: we credibly measure, explain, and improve your visibility in AI answers.</p><h2>2. Your account</h2><p>You need an account to use CitMark. Keep your login credentials safe — you're responsible for activity under your account. Plans include the number of seats shown on the pricing page; don't share logins beyond that.</p><h2>3. Plans and billing</h2><p>Current plans and prices are on our <strong>pricing page</strong> — that's the source of truth. Subscriptions renew automatically each billing period until you cancel. You can cancel anytime; access continues until the end of the current period.</p><p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p><p><em>Founding members:</em> if you joined under the founding offer (50% off for 12 months, first 50 members), your discount applies for 12 months from signup, then renews at the standard price. We'll email you 30 days before the change.</p><h2>4. Refunds</h2><ul><li><strong>Within 7 days of purchase:</strong> full refund, no questions asked — except: one no-questions refund per domain and per payment method (a second signup with the same domain or card doesn't get another one), and if you've already run 2 or more full snapshots, the refund is prorated instead.</li><li><strong>Days 8–30:</strong> prorated refund for the unused period. Annual plans: refund for remaining whole months, with used months billed at the monthly rate.</li><li><strong>After 30 days:</strong> monthly plans — no refund for the current period; cancel anytime and keep access until the period ends. Annual plans — prorated refund for remaining whole months.</li><li><strong>Usage already consumed</strong> (e.g., overage re-runs that already ran) is non-refundable — the cost has already been incurred.</li><li><strong>Billing errors</strong> (duplicate or wrong charges) are always fixed: tell us and we'll sort it out within 24 hours.</li><li>Founding-member spots don't go back into the pool after a refund.</li><li>Accounts terminated for fraud or abuse aren't eligible for refunds.</li><li>Refunds go to your original payment method. We initiate within <strong>3 business days</strong>; banks usually take <strong>5–10 business days</strong> to show it.</li></ul><h2>5. Fair use</h2><p>Don't abuse the service: no reselling measurements, no scraping, no gaming the scores, no creating duplicate accounts to claim multiple refunds or evade limits. We may suspend or terminate accounts that do.</p><h2>6. Your data</h2><p>How we collect, use, and protect your data is described in our <a href="/privacy/">Privacy Policy</a>. The short version: your data is yours — we never sell it, workspaces are strictly isolated, and deleting your account deletes your data from our live systems within 30 days.</p><h2>7. What we don't promise</h2><p>CitMark measures visibility; it doesn't control AI assistants. We don't promise rankings, recommendations, or any specific business outcome. The service is provided "as is."</p><h2>8. Liability</h2><p>To the maximum extent permitted by law, our total liability for any claim is limited to what you paid us in the 12 months before the claim.</p><p>To the maximum extent permitted by law, we are not liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, revenue, business, business interruption, goodwill, or data — even if we were advised that such damages or losses might occur.</p><h2>9. Indemnity</h2><p>You agree to indemnify, defend, and hold harmless CitMark from any third-party claims, damages, losses, liabilities, fines, costs, and expenses (including reasonable legal fees) arising from: (a) the brands, domains, content, and questions you ask us to track; (b) your use of the service in violation of these terms or applicable law; or (c) your violation of any third-party rights in connection with your use of the service. This indemnity is one-way: it runs from you to CitMark only. This indemnity does not cover claims arising from defects in the service itself or from CitMark's own negligence or wilful misconduct. The total amount you owe under this indemnity will not exceed what you paid us in the 12 months before the claim.</p><h2>10. Changes</h2><p>We'll post updates here with a new effective date. Material changes get an email notice before they take effect.</p><h2>11. Contact</h2><p>Questions about these terms: <strong>support@citmark.com</strong>.</p></main><footer><div class="in"><p><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></p>
-<p><a href="/pricing/">Pricing</a> · <a href="/methodology/">Methodology</a> · <a href="/about/">About</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a></p>
-<p style="font-size:13px">Operated by Tao Yu.</p>
-<p>Questions: support@citmark.com · Security issues: security@citmark.com</p></div></footer></body>
-</html>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="/">CitMark<i>.</i></a>
+    <nav class="topnav">
+      <a href="/product/">Product</a>
+      <a href="/results/">Sample report</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/about/">About</a>
+      <a href="/pricing/#faq">FAQ</a>
+    </nav>
+    <div class="top-right">
+      <a class="login-link" href="/?auth=login">Log in</a>
+      <a class="btn" href="/signup/">Get started</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+<nav class="mmenu" id="mmenu">
+    <a href="/product/">Product</a>
+    <a href="/results/">Sample report</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/about/">About</a>
+    <a href="/pricing/#faq">FAQ</a>
+    <a href="/?auth=login">Log in</a>
+  </nav>
+</header>
+<main><div class="doc">
+<div class="doc-hero"><h1>Terms of Service</h1><p class="doc-meta"><strong>Effective date:</strong> October 25, 2026</p></div>
+<div class="doc-body"><h2>1. What CitMark does</h2><p>CitMark measures how often AI assistants mention your brand in their answers — <em>measured, not modeled</em>. We explain what we find and suggest what to do next. In short: we credibly measure, explain, and improve your visibility in AI answers.</p><h2>2. Your account</h2><p>You need an account to use CitMark. Keep your login credentials safe — you're responsible for activity under your account. Plans include the number of seats shown on the pricing page; don't share logins beyond that.</p><h2>3. Plans and billing</h2><p>Current plans and prices are on our <strong>pricing page</strong> — that's the source of truth. Subscriptions renew automatically each billing period until you cancel. You can cancel anytime; access continues until the end of the current period.</p><p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p><p><em>Founding members:</em> if you joined under the founding offer (50% off for 12 months, first 50 members), your discount applies for 12 months from signup, then renews at the standard price. We'll email you 30 days before the change.</p><h2>4. Refunds</h2><ul><li><strong>Within 7 days of purchase:</strong> full refund, no questions asked — except: one no-questions refund per domain and per payment method (a second signup with the same domain or card doesn't get another one), and if you've already run 2 or more full snapshots, the refund is prorated instead.</li><li><strong>Days 8–30:</strong> prorated refund for the unused period. Annual plans: refund for remaining whole months, with used months billed at the monthly rate.</li><li><strong>After 30 days:</strong> monthly plans — no refund for the current period; cancel anytime and keep access until the period ends. Annual plans — prorated refund for remaining whole months.</li><li><strong>Usage already consumed</strong> (e.g., overage re-runs that already ran) is non-refundable — the cost has already been incurred.</li><li><strong>Billing errors</strong> (duplicate or wrong charges) are always fixed: tell us and we'll sort it out within 24 hours.</li><li>Founding-member spots don't go back into the pool after a refund.</li><li>Accounts terminated for fraud or abuse aren't eligible for refunds.</li><li>Refunds go to your original payment method. We initiate within <strong>3 business days</strong>; banks usually take <strong>5–10 business days</strong> to show it.</li></ul><h2>5. Fair use</h2><p>Don't abuse the service: no reselling measurements, no scraping, no gaming the scores, no creating duplicate accounts to claim multiple refunds or evade limits. We may suspend or terminate accounts that do.</p><h2>6. Your data</h2><p>How we collect, use, and protect your data is described in our <a href="/privacy/">Privacy Policy</a>. The short version: your data is yours — we never sell it, workspaces are strictly isolated, and deleting your account deletes your data from our live systems within 30 days.</p><h2>7. What we don't promise</h2><p>CitMark measures visibility; it doesn't control AI assistants. We don't promise rankings, recommendations, or any specific business outcome. The service is provided "as is."</p><h2>8. Liability</h2><p>To the maximum extent permitted by law, our total liability for any claim is limited to what you paid us in the 12 months before the claim.</p><p>To the maximum extent permitted by law, we are not liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, revenue, business, business interruption, goodwill, or data — even if we were advised that such damages or losses might occur.</p><h2>9. Indemnity</h2><p>You agree to indemnify, defend, and hold harmless CitMark from any third-party claims, damages, losses, liabilities, fines, costs, and expenses (including reasonable legal fees) arising from: (a) the brands, domains, content, and questions you ask us to track; (b) your use of the service in violation of these terms or applicable law; or (c) your violation of any third-party rights in connection with your use of the service. This indemnity is one-way: it runs from you to CitMark only. This indemnity does not cover claims arising from defects in the service itself or from CitMark's own negligence or wilful misconduct. The total amount you owe under this indemnity will not exceed what you paid us in the 12 months before the claim.</p><h2>10. Changes</h2><p>We'll post updates here with a new effective date. Material changes get an email notice before they take effect.</p><h2>11. Contact</h2><p>Questions about these terms: <strong>support@citmark.com</strong>.</p></div>
+</div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="/">CitMark<i>.</i></a>
+        <p>AI visibility measurement for small, independent brands.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/pricing/#faq">FAQ</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="/about/">About</a><a href="/methodology/">Methodology</a><a href="/contact/">Contact</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Service</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span>
+      <span>support@citmark.com</span>
+    </div>
+  </div>
+</footer>
+<script>
+/* ---------- forms + menu ---------- */
+document.querySelectorAll("form[data-lead]").forEach(f => {
+  f.addEventListener("submit", ev => {
+    ev.preventDefault();
+    const inp = f.querySelector("input[type=email]");
+    const v = (inp.value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { f.classList.add("err"); inp.focus(); return; }
+    f.classList.remove("err");
+    location.href = "/signup/?email=" + encodeURIComponent(v);
+  });
+});
+const burger = document.getElementById("burger"), mmenu = document.getElementById("mmenu");
+burger.addEventListener("click", () => {
+  const open = mmenu.classList.toggle("open");
+  burger.setAttribute("aria-expanded", open);
+});
+</script>
+</body></html>
