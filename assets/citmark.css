@@ -452,3 +452,8 @@ a{color:inherit;text-decoration:none}
 .final .field-cta input{color:var(--on-dark)}
 .final .field-cta input::placeholder{color:#77726A}
 @media (max-width:600px){ .field-cta input{padding:14px 12px} }
+.faq .q:not(.open) p{display:none}
+.steps a{flex:1;padding:13px 16px;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.12em}
+.steps a + a{border-left:2px solid var(--ink)}
+.steps a.on{background:var(--ink);color:var(--bg)}
+@media (max-width:600px){ .steps a{padding:12px 10px;font-size:11.5px} }
