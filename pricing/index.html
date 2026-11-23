@@ -1507,6 +1507,9 @@ h1, h2 { text-wrap: balance; }
 .pr-spec .names{color:var(--muted);font-size:14.5px}
 .pr-note{font-size:13.5px;line-height:1.55;color:var(--muted);margin:0 0 8px}
 .pr-cta-row{margin-top:auto;padding-top:10px}
+.pr-fold-cta{display:none;align-items:center;justify-content:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;padding:12px 20px;border-radius:999px}
+.pr-fold-cta:hover{background:var(--accent-deep)}
+.pr-fold-cta.current{background:var(--bg-sink);color:var(--muted);border:1px solid var(--line)}
 .pr-tier .cta{display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;padding:12px 20px;border-radius:999px}
 .pr-tier .cta:hover{background:var(--accent-deep)}
 .pr-tier .cta.current{background:var(--bg-sink);color:var(--muted);border:1px solid var(--line)}
@@ -1529,6 +1532,7 @@ h1, h2 { text-wrap: balance; }
 .pr-band{padding:22px 20px}
 .pr-tier{padding:22px 20px}
 }
+@media (max-width:560px){.pr-fold-cta{display:flex;width:100%;margin-top:20px}}
 </style></head>
 <body>
 <header class="topbar">
@@ -1585,6 +1589,7 @@ h1, h2 { text-wrap: balance; }
 <p class="pr-eyebrow">Pricing</p>
 <h1 class="pr-h1">Pricing</h1>
 <p class="pr-lede">Simple pricing, no surprises. Every plan includes the full product — measurement across AI engines. Plans differ only in scale: more sites, more questions, more engines, longer history. Checks run on demand on every plan. An optional daily watch keeps an eye on the few questions that matter most.</p>
+      <a class="cta pr-fold-cta" data-tier="starter" href="/signup">Start with Starter</a>
 </section>
 <section class="pr-sec">
 <div class="pr-band">
