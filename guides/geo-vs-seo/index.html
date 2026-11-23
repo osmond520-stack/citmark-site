@@ -1137,38 +1137,130 @@ tr.sr-dots{display:none}
 .sess-slot{width:65px;margin-left:auto}
 }
 </style>
+<style id="shell-v1">
+/* ===== shell-v1: site-v1 frame shell (SPEC-subpage-alignment-20261123) ===== */
+:root{
+  --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff;
+  --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+  --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+  --accent:#e8490f; --accent-deep:#c43a08;
+  --dark:#171512; --dark-2:#221f1b;
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --muted:#55504a; --line-strong:rgba(27,24,19,.3); --bg-sink:#eae6dc;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff;
+    --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+    --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+    --accent:#e8490f; --accent-deep:#c43a08;
+    --dark:#171512; --dark-2:#221f1b;
+    --muted:#55504a; --line-strong:rgba(27,24,19,.3); --bg-sink:#eae6dc;
+    color-scheme:light;
+  }
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+.p-hero h1{font-size:clamp(40px,4.6vw,64px);line-height:1.04}
+h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
+.eyebrow,.sec-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
+.eyebrow::before{content:"— "}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0;color:var(--accent)}
+.topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:34px;height:72px}
+.wordmark{font-family:"Bricolage Grotesque",var(--sans);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark i{font-style:normal;color:var(--accent)}
+.topnav{display:flex;gap:28px;margin-left:12px}
+.topnav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:6px 0}
+.topnav a:hover{color:var(--ink)}
+.topnav a.cur{color:var(--ink);font-weight:600;box-shadow:0 2px 0 var(--accent)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.login-link{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:15.5px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--accent-deep)}
+.btn-dark{background:var(--ink)}
+.btn-dark:hover{background:#000}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px}
+.mmenu{display:none;border-bottom:1px solid var(--line);background:var(--bg);padding:10px 0 16px}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 40px;font-size:16.5px;font-weight:600;text-decoration:none;color:var(--ink)}
+.mmenu a.cur{color:var(--accent-deep)}
+.pillform{display:flex;align-items:center;background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:5px;box-shadow:5px 5px 0 var(--ink);max-width:520px}
+.pillform input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--sans);font-size:16px;padding:10px 16px;color:var(--ink)}
+.pillform input::placeholder{color:var(--ink-3)}
+.pillform .btn{white-space:nowrap}
+.form-note{margin-top:14px;font-size:13.5px;color:var(--ink-3)}
+.closing{background:var(--dark);color:#fff;padding:88px 0 96px;text-align:center;position:relative;overflow:hidden}
+.closing .eyebrow{color:#ff8a50}
+.closing h2{color:#fff;max-width:24ch;margin:18px auto 34px}
+.closing h2 .it{color:#ff8a50}
+.closing .p-sub{color:#c9c4ba;margin-left:auto;margin-right:auto}
+.closing .pillform{margin:0 auto;background:transparent;border-color:rgba(255,255,255,.4);box-shadow:none}
+.closing .pillform input{color:#fff}
+.closing .pillform input::placeholder{color:#a49e93}
+.closing .form-note,.closing .form-msg{color:#a49e93}
+.footer{padding:64px 0 34px;background:var(--bg)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.foot-brand p{margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:30ch}
+.foot-col h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px}
+.foot-col a{display:block;text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:4.5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{border-top:1px solid var(--line-soft);margin-top:46px;padding-top:22px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+#faq .faq{justify-self:start;float:none;margin:0}
+section{padding:72px 0 78px}
+@media (max-width:860px){
+  .topnav,.top-right .login-link{display:none}
+  .burger{display:inline-flex}
+  .wrap{padding:0 20px}
+  .mmenu a{padding-left:20px;padding-right:20px}
+}
+@media (max-width:700px){
+  body{font-size:16.5px}
+  section{padding:52px 0 58px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .pillform{flex-direction:column;align-items:stretch;border-radius:18px;padding:7px;gap:7px}
+  .pillform input{padding:12px 14px}
+  .pillform .btn{justify-content:center;padding:14px 22px;min-height:48px}
+  .closing{padding:64px 0 72px}
+}
+</style>
 </head>
 <body class="session-ready">
 <header class="topbar">
       <div class="wrap topbar-in">
-        <a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-        <nav class="topnav" aria-label="Site">
-          <a href="/product/" aria-current="page">Product</a>
-          <a href="/#report">Sample report</a>
+        <a class="wordmark" href="/">CitMark<i>.</i></a>
+        <nav class="topnav">
+          <a href="/product/">Product</a>
+          <a href="/results/">Sample report</a>
           <a href="/pricing/">Pricing</a>
-          <a href="/methodology/">Methodology</a>
+          <a href="/about/">About</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <span class="sess-slot"><a class="btn small ghost topbar-auth" href="/?auth=login">Log in</a></span>
-        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-          <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-        </button>
+        <div class="top-right">
+          <a class="login-link topbar-auth" href="/?auth=login">Log in</a>
+          <a class="btn" href="/signup/">Get started</a>
+          <button class="burger" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
+        </div>
       </div>
-      <div class="mobile-menu" id="mobileMenu">
-        <nav aria-label="Site">
-          <a href="/product/" aria-current="page">Product</a>
-          <a href="/#report">Sample report</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/methodology/">Methodology</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-      </div>
+      <nav class="mmenu" id="mobileMenu">
+        <a href="/product/">Product</a>
+        <a href="/results/">Sample report</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/about/">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="/?auth=login">Log in</a>
+      </nav>
     </header>
 <main id="top">
 <section style="padding-top:44px">
   <div class="wrap">
     <p class="sec-kicker">GUIDES</p>
-    <h1>GEO vs SEO</h1>
+    <h1>GEO vs <span class="it">SEO</span></h1>
     <p class="p-sub">SEO earns a position in a list of links. GEO earns a presence inside the answer itself. Same goal — being found — on a different surface, with different evidence and different work.</p>
     <div class="p-cta-row">
       <a class="btn" href="/free-snapshot/">Get my free snapshot</a>
@@ -1216,45 +1308,32 @@ tr.sr-dots{display:none}
       <div class="faq-item"><button class="faq-q" aria-expanded="false">Is llms.txt required?<span class="chev">+</span></button><div class="faq-a"><p>No. llms.txt is a community proposal, not a platform specification — llmstxt.org calls it a proposal, and Google's AI features guide never mentions it. No major engine we could check lists it as a requirement for appearing in AI answers. It can still be a tidy overview file for agents; it is just not a ticket in.</p></div></div>
     </div>
   </div>
-</section><section id="join">
+</section><section class="closing" id="join">
   <div class="wrap">
-    <div class="join-card reveal">
       <h2>See how AI sees your brand — free</h2>
       <p class="p-sub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p>
       <div class="p-cta-row">
         <a class="btn" href="/free-snapshot/">Get my free snapshot</a>
       </div>
       <p class="form-note">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</p>
-    </div>
   </div>
 </section>
 </main>
-<footer>
-      <div class="wrap foot-in">
-        <div class="foot-brand">
-          <a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-          <p>AI search visibility monitoring for small sites.</p>
-          <p>Now open for new accounts.</p>
-          <p>Contact: <a href="/cdn-cgi/l/email-protection#fd8e888d8d928f89bd9e9489909c8f96d39e9290"><span class="__cf_email__" data-cfemail="ff8c8a8f8f908d8bbf9c968b929e8d94d19c9092">[email&#160;protected]</span></a></p>
-          <p>Payments are processed by <strong>Creem</strong>, our merchant of record. We never see, handle, or store your card details.</p>
+<footer class="footer">
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <a class="wordmark" href="/">CitMark<i>.</i></a>
+            <p>AI visibility measurement for small, independent brands.</p>
+          </div>
+          <div class="foot-col"><h4>Product</h4><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="#faq">FAQ</a></div>
+          <div class="foot-col"><h4>Company</h4><a href="/about/">About</a><a href="/methodology/">Methodology</a><a href="/contact/">Contact</a></div>
+          <div class="foot-col"><h4>Legal</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Service</a></div>
         </div>
-        <nav class="foot-nav" aria-label="Product">
-          <p class="foot-h">Product</p>
-          <a href="/#report">Sample report</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/#faq">FAQ</a>
-        </nav>
-        <nav class="foot-nav" aria-label="Company">
-          <p class="foot-h">Company</p>
-          <a href="/about/">About</a>
-          <a href="/methodology/">Methodology</a>
-          <a href="/contact/">Contact</a>
-        </nav>
-        <nav class="foot-nav" aria-label="Legal">
-          <p class="foot-h">Legal</p>
-          <a href="/privacy/">Privacy Policy</a>
-          <a href="/terms/">Terms of Service</a>
-        </nav>
+        <div class="foot-bottom">
+          <span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span>
+          <span>support@citmark.com</span>
+        </div>
         <p class="fineprint foot-line"><span>The sample report on this page is a real CitMark run from Nov 13, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p>
       </div>
     </footer>

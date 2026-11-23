@@ -29,11 +29,107 @@ ul,ol{margin:0 0 14px;padding-left:22px}li{margin-bottom:8px}
 footer{border-top:1px solid var(--line);margin-top:64px}footer .in{max-width:1120px;margin:0 auto;padding:28px 20px 48px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}
 @media (max-width:720px){h1{font-size:27px}section{padding:44px 0 0}.callout{padding:22px 20px}}
 </style><link rel="canonical" href="https://citmark.com/guides/check-if-chatgpt-recommends-your-brand/" />
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style id="shell-v1">
+/* ===== shell-v1: site-v1 frame shell (SPEC-subpage-alignment-20261123) ===== */
+:root{
+  --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff;
+  --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+  --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+  --accent:#e8490f; --accent-deep:#c43a08;
+  --dark:#171512; --dark-2:#221f1b;
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --muted:#55504a; --line-strong:rgba(27,24,19,.3); --bg-sink:#eae6dc;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff;
+    --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+    --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+    --accent:#e8490f; --accent-deep:#c43a08;
+    --dark:#171512; --dark-2:#221f1b;
+    --muted:#55504a; --line-strong:rgba(27,24,19,.3); --bg-sink:#eae6dc;
+    color-scheme:light;
+  }
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.g-col{max-width:46rem;padding:0 20px}
+h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
+.eyebrow,.sec-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
+.eyebrow::before{content:"— "}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0;color:var(--accent)}
+.topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:34px;height:72px}
+.wordmark{font-family:"Bricolage Grotesque",var(--sans);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark i{font-style:normal;color:var(--accent)}
+.topnav{display:flex;gap:28px;margin-left:12px}
+.topnav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:6px 0}
+.topnav a:hover{color:var(--ink)}
+.topnav a.cur{color:var(--ink);font-weight:600;box-shadow:0 2px 0 var(--accent)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.login-link{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:15.5px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--accent-deep)}
+.btn-dark{background:var(--ink)}
+.btn-dark:hover{background:#000}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px}
+.mmenu{display:none;border-bottom:1px solid var(--line);background:var(--bg);padding:10px 0 16px}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 40px;font-size:16.5px;font-weight:600;text-decoration:none;color:var(--ink)}
+.mmenu a.cur{color:var(--accent-deep)}
+.footer{padding:64px 0 34px;background:var(--bg);margin-top:0;border-top:none}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.foot-brand p{margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:30ch}
+.foot-col h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px}
+.foot-col a{display:block;text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:4.5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{border-top:1px solid var(--line-soft);margin-top:46px;padding-top:22px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+section{padding:72px 0 78px}
+@media (max-width:860px){
+  .topnav,.top-right .login-link{display:none}
+  .burger{display:inline-flex}
+  .wrap{padding:0 20px}
+  .mmenu a{padding-left:20px;padding-right:20px}
+}
+@media (max-width:700px){
+  body{font-size:16.5px}
+  section{padding:52px 0 58px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
-<body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-<a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
-<a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav>
-<main><div class="wrap">
+<body><header class="topbar">
+      <div class="wrap topbar-in">
+        <a class="wordmark" href="/">CitMark<i>.</i></a>
+        <nav class="topnav">
+          <a href="/product/">Product</a>
+          <a href="/results/">Sample report</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/about/">About</a>
+          <a href="/#faq">FAQ</a>
+        </nav>
+        <div class="top-right">
+          <a class="login-link topbar-auth" href="/?auth=login">Log in</a>
+          <a class="btn" href="/signup/">Get started</a>
+          <button class="burger" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+      <nav class="mmenu" id="mobileMenu">
+        <a href="/product/">Product</a>
+        <a href="/results/">Sample report</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/about/">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/?auth=login">Log in</a>
+      </nav>
+    </header>
+<main><div class="wrap g-col">
 <section style="padding-top:44px"><p class="eyebrow">GUIDE</p>
 <h1>How can I check whether ChatGPT recommends my brand or my competitors?</h1>
 <p class="lede">You can't manage what you haven't measured. When a buyer asks ChatGPT for the best tool in your category, the answer names a short list of brands. Either yours is on that list or your competitors are. Here is a straightforward way to find out — first by hand, then with a tool — and how to read what you find without fooling yourself.</p></section>
@@ -58,7 +154,37 @@ footer{border-top:1px solid var(--line);margin-top:64px}footer .in{max-width:112
 <p>No tool — including CitMark — can guarantee that AI assistants will recommend your brand. What a careful check gives you is the truth about where you stand today, measured rather than guessed. Start with the free snapshot, read it honestly, and you'll know more than most of your competitors do about how AI sees your category.</p>
 <p><a href="/free-snapshot/">Run the free snapshot</a> · <a href="/ai-visibility-monitoring/">Compare AI visibility monitoring tools</a></p></section>
 </div></main>
-<footer><div class="in"><p><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></p>
-<p><a href="/pricing/">Pricing</a> · <a href="/methodology/">Methodology</a> · <a href="/about/">About</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a></p>
-<p>Questions: support@citmark.com · Security issues: security@citmark.com</p></div></footer></body>
+<footer class="footer">
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <a class="wordmark" href="/">CitMark<i>.</i></a>
+            <p>AI visibility measurement for small, independent brands.</p>
+          </div>
+          <div class="foot-col"><h4>Product</h4><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/#faq">FAQ</a></div>
+          <div class="foot-col"><h4>Company</h4><a href="/about/">About</a><a href="/methodology/">Methodology</a><a href="/contact/">Contact</a></div>
+          <div class="foot-col"><h4>Legal</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Service</a></div>
+        </div>
+        <div class="foot-bottom">
+          <span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span>
+          <span>support@citmark.com</span>
+        </div>
+      </div>
+    </footer>
+<script>
+(function () {
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function setMenu(open) {
+    mobileMenu.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
+  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest(".topbar")) setMenu(false); });
+})();
+</script>
+</body>
 </html>
