@@ -1263,8 +1263,8 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       <section class="view active" id="view-overview"><p id="ovPoolLine" data-live-layer hidden></p><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
         <div class="ov-head">
           <div>
-            <div class="ov-brand"><b id="ovBrandName">–</b><span id="ovBrandDomain">–</span></div>
-            <p class="ov-fresh" id="ovFresh">–</p>
+            <div class="ov-brand"><b id="ovBrandName"></b><span id="ovBrandDomain"></span></div>
+            <p class="ov-fresh" id="ovFresh"></p>
           </div>
           <button class="btn" id="ovRunBtn">▶&nbsp; Run new snapshot</button>
         </div>
@@ -4682,8 +4682,8 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     var on = document.getElementById("ovBrandName");
     var od = document.getElementById("ovBrandDomain");
     var of = document.getElementById("ovFresh");
-    if (on && !b) { on.textContent = "–"; if (od) od.textContent = "–"; if (of) of.textContent = "No snapshots yet"; }
-    else if (on && b) { on.textContent = b.name; if (od) od.textContent = b.domain || "–"; }
+    if (on && !b) { on.textContent = ""; if (od) od.textContent = ""; if (of) of.textContent = "No snapshots yet"; }
+    else if (on && b) { on.textContent = b.name; if (od) od.textContent = b.domain || ""; }
   }
   if (typeof window.go === "function") {
     var orig = window.go;

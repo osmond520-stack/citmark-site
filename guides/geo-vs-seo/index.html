@@ -1112,6 +1112,31 @@ tr.sr-dots{display:none}
 @media (max-width:900px){.p-hero{grid-template-columns:1fr}.steps,.tiers,.method-grid{grid-template-columns:1fr}}
 @media (max-width:560px){.sample-table{font-size:12.5px}.sample-table th,.sample-table td{padding:7px 6px}.modtable th,.modtable td{padding:12px 12px}}
 </style>
+
+<style id="hdr-fix-860">
+/* Repair wave 2026-11-23: header-shell containment for the 721-900 band.
+   The desktop topbar (wordmark + five-link nav + fixed 332px session slot) needs ~900px and
+   overflows tablets; extend the existing <=720px header package (nav folds into the mobile
+   menu, session slot 65px, hamburger shown) up to 900px (this shell's desktop header measures 873/885px wide, so its fit point sits above the homepage's 860px). Rules copied verbatim from that package. */
+@media (max-width:900px){
+.topnav{display:none}
+.topbar .btn{margin-left:auto}
+.topbar-in .topbar-login{display:none}
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;margin-left:10px;padding:0;background:transparent;color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer}
+.nav-toggle-bars{display:block;width:20px}
+.nav-toggle-bars span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .25s ease}
+.nav-toggle-bars span+span{margin-top:5px}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg-raise);border-bottom:1px solid var(--line-strong);box-shadow:var(--shadow);padding:8px 24px 20px;visibility:hidden;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
+.mobile-menu.open{visibility:visible;opacity:1;transform:none;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
+.mobile-menu nav a{display:flex;align-items:center;min-height:48px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;border-bottom:1px solid var(--line)}
+.mobile-menu nav a:active{color:var(--accent-deep)}
+.mobile-menu .btn{width:100%;margin:14px 0 0;min-height:48px}
+.sess-slot{width:65px;margin-left:auto}
+}
+</style>
 </head>
 <body class="session-ready">
 <header class="topbar">

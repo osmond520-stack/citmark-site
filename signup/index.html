@@ -881,6 +881,14 @@ html { scrollbar-gutter: stable; }
   .su-card-side { padding-top: 4px; }
 }
 </style>
+
+<style id="signup-fix-r1">
+/* Repair wave 2026-11-23: the value column's content was removed by ruling (no H1, no
+   evidence rows), but .su-split still reserved it a 1fr column and pushed the card into
+   the right half of the page. Drop the empty column; the card centers on the full width. */
+.su-value{display:none}
+.su-split{grid-template-columns:1fr}
+</style>
 </head>
 <body>
 <header class="su-top">
