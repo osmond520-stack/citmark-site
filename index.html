@@ -1085,11 +1085,105 @@ tr.sr-dots{display:none}
 .nm-rail .nm-floor{margin-top:auto;padding-top:14px}
 .mm-group{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
 @media (max-width:860px){.navmega{display:none}}
+</style>
 <style id="navmega-fix">
 .topnav .nm-floor{color:var(--accent-deep);font-weight:600}
 .topnav .nm-link{color:var(--ink-2)}
 .topnav a.nm-row{text-decoration:none}
-@media (max-width:860px){.prod-wrap{display:none}}
+
+@media (max-width:860px){
+.topnav{display:flex;gap:20px}
+.topnav a[href="#report"],.topnav a[href="#how"],.topnav a[href="#faq"]{display:none}
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;margin-left:10px;padding:0;background:transparent;color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer}
+.mobile-menu{display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg-raise);border-bottom:1px solid var(--line-strong);box-shadow:var(--shadow);padding:8px 24px 20px;visibility:hidden;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
+.mobile-menu.open{visibility:visible;opacity:1;transform:none;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
+.mobile-menu nav a{display:flex;align-items:center;min-height:48px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;border-bottom:1px solid var(--line)}
+.mobile-menu nav a:active{color:var(--accent-deep)}
+.mobile-menu .btn{width:100%;margin:14px 0 0;min-height:48px}
+}
+@media (max-width:560px){
+.topnav{gap:14px}
+.topnav > a[href="/pricing/"]{display:none}
+.topbar-in{gap:4px;padding-left:16px;padding-right:16px}
+}
+</style>
+
+<style id="variant-V1">
+/* V1 · Report cover */
+.navmega{border-top:3px solid var(--accent);border-radius:18px}
+.navmega .nm-ico{width:42px;height:42px;border-radius:11px;background:var(--ink);color:#FF9A4D}
+.navmega .nm-ico svg{stroke-width:2.3px}
+.navmega .nm-row:hover .nm-ico{background:var(--accent-deep);color:#fff}
+.nm-rail{background:#F5EBD9;border-left:1px solid #EADFC6}
+.nm-rail::before{content:"";display:block;height:30px;margin-bottom:14px;background:
+ linear-gradient(var(--accent),var(--accent)) 0 100%/11px 38% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 19px 100%/11px 62% no-repeat,
+ linear-gradient(var(--accent-deep),var(--accent-deep)) 38px 100%/11px 48% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 57px 100%/11px 88% no-repeat}
+.nm-rail .nm-eyebrow{color:var(--accent-deep)}
+.nm-rail .nm-link{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600;color:var(--ink);padding:9.5px 0;border-bottom:1px solid rgba(122,74,16,.14)}
+.nm-rail .nm-link::after{content:"\2192";color:var(--accent-deep);font-weight:600}
+.nm-rail .nm-link:last-child{border-bottom:none}
+.mm-group{color:var(--accent-deep)}
+</style>
+<style id="variant-V1r">
+/* V1 refined */
+/* page blending: warm border + warm shadow */
+.navmega{border-color:#E7DAC2;box-shadow:0 24px 55px rgba(122,74,16,.13),0 2px 8px rgba(122,74,16,.05)}
+/* rail motif: shared axis baseline under the bars */
+.nm-rail::before{height:28px;margin-bottom:12px;background:
+ linear-gradient(rgba(122,74,16,.45),rgba(122,74,16,.45)) 0 100%/76px 1.5px no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 2px 100%/11px 38% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 21px 100%/11px 62% no-repeat,
+ linear-gradient(var(--accent-deep),var(--accent-deep)) 40px 100%/11px 48% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 59px 100%/11px 88% no-repeat}
+/* rail links fill the rail height evenly: no dead zone at rail bottom */
+.nm-rail .nm-link{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0}
+.nm-rail .nm-link::after{transition:transform .18s ease}
+.nm-rail .nm-link:hover{color:var(--accent-deep)}
+.nm-rail .nm-link:hover::after{transform:translateX(3px)}
+/* left rows: warmer hover field, tile settles to 40px */
+.navmega .nm-ico{width:40px;height:40px;border-radius:10px;transition:background .18s ease}
+.navmega .nm-row{padding:12px 8px;transition:background .18s ease}
+.navmega .nm-row:hover{background:#FBF5EA}
+/* floor gets a hairline structure row */
+.nm-main .nm-floor{display:block;border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
+/* mobile menu, same direction: orange top rule + motif before PRODUCT + weighted product rows */
+.mobile-menu{border-top:3px solid var(--accent)}
+.mm-group:first-of-type::before{content:"";display:inline-block;width:26px;height:12px;margin-right:9px;vertical-align:-1px;background:
+ linear-gradient(var(--accent),var(--accent)) 0 100%/5px 45% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 8px 100%/5px 75% no-repeat,
+ linear-gradient(var(--accent-deep),var(--accent-deep)) 16px 100%/5px 100% no-repeat}
+.mobile-menu nav a:nth-of-type(1),.mobile-menu nav a:nth-of-type(2),.mobile-menu nav a:nth-of-type(3),.mobile-menu nav a:nth-of-type(4){font-weight:600}
+</style>
+<style id="variant-V1r2">
+/* V1r2 · site-consistency alignment: every value back to a live token */
+.navmega{border-color:var(--line-strong);border-radius:16px;box-shadow:0 18px 50px rgba(20,21,25,.14),0 2px 8px rgba(20,21,25,.06)}
+.nm-rail{background:var(--bg-sink);border-left:1px solid var(--line)}
+.nm-rail::before{background:
+ linear-gradient(var(--line-strong),var(--line-strong)) 0 100%/76px 1.5px no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 2px 100%/11px 38% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 21px 100%/11px 62% no-repeat,
+ linear-gradient(var(--accent-deep),var(--accent-deep)) 40px 100%/11px 48% no-repeat,
+ linear-gradient(var(--accent),var(--accent)) 59px 100%/11px 88% no-repeat}
+.nm-rail .nm-link{border-bottom:1px solid var(--line)}
+.navmega .nm-row:hover{background:var(--bg-sink)}
+</style>
+<style id="icon-C">
+/* icon C: accent tint tile + deep glyph */
+.navmega .nm-ico{width:40px;height:40px;background:color-mix(in srgb,var(--accent) 13%, transparent);color:var(--accent-deep)}
+.navmega .nm-row:hover .nm-ico{background:color-mix(in srgb,var(--accent) 24%, transparent)}
+</style>
+<style id="size-S">
+/* size S: 632 wide, tightened rhythm */
+.navmega{width:min(632px,94vw)}
+.nm-main{padding:16px 22px 12px}
+.nm-eyebrow{margin-bottom:10px}
+.navmega .nm-row{padding:7px 8px}
+.navmega .nm-t .nm-d{line-height:1.38}
+.nm-main .nm-floor{padding-top:10px;margin-top:2px}
+.nm-rail{padding:16px 20px 12px}
+.nm-rail::before{height:22px;margin-bottom:9px}
 </style>
 </head>
   <body>
@@ -1100,22 +1194,23 @@ tr.sr-dots{display:none}
           <span class="prod-wrap"><button class="prod-btn" id="prodBtn" type="button" aria-expanded="false" aria-haspopup="true">Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
 <div class="navmega" id="navMega" hidden role="menu" aria-label="Product">
 <div class="nm-main"><p class="nm-eyebrow">Features</p>
-<a class="nm-row" href="#report"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 20h16"/><path d="M7 20v-6"/><path d="M12 20V5"/><path d="M17 20v-9"/></svg></span><span class="nm-t"><b>Visibility Score</b><span class="nm-d">How the big AI engines rank your brand, tracked run over run.</span></span></a>
-<a class="nm-row" href="#features"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.2 1.1"/><path d="M14 10a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.2-1.1"/></svg></span><span class="nm-t"><b>Win Citations</b><span class="nm-d">The sources citing your rivals but not you, ready to win back.</span></span></a>
-<a class="nm-row" href="#features"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span><span class="nm-t"><b>Fix a Bad Mention</b><span class="nm-d">Corrections for wrong claims, drafted from your confirmed facts.</span></span></a>
-<a class="nm-row" href="#features"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></span><span class="nm-t"><b>AI Readiness</b><span class="nm-d">llms.txt and page checks so engines read your site right.</span></span></a>
-<a class="nm-floor" href="#features">The full product &rarr;</a>
+<a class="nm-row" href="/product/#measure"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 20h16"/><path d="M7 20v-6"/><path d="M12 20V5"/><path d="M17 20v-9"/></svg></span><span class="nm-t"><b>Visibility Score</b><span class="nm-d">How the big AI engines rank your brand, tracked run over run.</span></span></a>
+<a class="nm-row" href="/product/#diagnose"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.2 1.1"/><path d="M14 10a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.2-1.1"/></svg></span><span class="nm-t"><b>Win Citations</b><span class="nm-d">The sources citing your rivals but not you, ready to win back.</span></span></a>
+<a class="nm-row" href="/product/#draft"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span><span class="nm-t"><b>Fix a Bad Mention</b><span class="nm-d">Corrections for wrong claims, drafted from your confirmed facts.</span></span></a>
+<a class="nm-row" href="/product/"><span class="nm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></span><span class="nm-t"><b>AI Readiness</b><span class="nm-d">llms.txt and page checks so engines read your site right.</span></span></a>
+<a class="nm-floor" href="/product/">The full product &rarr;</a>
 </div>
 <div class="nm-rail"><p class="nm-eyebrow">Explore</p>
 <a class="nm-link" href="/methodology/">How we score</a>
+<a class="nm-link" href="/compare/">Compare tools</a>
+<a class="nm-link" href="/guides/what-is-geo/">Guides</a>
+<a class="nm-link" href="/pricing/">Pricing</a>
 <a class="nm-link" href="/help/">Help center</a>
-<a class="nm-link" href="#report">Sample report</a>
-<a class="nm-floor" href="#how">See how it works &rarr;</a>
 </div>
 </div></span>
           <a href="#report">Sample report</a>
           <a href="#how">How it works</a>
-          <a href="#pricing">Pricing</a>
+          <a href="/pricing/">Pricing</a>
           <a href="#faq">FAQ</a>
         </nav>
         <span class="sess-slot"><button class="btn small ghost topbar-auth" type="button" data-open-auth-card>Log in</button>
@@ -1126,16 +1221,17 @@ tr.sr-dots{display:none}
       </div>
       <div class="mobile-menu" id="mobileMenu">
         <nav aria-label="Page sections">
-          <p class="mm-group">Product</p>
-          <a href="#report">Visibility Score</a>
-          <a href="#features">Win Citations</a>
-          <a href="#features">Fix a Bad Mention</a>
-          <a href="#features">AI Readiness</a>
+          <p class="mm-group mm-group-label--prod">Product</p>
+          <a href="/product/#measure">Visibility Score</a>
+          <a href="/product/#diagnose">Win Citations</a>
+          <a href="/product/#draft">Fix a Bad Mention</a>
+          <a href="/product/">AI Readiness</a>
           <p class="mm-group">Pages</p>
           <a href="#report">Sample report</a>
           <a href="#how">How it works</a>
-          <a href="#pricing">Pricing</a>
+          <a href="/pricing/">Pricing</a>
           <a href="#faq">FAQ</a>
+          <a href="/privacy/">Privacy Policy</a>
         </nav>
       </div>
     </header>
@@ -3021,6 +3117,15 @@ h1, h2 { text-wrap: balance; }
 }
 
 </style>
+<style id="mega-fix-f1">
+/* F1: top border accent re-asserted after border-color layers (design ruling 2026-11-23) */
+.navmega{border-top-color:var(--accent)}
+</style>
+<style id="mega-fix-f2">
+/* F2: mobile menu PRODUCT label micro-motif (design ruling 2026-11-23) */
+#mobileMenu .mm-group-label--prod{display:flex;align-items:center;gap:9px}
+#mobileMenu .mm-group-label--prod::before{content:"";width:26px;height:12px;flex:none;background:linear-gradient(var(--accent),var(--accent)) 0 100%/5px 45% no-repeat,linear-gradient(var(--accent),var(--accent)) 8px 100%/5px 75% no-repeat,linear-gradient(var(--accent-deep),var(--accent-deep)) 16px 100%/5px 100% no-repeat}
+</style>
 <style id="scheme-layer-heroguard">
 /* merge guard (frontend): restates the settled <1024 frameless hero rule after the scheme layer,
    so the warm card treatment applies at >=1024 only, exactly as the scheme file intends.
@@ -3703,9 +3808,12 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
 var btn=document.getElementById('prodBtn'),panel=document.getElementById('navMega');
 if(!btn||!panel)return;
 var fine=window.matchMedia('(pointer:fine)').matches;
+var mobileMQ=window.matchMedia('(max-width: 860px)');
 var closeTimer=null;
-function set(open){if(open&&closeTimer){clearTimeout(closeTimer);closeTimer=null;}panel.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');}
-btn.addEventListener('click',function(e){e.stopPropagation();if(fine){if(panel.hidden)set(true);}else{set(panel.hidden);}});
+function set(open){if(open&&closeTimer){clearTimeout(closeTimer);closeTimer=null;}panel.hidden=!open;if(!mobileMQ.matches)btn.setAttribute('aria-expanded',open?'true':'false');}
+btn.addEventListener('click',function(e){e.stopPropagation();if(mobileMQ.matches){var t=document.getElementById('navToggle');if(t)t.click();return;}if(fine){if(panel.hidden)set(true);}else{set(panel.hidden);}});
+var mm=document.getElementById('mobileMenu');
+if(mm&&window.MutationObserver){new MutationObserver(function(){if(mobileMQ.matches)btn.setAttribute('aria-expanded',mm.classList.contains('open')?'true':'false');}).observe(mm,{attributes:true,attributeFilter:['class']});}
 document.addEventListener('click',function(e){if(!panel.hidden&&!panel.contains(e.target))set(false);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
 var wrap=btn.parentElement;
