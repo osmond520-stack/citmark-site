@@ -1211,6 +1211,11 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.88);bac
 .mmenu{display:none;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 14px;position:sticky;top:var(--nav-h);z-index:59}
 .mmenu.open{display:block}
 .mmenu a{display:block;padding:11px 2px;font-weight:600;font-size:16px;color:var(--ink);border-bottom:1px solid var(--line)}
+.nav-menu path{transition:transform .24s cubic-bezier(.2,.7,.2,1),opacity .24s cubic-bezier(.2,.7,.2,1);transform-box:fill-box;transform-origin:center}
+.nav-menu[aria-expanded="true"] .mb1{transform:translateY(5px) rotate(45deg)}
+.nav-menu[aria-expanded="true"] .mb2{opacity:0}
+.nav-menu[aria-expanded="true"] .mb3{transform:translateY(-5px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.nav-menu path{transition:none}}
 .mmenu a:last-child{border-bottom:none}
 .mmenu a.cur{color:var(--or-ink)}
 /* [prod] neutralize legacy dead .final card rules in page CSS (radius survives cascade) */
@@ -1225,7 +1230,8 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.88);bac
 .final .form-msg.err{color:#ffb59d}
 .fcta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
 .btn.ghostd{background:transparent;color:var(--on-dark);box-shadow:inset 0 0 0 1.5px rgba(244,241,234,.55)}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nowrap{white-space:nowrap}
 .fineprint{margin-top:18px;font-size:12.5px;line-height:1.6;color:var(--ink-3);text-align:center}
 /* page geometry aligned to SPEC 3b3a410d (package type scale + .sec rhythm) */
 body{font-size:16px;line-height:1.6}
@@ -1271,7 +1277,7 @@ body{background:var(--bg);color:var(--ink)}
 </style>
 </head>
 <body class="session-ready">
-<header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
+<header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
 <nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a><a href="/?auth=login">Log in</a></nav><main>
 <style id="frame-b">
 .wins-card{display:none}
@@ -1384,7 +1390,7 @@ body{background:var(--bg);color:var(--ink)}
     </div>
   </div>
 </section>
-<section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200" aria-hidden="true"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Close the gap</span><h2>Start the Measure–Diagnose–Draft loop on your own brand.</h2><p class="fsub">Create a free account and run your first snapshot. No card, no demo call.</p><form class="field-cta waitlist" id="joinForm" novalidate><label class="sr" for="joinEmail">Work email</label><input class="ph" id="joinEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com"><button class="btn" type="submit">Create your free account</button></form><p class="form-msg" id="joinMsg" role="status" aria-live="polite"></p><div class="fine">Free snapshot included. Upgrade only if the loop earns it.</div></div></section>
+<section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200" aria-hidden="true"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Close the gap</span><h2>Start the <span class="nowrap">Measure–Diagnose–Draft</span> loop on your own brand.</h2><p class="fsub">Create a free account and run your first snapshot. No card, no demo call.</p><form class="field-cta waitlist" id="joinForm" novalidate><label class="sr-only" for="joinEmail">Work email</label><input class="ph" id="joinEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com"><button class="btn" type="submit">Create your free account</button></form><p class="form-msg" id="joinMsg" role="status" aria-live="polite"></p><div class="fine">Free snapshot included. Upgrade only if the loop earns it.</div></div></section>
 <section class="sec" style="padding-top:0">
   <div class="wrap"><p class="sib">The other comparison: <a href="/compare/profound/">CitMark vs Profound</a> · <a href="/compare/">All comparisons</a></p></div>
 </section>
