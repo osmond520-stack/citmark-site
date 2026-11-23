@@ -207,7 +207,7 @@ a { color: var(--accent-deep); }
     <input type="hidden" id="turnstileToken" name="turnstile_token" value="" />
 
     <button class="btn" id="submitBtn" type="submit">Get my free snapshot</button>
-    <p class="privacy">One email = one report. We email your snapshot and add you to the CitMark waitlist. No spam, unsubscribe anytime.</p>
+    <p class="privacy">One email = one report. We email your snapshot to this address, plus one follow-up question about it — nothing else.</p>
 
     <div class="state ok" id="stateOk"></div>
     <div class="state err" id="stateErr"></div>
@@ -529,7 +529,7 @@ function landingFailed() {
   landingShow("stateErr", "Your email is verified \u2014 but starting your snapshot failed on our side. Submit the form once more and it will run.");
 }
 function landingPool(body) {
-  var html = "Your email is verified \u2014 but today's free runs are full. Join the waitlist and we'll start your snapshot as soon as a slot opens.";
+  var html = "Today's free runs are used up \u2014 new runs open tomorrow.";
   if (body && body.exit === "plans") { html += " <a href=\"/pricing\">See plans</a>."; }
   landingShow("stateErr", html);
 }
