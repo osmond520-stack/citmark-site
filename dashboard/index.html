@@ -294,6 +294,17 @@ a.wordmark { color: inherit; text-decoration: none; }
 /* empty / loading */
 .empty { text-align: center; padding: 56px 20px; color: var(--muted); }
 .empty .big { font-size: 44px; margin-bottom: 12px; }
+/* one input face for the whole app (P1 input unification) */
+.content input:not([type]), .content input[type="text"], .content input[type="email"],
+.content input[type="password"], .content input[type="url"], .content input[type="search"],
+.content select, .content textarea { border: 1px solid var(--line-strong); border-radius: 10px;
+  padding: 10px 12px; background: var(--bg); color: var(--ink); font-size: 14px; box-sizing: border-box; }
+.content input:focus, .content select:focus, .content textarea:focus,
+#view-questions input:focus, #view-competitors input:focus, #view-sources input:focus,
+#view-tools input:focus, #view-settings input:focus, #view-questions select:focus,
+#view-competitors select:focus, #view-sources select:focus, #view-tools select:focus,
+#view-settings select:focus { border-color: var(--skin-accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--skin-accent) 22%, transparent); outline: none; }
 .state-err { background: var(--bad-soft); border: 1px solid #f0c4c0; color: var(--bad);
   border-radius: 12px; padding: 16px 18px; font-size: 14px; font-weight: 600; }
 
@@ -371,7 +382,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 .cfg-field { display: block; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
 .cfg-field input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px;
   border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg);
-  color: var(--ink); font: inherit; font-size: 14.5px; }
+  color: var(--ink); font: inherit; font-size: 14px; }
 .cfg-check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0;
   border-bottom: 1px solid var(--line); font-size: 14px; cursor: pointer; }
 .cfg-check:last-child { border-bottom: 0; }
@@ -439,7 +450,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 #view-questions .btn, #view-competitors .btn, #view-sources .btn, #view-tools .btn, #view-settings .btn{display:inline-block;border:0;background:var(--ink);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
 #view-questions .btn.ghost, #view-competitors .btn.ghost, #view-sources .btn.ghost, #view-tools .btn.ghost, #view-settings .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 #view-billing .btn.small, #view-questions .btn.small, #view-competitors .btn.small, #view-sources .btn.small, #view-tools .btn.small, #view-settings .btn.small{padding:6px 12px;font-size:13px}
-#view-questions input[type=text], #view-competitors input[type=text], #view-sources input[type=text], #view-tools input[type=text], #view-settings input[type=text], #view-questions input[type=password], #view-competitors input[type=password], #view-sources input[type=password], #view-tools input[type=password], #view-settings input[type=password], #view-questions select, #view-competitors select, #view-sources select, #view-tools select, #view-settings select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--ink)}
+#view-questions input[type=text], #view-competitors input[type=text], #view-sources input[type=text], #view-tools input[type=text], #view-settings input[type=text], #view-questions input[type=password], #view-competitors input[type=password], #view-sources input[type=password], #view-tools input[type=password], #view-settings input[type=password], #view-questions select, #view-competitors select, #view-sources select, #view-tools select, #view-settings select{width:100%;padding:10px 12px;border:1px solid var(--line-strong);border-radius:10px;font-size:14px;background:var(--bg);color:var(--ink);box-sizing:border-box}
 #view-questions .field, #view-competitors .field, #view-sources .field, #view-tools .field, #view-settings .field{margin-bottom:12px}
 #view-questions .field label, #view-competitors .field label, #view-sources .field label, #view-tools .field label, #view-settings .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
 #view-questions .row, #view-competitors .row, #view-sources .row, #view-tools .row, #view-settings .row{display:flex;gap:12px;flex-wrap:wrap}
@@ -784,7 +795,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 /* v8: brand-edit subview like security subviews */
 #view-brand-edit .card{padding:16px!important;margin-bottom:18px!important}
 #view-brand-edit .back-btn{background:transparent!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:999px!important;padding:6px 12px!important;font-size:13px!important;font-weight:700!important;margin-bottom:12px!important}
-#view-brand-edit input[type=text]{height:44px!important;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+#view-brand-edit input[type=text]{height:44px!important;width:100%;padding:10px 12px;border:1px solid var(--line-strong);border-radius:10px;font-size:14px;background:var(--bg)}
 #view-brand-edit .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
 #view-brand-edit .field{margin-bottom:12px}
 #view-settings .card h3{margin-bottom:8px}
@@ -1152,7 +1163,7 @@ kept apart from the gate-row pill set. */
 .t7-ans th{color:var(--muted);font-size:12px;border-top:0}
 .t7-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:12px}
 .t7-pick label{display:grid;gap:4px;font-size:12.5px;color:var(--muted);font-weight:600}
-.t7-pick select{font:inherit;color:var(--ink);background:var(--bg-raise);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:170px}
+.t7-pick select{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;min-width:170px}
 .t7-sum{display:flex;flex-wrap:nowrap;gap:8px 22px;font-size:14.5px;font-weight:600;margin:6px 0 12px;white-space:nowrap}
 .t7-sum b{font-size:20px;font-weight:800}
 @media (max-width:560px){.t7-sum{gap:6px 8px;font-size:12.5px} .t7-sum b{font-size:16px}}
@@ -3927,9 +3938,8 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 .brand-save-note{font-size:13.5px;color:var(--muted)}
 .brand-save-note.err{color:#b91c1c}
 #view-brands-new .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
-#view-brands-new .field input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}
-#view-brands-new .field input[type=text]:focus{outline:2px solid var(--skin-accent);outline-offset:1px;border-color:transparent}
-#view-brands-new .field select,#view-brand-edit .field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink);box-sizing:border-box}
+#view-brands-new .field input[type=text]{width:100%;border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink)}
+#view-brands-new .field select,#view-brand-edit .field select{width:100%;border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink);box-sizing:border-box}
 #view-brands-new .field select:focus,#view-brand-edit .field select:focus{outline:2px solid var(--skin-accent);outline-offset:1px;border-color:transparent}
 #view-brands-new .row{display:flex;flex-wrap:nowrap;gap:8px}
 #view-brands-new .row > *{min-width:0;flex:1 1 0}
