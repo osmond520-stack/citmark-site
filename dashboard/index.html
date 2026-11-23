@@ -25,7 +25,7 @@ html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not
 html[data-state="empty"] [data-empty-slot]{display:block!important}
 .tk-brief{white-space:pre-line;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.55}
 .tk-fix{border-top:1px dashed var(--line);padding:10px 0}
-.tk-fix .tk-ba{font-size:13.5px;color:var(--muted)}
+.tk-fix .tk-ba{font-size:14px;color:var(--muted)}
 .tk-fix .tk-ba b{color:var(--ink);font-weight:700}
 </style>
 <title>Dashboard — CitMark</title>
@@ -408,18 +408,18 @@ a.wordmark { color: inherit; text-decoration: none; }
 .ov-neg-sub { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
 .ov-neg-more { display: inline-block; margin-top: 10px; font-size: 14px; }
 .sug-fix-link { display: inline-block; margin-top: 6px; font-size: 14px; }
-#view-tools-p4 .tk-context { background: var(--bg-sink); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.55; margin: 0 0 14px; }
+#view-tools-p4 .tk-context { background: var(--bg-sink); border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.55; margin: 0 0 14px; }
 .week-sum { font-size: 14px; margin: 0 0 12px; color: var(--ink-2); line-height: 1.6; }
 .week-item { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; }
 .week-item:last-child { border-bottom: 0; }
 .week-item .n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--skin-accent); color: #fff; font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; }
 
 /* ============ 5A+6A integration (local, scoped to the 5 new views) ============ */
-#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
-#view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{margin:0 0 4px;font-size:20px}
-#view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{margin:0 0 8px;font-size:16px}
+#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+#view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{margin:0 0 4px;font-size:21px}
+#view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{margin:0 0 8px;font-size:18px}
 #view-tools .tk-tier{color:var(--muted);font-size:12px;margin:0 0 10px}
-#view-questions .desc, #view-competitors .desc, #view-sources .desc, #view-tools .desc, #view-settings .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-questions .desc, #view-competitors .desc, #view-sources .desc, #view-tools .desc, #view-settings .desc{color:var(--muted);margin:0 0 14px;font-size:15px}
 #view-questions .empty, #view-competitors .empty, #view-sources .empty, #view-tools .empty, #view-settings .empty{color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:14px;font-size:14px}
 #view-questions .sample-tag, #view-competitors .sample-tag, #view-sources .sample-tag, #view-tools .sample-tag, #view-settings .sample-tag, #view-billing .sample-tag, #view-team .sample-tag, #view-connections .sample-tag, #view-developer .sample-tag{font-size:11px;font-weight:700;color:#6b7280;border:1px solid var(--line);border-radius:999px;padding:1px 7px;vertical-align:middle;white-space:nowrap}
 #view-questions .badge-soon, #view-competitors .badge-soon, #view-sources .badge-soon, #view-tools .badge-soon, #view-settings .badge-soon{display:inline-block;background:#f3f4f6;color:#6b7280;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
@@ -717,7 +717,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 #view-settings .switch-row b{font-size:15px!important}
 #view-settings .switch-row span{white-space:nowrap!important}
 #view-settings input[type=text]{height:44px!important}
-#view-settings .card{padding:16px!important;margin-bottom:18px!important}
+#view-settings .card{padding:24px!important;margin-bottom:18px!important}
 </style>
 <style>
 /* v2: Settings all lists -> v3 single-line row */
@@ -907,19 +907,25 @@ html[data-state="demo"] [data-live-layer]{display:none!important}
 #view-tools-p2 .card,
 #view-tools-p3 .card,
 #view-tools-p4 .card,
-#view-tools-p5 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+#view-tools-p5 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
 #view-tools-p0 .card h3,
 #view-tools-p1 .card h3,
 #view-tools-p2 .card h3,
 #view-tools-p3 .card h3,
 #view-tools-p4 .card h3,
-#view-tools-p5 .card h3{margin:0 0 8px;font-size:16px}
+#view-tools-p5 .card h3{margin:0 0 8px;font-size:18px}
+#view-tools-p0 .card h2,
+#view-tools-p1 .card h2,
+#view-tools-p2 .card h2,
+#view-tools-p3 .card h2,
+#view-tools-p4 .card h2,
+#view-tools-p5 .card h2{margin:0 0 4px;font-size:21px}
 #view-tools-p0 .desc,
 #view-tools-p1 .desc,
 #view-tools-p2 .desc,
 #view-tools-p3 .desc,
 #view-tools-p4 .desc,
-#view-tools-p5 .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-tools-p5 .desc{color:var(--muted);margin:0 0 14px;font-size:15px}
 #view-tools-p0 .btn,
 #view-tools-p1 .btn,
 #view-tools-p2 .btn,
@@ -1135,10 +1141,10 @@ kept apart from the gate-row pill set. */
 #view-tools .btn[data-go]:hover, #view-tools-p0 #tkRunBtn:hover { background: var(--skin-accent-deep); border-color: var(--skin-accent-deep); }</style>
 
 <style id="t7-css">
-#view-tools-p6 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
-#view-tools-p6 .card h2{margin:0 0 4px;font-size:20px}
-#view-tools-p6 .card h3{margin:0 0 8px;font-size:16px}
-#view-tools-p6 .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-tools-p6 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+#view-tools-p6 .card h2{margin:0 0 4px;font-size:21px}
+#view-tools-p6 .card h3{margin:0 0 8px;font-size:18px}
+#view-tools-p6 .desc{color:var(--muted);margin:0 0 14px;font-size:15px}
 #view-tools-p6 .empty{color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:14px;font-size:14px}
 .t7-run{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:12px 2px;cursor:pointer;font:inherit;color:inherit}
 .t7-run:first-of-type{border-top:0}
@@ -3493,7 +3499,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 <style>
 /* Settings card spacing 20261026 (real-device feedback: cards blank uneven, only spacing, no content, no other views): unify card padding, row height, card gap. Root causes fixed here: set-links margin-bottom 18px made card bottom blank 34px vs top 16px; switch rows 12px padding made 2-line rows 62px vs menu rows 44px. */
 #view-settings h2{margin-bottom:16px!important}
-#view-settings .card{padding:16px!important;margin-bottom:16px!important;margin-top:0!important}
+#view-settings .card{padding:24px!important;margin-bottom:16px!important;margin-top:0!important}
 #view-settings .card + .card{margin-top:0!important}
 #view-settings .card .set-links{margin-bottom:0!important}
 #view-settings .card h3{margin-bottom:8px!important}
