@@ -1317,7 +1317,7 @@ body{background:var(--bg);color:var(--ink)}
   navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
   mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
-  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest(".topbar")) setMenu(false); });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
 
   document.querySelectorAll(".faq-item").forEach(function (item) {
     var q = item.querySelector(".faq-q");
