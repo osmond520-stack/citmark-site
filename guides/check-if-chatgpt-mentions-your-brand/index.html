@@ -1291,119 +1291,233 @@ body{background:var(--bg);color:var(--ink)}
 .sec-head .sec-kicker,section .sec-kicker{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--or-ink)}
 .sec-kicker::before{content:"4 "}
 </style>
+<style id="guides-article">
+/* guides article bundle — package citmark.css extracts (type roles, sections, hero, rows, contrast, cards, split, faq, §22) */
+.display{font-size:var(--t-display);line-height:1.02;letter-spacing:-.045em;font-weight:800}
+.display .serif{font-size:1.12em;line-height:.9;letter-spacing:-.02em}
+.h2{font-size:var(--t-h2);line-height:1.04;letter-spacing:-.042em;font-weight:800}
+.h2 .serif{font-size:1.1em;letter-spacing:-.015em}
+.h3{font-size:var(--t-h3);line-height:1.1;letter-spacing:-.035em;font-weight:800}
+.h4{font-size:var(--t-h4);line-height:1.25;letter-spacing:-.02em;font-weight:700}
+.lead{font-size:var(--t-lead);line-height:1.6;color:var(--ink-2)} .lead b{color:var(--ink);font-weight:650}
+.body{color:var(--ink-2)}
+.small{font-size:var(--t-small);color:var(--ink-3)}
+
+/* mono label: section eyebrows + data labels only. Never paragraphs. */
+.label{font-family:var(--f-mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:500}
+.label.ink{color:var(--ink-3)}
+.band-dark .label,.final .label{color:var(--or-2)}
+.link{font-weight:650;border-bottom:1.5px solid var(--or);padding-bottom:1px}
+.sec{padding:var(--s10) 0}
+.sec.tight{padding:var(--s9) 0}
+.sec.paper{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rule-top{border-top:2px solid var(--ink)}
+.hero{display:grid;grid-template-columns:540px 1fr;gap:40px;align-items:center;min-height:calc(900px - var(--nav-h));padding-bottom:var(--s6)}
+.hero .label{display:block;margin-bottom:var(--s5)}
+
+.rows{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:120px 1fr 360px;gap:var(--s5);align-items:center;padding:26px 0;border-bottom:1px solid var(--ink)}
+.row:last-child{border-bottom:2px solid var(--ink)}
+.row .n{font-family:var(--f-num);font-weight:800;font-size:64px;line-height:1;letter-spacing:-.06em}
+.row .t{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.row .d{font-size:16px;color:var(--ink-2);margin-top:6px}
+.row .x{font-family:var(--f-mono);font-size:13px;letter-spacing:.04em;color:var(--ink-3);text-align:right;text-transform:uppercase}
+.row.wide{grid-template-columns:120px 300px 1fr}.row.wide .d{font-size:18px;margin:0}
+.row .x s{text-decoration-color:var(--or);text-decoration-thickness:2px}
+
+.contrast{display:grid;grid-template-columns:200px 1fr 1fr;border-top:2px solid var(--ink)}
+.contrast>div{padding:22px 0;border-bottom:1px solid var(--ink);font-size:16px}
+.contrast .hd{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.contrast .us{font-weight:650;color:var(--ink)} .contrast .them{color:var(--ink-3)}
+.contrast .ax{font-weight:700}
+.statement{font-size:84px;line-height:.98;letter-spacing:-.05em;font-weight:800}
+.statement .serif{color:var(--or);font-size:1.1em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+
+.card{background:#fff;border:2px solid var(--ink);padding:28px 30px}
+.card.feature{box-shadow:var(--shadow-or)}      /* max ONE feature card per viewport */
+.card.quiet{background:var(--paper);border:1px solid var(--line)}
+.ticket .hd{display:flex;justify-content:space-between;gap:12px}
+.ticket .tg{display:inline-block;margin-top:14px;background:var(--ink);color:#fff;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;padding:5px 9px}
+.ticket .l{margin-top:16px;font-size:16px;line-height:1.5}
+.ticket .l .label{display:block;margin-bottom:4px;font-size:11px}
+.ticket .l s{color:var(--ink-3);text-decoration-color:var(--or);text-decoration-thickness:2px}
+.ticket .dr{background:#F6F2EA;padding:12px 14px;border-left:4px solid var(--or)}
+.ticket .st{display:flex;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:2px dashed #DDD6C8;font-size:14px;font-weight:650}.ticket .st b{color:var(--or-ink)}
+
+.split{display:grid;grid-template-columns:1fr 560px;gap:80px;align-items:center}
+.split.rev{grid-template-columns:560px 1fr}
+.bullets{list-style:none;margin-top:var(--s5);border-top:1px solid var(--line)}
+.bullets li{padding:12px 0 12px 26px;border-bottom:1px solid var(--line);position:relative;font-size:16px;color:var(--ink)}
+.bullets li:before{content:"";position:absolute;left:2px;top:20px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--or)}
+
+.faq{border-top:2px solid var(--ink)}
+.faq .q{display:grid;grid-template-columns:1fr 32px;gap:var(--s5);padding:24px 0;border-bottom:1px solid var(--ink)}
+.faq .q h4{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.faq .q p{font-size:16px;color:var(--ink-2);margin-top:10px;max-width:760px}
+.faq .q .pm{font-family:var(--f-mono);font-size:22px;text-align:right;line-height:1.2}
+.faq-grid{display:grid;grid-template-columns:380px 1fr;gap:var(--s8)}
+
+/* ---------- 22. Guides article ---------- */
+/* Body column is ~720 × 18/1.6. Kickers always use .label with the "— " prefix.
+   One CTA only: .final (no mid-page callout, no end-of-article snapshot links). */
+.nowrap{white-space:nowrap}
+.guide-loop{padding:8px 4px 32px}
+.hero.guide{align-items:start;min-height:0;padding-top:28px;padding-bottom:var(--s7);gap:48px}
+.hero.guide .copy .display{max-width:14ch}
+.hero.guide .display .paren{display:block;font-size:.58em;letter-spacing:-.035em;line-height:1.08;font-weight:800;margin-top:.14em}
+.hero.guide .lead{max-width:none;margin-top:var(--s6)}
+.guide-visual{display:grid;grid-template-columns:168px 1fr;gap:22px;align-items:stretch;width:100%;max-width:620px;justify-self:end;margin-top:8px}
+.guide-rank{border-top:2px solid var(--ink);padding-top:16px}
+.guide-rank ol{list-style:none;margin-top:14px}
+.guide-rank li{font-size:13px;color:var(--ink-3);padding:11px 0;border-bottom:1px solid var(--line);letter-spacing:-.01em;display:flex;justify-content:space-between;gap:8px}
+.guide-rank li b{font-weight:500;color:var(--ink-2)}
+.guide-rank li i{font-family:var(--f-mono);font-style:normal;font-size:10.5px;letter-spacing:.08em;color:var(--mute)}
+.guide-rank li.pg2{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.guide-answer{padding:28px 28px 24px}
+.guide-answer .ans{font-size:19px;line-height:1.45;letter-spacing:-.02em;font-weight:650;margin-top:14px;color:var(--ink)}
+.cite-track{margin-top:24px;border-top:1.5px solid var(--ink);padding-top:16px}
+.cite-bar{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:center;margin-top:10px}
+.cite-bar .nm{font-size:13px;font-weight:650;letter-spacing:-.01em}
+.cite-bar .track{height:10px;background:var(--line);position:relative}
+.cite-bar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+.cite-bar .pos{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.cite-bar.you .nm{color:var(--or)}
+.cite-bar.you .track{background:transparent;box-shadow:inset 0 0 0 1.5px var(--or);background-image:repeating-linear-gradient(90deg,var(--or) 0 6px,transparent 6px 12px);background-size:12px 2px;background-repeat:repeat-x;background-position:0 50%;height:10px}
+.cite-bar.you .pos{color:var(--or-ink)}
+.guide-visual .cap{margin-top:14px;font-size:13px;color:var(--ink-3);line-height:1.45}
+
+.guide-col{max-width:720px}
+.guide-col p,.guide-col li{font-size:18px;line-height:1.6;color:var(--ink-2)}
+.guide-col p + p{margin-top:18px}
+.guide-col p b{color:var(--ink);font-weight:650}
+.guide-col .h2{margin-top:14px}
+.guide-kicker{display:block}
+
+.guide-stats{display:grid;grid-template-columns:1.35fr .82fr .82fr;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin-top:var(--s8)}
+.guide-stats .mob-row{display:contents}
+.guide-stats .st{padding:36px 32px 32px 0}
+.guide-stats .st:not(.main){border-left:1.5px solid var(--ink);padding-left:32px}
+.guide-stats .n{font-family:var(--f-num);font-weight:800;letter-spacing:-.06em;line-height:.85;font-size:72px;display:inline-flex;align-items:baseline}
+.guide-stats .st.main .n{font-size:112px;color:var(--or)}
+.guide-stats .u{font-family:var(--f-mono);font-size:18px;font-weight:500;letter-spacing:0;color:var(--ink-3);margin-left:6px;line-height:1}
+.guide-stats .st.main .u{font-size:22px;color:var(--or-ink)}
+.guide-stats .lb{margin-top:14px;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.guide-stats .cap{margin-top:18px;grid-column:1/-1;padding:16px 0 4px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-3);line-height:1.5}
+
+.guide-pull{font-size:36px;font-weight:800;letter-spacing:-.035em;line-height:1.15;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:28px 0;max-width:720px;color:var(--ink);margin:8px 0 28px}
+.guide-facts{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink);margin-top:8px;max-width:720px}
+.guide-facts p{padding:22px 28px 22px 0;font-size:18px;line-height:1.5;color:var(--ink);font-weight:650}
+.guide-facts p + p{border-left:2px solid var(--ink);padding-left:28px;padding-right:0}
+
+.dissent{border-top:2px solid var(--ink);margin-top:var(--s6)}
+.dissent .it{display:grid;grid-template-columns:72px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--ink);align-items:start}
+.dissent .it:last-child{border-bottom:2px solid var(--ink)}
+.dissent .n{font-family:var(--f-num);font-weight:800;font-size:36px;letter-spacing:-.05em;line-height:1;color:var(--ink)}
+.dissent p{font-size:18px;line-height:1.6;color:var(--ink-2)}
+.dissent p b{color:var(--ink);font-weight:650}
+
+.guide-article .faq .q p{font-size:17px;line-height:1.6}
+.guide-article .faq .q:not(.open) p{display:none}
+
+.final .sub{max-width:540px;margin:20px auto 0;font-size:18px;line-height:1.5;color:var(--on-dark-2)}
+.final .cta{margin:28px auto 0;display:flex;justify-content:center}
+.final .btn.lg{box-shadow:5px 5px 0 var(--or-2)}
+.final .fine.long{max-width:560px;margin-left:auto;margin-right:auto;line-height:1.55}
+
+@media (max-width:600px){
+  .hero.guide{padding-top:12px;padding-bottom:40px}
+  .hero.guide .copy .display{max-width:none}
+  .guide-visual{display:block;max-width:none;margin-top:36px}
+  .guide-answer{padding:22px 18px 18px}
+  .guide-answer .ans{font-size:17px}
+  .cite-bar{grid-template-columns:1fr auto;gap:6px 10px}
+  .cite-bar .track{grid-column:1/-1;order:3}
+  .guide-col p,.guide-col li,.dissent p{font-size:17px}
+  .guide-stats{display:block;margin-top:var(--s6)}
+  .guide-stats .st{padding:24px 0;border-left:none!important;padding-left:0!important}
+  .guide-stats .st.main{border-bottom:1.5px solid var(--ink)}
+  .guide-stats .n{font-size:56px}
+  .guide-stats .st.main .n{font-size:84px}
+  .guide-stats .mob-row{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .guide-stats .mob-row .st + .st{border-left:1.5px solid var(--ink)!important;padding-left:20px!important}
+  .guide-pull{font-size:26px;padding:20px 0}
+  .guide-facts{display:block}
+  .guide-facts p + p{border-left:none;padding-left:0;border-top:2px solid var(--ink)}
+  .dissent .it{grid-template-columns:48px 1fr;gap:12px;padding:20px 0}
+  .dissent .n{font-size:28px}
+  .final h2 .nowrap{white-space:nowrap}
+  .final .sub{font-size:16px;padding:0 8px}
+  .guide-article .contrast{column-gap:16px}
+  .guide-article .contrast>div{overflow-wrap:break-word;line-height:1.4}
+}
+.row .x s{color:var(--ink-3)}
+.guide-visual.solo{grid-template-columns:1fr;max-width:560px}
+</style>
 </head>
 <body class="session-ready">
 <header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
 <nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
-<main id="top">
-<section style="padding-top:44px">
-  <div class="wrap">
-    <p class="sec-kicker">GUIDES</p>
-    <h1>How to check if ChatGPT <span class="it">mentions</span> your brand</h1>
-    <p class="p-sub">Two ways to find out: ask ChatGPT yourself in the next five minutes — manual, free, one answer at a time — or run a free snapshot that asks three engines three buyer questions and emails you what came back.</p>
-    <div class="p-cta-row">
-      <a class="btn" href="/free-snapshot/">Get my free snapshot</a>
-      <a href="#manual">Do it manually first</a>
-    </div>
-  </div>
+<main id="top"><article class="guide-article">
+<section class="wrap hero sub guide">
+ <div class="copy">
+  <span class="label">— Guides</span>
+  <h1 class="display">How to check if ChatGPT <span class="serif">mentions</span> your brand</h1>
+  <p class="lead">Two ways to find out: ask ChatGPT yourself in the next five minutes — manual, free, one answer at a time — or run a free snapshot that asks three engines three buyer questions and emails you what came back.</p>
+ </div>
+ <div class="guide-visual solo"><div><div class="card feature guide-answer"><span class="label">— One answer, read three ways</span><p class="ans">Ask a category question. Then read the answer for three things.</p><div class="cite-track"><div class="cite-bar"><span class="nm">Mentioned</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="pos">Named</span></div><div class="cite-bar"><span class="nm">Cited</span><span class="track"><span class="fill" style="width:52%"></span></span><span class="pos">As a source</span></div><div class="cite-bar you"><span class="nm">Absent</span><span class="track"></span><span class="pos">Neither</span></div></div></div><p class="cap">Illustrative. The three readings from step 3 below — this is not a CitMark scan and carries no score.</p></div></div>
 </section>
-<section id="manual">
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">THE MANUAL WAY</p><h2>Ask ChatGPT yourself</h2></div>
-    <div class="reveal">
-      <p>This genuinely works, and for a first look it is all you need. It takes about five minutes:</p>
-      <ol>
-        <li><b>Open ChatGPT</b> (chatgpt.com) and start a new chat. A fresh chat matters: you want the answer a stranger would get, not one shaped by your earlier conversations.</li>
-        <li><b>Ask category questions, not your brand name.</b> Asking “what do you know about [your brand]?” only proves ChatGPT can describe you when prompted. Buyers ask the category first. Use forms like: “What are the best [your category] tools for [your kind of customer]?”, “Which [your category] should a [your kind of customer] choose, and why?”, “Compare the top [your category] options for [a use case you serve].”</li>
-        <li><b>Read the answer three ways.</b> <b>Mentioned:</b> your brand is named. <b>Cited:</b> your pages appear as sources. <b>Absent:</b> neither — and note which competitors are named instead; that list is the useful part.</li>
-        <li><b>Ask again.</b> Regenerate, or open another new chat and repeat the same question. Answers vary between runs, so a single answer is an anecdote; two or three starts to be a reading.</li>
-        <li><b>Write it down.</b> Date, question, mentioned or not, cited or not, who appeared instead. Without the note, next month's check has nothing to compare against.</li>
-      </ol>
-    </div>
+
+<section class="sec paper" id="manual">
+ <div class="wrap">
+  <div class="guide-col">
+   <span class="label guide-kicker">— The manual way</span>
+   <h2 class="h2">Ask ChatGPT yourself</h2>
+   <p style="margin-top:28px">This genuinely works, and for a first look it is all you need. It takes about five minutes:</p>
   </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">THE LIMITS OF BY HAND</p><h2>What the manual way can't tell you</h2></div>
-    <div class="reveal">
-      <p>Done honestly, the manual check has hard edges. It is one answer at a time, from one engine, in one session — and ChatGPT's answers change, so the answer you saw today may not be the one a buyer sees tomorrow. There is no history unless you keep the notes yourself, no second or third engine unless you repeat the whole exercise in each, and no confidence interval on a sample of one: a single absence might be chance, and a single mention might be luck. The manual way answers “what did it say just now?” It cannot answer “what does it usually say, and is it changing?”</p>
-    </div>
+  <div class="dissent"><div class="it"><span class="n">01</span><p><b>Open ChatGPT</b> (chatgpt.com) and start a new chat. A fresh chat matters: you want the answer a stranger would get, not one shaped by your earlier conversations.</p></div><div class="it"><span class="n">02</span><p><b>Ask category questions, not your brand name.</b> Asking “what do you know about [your brand]?” only proves ChatGPT can describe you when prompted. Buyers ask the category first. Use forms like: “What are the best [your category] tools for [your kind of customer]?”, “Which [your category] should a [your kind of customer] choose, and why?”, “Compare the top [your category] options for [a use case you serve].”</p></div><div class="it"><span class="n">03</span><p><b>Read the answer three ways.</b> <b>Mentioned:</b> your brand is named. <b>Cited:</b> your pages appear as sources. <b>Absent:</b> neither — and note which competitors are named instead; that list is the useful part.</p></div><div class="it"><span class="n">04</span><p><b>Ask again.</b> Regenerate, or open another new chat and repeat the same question. Answers vary between runs, so a single answer is an anecdote; two or three starts to be a reading.</p></div><div class="it"><span class="n">05</span><p><b>Write it down.</b> Date, question, mentioned or not, cited or not, who appeared instead. Without the note, next month's check has nothing to compare against.</p></div></div>
+ </div>
+</section>
+
+<section class="sec">
+ <div class="wrap">
+  <div class="guide-col">
+   <span class="label guide-kicker">— The limits of by hand</span>
+   <h2 class="h2">What the manual way can't tell you</h2>
+   <p style="margin-top:28px">Done honestly, the manual check has hard edges. It is one answer at a time, from one engine, in one session — and ChatGPT's answers change, so the answer you saw today may not be the one a buyer sees tomorrow. There is no history unless you keep the notes yourself, no second or third engine unless you repeat the whole exercise in each, and no confidence interval on a sample of one: a single absence might be chance, and a single mention might be luck. The manual way answers “what did it say just now?” It cannot answer “what does it usually say, and is it changing?”</p>
   </div>
-</section><section>
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">THE AUTOMATED WAY</p><h2>Run a free snapshot instead</h2></div>
-    <div class="reveal">
+ </div>
+</section>
+
+<section class="sec paper">
+ <div class="wrap">
+  <div class="guide-col">
+   <span class="label guide-kicker">— The automated way</span>
+   <h2 class="h2">Run a free snapshot instead</h2>
+   <div style="margin-top:28px">
       <p>CitMark's free snapshot runs the same kind of check as a measurement. The form asks for four things: your brand name, your website, your work email — and, optionally, up to 3 competitors: it runs the same 3 questions for each of them and shows them next to your score.</p>
       <p>It asks 3 AI engines — ChatGPT, Perplexity and Gemini — 3 questions about your category: the kind buyers ask before they know your name. The questions are category buyer questions; you can't pick them, because a check you design yourself would measure your questions, not your buyers. 3 questions × 3 engines is 9 answers, and your score is the share of those answers that mentioned your brand, shown with its uncertainty stated plainly — a sample that size carries a wide confidence interval, and the report says so.</p>
       <p>The form carries a Cloudflare verification check; if the verification fails to load, you can still submit the form without it. Results are never shown on the page: your score and a link to the full report — every question, every engine, who was mentioned — are emailed to you. It is rate-limited to one snapshot per email per day.</p>
       <p>And the honest label, in the words the snapshot page itself uses: this is a free snapshot, not a free plan and not a free trial — nothing converts or starts charging when it ends. If you keep tracking afterwards, paid plans start at $25/mo during launch pricing ($35 standard).</p>
-      <p><a class="btn" href="/free-snapshot/">Get my free snapshot</a></p>
+      
     </div>
   </div>
-</section><section id="faq">
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="sec-kicker">FAQ</p><h2>Straight answers</h2></div>
-    <div class="faq reveal">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Why does ChatGPT give a different answer when I ask again?<span class="chev">+</span></button><div class="faq-a"><p>Because its answers are generated, not retrieved: the same question can produce a different answer on the next run. That is why a single answer is not a measurement. A check worth acting on asks the same questions repeatedly and reports the share of answers that mention you — variation included, not hidden.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Can I choose the questions?<span class="chev">+</span></button><div class="faq-a"><p>Manually, yes — ask anything, in your own words. In the free snapshot, no: it asks category buyer questions, the kind your customers ask before they know your name, and visitors can't select them. A measurement has to ask the buyer's questions, not the brand's.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Is the snapshot really free?<span class="chev">+</span></button><div class="faq-a"><p>Yes — and in its own words, it is a free snapshot, not a free plan and not a free trial. One check, emailed to you; nothing converts, renews, or starts charging when it ends. It is rate-limited to one snapshot per email per day.</p></div></div>
-    </div>
+ </div>
+</section>
+
+<section class="sec tight" id="faq">
+ <div class="wrap faq-grid">
+  <div>
+   <span class="label">— FAQ</span>
+   <h2 class="h2" style="margin-top:16px">Straight <span class="serif">answers.</span></h2>
   </div>
-</section><section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200" aria-hidden="true"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Close the gap</span><h2>See how AI sees your brand — free</h2><p class="fsub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p><div class="fcta-row"><a class="btn" href="/free-snapshot/">Get my free snapshot</a></div><div class="fine">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</div></div></section>
-</main>
-<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div>
-<p class="fineprint"><span>The sample report on this page is a real CitMark run from Nov 13, 2026, shown to illustrate the product.</span><span class="foot-op">Operated by Tao Yu.</span></p></footer>
-<script>
-(function () {
-  var navToggle = document.getElementById("navToggle");
-  var mobileMenu = document.getElementById("mobileMenu");
-  function setMenu(open) {
-    mobileMenu.classList.toggle("open", open);
-    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  }
-  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
-  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
-  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
-  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
+  <div class="faq"><div class="q open"><div><h4>Why does ChatGPT give a different answer when I ask again?</h4><p>Because its answers are generated, not retrieved: the same question can produce a different answer on the next run. That is why a single answer is not a measurement. A check worth acting on asks the same questions repeatedly and reports the share of answers that mention you — variation included, not hidden.</p></div><span class="pm">–</span></div><div class="q"><div><h4>Can I choose the questions?</h4><p>Manually, yes — ask anything, in your own words. In the free snapshot, no: it asks category buyer questions, the kind your customers ask before they know your name, and visitors can't select them. A measurement has to ask the buyer's questions, not the brand's.</p></div><span class="pm">+</span></div><div class="q"><div><h4>Is the snapshot really free?</h4><p>Yes — and in its own words, it is a free snapshot, not a free plan and not a free trial. One check, emailed to you; nothing converts, renews, or starts charging when it ends. It is rate-limited to one snapshot per email per day.</p></div><span class="pm">+</span></div></div>
+ </div>
+</section>
+</article></main>
+<section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Free snapshot</span><h2>See how AI sees<br><span class="nowrap">your brand — <span class="serif">free</span></span></h2><p class="sub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p><div class="cta"><a class="btn lg" href="/free-snapshot/">Get my free snapshot →</a></div><div class="fine long">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</div></div></section>
+<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div></footer>
 
-  document.querySelectorAll(".faq-item").forEach(function (item) {
-    var q = item.querySelector(".faq-q");
-    q.addEventListener("click", function () {
-      var open = item.classList.toggle("open");
-      q.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-  });
-
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
-  }
-
-  /* Final-CTA form: same shape as the homepage hero form. Validates the
-     email, then hands off to the real signup page to finish registering. */
-  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  document.querySelectorAll("form.waitlist").forEach(function (form) {
-    var input = form.querySelector('input[type="email"]');
-    var msg = form.parentElement.querySelector(".form-msg");
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var email = (input.value || "").trim();
-      msg.className = "form-msg"; msg.textContent = "";
-      if (!EMAIL_RE.test(email)) {
-        input.setAttribute("aria-invalid", "true");
-        msg.textContent = "That email doesn't look complete — check it and try again.";
-        msg.classList.add("show", "err"); input.focus(); return;
-      }
-      input.removeAttribute("aria-invalid");
-      window.location.href = "/signup/";
-    });
-  });
-})();
-</script>
 
 <style id="guide-frame-notes">
   h1, h2 { text-wrap: balance; }
@@ -1428,5 +1542,6 @@ body{background:var(--bg);color:var(--ink)}
   }
 </style>
 
+<script>(function(){document.querySelectorAll(".guide-article .faq .q").forEach(function(q){q.addEventListener("click",function(){var open=q.classList.toggle("open");var pm=q.querySelector(".pm");if(pm)pm.textContent=open?"\u2013":"+";});});})();</script>
 </body>
 </html>
