@@ -3834,7 +3834,11 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     (list || []).forEach(function (c) { if (c && c.provider) byKey[c.provider] = c; });
     var linkStatus = $('connLinkStatus');
     if (linkStatus) {
-      var nConn = (list || []).filter(function (c) { return c && c.status === 'connected'; }).length;
+      /* One predicate for both surfaces: a provider counts as connected
+         exactly when its row renders as Connected (a row exists). The old
+         hub count required status === 'connected', which disagreed with
+         the rows whenever a provider's row carried any other status. */
+      var nConn = PROVIDERS.filter(function (p) { return byKey[p.key]; }).length;
       linkStatus.textContent = nConn === 0 ? 'No sources connected' : (nConn === 1 ? '1 source connected' : nConn + ' sources connected');
     }
     var html = '';
