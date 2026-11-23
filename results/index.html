@@ -247,6 +247,22 @@ button { font: inherit; }
 .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px;
   margin-right: 6px; vertical-align: -1px; }
 
+/* report matrix: stacked per-question blocks under 480px (design ruling 2026-11-23) */
+.matrix-blocks { display: none; }
+.mq-block { padding: 12px 0; }
+.mq-block + .mq-block { border-top: 1px solid var(--line); }
+.mq-q { display: flex; gap: 8px; align-items: baseline; }
+.mq-slot { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 600;
+  font-size: 11px; color: var(--accent-deep); flex: none; }
+.mq-text { font-weight: 500; font-size: 13.5px; line-height: 1.45; }
+.mq-engines { display: grid; gap: 6px; margin-top: 10px; }
+.mq-ecell { display: flex; flex-direction: column; align-items: center; gap: 6px;
+  min-height: 44px; }
+.mq-ecell[data-idx] { cursor: pointer; }
+.mq-ename { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 600;
+  font-size: 10.5px; letter-spacing: .08em; color: var(--muted); text-align: center; }
+.mq-ecell .cell { width: 30px; height: 30px; border-radius: 8px; }
+
 /* answer drawer */
 .drawer { position: fixed; inset: 0; z-index: 60; display: none; }
 .drawer.open { display: block; }
@@ -307,9 +323,9 @@ button { font: inherit; }
   .matrix td.q { max-width: 150px; font-size: 12.5px; }
   .bar-row .nm { width: 88px; }
 }
-@media (max-width: 480px) {
-  .matrix { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .matrix td.q { min-width: 200px; max-width: 240px; }
+@media (max-width: 479.98px) {
+  .matrix-wrap { display: none; }
+  .matrix-blocks { display: block; }
 }
 @media (max-width: 380px) {
   .ring { width: 140px; height: 140px; }
@@ -429,9 +445,10 @@ button { font: inherit; }
   <div class="card">
     <h2>Question × engine matrix</h2>
     <p class="desc">Click any cell to read the raw answer. ◐ = implicit mention (needs review).</p>
-    <div style="overflow-x:auto;">
+    <div class="matrix-wrap" style="overflow-x:auto;">
       <table class="matrix" id="matrixTable"></table>
     </div>
+    <div class="matrix-blocks" id="matrixBlocks"></div>
     <div class="legend">
       <span><i style="background:var(--good-soft);border:1px solid #bfe3cb;"></i>explicit mention</span>
       <span><i style="background:var(--warn-soft);border:1px solid #ecd9a8;"></i>implicit · needs review</span>
@@ -816,7 +833,31 @@ function renderReport() {
     html += "</tr>";
   });
   document.getElementById("matrixTable").innerHTML = html + "</tbody>";
-  document.querySelectorAll(".cell").forEach(function (c) {
+  var bhtml = "";
+  qs.forEach(function (q) {
+    bhtml += '<div class="mq-block"><div class="mq-q"><span class="mq-slot">' + q.slot +
+      '</span><span class="mq-text">' + escapeHtml(q.text) + '</span></div>' +
+      '<div class="mq-engines" style="grid-template-columns:repeat(' + es.length + ',1fr)">';
+    es.forEach(function (e) {
+      var a = byQE[q.id + "|" + e];
+      if (!a || a.status === "error") {
+        bhtml += '<div class="mq-ecell"><span class="mq-ename">' + ENGINE_META[e].name +
+          '</span><span class="cell-err" title="' + ENGINE_META[e].name + " \u2014 " + q.slot + ': call failed, excluded from score">!</span></div>';
+        return;
+      }
+      var bcls = !a.brand_mentioned ? "miss" : (a.mention_type === "implicit" ? "hit impl" : "hit");
+      var bglyph = !a.brand_mentioned ? "\u2715" : (a.mention_type === "implicit" ? "\u25d0" : "\u2713");
+      var bidx = state.answers.indexOf(a);
+      bhtml += '<div class="mq-ecell" data-idx="' + bidx + '"><span class="mq-ename">' + ENGINE_META[e].name +
+        '</span><span class="cell ' + bcls + '" title="' + ENGINE_META[e].name + " \u2014 " + q.slot + '">' + bglyph + '</span></div>';
+    });
+    bhtml += "</div></div>";
+  });
+  document.getElementById("matrixBlocks").innerHTML = bhtml;
+  document.querySelectorAll(".mq-ecell[data-idx]").forEach(function (c) {
+    c.addEventListener("click", function () { openDrawer(+c.dataset.idx); });
+  });
+  document.querySelectorAll("#matrixTable .cell").forEach(function (c) {
     c.addEventListener("click", function () { openDrawer(+c.dataset.idx); });
   });
   document.getElementById("sugList").innerHTML = MOCK.suggestions.map(function (s, i) {
