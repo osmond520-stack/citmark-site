@@ -1,79 +1,359 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Visibility Monitoring: How to Choose a Tool That Measures Real AI Answers — CitMark</title>
-<meta name="description" content="AI visibility monitoring checks whether AI answer engines name, describe, and cite your brand when people ask category questions. How to compare tools on measured answers, traceable evidence, and transparent pricing." />
+<meta name="description" content="AI visibility monitoring checks whether AI answer engines name, describe, and cite your brand when people ask category questions. How to compare tools on measured answers, traceable evidence, and transparent pricing.">
+<link rel="canonical" href="https://citmark.com/ai-visibility-monitoring/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Does AI recommend your business? — CitMark">
+<meta property="og:description" content="Check your site's llms.txt for free in seconds, then get a report on what ChatGPT, Perplexity and Gemini say about you.">
+<meta property="og:image" content="https://citmark.com/og.jpg">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#141519;--muted:#62666e;--line:#e5e7eb;--bg:#ffffff;--raise:#f9fafb;--accent:#ff5a1f;--accent-deep:#e04a10;--skin:#fff4ec}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
-a{color:var(--accent-deep)}nav{border-bottom:1px solid var(--line)}nav .in{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.wordmark{font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
-.wordmark .dot{color:var(--accent)}nav a.n{color:var(--muted);text-decoration:none;font-size:14px}nav a.n:hover{color:var(--ink)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-section{padding:64px 0 0}
-h1{text-wrap:balance;font-size:34px;line-height:1.2;letter-spacing:-.015em;margin:0 0 14px;max-width:800px}
-h2{font-size:23px;margin:0 0 12px;letter-spacing:-.01em}
-h3{font-size:17px;margin:0 0 6px}
-p{margin:0 0 14px;max-width:780px}
-.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--accent-deep);margin:0 0 12px}
-.lede{color:var(--muted);font-size:18px;max-width:780px}
-.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:10px;margin-top:10px}
+:root{
+  --bg:#f4f1ea; --bg-raise:#fffdf9; --card:#ffffff; --ink:#1b1813; --ink-2:#55504a; --ink-3:#8a8478;
+  --line:rgba(27,24,19,.16); --line-soft:rgba(27,24,19,.09);
+  --accent:#e8490f; --accent-deep:#c43a08; --dark:#171512; --dark-2:#221f1b;
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
+.eyebrow::before{content:"— "}
+h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.it-org{color:var(--accent)}
+.it-grey{color:var(--ink-3)}
+.lede{font-size:18.5px;line-height:1.55;color:var(--ink-2)}
+.lede strong{color:var(--ink);font-weight:700}
+/* ---------- topbar ---------- */
+.topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:34px;height:72px}
+.wordmark{font-family:"Bricolage Grotesque",var(--sans);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none}
+.wordmark i{font-style:normal;color:var(--accent)}
+.topnav{display:flex;gap:28px;margin-left:12px}
+.topnav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:6px 0}
+.topnav a:hover{color:var(--ink)}
+.topnav a.cur{color:var(--ink);font-weight:600;box-shadow:0 2px 0 var(--accent)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.login-link{font-size:15px;font-weight:600;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:15.5px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;text-decoration:none;transition:background .15s}
 .btn:hover{background:var(--accent-deep)}
-.hero{padding-top:48px}
-.principle{background:var(--skin);border-radius:10px;padding:14px 18px;max-width:780px}
-.crit{display:flex;gap:18px;padding:18px 0;border-top:1px solid var(--line);max-width:900px}
-.crit .num{font-weight:800;color:var(--accent-deep);font-size:15px;min-width:34px;padding-top:2px}
-.crit p{margin:0}
-table{border-collapse:collapse;width:100%;margin:8px 0 10px}
-th,td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;font-size:15px}
-th{background:var(--raise);font-size:13.5px;letter-spacing:.02em}
-tr.ours{background:var(--skin)}
-tr.ours td:first-child{font-weight:800}
-.small{color:var(--muted);font-size:14px}
-.fit{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1000px}
-.fit h3{font-size:16px;letter-spacing:.04em}
-footer{border-top:1px solid var(--line);margin-top:64px}footer .in{max-width:1120px;margin:0 auto;padding:28px 20px 48px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}
-@media (max-width:720px){section{padding:48px 0 0}h1{font-size:28px}
-table,thead,tbody,tr,td{display:block}thead{display:none}tr{border:1px solid var(--line);border-radius:10px;margin-bottom:12px;padding:6px 0}td{border:0;padding:6px 14px}td:first-child{font-weight:800;font-size:16px}
-.fit{grid-template-columns:1fr}}
-</style><link rel="canonical" href="https://citmark.com/ai-visibility-monitoring/" />
+.btn-dark{background:var(--ink)}
+.btn-dark:hover{background:#000}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px}
+.mmenu{display:none;border-bottom:1px solid var(--line);background:var(--bg);padding:10px 0 16px}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 40px;font-size:16.5px;font-weight:600;text-decoration:none}
+.mmenu a.cur{color:var(--accent-deep)}
+/* ---------- email pill form ---------- */
+.pillform{display:flex;align-items:center;background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:5px;box-shadow:5px 5px 0 var(--ink);max-width:520px}
+.pillform input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--sans);font-size:16px;padding:10px 16px;color:var(--ink)}
+.pillform input::placeholder{color:var(--ink-3)}
+.pillform .btn{white-space:nowrap}
+.form-note{margin-top:14px;font-size:13.5px;color:var(--ink-3)}
+.pillform.err{box-shadow:5px 5px 0 var(--accent-deep);border-color:var(--accent-deep)}
+/* ---------- hero ---------- */
+.hero{padding:70px 0 66px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+.hero h1{margin:18px 0 22px}
+.hero .pillform{margin-top:30px}
+.radar-box{max-width:560px;margin-left:auto;width:100%}
+.radar-cap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:6px}
+.cap-pill{background:var(--ink);color:#fff;font-size:14px;font-weight:600;border-radius:999px;padding:8px 18px;text-align:center}
+.scan-tag{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;border:1px solid var(--line);border-radius:6px;padding:7px 12px;color:var(--ink-2);background:var(--bg-raise)}
+.scan-tag b{color:var(--accent);font-weight:600}
+/* ---------- why rows ---------- */
+.why{padding:72px 0 78px;border-bottom:1px solid var(--line)}
+.why h2{margin:16px 0 44px}
+.why h2 .row2{display:block;color:var(--accent)}
+.why-rows{border-top:1px solid var(--ink)}
+.why-row{display:grid;grid-template-columns:110px 1fr auto;gap:26px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line)}
+.why-num{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.why-row h3{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:5px}
+.why-row p{color:var(--ink-2);font-size:16.5px;max-width:56ch}
+.why-tag{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--accent-deep);text-decoration:line-through;text-transform:uppercase;white-space:nowrap}
+.why-tag-stack{text-align:right}
+.why-tag-stack .why-tag{display:block}
+.why-tag-stack .why-tag + .why-tag{margin-top:6px}
+/* ---------- dark report ---------- */
+.report{background:var(--dark);color:#f2efe9;padding:76px 0 84px}
+.report .eyebrow{color:#ff8a50}
+.report h2{color:#fff;max-width:22ch}
+.report h2 .it{color:#ff8a50}
+.report-top{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start}
+.bignums{display:flex;gap:54px;margin-top:38px;flex-wrap:wrap}
+.bignum .n{font-size:clamp(52px,5.6vw,84px);font-weight:800;letter-spacing:-.03em;line-height:1;color:#fff}
+.bignum .n small{font-size:.32em;font-weight:600;color:#a49e93;letter-spacing:0}
+.bignum.you .n{color:var(--accent)}
+.bignum .cap{margin-top:10px;font-size:14.5px;color:#c9c4ba}
+.bignum .cap b{color:#fff;font-weight:700}
+.report .scan-tag{margin-top:30px;display:inline-block;background:transparent;border-color:rgba(255,255,255,.25);color:#c9c4ba}
+.polar-box{max-width:470px;margin-left:auto;width:100%}
+.polar-cap{margin-top:12px;font-size:14px;color:#c9c4ba;text-align:center}
+.polar-legend{display:flex;gap:20px;justify-content:center;margin-top:8px;font-size:13px;color:#c9c4ba}
+.polar-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}
+.rtable{margin-top:58px;border-top:1px solid rgba(255,255,255,.22)}
+.rt-head,.rt-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr .7fr;gap:18px;align-items:center;padding:15px 10px}
+.rt-row{grid-template-areas:"brand e1 e2 e3 score"}
+.rt-head{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:#a49e93;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.22)}
+.rt-row{border-bottom:1px solid rgba(255,255,255,.13);font-size:15.5px}
+.rt-row .brand{font-weight:600;display:flex;align-items:center;gap:10px}
+.you-badge{background:var(--accent);color:#fff;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;border-radius:4px;padding:2.5px 6px}
+.rt-row.you{box-shadow:inset 3px 0 0 var(--accent);background:rgba(232,73,15,.06)}
+.rt-row .score{font-weight:800;font-size:17px;text-align:right}
+.rt-row .score small{font-size:.62em;color:#a49e93;font-weight:600}
+.rt-row.you .score{color:var(--accent)}
+.dots{display:inline-flex;gap:4px;margin-right:9px;vertical-align:middle}
+.dots i{width:8px;height:8px;border-radius:50%;background:#5c574f;display:inline-block}
+.dots i.on{background:#e8e4db}
+.rt-row.you .dots i.on{background:var(--accent)}
+.ecount{font-family:var(--mono);font-size:12.5px;color:#a49e93}
+.report-foot{margin-top:22px;display:flex;justify-content:space-between;gap:30px;align-items:flex-start}
+.report-note{font-size:13.5px;line-height:1.6;color:#a49e93;max-width:76ch}
+.showall{font-size:14px;font-weight:700;color:#fff;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:var(--sans)}
+/* ---------- draft section ---------- */
+.draft{padding:76px 0 84px;border-bottom:1px solid var(--line)}
+.draft-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.draft h2{margin:16px 0 20px}
+.draft p{color:var(--ink-2);max-width:48ch}
+.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:8px;overflow:hidden;margin-top:38px}
+.seg a{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;padding:11px 20px;text-decoration:none;color:var(--ink)}
+.seg a + a{border-left:1.5px solid var(--ink)}
+.seg a.on{background:var(--ink);color:#fff}
+.inbox-card{background:var(--card);border:1.5px solid var(--ink);border-radius:12px;box-shadow:7px 7px 0 var(--accent);padding:26px 28px}
+.inbox-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;border-bottom:1px solid var(--line-soft);padding-bottom:13px}
+.inbox-tag{display:inline-block;background:var(--ink);color:#fff;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;border-radius:4px;padding:4px 9px;margin:18px 0 14px}
+.inbox-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-top:16px}
+.inbox-said{font-size:16.5px;margin-top:5px}
+.inbox-said s{text-decoration-color:var(--accent);text-decoration-thickness:2px}
+.inbox-fact{font-size:16.5px;font-weight:600;margin-top:5px}
+.inbox-draftbox{background:#fdf3ec;border-left:3px solid var(--accent);padding:14px 16px;font-size:15.5px;line-height:1.55;margin-top:6px}
+.inbox-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);margin-top:20px;padding-top:15px;font-size:13.5px;font-weight:600}
+.inbox-foot .sent{color:var(--accent-deep)}
+/* ---------- pricing strip ---------- */
+.pstrip{padding:72px 0 80px;border-bottom:1px solid var(--line)}
+.pstrip-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:56px}
+.pstrip h2{margin:16px 0 18px}
+.pstrip p{color:var(--ink-2);max-width:40ch}
+.textlink{font-weight:700;text-decoration:underline;text-underline-offset:4px;display:inline-block;margin-top:20px}
+.pcols{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;align-items:start}
+.pcol .tier{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase}
+.pcol .price{font-size:clamp(30px,2.8vw,42px);font-weight:800;letter-spacing:-.02em;margin-top:8px}
+.pcol .price small{font-size:.42em;color:var(--ink-3);font-weight:600}
+.pcol.hot .price{color:var(--accent)}
+.pcol .spec{margin-top:7px;font-size:14.5px;color:var(--ink-2)}
+/* ---------- closing ---------- */
+.closing{background:var(--dark);color:#fff;padding:88px 0 96px;text-align:center;position:relative;overflow:hidden}
+.closing .eyebrow{color:#ff8a50}
+.closing h2{color:#fff;max-width:24ch;margin:18px auto 34px}
+.closing h2 .it{color:#ff8a50}
+.closing .pillform{margin:0 auto;background:transparent;border-color:rgba(255,255,255,.4);box-shadow:none}
+.closing .pillform input{color:#fff}
+.closing .pillform input::placeholder{color:#a49e93}
+.closing .form-note{color:#a49e93}
+/* ---------- footer ---------- */
+.footer{padding:64px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.foot-brand p{margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:30ch}
+.foot-col h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px}
+.foot-col a{display:block;text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:4.5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{border-top:1px solid var(--line-soft);margin-top:46px;padding-top:22px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .hero-grid,.report-top,.draft-grid,.pstrip-grid{grid-template-columns:1fr}
+  .radar-box,.polar-box{margin:8px auto 0}
+  .pcols{gap:26px}
+}
+@media (max-width:860px){
+  .topnav,.top-right .login-link{display:none}
+  .burger{display:inline-flex}
+  .wrap{padding:0 20px}
+  .mmenu a{padding-left:20px;padding-right:20px}
+}
+@media (max-width:700px){
+  body{font-size:16.5px}
+  .hero{padding:46px 0 52px}
+  .why,.draft,.pstrip{padding:52px 0 58px}
+  .report{padding:54px 0 60px}
+  .why-row{grid-template-columns:64px 1fr;gap:16px;padding:22px 0}
+  .why-num{font-size:26px}
+  .why-tag{display:none}
+  .rt-head{display:none}
+  .rt-row{grid-template-columns:1fr 1fr auto;grid-template-areas:"brand brand score" "e1 e2 e3";row-gap:9px;padding:16px 6px}
+  .rt-row .brand{grid-area:brand}
+  .rt-row .score{grid-area:score}
+  .bignums{gap:34px}
+  .pcols{grid-template-columns:1fr;gap:22px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .pillform{flex-direction:column;align-items:stretch;border-radius:18px;padding:7px;gap:7px}
+  .pillform input{padding:12px 14px}
+  .pillform .btn{justify-content:center;padding:14px 22px;min-height:48px}
+  .closing .pillform{flex-direction:column}
+  .seg a{padding:11px 14px}
+  .inbox-card{padding:22px 20px}
+  .report-foot{flex-direction:column;gap:14px}
+}
+</style>
+<style id="seo-spec">
+/* ===== SEO content pages — SPEC frame values (4e3a0a3a) ===== */
+.sx-main{padding-bottom:78px}
+.sx-wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.sx-section{padding:72px 0 0}
+.sx-section.sx-hero{padding-top:70px}
+.sx-eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 14px}
+.sx-h1{font-family:var(--sans);font-size:32px;font-weight:800;line-height:1.15;letter-spacing:-.015em;text-wrap:balance;margin:0 0 14px;max-width:800px}
+.sx-h2{font-family:var(--sans);font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance;margin:0 0 12px}
+.sx-h3{font-family:var(--sans);font-size:20px;font-weight:700;line-height:1.3;margin:0 0 6px}
+.sx-lede{font-size:18.5px;line-height:1.55;color:var(--ink-2);max-width:720px;margin:0 0 14px}
+.sx-main p{max-width:720px}
+.sx-main li{max-width:720px}
+.sx-btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;padding:11px 22px;border-radius:999px;margin-top:10px}
+.sx-btn:hover{background:var(--accent-deep)}
+.sx-principle{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;max-width:720px}
+.sx-crit{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line-soft);max-width:1000px}
+.sx-num{font-family:var(--mono);font-weight:600;color:var(--accent-deep);font-size:13px;min-width:40px;padding-top:4px}
+.sx-crit p{margin:0}
+.sx-table{border-collapse:collapse;width:100%;margin:8px 0 10px}
+.sx-table th,.sx-table td{border:0;border-bottom:1px solid var(--line-soft);padding:13px 14px;text-align:left;vertical-align:top;font-size:15.5px;line-height:1.5}
+.sx-table th{font-size:13.5px;font-weight:700;letter-spacing:.02em;color:var(--ink-2)}
+.sx-table tr.sx-ours{background:color-mix(in srgb, var(--accent) 6%, #fff)}
+.sx-table tr.sx-ours td:first-child{font-weight:800}
+.sx-small{color:var(--ink-3);font-size:13.5px;line-height:1.6}
+.sx-fit{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1000px}
+.sx-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px}
+.sx-gcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.sx-gcard.sx-pri{background:color-mix(in srgb, var(--accent) 6%, #fff)}
+@media (max-width:860px){.sx-wrap{padding:0 20px}}
+@media (max-width:700px){
+  .sx-main{padding-bottom:58px}
+  .sx-section{padding:52px 0 0}
+  .sx-section.sx-hero{padding-top:46px}
+  .sx-fit,.sx-grid{grid-template-columns:1fr}
+  .sx-table th{display:none}
+  .sx-table td{display:block;border-bottom:0;padding:4px 14px}
+  .sx-table tr{display:block;border-bottom:1px solid var(--line-soft);padding:10px 0}
+  .sx-table td:first-child{font-weight:700}
+}
+</style>
 </head>
-<body><nav><div class="in"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a>
-<a class="n" href="/pricing/">Pricing</a><a class="n" href="/methodology/">Methodology</a><a class="n" href="/about/">About</a>
-<a class="n" href="/terms/">Terms</a><a class="n" href="/privacy/">Privacy</a><a class="n" href="/contact/">Contact</a></div></nav>
-<main><div class="wrap">
-<section class="hero" style="padding-top:48px"><p class="eyebrow">AI VISIBILITY MONITORING</p>
-<h1>AI Visibility Monitoring: How to Choose a Tool That Measures Real AI Answers</h1>
-<p class="lede">AI visibility monitoring is the practice of checking whether AI answer engines name, describe, and cite your brand when people ask category questions. It looks at the answer a buyer actually reads: which products are mentioned, which are left out, and what evidence sits behind the answer.</p>
-<a class="btn" href="/free-snapshot/">Run a free snapshot</a></section>
-<section><h2>What AI visibility monitoring should measure</h2>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="/">CitMark<i>.</i></a>
+    <nav class="topnav">
+      <a href="/product/">Product</a>
+      <a href="/results/">Sample report</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/about/">About</a>
+      <a href="/pricing/#faq">FAQ</a>
+    </nav>
+    <div class="top-right">
+      <a class="login-link" href="/?auth=login">Log in</a>
+      <a class="btn" href="/signup/">Get started</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mmenu" id="mmenu">
+    <a href="/product/">Product</a>
+    <a href="/results/">Sample report</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/about/">About</a>
+    <a href="/pricing/#faq">FAQ</a>
+    <a href="/?auth=login">Log in</a>
+  </nav>
+</header>
+<main class="sx-main"><div class="sx-wrap">
+<section class="sx-section sx-hero" style="padding-top:48px"><p class="sx-eyebrow">— AI VISIBILITY MONITORING</p>
+<h1 class="sx-h1">AI Visibility Monitoring: How to Choose a Tool That Measures Real AI Answers</h1>
+<p class="sx-lede">AI visibility monitoring is the practice of checking whether AI answer engines name, describe, and cite your brand when people ask category questions. It looks at the answer a buyer actually reads: which products are mentioned, which are left out, and what evidence sits behind the answer.</p>
+<a class="sx-btn" href="/free-snapshot/">Run a free snapshot</a></section>
+<section class="sx-section"><h2 class="sx-h2">What AI visibility monitoring should measure</h2>
 <p>A useful monitor starts with a defined set of questions, or prompts, that reflect how buyers describe the problem and the category. It runs those questions in AI answer engines, records the responses, and extracts which brands are mentioned. Over time, the team can see whether its brand appears more or less often, which competitors appear beside it, and which questions remain blind spots.</p>
 <p>For CitMark, Starter and Growth watch ChatGPT, Perplexity and Gemini; Pro adds DeepSeek (synthetic).</p>
-<p class="principle">The product principle is <strong>measured not modeled</strong>: CitMark checks real answers from real engines rather than estimating visibility from a proxy model. That distinction is the first filter to apply to any tool in this category.</p></section>
-<section><h2>Selection criteria that actually separate tools</h2>
-<div class="crit"><div class="num">01</div><div><h3>Measured answers, not modeled estimates</h3><p>Ask how the data is produced. A measured approach runs the prompt and inspects the answer the engine returned. A modeled approach predicts likely visibility from other signals. Modeling can be useful for forecasting, but it should not be presented as observation. If your goal is to know whether ChatGPT, Perplexity, or Gemini named your brand in a specific answer, prefer a tool that can show the answer-level result behind the score.</p></div></div>
-<div class="crit"><div class="num">02</div><div><h3>Evidence you can trace back</h3><p>A percentage by itself is hard to debug. Look for prompt-by-prompt output: the question asked, the engine used, the brands mentioned, and a way to return to the underlying answer or citation context. Traceability lets a team separate a real visibility gap from a badly worded prompt, a one-off answer, or a competitor that was mentioned for an unrelated reason.</p></div></div>
-<div class="crit"><div class="num">03</div><div><h3>Transparent pricing and a clear metering unit</h3><p>AI visibility tools do not all charge the same way. Some use credits, where the cost of a check depends on the meter. Others sell a plan with a defined allowance included — a set number of prompts, or a points balance that each check draws from. Before buying, confirm what a run consumes, what happens when you add prompts or engines, and whether the entry price buys a meaningful test or only a small sample. A low starting price is not necessarily cheaper if the work you need burns credits quickly.</p></div></div>
-<div class="crit"><div class="num">04</div><div><h3>An allowance you can understand</h3><p>Visibility is only comparable when the question set is stable. A plan should make clear what its allowance buys — how many checks a balance covers — and let the team rerun the same set consistently. If the included allowance is vague, month-to-month comparisons become difficult: a score may move because coverage changed, not because the brand became more visible.</p></div></div></section>
-<section><h2>An honest comparison of four tools</h2>
+<p class="sx-principle">The product principle is <strong>measured not modeled</strong>: CitMark checks real answers from real engines rather than estimating visibility from a proxy model. That distinction is the first filter to apply to any tool in this category.</p></section>
+<section class="sx-section"><h2 class="sx-h2">Selection criteria that actually separate tools</h2>
+<div class="sx-crit"><div class="sx-num">01</div><div><h3 class="sx-h3">Measured answers, not modeled estimates</h3><p>Ask how the data is produced. A measured approach runs the prompt and inspects the answer the engine returned. A modeled approach predicts likely visibility from other signals. Modeling can be useful for forecasting, but it should not be presented as observation. If your goal is to know whether ChatGPT, Perplexity, or Gemini named your brand in a specific answer, prefer a tool that can show the answer-level result behind the score.</p></div></div>
+<div class="sx-crit"><div class="sx-num">02</div><div><h3 class="sx-h3">Evidence you can trace back</h3><p>A percentage by itself is hard to debug. Look for prompt-by-prompt output: the question asked, the engine used, the brands mentioned, and a way to return to the underlying answer or citation context. Traceability lets a team separate a real visibility gap from a badly worded prompt, a one-off answer, or a competitor that was mentioned for an unrelated reason.</p></div></div>
+<div class="sx-crit"><div class="sx-num">03</div><div><h3 class="sx-h3">Transparent pricing and a clear metering unit</h3><p>AI visibility tools do not all charge the same way. Some use credits, where the cost of a check depends on the meter. Others sell a plan with a defined allowance included — a set number of prompts, or a points balance that each check draws from. Before buying, confirm what a run consumes, what happens when you add prompts or engines, and whether the entry price buys a meaningful test or only a small sample. A low starting price is not necessarily cheaper if the work you need burns credits quickly.</p></div></div>
+<div class="sx-crit"><div class="sx-num">04</div><div><h3 class="sx-h3">An allowance you can understand</h3><p>Visibility is only comparable when the question set is stable. A plan should make clear what its allowance buys — how many checks a balance covers — and let the team rerun the same set consistently. If the included allowance is vague, month-to-month comparisons become difficult: a score may move because coverage changed, not because the brand became more visible.</p></div></div></section>
+<section class="sx-section"><h2 class="sx-h2">An honest comparison of four tools</h2>
 <p>The table below is limited to pricing and metering facts that can be checked publicly. It is not a feature-by-feature verdict, and it does not claim that one tool is best for every use case.</p>
-<table><thead><tr><th>Tool</th><th>Metering / what's included</th><th>Public pricing?</th><th>Starting price (as of Nov 2026)</th></tr></thead><tbody>
-<tr class="ours"><td>CitMark</td><td>Fixed monthly plan. Covered engines and a monthly points balance are included in the plan price; every check draws from the one balance — no credits.</td><td>Yes</td><td>$35/mo standard; $25/mo launch special</td></tr>
+<table class="sx-table"><thead><tr><th>Tool</th><th>Metering / what's included</th><th>Public pricing?</th><th>Starting price (as of Nov 2026)</th></tr></thead><tbody>
+<tr class="sx-ours"><td>CitMark</td><td>Fixed monthly plan. Covered engines and a monthly points balance are included in the plan price; every check draws from the one balance — no credits.</td><td>Yes</td><td>$35/mo standard; $25/mo launch special</td></tr>
 <tr><td>Otterly</td><td>Credit-based pricing.</td><td>Yes</td><td>From $29</td></tr>
 <tr><td>Peec</td><td>Public entry plan price listed; compare current plan terms on the vendor site.</td><td>Yes</td><td>From €95</td></tr>
 <tr><td>Profound</td><td>Public entry plan price listed; compare current plan terms on the vendor site.</td><td>Yes</td><td>From $99</td></tr>
 </tbody></table>
-<p class="small">Prices are public readings as of Nov 2026 and may change; check the vendor's current pricing page before purchasing.</p>
+<p class="sx-small">Prices are public readings as of Nov 2026 and may change; check the vendor's current pricing page before purchasing.</p>
 <p>CitMark's current plan prices are: Starter $35/mo standard ($25 launch special), Growth $70/mo standard ($49 special), and Pro $169/mo standard ($129 special). The plan price includes all covered engines and a monthly points balance; every check draws from that balance, and usage is never billed by credits. Only compare the special price with another vendor's regular price if you also note that it is a limited-time price.</p></section>
-<section><h2>Who CitMark is for — and who it is not for</h2>
-<div class="fit"><div><h3>FIT</h3><p>CitMark is a fit for a team that wants to observe real answers from ChatGPT, Perplexity and Gemini (with DeepSeek, in synthetic form, added on Pro); compare its brand against competitors prompt by prompt; and buy on a single points balance instead of per-check credit metering. It is also a fit for a SaaS team that wants to test the category first with a single free snapshot before committing to a monthly plan.</p></div>
-<div><h3>NOT A FIT</h3><p>CitMark is not a fit for everyone. It does not promise that AI engines will recommend your brand, and no honest visibility tool can guarantee that outcome. It is not the right choice if you need coverage beyond the engines its plans watch, if you prefer modeled estimates over observed answers, or if you are looking to buy a Teams plan today — CitMark's Teams tier is not on sale. If your main need is a credit-based tool with a lower entry sticker price, Otterly's public starting price is lower than CitMark's standard starting price, although the metering models are different and should be compared on the volume you actually intend to run.</p></div></div></section>
-<section><h2>Start with a free snapshot</h2>
+<section class="sx-section"><h2 class="sx-h2">Who CitMark is for — and who it is not for</h2>
+<div class="sx-fit"><div><h3 class="sx-h3">FIT</h3><p>CitMark is a fit for a team that wants to observe real answers from ChatGPT, Perplexity and Gemini (with DeepSeek, in synthetic form, added on Pro); compare its brand against competitors prompt by prompt; and buy on a single points balance instead of per-check credit metering. It is also a fit for a SaaS team that wants to test the category first with a single free snapshot before committing to a monthly plan.</p></div>
+<div><h3 class="sx-h3">NOT A FIT</h3><p>CitMark is not a fit for everyone. It does not promise that AI engines will recommend your brand, and no honest visibility tool can guarantee that outcome. It is not the right choice if you need coverage beyond the engines its plans watch, if you prefer modeled estimates over observed answers, or if you are looking to buy a Teams plan today — CitMark's Teams tier is not on sale. If your main need is a credit-based tool with a lower entry sticker price, Otterly's public starting price is lower than CitMark's standard starting price, although the metering models are different and should be compared on the volume you actually intend to run.</p></div></div></section>
+<section class="sx-section"><h2 class="sx-h2">Start with a free snapshot</h2>
 <p>The lowest-risk way to evaluate AI visibility monitoring is to run one real check before debating dashboards. CitMark offers a free snapshot at citmark.com/free-snapshot: one free check that shows how your brand appears in AI answers. Run it, inspect the prompt-level results, and then decide whether ongoing monitoring is worth a paid plan for your team.</p>
 <p><a href="/free-snapshot/">Run the free snapshot →</a></p></section>
-</div></main>
-<footer><div class="in"><p><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></p>
-<p><a href="/pricing/">Pricing</a> · <a href="/methodology/">Methodology</a> · <a href="/about/">About</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a></p>
-<p>Questions: support@citmark.com · Security issues: security@citmark.com</p></div></footer></body>
+</div><section class="closing">
+  <div class="wrap">
+    <p class="eyebrow">Close the Gap</p>
+    <h2>Find out what AI says about you — <span class="it">before</span> your competitors do.</h2>
+    <form class="pillform" data-lead novalidate>
+      <input type="email" name="email" placeholder="you@yoursite.com" aria-label="Your site email" autocomplete="email">
+      <button class="btn" type="submit">Create your free account →</button>
+    </form>
+    <p class="form-note">Free snapshot included · no card required</p>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="/">CitMark<i>.</i></a>
+        <p>AI visibility measurement for small, independent brands.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/pricing/#faq">FAQ</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="/about/">About</a><a href="/methodology/">Methodology</a><a href="/contact/">Contact</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Service</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span>
+      <span>support@citmark.com</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* ---------- forms + menu ---------- */
+document.querySelectorAll("form[data-lead]").forEach(f => {
+  f.addEventListener("submit", ev => {
+    ev.preventDefault();
+    const inp = f.querySelector("input[type=email]");
+    const v = (inp.value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { f.classList.add("err"); inp.focus(); return; }
+    f.classList.remove("err");
+    location.href = "/signup/?email=" + encodeURIComponent(v);
+  });
+});
+const burger = document.getElementById("burger"), mmenu = document.getElementById("mmenu");
+burger.addEventListener("click", () => {
+  const open = mmenu.classList.toggle("open");
+  burger.setAttribute("aria-expanded", open);
+});
+</script>
+</body>
 </html>
