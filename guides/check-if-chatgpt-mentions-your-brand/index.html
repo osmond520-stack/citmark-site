@@ -1169,6 +1169,8 @@ h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spac
 h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
 .eyebrow,.sec-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
 .eyebrow::before{content:"— "}
+.sec-head .sec-kicker,section .sec-kicker{font-size:11px}
+.sec-kicker::before{content:"— "}
 .it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0;color:var(--accent)}
 .topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
 .topbar-in{display:flex;align-items:center;gap:34px;height:72px}
@@ -1394,7 +1396,6 @@ section{padding:72px 0 78px}
 <style id="guide-frame-notes">
   h1, h2 { text-wrap: balance; }
   main section .reveal:not(.join-card) > p:not(.p-sub), main section .reveal:not(.join-card) > ul, main section .reveal:not(.join-card) > ol { max-width: 720px; }
-  @media (max-width: 480px) { h1 { font-size: 32px; } }
 
 
   h1 { line-height: 1.04; }
