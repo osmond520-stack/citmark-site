@@ -1,0 +1,89 @@
+/* CitMark motion v1 — implements 《CitMark 动效标准 v1》(2026-11-23).
+   Rules live inside prefers-reduced-motion: no-preference, and every
+   hidden start state is gated on html.mjs (set by motion.js), so with
+   motion off or JS off all content is fully visible. Only transform,
+   opacity and SVG stroke are animated (plus the box-shadow / border /
+   underline treatments the standard itself prescribes in section 2). */
+:root{
+  --dur-fast:140ms;
+  --dur-base:240ms;
+  --dur-slow:600ms;
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+  --ease-in-out:cubic-bezier(.6,0,.2,1);
+}
+
+@media (prefers-reduced-motion: no-preference){
+
+  /* 2.1 scroll reveal: up 12px + fade, 240ms, once. First-screen text
+     is never given data-rv, so it never animates. */
+  .mjs [data-rv]{opacity:0;transform:translateY(12px)}
+  .mjs [data-rv].in{opacity:1;transform:none;
+    transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out);
+    transition-delay:var(--rvd,0ms)}
+
+  /* 2.2 buttons: hover lifts toward the top-left, press returns and
+     drops the hard shadow. */
+  .btn,.field-cta{transition:transform var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
+  .btn:hover,.field-cta:hover{transform:translate(-2px,-2px)}
+  .field-cta:hover{box-shadow:8px 8px 0 var(--ink)}
+  .btn:active,.field-cta:active{transform:translate(0,0)}
+  .field-cta:active{box-shadow:0 0 0 var(--ink)}
+
+  /* 2.3 cards and links: border to ink on hover; link underline draws
+     in from the left. */
+  .card{transition:border-color var(--dur-fast) var(--ease-out)}
+  .card:hover{border-color:var(--ink)}
+  footer a,.mmenu a{background-image:linear-gradient(currentColor,currentColor);
+    background-size:0% 1.5px;background-repeat:no-repeat;background-position:0 100%;
+    transition:background-size var(--dur-base) var(--ease-out)}
+  footer a:hover,.mmenu a:hover{background-size:100% 1.5px}
+
+  /* 2.4 mobile menu: slides down 240ms when opened (Esc handling and
+     the burger glyph swap live in motion.js). */
+  .mmenu.open{animation:mMenu var(--dur-base) var(--ease-out)}
+  @keyframes mMenu{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  #burger .bic{transition:transform var(--dur-base) var(--ease-out),opacity var(--dur-fast) var(--ease-out)}
+  #burger .bxx{transition:transform var(--dur-base) var(--ease-out),opacity var(--dur-fast) var(--ease-out)}
+
+  /* 2.5 FAQ: height + fade 240ms (overrides the shell's display:none
+     at equal specificity — this file loads after citmark.css). */
+  .faq .q:not(.open) p{display:block;max-height:0;opacity:0;overflow:hidden;
+    transition:max-height var(--dur-base) var(--ease-out),opacity var(--dur-base) var(--ease-out)}
+  .faq .q.open p{max-height:300px;opacity:1;
+    transition:max-height var(--dur-base) var(--ease-out),opacity var(--dur-base) var(--ease-out)}
+  .faq .q .pm{transition:transform var(--dur-base) var(--ease-out)}
+
+  /* 2.6 forms: focus ring to ink. Busy state is set by motion.js. */
+  .field-cta:focus-within{border-color:var(--ink);box-shadow:8px 8px 0 var(--ink)}
+  form[data-lead] button[disabled]{opacity:.65}
+
+  /* 3.1 radar: rings draw (stroke 300ms) -> dots land staggered ->
+     YOU point last with one orange pulse. Plays on view (JS adds .play). */
+  .mjs .radar-svg .m-ring{stroke-dasharray:1;stroke-dashoffset:1}
+  .mjs .radar-svg.play .m-ring{animation:mDraw 300ms var(--ease-out) forwards}
+  @keyframes mDraw{to{stroke-dashoffset:0}}
+  .mjs .radar-svg .m-wedge{opacity:0}
+  .mjs .radar-svg.play .m-wedge{animation:mFade var(--dur-base) var(--ease-out) forwards}
+  .mjs .radar-svg .m-dot{opacity:0}
+  .mjs .radar-svg.play .m-dot{animation:mFade var(--dur-base) var(--ease-out) forwards;animation-delay:var(--d,0ms)}
+  @keyframes mFade{to{opacity:1}}
+  .mjs .radar-svg .m-pop{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3)}
+  .mjs .radar-svg.play .m-pop{animation:mPop 260ms var(--ease-out) forwards;animation-delay:var(--d,0ms)}
+  @keyframes mPop{to{opacity:1;transform:scale(1)}}
+  .mjs .radar-svg .m-pulse{opacity:0;transform-box:fill-box;transform-origin:center}
+  .mjs .radar-svg.play .m-pulse{animation:mPulse var(--dur-slow) var(--ease-out) forwards;animation-delay:var(--d,0ms)}
+  @keyframes mPulse{0%{opacity:.85;transform:scale(1)}100%{opacity:0;transform:scale(3.4)}}
+}
+
+/* ---- Radar data motion (leaderboard / open-questions) ----
+   Row/item stagger per standard 3.4: elements entering together step
+   40ms apart, 240ms ease-out, once. Rows fade only (transform on table
+   rows is unreliable); items also rise 8px. Start states are gated on
+   html.mjs and the no-preference media query, so no-JS and reduced
+   motion render the final state directly. */
+@media (prefers-reduced-motion: no-preference) {
+  .mjs [data-stagger] > * { opacity: 0; transition: opacity var(--dur-base) var(--ease-out); }
+  .mjs [data-stagger] > *.in { opacity: 1; }
+  .mjs [data-stagger-item] { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+  .mjs [data-stagger-item].in { opacity: 1; transform: none; }
+}
