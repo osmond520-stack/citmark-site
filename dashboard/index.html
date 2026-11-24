@@ -130,7 +130,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--bg);
   border-bottom: 1px solid var(--line); }
-.topbar-in { max-width: 1080px; margin: 0 auto; padding: 16px 28px;
+.topbar-in { max-width: 1240px; margin: 0 auto; padding: 16px 40px;
   display: flex; align-items: center; gap: 16px; }
 .topbar h1 { font-size: 21px; }
 .topbar .sub { color: var(--muted); font-size: 13px; margin-left: 2px; }
@@ -138,7 +138,7 @@ a.wordmark { color: inherit; text-decoration: none; }
   color: var(--warn); background: var(--warn-soft); border: 1px solid #ecd9a8;
   padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
 
-.content { max-width: 1080px; width: 100%; margin: 0 auto; padding: 28px;
+.content { max-width: 1240px; width: 100%; margin: 0 auto; padding: 28px 40px;
   padding-bottom: 96px; }
 .view { display: none; }
 .view.active { display: block; animation: fadein .15s ease; }
@@ -395,6 +395,16 @@ a.wordmark { color: inherit; text-decoration: none; }
 .neg-item { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.6; }
 .neg-item:last-child { border-bottom: 0; }
 .grid2 > .card { margin-top: 0; } /* flattened grid: the global .card + .card margin must not offset grid rows */
+@media (min-width: 901px) {
+  /* P0-1: overview on the 12-column grid — main 7 + ring/engines 5, actions 8 + trend 4 */
+  #view-overview .grid2 { grid-template-columns: repeat(12, 1fr); gap: 20px; }
+  #view-overview .grid2 > .card:nth-child(1) { grid-column: span 7; }
+  #view-overview .grid2 > .card:nth-child(2) { grid-column: span 5; }
+  #view-overview .grid2 > .card:nth-child(3) { grid-column: span 8; }
+  #view-overview .grid2 > .card:nth-child(4) { grid-column: span 4; }
+  #view-overview .grid2 > .card:nth-child(5) { grid-column: span 8; }
+  #view-overview .grid2 > .card:nth-child(6) { grid-column: span 4; }
+}
 .ov-neg-card { min-width: 0; } /* nowrap question line must not force the grid track wider than its 1fr share */
 .ov-neg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .ov-neg-count { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 800; }
@@ -643,8 +653,8 @@ a.wordmark { color: inherit; text-decoration: none; }
 @media (min-width:901px){
   .topbar-in .id-badge{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px;background:#ff5a1f;color:#141519}
   .topbar-in .id-avatar-btn{border:0;background:transparent;padding:6px;border-radius:50%;cursor:pointer;line-height:0}
-  .id-row{display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:0 auto;padding:0 28px 16px}
-  .acct-menu{right:max(28px, (100% - 1080px) / 2 + 28px)}
+  .id-row{display:flex;justify-content:space-between;align-items:center;max-width:1240px;margin:0 auto;padding:0 40px 16px}
+  .acct-menu{right:max(40px, (100% - 1240px) / 2 + 40px)}
   .acct-menu.open{display:block}
 }
 
