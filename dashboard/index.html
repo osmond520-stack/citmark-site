@@ -4491,14 +4491,14 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
         else if (res.status === 403) {
           /* Split by backend reason (PD copy 2026-11-24; payload {detail, reason},
              BE1 in-service evidence). seats_exceeded must NOT take the plan
-             sentence (TD boundary) -- it uses the generic line until PD rules
-             a seat-specific sentence. Unknown 403s default to permission,
+             sentence (TD boundary) -- it takes PD's seat sentence.
+             Unknown 403s default to permission,
              never to plan. */
           var rsn = res.body && res.body.reason;
           if (msg) msg.textContent = rsn === 'tier_locked'
             ? "Inviting members isn't included in your current plan."
             : rsn === 'seats_exceeded'
-              ? "Couldn't send the invite. Try again."
+              ? "Your plan's seats are all in use \u2014 free a seat or upgrade to invite more members."
               : "You don't have permission to invite members \u2014 ask the workspace owner or an admin.";
         }
         else { if (msg) msg.textContent = "Couldn't send the invite. Try again."; }
