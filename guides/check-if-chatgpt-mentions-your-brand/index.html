@@ -1530,6 +1530,11 @@ body{background:var(--bg);color:var(--ink)}
 }
 @media (min-width:601px) and (max-width:900px){.hero{display:block;min-height:0}.hero .guide-visual{justify-self:start;margin-top:40px}.split,.split.rev{display:flex;flex-direction:column;gap:40px;align-items:stretch}.split.rev>:first-child{order:2}.final h2{font-size:44px}.row{grid-template-columns:56px 1fr;padding:20px 0;gap:12px}.row .x{display:none}.row.wide{grid-template-columns:56px 1fr}.row.wide .d{grid-column:2}.faq-grid{display:block}.faq{margin-top:var(--s6)}.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
 </style>
+
+<style id="sec-single-side">
+/* Section boundaries, single-side rule (his ruling 2026-11-24): upper section bottom = 0, lower keeps its top. */
+section.sec, section.sec.tight, section.hero, section.hero.guide { padding-bottom: 0; }
+</style>
 </head>
 <body class="session-ready">
 <header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
@@ -1591,9 +1596,60 @@ body{background:var(--bg);color:var(--ink)}
  </div>
 </section>
 </article></main>
-<section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g></svg><div class="wrap in"><span class="label">— Free snapshot</span><h2>See how AI sees<br><span class="nowrap">your brand — <span class="serif">free</span></span></h2><p class="sub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p><div class="cta"><a class="btn lg" href="/free-snapshot/">Get my free snapshot →</a></div><div class="fine long">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</div></div></section>
-<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div></footer>
+<section class="final" id="join"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g><circle cx="600" cy="600" r="5" fill="#FF7A45" fill-opacity=".0"/></svg><div class="wrap in"><span class="label">— Free snapshot</span><h2>See how AI sees<br><span class="nowrap">your brand — <span class="serif">free</span></span></h2><p class="sub">One free check of your brand's visibility across ChatGPT, Perplexity and Gemini.</p><div class="cta"><a class="btn lg" href="/free-snapshot/">Get my free snapshot →</a></div><div class="fine long">One free check — 3 questions × 3 engines (ChatGPT, Perplexity, Gemini). Your report is emailed to you. A free snapshot, not a free plan and not a free trial.</div></div></section>
+<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="/cdn-cgi/l/email-protection#dfacaaafafb0adab9fbcb6abb2beadb4f1bcb0b2"><span class="__cf_email__" data-cfemail="bccfc9ccccd3cec8fcdfd5c8d1ddced792dfd3d1">[email&#160;protected]</span></a></span></div></footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function () {
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function setMenu(open) {
+    mobileMenu.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
+  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
 
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    q.addEventListener("click", function () {
+      var open = item.classList.toggle("open");
+      q.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* Final-CTA form: same shape as the homepage hero form. Validates the
+     email, then hands off to the real signup page to finish registering. */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  document.querySelectorAll("form.waitlist").forEach(function (form) {
+    var input = form.querySelector('input[type="email"]');
+    var msg = form.parentElement.querySelector(".form-msg");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var email = (input.value || "").trim();
+      msg.className = "form-msg"; msg.textContent = "";
+      if (!EMAIL_RE.test(email)) {
+        input.setAttribute("aria-invalid", "true");
+        msg.textContent = "That email doesn't look complete — check it and try again.";
+        msg.classList.add("show", "err"); input.focus(); return;
+      }
+      input.removeAttribute("aria-invalid");
+      window.location.href = "/signup/";
+    });
+  });
+})();
+</script>
 
 <style id="guide-frame-notes">
   h1, h2 { text-wrap: balance; }
