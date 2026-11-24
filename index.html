@@ -3339,8 +3339,8 @@ document.querySelectorAll("[data-tier-cta]").forEach(function (btn) {
 })();
 </script>
 <style id="motion-eval-css">
-:root{--m-ease:cubic-bezier(.22,.61,.21,1);--m-s:240ms;--m-m:480ms;--m-l:900ms;--m-step:70ms}
-.m-pre{opacity:0!important;transform:translateY(10px)} #pricing .plan.m-anim{transition:opacity 300ms cubic-bezier(.22,.61,.21,1),transform 300ms cubic-bezier(.22,.61,.21,1)} #pricing .plan.m-pre{transform:translateY(6px)}
+:root{--m-ease:cubic-bezier(.2,.7,.2,1);--m-s:240ms;--m-m:240ms;--m-l:600ms;--m-step:40ms}
+.m-pre{opacity:0!important;transform:translateY(10px)} #pricing .plan.m-pre{transform:translateY(6px)}
 .m-anim{transition:opacity var(--m-m) var(--m-ease),transform var(--m-m) var(--m-ease)}
 .m-bar{transition:transform var(--m-l) var(--m-ease);transform-origin:left center}
 .m-bar-pre{transform:scaleX(0)}
@@ -3352,10 +3352,10 @@ document.querySelectorAll("[data-tier-cta]").forEach(function (btn) {
 /* INTENSITY C: drawn accents (visual additions, declared) */
 .sr-score{position:relative}
 .m-sbar{position:absolute;left:10px;right:10px;bottom:4px;height:4px;border-radius:2px;background:rgba(23,25,28,.10);overflow:hidden}
-.m-sbar i{display:block;height:100%;background:var(--accent,#e8622c);transform:scaleX(0);transform-origin:left center;transition:transform 1200ms cubic-bezier(.22,.61,.21,1)}
+.m-sbar i{display:block;height:100%;background:var(--accent,#e8622c);transform:scaleX(0);transform-origin:left center;transition:transform 600ms cubic-bezier(.2,.7,.2,1)}
 .m-sbar.go i{transform:scaleX(1)}
 .sec-head{position:relative}
-.m-rule{display:block;width:46px;height:3px;border-radius:2px;background:var(--accent,#e8622c);margin-top:10px;transform:scaleX(0);transform-origin:left center;transition:transform 600ms cubic-bezier(.22,.61,.21,1)}
+.m-rule{display:block;width:46px;height:3px;border-radius:2px;background:var(--accent,#e8622c);margin-top:10px;transform:scaleX(0);transform-origin:left center;transition:transform 600ms cubic-bezier(.2,.7,.2,1)}
 .m-rule.go{transform:scaleX(1)}
 #pricing .plan{position:relative}
 .m-dotg{transform-origin:48px 48px}
@@ -3371,7 +3371,7 @@ document.querySelectorAll("[data-tier-cta]").forEach(function (btn) {
 "use strict";
 var MODE="prod";
 var reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
-var STEP=70, DURL=900;
+var STEP=40, DURL=600;
 function ease(t){return 1-Math.pow(1-t,4);}
 function count(el,dur){
   if(!el) return;
@@ -3394,7 +3394,7 @@ function reveal(els,step){
   list.forEach(function(el){ el.classList.add("m-anim"); el.classList.add("m-pre"); });
   void document.body.offsetHeight;
   list.forEach(function(el,i){ el.style.transitionDelay=(i*(step===undefined?STEP:step))+"ms"; el.classList.remove("m-pre"); });
-  setTimeout(function(){ list.forEach(function(el){ el.style.transitionDelay=""; }); }, 480+list.length*(step===undefined?STEP:step)+100);
+  setTimeout(function(){ list.forEach(function(el){ el.style.transitionDelay=""; }); }, 240+list.length*(step===undefined?STEP:step)+100);
 }
 function bars(els){
   var list=Array.prototype.slice.call(els||[]);
@@ -3414,12 +3414,12 @@ S3:function(){ var input=q("#checkDomain"), form=q("#checkForm");
   if(input&&form){ input.value="goodmolecules.com";
     if(form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event("submit",{cancelable:true,bubbles:true})); } },
 S4:function(){ reveal(qa(".sr-table tbody tr"),STEP); qa(".sr-score b").forEach(function(el){ count(el,DURL); }); },
-S5:function(){ reveal(qa("#why .ds-item"),120); },
-S6:function(){ reveal(qa("#how .step"),120); },
+S5:function(){ reveal(qa("#why .ds-item")); },
+S6:function(){ reveal(qa("#how .step")); },
 S7:function(){ reveal(qa("#toolkit .tkrow"),STEP); },
 S8:function(){ if(window.__s8in) return; window.__s8in=true; reveal(qa("#pricing .plan"),0); },
 S9:function(){ var f=q(".pricing-foot"); if(f) reveal([f],0); },
-S10:function(){ reveal(qa("#join .jstep"),120); },
+S10:function(){ reveal(qa("#join .jstep")); },
 S12:function(){ window.scrollTo({top:Math.round(document.documentElement.scrollHeight*0.45),behavior:reduced.matches?"auto":"smooth"}); }
 };
 var ANCHOR={S1:".hero-mini",S2:".hero-chips",S3:"#report",S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S9:".pricing-foot",S10:"#join",S11:"#faq"};
@@ -3489,12 +3489,12 @@ qa(".sec-head").forEach(function(h){ var r=document.createElement("span"); r.cla
   new MutationObserver(function(){ if(!res.hidden){ var g=ensureDot(); if(!g) return;
       var num=document.querySelector(".score-num"); var v=num?parseFloat(num.textContent)||0:0;
       g.style.opacity="1";
-      g.animate([{transform:"rotate(0deg)"},{transform:"rotate("+(v*3.6)+"deg)"}],{duration:1400,easing:"cubic-bezier(.22,.61,.21,1)",fill:"forwards"});
+      g.animate([{transform:"rotate(0deg)"},{transform:"rotate("+(v*3.6)+"deg)"}],{duration:600,easing:"cubic-bezier(.2,.7,.2,1)",fill:"forwards"});
     } }).observe(res,{attributes:true,attributeFilter:["hidden"],childList:true,subtree:true});
 })();
 function mAccent(k){
 
-  if(k==="S4"){ var g4=GEN[k]||0; qa(".m-sbar").forEach(function(bar,i){ setTimeout(function(){ if((GEN[k]||0)===g4) bar.classList.add("go"); }, i*70); }); }
+  if(k==="S4"){ var g4=GEN[k]||0; qa(".m-sbar").forEach(function(bar,i){ setTimeout(function(){ if((GEN[k]||0)===g4) bar.classList.add("go"); }, i*40); }); }
   var anch={S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S10:"#join"}[k];
   if(anch){ var sec=document.querySelector(anch); sec=sec?sec.closest("section"):null;
     var r=sec?sec.querySelector(".m-rule"):null; if(r) r.classList.add("go"); }
