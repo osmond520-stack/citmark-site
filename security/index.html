@@ -1,322 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="light" />
-<link rel="icon" href="data:," />
-<title>Security — CitMark</title>
-<meta name="description" content="How CitMark collects, protects, and deletes your data — in plain language." />
-<link rel="canonical" href="https://citmark.com/security/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="CitMark" />
-<meta property="og:url" content="https://citmark.com/security/" />
-<meta property="og:title" content="Your data belongs to you. — CitMark" />
-<meta property="og:description" content="How CitMark collects, protects, and deletes your data — in plain language." />
-<meta property="og:image" content="https://citmark.com/og.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Your data belongs to you. — CitMark" />
-<meta name="twitter:description" content="How CitMark collects, protects, and deletes your data — in plain language." />
-<style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Security — CitMark</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><link rel="canonical" href="https://citmark.com/security/">
+<link rel="stylesheet" href="/assets/citmark.css">
+<style id="shell-v2">
+/* shell-v2: site-v1 package shell (citmark.css SS1-4/18/19 + SS21 shell lines), production wiring marked [prod] */
 :root{
-  --bg:#f4f1ea; --bg-raise:#FBF9F4; --card:#ffffff; --ink:#141311; --ink-2:#4B463C; --ink-3:#6F685C;
-  --line:#E2DBCD; --line-soft:#EDE8DC;
-  --accent:#E8541E; --accent-deep:#C2410C; --dark:#12110F; --dark-2:#1C1A17; --on-dark:#F4F1EA; --on-dark-2:#B8B3A7;
-  --serif:"Instrument Serif",Georgia,serif;
-  --sans:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
+  /* color */
+  --bg:#F4F1EA;        /* page base, off-white */
+  --paper:#FBF9F4;     /* raised surface / alternate section */
+  --line:#E2DBCD;      /* hairlines on light */
+  --ink:#141311;       /* primary text, strong rules */
+  --ink-2:#4B463C;     /* body text */
+  --ink-3:#6F685C;     /* secondary text (AA on bg) */
+  --mute:#9A9385;      /* placeholder / decorative only, never body */
+  --or:#E8541E;        /* accent: YOU, primary action, key number */
+  --or-ink:#C2410C;    /* orange for small text on light (AA) */
+  --or-2:#FF7A45;      /* accent on dark */
+  --or-wash:rgba(232,84,30,.10);
+  --dark:#12110F;      /* report band + final CTA only */
+  --dark-2:#1C1A17;    /* surface on dark */
+  --dark-line:#2C2925;
+  --on-dark:#F4F1EA;
+  --on-dark-2:#B8B3A7;
+  /* type */
+  --f-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --f-num:"Bricolage Grotesque","Plus Jakarta Sans",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --f-serif:"Instrument Serif",Georgia,serif;  /* italic accent: at most one phrase per heading, never in body copy */
+  --t-display:64px; --t-h2:52px; --t-h3:32px; --t-h4:22px;
+  --t-lead:19px; --t-body:16px; --t-small:14px; --t-label:12px;
+  --t-score-xl:112px; --t-score-l:72px;
+  /* space (4-base) */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  /* layout */
+  --page:1440px; --gutter:120px; --content:1200px; --col-gap:24px;
+  --nav-h:76px;
+  /* shape */
+  --r-pill:999px; --r-card:4px;
+  --shadow-ink:5px 5px 0 var(--ink);
+  --shadow-or:10px 10px 0 var(--or);
 }
+:root{--sans:var(--f-sans);--mono:var(--f-mono);--accent:var(--or);--accent-deep:var(--or-ink);--bg-raise:var(--paper);--card:#fff;--line-soft:#EDE8DC}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep)}
-.eyebrow::before{content:"— "}
-h1{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
-h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
-.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
-.it-org{color:var(--accent)}
-.it-grey{color:var(--ink-3)}
-.lede{font-size:18.5px;line-height:1.55;color:var(--ink-2)}
-.lede strong{color:var(--ink);font-weight:700}
-/* ---------- topbar ---------- */
-.topbar{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
-.topbar-in{display:flex;align-items:center;gap:34px;height:72px}
-.wordmark{font-family:"Bricolage Grotesque",var(--sans);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none}
-.wordmark i{font-style:normal;color:var(--accent)}
-.topnav{display:flex;gap:28px;margin-left:12px}
-.topnav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:6px 0}
-.topnav a:hover{color:var(--ink)}
-.topnav a.cur{color:var(--ink);font-weight:600;box-shadow:0 2px 0 var(--accent)}
-.top-right{margin-left:auto;display:flex;align-items:center;gap:20px}
-.login-link{font-size:15px;font-weight:600;text-decoration:none}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:15.5px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;text-decoration:none;transition:background .15s}
-.btn:hover{background:var(--accent-deep)}
-.btn-dark{background:var(--ink)}
-.btn-dark:hover{background:#000}
-.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
-.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px}
-.mmenu{display:none;border-bottom:1px solid var(--line);background:var(--bg);padding:10px 0 16px}
-.mmenu.open{display:block}
-.mmenu a{display:block;padding:11px 40px;font-size:16.5px;font-weight:600;text-decoration:none}
-.mmenu a.cur{color:var(--accent-deep)}
-/* ---------- email pill form ---------- */
-.pillform{display:flex;align-items:center;background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:5px;box-shadow:5px 5px 0 var(--ink);max-width:520px}
-.pillform input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--sans);font-size:16px;padding:10px 16px;color:var(--ink)}
-.pillform input::placeholder{color:var(--ink-3)}
-.pillform .btn{white-space:nowrap}
-.form-note{margin-top:14px;font-size:13.5px;color:var(--ink-3)}
-.pillform.err{box-shadow:5px 5px 0 var(--accent-deep);border-color:var(--accent-deep)}
-/* ---------- hero ---------- */
-.hero{padding:70px 0 66px;border-bottom:1px solid var(--line)}
-.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
-.hero h1{margin:18px 0 22px}
-.hero .pillform{margin-top:30px}
-.radar-box{max-width:560px;margin-left:auto;width:100%}
-.radar-cap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:6px}
-.cap-pill{background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;border-radius:999px;padding:8px 18px;text-align:center}
-.scan-tag{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;border:1px solid var(--line);border-radius:6px;padding:7px 12px;color:var(--ink-2);background:var(--bg-raise)}
-.scan-tag b{color:var(--accent);font-weight:600}
-/* ---------- why rows ---------- */
-.why{padding:72px 0 78px;border-bottom:1px solid var(--line)}
-.why h2{margin:16px 0 44px}
-.why h2 .row2{display:block;color:var(--accent)}
-.why-rows{border-top:1px solid var(--ink)}
-.why-row{display:grid;grid-template-columns:110px 1fr auto;gap:26px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line)}
-.why-num{font-size:34px;font-weight:800;letter-spacing:-.02em}
-.why-row h3{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:5px}
-.why-row p{color:var(--ink-2);font-size:16.5px;max-width:56ch}
-.why-tag{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--accent-deep);text-decoration:line-through;text-transform:uppercase;white-space:nowrap}
-/* ---------- dark report ---------- */
-.report{background:var(--dark);color:#f2efe9;padding:76px 0 84px}
-.report .eyebrow{color:#ff8a50}
-.report h2{color:#fff;max-width:22ch}
-.report h2 .it{color:#ff8a50}
-.report-top{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start}
-.bignums{display:flex;gap:54px;margin-top:38px;flex-wrap:wrap}
-.bignum .n{font-size:clamp(52px,5.6vw,84px);font-weight:800;letter-spacing:-.03em;line-height:1;color:#fff}
-.bignum .n small{font-size:.32em;font-weight:600;color:#a49e93;letter-spacing:0}
-.bignum.you .n{color:var(--accent)}
-.bignum .cap{margin-top:10px;font-size:14.5px;color:#c9c4ba}
-.bignum .cap b{color:#fff;font-weight:700}
-.report .scan-tag{margin-top:30px;display:inline-block;background:transparent;border-color:rgba(255,255,255,.25);color:#c9c4ba}
-.polar-box{max-width:470px;margin-left:auto;width:100%}
-.polar-cap{margin-top:12px;font-size:13.5px;color:#c9c4ba;text-align:center}
-.polar-legend{display:flex;gap:20px;justify-content:center;margin-top:8px;font-size:13px;color:#c9c4ba}
-.polar-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}
-.rtable{margin-top:58px;border-top:1px solid rgba(255,255,255,.22)}
-.rt-head,.rt-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr .7fr;gap:18px;align-items:center;padding:15px 10px}
-.rt-row{grid-template-areas:"brand e1 e2 e3 score"}
-.rt-head{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:#a49e93;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.22)}
-.rt-row{border-bottom:1px solid rgba(255,255,255,.13);font-size:15.5px}
-.rt-row .brand{font-weight:600;display:flex;align-items:center;gap:10px}
-.you-badge{background:var(--accent);color:#fff;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;border-radius:4px;padding:2.5px 6px}
-.rt-row.you{box-shadow:inset 3px 0 0 var(--accent);background:rgba(232,73,15,.06)}
-.rt-row .score{font-weight:800;font-size:17px;text-align:right}
-.rt-row .score small{font-size:.62em;color:#a49e93;font-weight:600}
-.rt-row.you .score{color:var(--accent)}
-.dots{display:inline-flex;gap:4px;margin-right:9px;vertical-align:middle}
-.dots i{width:8px;height:8px;border-radius:50%;background:#5c574f;display:inline-block}
-.dots i.on{background:#e8e4db}
-.rt-row.you .dots i.on{background:var(--accent)}
-.ecount{font-family:var(--mono);font-size:12.5px;color:#a49e93}
-.report-foot{margin-top:22px;display:flex;justify-content:space-between;gap:30px;align-items:flex-start}
-.report-note{font-size:13.5px;line-height:1.6;color:#a49e93;max-width:76ch}
-.showall{font-size:14px;font-weight:700;color:#fff;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:var(--sans)}
-/* ---------- draft section ---------- */
-.draft{padding:76px 0 84px;border-bottom:1px solid var(--line)}
-.draft-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.draft h2{margin:16px 0 20px}
-.draft p{color:var(--ink-2);max-width:48ch}
-.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:8px;overflow:hidden;margin-top:38px}
-.seg a{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;padding:11px 20px;text-decoration:none;color:var(--ink)}
-.seg a + a{border-left:1.5px solid var(--ink)}
-.seg a.on{background:var(--ink);color:#fff}
-.inbox-card{background:var(--card);border:1.5px solid var(--ink);border-radius:12px;box-shadow:7px 7px 0 var(--accent);padding:26px 28px}
-.inbox-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;border-bottom:1px solid var(--line-soft);padding-bottom:13px}
-.inbox-tag{display:inline-block;background:var(--ink);color:#fff;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;border-radius:4px;padding:4px 9px;margin:18px 0 14px}
-.inbox-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-top:16px}
-.inbox-said{font-size:16.5px;margin-top:5px}
-.inbox-said s{text-decoration-color:var(--accent);text-decoration-thickness:2px}
-.inbox-fact{font-size:16.5px;font-weight:600;margin-top:5px}
-.inbox-draftbox{background:#fdf3ec;border-left:3px solid var(--accent);padding:14px 16px;font-size:15.5px;line-height:1.55;margin-top:6px}
-.inbox-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);margin-top:20px;padding-top:15px;font-size:13.5px;font-weight:600}
-.inbox-foot .sent{color:var(--accent-deep)}
-/* ---------- about page ---------- */
-.ab-hero{padding:70px 0 66px;border-bottom:1px solid var(--line)}
-.ab-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
-.ab-hero h1{margin:18px 0 22px}
-.outside-box{max-width:500px;margin-left:auto;width:100%}
-.outside-cap{text-align:center;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-top:10px}
-.ab-rows{padding:70px 0 76px;border-bottom:1px solid var(--line)}
-.ab-row{display:grid;grid-template-columns:110px 1fr;gap:26px;padding:28px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.ab-row:first-child{border-top:1px solid var(--ink)}
-.ab-row .why-num{font-size:34px;font-weight:800;letter-spacing:-.02em}
-.ab-row h3{display:inline;font-size:20px;font-weight:700;letter-spacing:-.01em;margin-right:14px}
-.ab-row p{display:inline;color:var(--ink-2);font-size:16.5px}
-.diff{padding:74px 0 84px;border-bottom:1px solid var(--line)}
-.diff h2{margin:16px 0 40px}
-.diff-table{border-top:1px solid var(--ink)}
-.diff-row{display:grid;grid-template-columns:.8fr 1.1fr 1.1fr;gap:30px;padding:19px 4px;border-bottom:1px solid var(--line);align-items:baseline}
-.diff-row.head{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);padding:13px 4px}
-.diff-row.head .cm{color:var(--accent-deep)}
-.diff-row .k{font-weight:700;font-size:16.5px}
-.diff-row .ent{color:var(--ink-2);font-size:16px}
-.diff-row .cm{font-weight:700;font-size:16px}
-@media (max-width:960px){
-  .ab-hero-grid{grid-template-columns:1fr}
-  .outside-box{margin:8px auto 0}
-}
-@media (max-width:700px){
-  .ab-row{grid-template-columns:56px 1fr;gap:14px}
-  .ab-row .why-num{font-size:25px}
-  .ab-row h3{display:block;margin-bottom:5px}
-  .ab-row p{display:block}
-  .diff-row{grid-template-columns:1fr;gap:5px;padding:17px 2px}
-  .diff-row.head{display:none}
-  .diff-row .cm::before{content:"CitMark — ";color:var(--accent-deep)}
-  .diff-row .ent::before{content:"Enterprise tools — ";color:var(--ink-3)}
-}
-/* ---------- pricing strip ---------- */
-.pstrip{padding:72px 0 80px;border-bottom:1px solid var(--line)}
-.pstrip-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:56px}
-.pstrip h2{margin:16px 0 18px}
-.pstrip p{color:var(--ink-2);max-width:40ch}
-.textlink{font-weight:700;text-decoration:underline;text-underline-offset:4px;display:inline-block;margin-top:20px}
-.pcols{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;align-items:start}
-.pcol .tier{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase}
-.pcol .price{font-size:clamp(30px,2.8vw,42px);font-weight:800;letter-spacing:-.02em;margin-top:8px}
-.pcol .price small{font-size:.42em;color:var(--ink-3);font-weight:600}
-.pcol.hot .price{color:var(--accent)}
-.pcol .spec{margin-top:7px;font-size:14.5px;color:var(--ink-2)}
-/* ---------- closing ---------- */
-.closing{background:var(--dark);color:#fff;padding:88px 0 96px;text-align:center;position:relative;overflow:hidden}
-.closing .eyebrow{color:#ff8a50}
-.closing h2{color:#fff;max-width:24ch;margin:18px auto 34px}
-.closing h2 .it{color:#ff8a50}
-.closing .pillform{margin:0 auto;background:transparent;border-color:rgba(255,255,255,.4);box-shadow:none}
-.closing .pillform input{color:#fff}
-.closing .pillform input::placeholder{color:#a49e93}
-.closing .form-note{color:#a49e93}
-/* ---------- footer ---------- */
-.footer{padding:64px 0 40px;border-top:2px solid var(--ink)}
-.label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);font-weight:500}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:var(--t-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:var(--page);margin:0 auto;padding:0 var(--gutter)}
+.mono{font-family:var(--f-mono)}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.or{color:var(--or)} .dim{color:#A39C8E}
+.label{font-family:var(--f-mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:500}
 .label.ink{color:var(--ink-3)}
+.band-dark .label,.final .label{color:var(--or-2)}
+.nav{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:24px;letter-spacing:-.035em;color:var(--ink)} .logo i{color:var(--or);font-style:normal}
+.nav-links{display:flex;gap:36px;font-size:15px;font-weight:500;color:var(--ink-2)}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a.on{color:var(--ink);font-weight:650}
+.nav-links a.on:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--or)}
+.nav-r{display:flex;gap:24px;align-items:center;font-size:15px;font-weight:600}
+.nav-menu{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 22px;border-radius:var(--r-pill);font-weight:700;font-size:15px;white-space:nowrap;background:var(--or);color:#fff}
+.btn.ink{background:var(--ink);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.lg{min-height:52px;font-size:16px;padding:0 26px}
+.link{font-weight:650;border-bottom:1.5px solid var(--or);padding-bottom:1px}
+.field-cta{display:flex;align-items:center;background:#fff;border:1.5px solid var(--ink);border-radius:var(--r-pill);padding:6px;box-shadow:var(--shadow-ink);max-width:480px}
+.field-cta .ph{flex:1;padding:0 18px;color:var(--mute);font-size:16px}
+.field-cta .btn{min-height:50px;font-size:16px}
+.fine{margin-top:14px;font-size:var(--t-small);color:var(--ink-3)}
 .final{background:var(--dark);color:var(--on-dark);position:relative;overflow:hidden;text-align:center;padding:96px 0}
-.final .label{color:#FF7A45}
 .final .rings{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
 .final .in{position:relative}
-.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
-.foot-brand p{margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:30ch}
-.foot-col h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px}
-.foot-col a{display:block;text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:4.5px 0}
-.foot-col a:hover{color:var(--ink)}
-.foot-bottom{border-top:1px solid var(--line-soft);margin-top:46px;padding-top:22px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
-/* ---------- responsive ---------- */
-@media (max-width:960px){
-  .hero-grid,.report-top,.draft-grid,.pstrip-grid{grid-template-columns:1fr}
-  .radar-box,.polar-box{margin:8px auto 0}
-  .pcols{gap:26px}
-}
+.final h2{font-size:58px;line-height:1.03;letter-spacing:-.045em;font-weight:800;max-width:880px;margin:16px auto 0}
+.final h2 .serif{color:var(--or-2)}
+.final .field-cta{margin:36px auto 0;background:var(--dark-2);border-color:var(--on-dark);box-shadow:5px 5px 0 var(--or)}
+.final .field-cta .ph{color:#77726A}
+.final .fine{color:#8C877C}
+.foot{padding-top:64px;padding-bottom:40px;border-top:2px solid var(--ink)}
+.foot-g{display:grid;grid-template-columns:1fr 160px 160px 160px;gap:var(--s6)}
+.foot .tag{font-size:15px;color:var(--ink-2);margin-top:12px;max-width:320px}
+.foot h5{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink-3);font-weight:500;margin-bottom:14px}
+.foot li{list-style:none;font-size:15px;margin-bottom:10px;color:var(--ink)}
+.foot-b{display:flex;justify-content:space-between;margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+/* [prod] sticky header w/ barsfix legibility (package nav is static in the mock) */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.88);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
+/* [prod] mobile menu panel (package shows the button; panel is production) */
+.nav-menu{background:none;border:none;cursor:pointer;color:var(--ink)}
+.mmenu{display:none;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 14px;position:sticky;top:var(--nav-h);z-index:59}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 2px;font-weight:600;font-size:16px;color:var(--ink);border-bottom:1px solid var(--line)}
+.nav-menu path{transition:transform .24s cubic-bezier(.2,.7,.2,1),opacity .24s cubic-bezier(.2,.7,.2,1);transform-box:fill-box;transform-origin:center}
+.nav-menu[aria-expanded="true"] .mb1{transform:translateY(5px) rotate(45deg)}
+.nav-menu[aria-expanded="true"] .mb2{opacity:0}
+.nav-menu[aria-expanded="true"] .mb3{transform:translateY(-5px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.nav-menu path{transition:none}}
+@media (max-width:860px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
+.mmenu a:last-child{border-bottom:none}
+.mmenu a.cur{color:var(--or-ink)}
+/* [prod] neutralize legacy dead .final card rules in page CSS (radius survives cascade) */
+.final{border-radius:0}
+/* [prod] real form inside .field-cta + closing extras */
+.field-cta input.ph{flex:1;background:transparent;border:none;outline:none;font:inherit;color:var(--ink);padding:0 18px;min-width:0}
+.field-cta input.ph::placeholder{color:var(--mute)}
+.final .field-cta input.ph{color:var(--on-dark)}
+.final .field-cta input.ph::placeholder{color:#77726A}
+.final .fsub{color:var(--on-dark-2);font-size:17px;line-height:1.6;max-width:560px;margin:18px auto 0}
+.final .form-msg{min-height:20px;font-size:14px;margin-top:12px;color:var(--on-dark-2)}
+.final .form-msg.err{color:#ffb59d}
+.fcta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn.ghostd{background:transparent;color:var(--on-dark);box-shadow:inset 0 0 0 1.5px rgba(244,241,234,.55)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nowrap{white-space:nowrap}
+.fineprint{margin-top:18px;font-size:12.5px;line-height:1.6;color:var(--ink-3);text-align:center}
+/* page geometry aligned to SPEC 3b3a410d (package type scale + .sec rhythm) */
+body{font-size:16px;line-height:1.6}
+h1{font-family:var(--f-sans);font-size:64px;line-height:1.02;font-weight:800;letter-spacing:-.045em;text-wrap:balance}
+h2{font-family:var(--f-sans);font-size:52px;line-height:1.04;font-weight:800;letter-spacing:-.042em;text-wrap:balance}
+.final h2{font-size:58px;line-height:1.03;letter-spacing:-.045em;max-width:880px}
+.it{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--or)}
+.final h2 .it{color:var(--or-2)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink)}
+.eyebrow::before{content:"\2014 "}
+section{padding:128px 0}
+#faq .faq{justify-self:start;float:none;margin:0}
+section.final{overflow:hidden}
+.foot .tag{display:block;font-family:var(--f-sans);font-size:15px;font-weight:400;letter-spacing:normal;color:var(--ink-2);margin-top:12px;line-height:1.55;max-width:320px;white-space:normal;padding:0;background:none;border:none;border-radius:0}
+@media (max-width:1024px){:root{--gutter:40px}}
 @media (max-width:860px){
-  .topnav,.top-right .login-link{display:none}
-  .burger{display:inline-flex}
-  .wrap{padding:0 20px}
-  .mmenu a{padding-left:20px;padding-right:20px}
+.nav-links{display:none}
+.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}
+.mmenu{top:64px}
 }
-@media (max-width:700px){
-  body{font-size:16.5px}
-  .hero{padding:46px 0 52px}
-  .why,.draft,.pstrip{padding:52px 0 58px}
-  .report{padding:54px 0 60px}
-  .why-row{grid-template-columns:64px 1fr;gap:16px;padding:22px 0}
-  .why-num{font-size:26px}
-  .why-tag{display:none}
-  .rt-head{display:none}
-  .rt-row{grid-template-columns:1fr 1fr auto;grid-template-areas:"brand brand score" "e1 e2 e3";row-gap:9px;padding:16px 6px}
-  .rt-row .brand{grid-area:brand}
-  .rt-row .score{grid-area:score}
-  .bignums{gap:34px}
-  .pcols{grid-template-columns:1fr;gap:22px}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  .pillform{flex-direction:column;align-items:stretch;border-radius:18px;padding:7px;gap:7px}
-  .pillform input{padding:12px 14px}
-  .pillform .btn{justify-content:center;padding:14px 22px;min-height:48px}
-  .closing .pillform{flex-direction:column}
-  .seg a{padding:11px 14px}
-  .inbox-card{padding:22px 20px}
-  .report-foot{flex-direction:column;gap:14px}
+@media (max-width:600px){
+:root{--gutter:20px}
+h1{font-size:42px}
+h2{font-size:34px}
+section{padding:72px 0}
+.nav{height:64px}
+.nav-r{gap:12px;font-size:14px}
+.nav-r .btn{min-height:38px;padding:0 14px;font-size:13.5px}
+.logo{font-size:22px}
+.field-cta{flex-direction:column;align-items:stretch;border-radius:14px;padding:6px;box-shadow:4px 4px 0 var(--ink)}
+.field-cta input.ph{padding:14px 12px}
+.field-cta .btn{border-radius:10px;min-height:50px}
+.final{padding:72px 0}
+.final h2{font-size:36px}
+.foot-g{grid-template-columns:1fr 1fr;gap:28px}
+.foot-g>:first-child{grid-column:1/-1}
+.foot-b{flex-direction:column;gap:8px}
 }
+@media (prefers-color-scheme:dark){
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--dark:#12110F;--dark-2:#1C1A17;--on-dark:#F4F1EA;--on-dark-2:#B8B3A7}
+body{background:var(--bg);color:var(--ink)}
+}
+</style><style>
+.doc-col{max-width:780px;margin:0 auto;padding:96px 0}
+.doc-col .doc-h1{font-size:52px;font-weight:800;letter-spacing:-.042em;line-height:1.04;margin-top:16px}
+.doc-lede{font-size:19px;line-height:1.6;color:var(--ink-2);margin-top:20px}
+.doc-meta{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;color:var(--ink-3);margin-top:18px;text-transform:uppercase}
+.doc-body{margin-top:44px}
+.doc-body h2{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:40px 0 14px}
+.doc-body h2:first-child{margin-top:0}
+.doc-body h3{font-size:19px;font-weight:800;letter-spacing:-.02em;margin:28px 0 10px}
+.doc-body p{font-size:16px;line-height:1.6;color:var(--ink-2);margin-bottom:14px}
+.doc-body p b,.doc-body p strong{color:var(--ink)}
+.doc-body ul,.doc-body ol{margin:0 0 16px 20px;color:var(--ink-2);font-size:16px;line-height:1.6}
+.doc-body li{margin-bottom:8px}
+.doc-body li strong{color:var(--ink)}
+.doc-body a{color:var(--or-ink);font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.doc-card{background:#fff;border:1.5px solid var(--ink);border-radius:var(--r-card);padding:30px 32px;margin-bottom:20px}
+.doc-card h2{margin-top:0}
+.doc-card p:last-child,.doc-card ul:last-child{margin-bottom:0}
+.doc-callout{background:var(--or-wash);border:1px solid var(--or);border-radius:8px;padding:16px 18px;font-size:15.5px;color:var(--ink-2);margin:18px 0}
+.doc-callout strong{color:var(--ink)}
+.doc-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.doc-pills a{border:1.5px solid var(--ink);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;background:#fff}
+.doc-linkrow{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1.5px solid var(--ink);border-radius:var(--r-card);padding:22px 26px;margin-bottom:20px}
+.doc-linkrow .t{font-weight:800;font-size:18px;letter-spacing:-.02em}
+.doc-linkrow .d{color:var(--ink-2);font-size:14.5px;margin-top:4px}
+@media (max-width:600px){.doc-col{padding:64px 0}.doc-col .doc-h1{font-size:34px}.doc-lede{font-size:17px}.doc-card{padding:24px 20px}.doc-body h2{font-size:23px}}
+</style></head><body>
+<header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/pricing/#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
+<nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/pricing/#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
 
-/* ---- security content (carried from the page's own CSS; tokens remapped to SPEC sec.1) ---- */
-:root{ --radius:14px; --accent-soft:#fdeee7;
-  --shadow:0 1px 2px rgba(20,19,17,.05), 0 12px 32px -12px rgba(20,19,17,.18); }
-main .wrap{max-width:780px}
-.sec-hero{padding:56px 0 8px}
-.sec-hero h1 { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800;
-  font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; letter-spacing: -.018em; margin: 0 0 18px; }
-.sec-body { padding: 40px 0 72px; display: grid; gap: 18px; max-width: none; }
-.policy { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 28px 28px 26px; box-shadow: var(--shadow); }
-.policy h2 { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700;
-  font-size: clamp(21px, 2.6vw, 26px); line-height: 1.2; letter-spacing: -.01em; margin: 0 0 14px; }
-.policy ul, .policy ol { margin: 0; padding-left: 22px; display: grid; gap: 10px;
-  font-size: 16.5px; line-height: 1.6; color: var(--ink-2); }
-.policy li::marker { color: var(--accent-deep); font-weight: 700; }
-.policy strong { color: var(--ink); }
-.policy p.intro { margin: 0 0 12px; font-size: 16.5px; line-height: 1.6; color: var(--ink-2); }
-.callout { margin-top: 16px; border-left: 3px solid var(--accent); background: var(--accent-soft);
-  border-radius: 0 10px 10px 0; padding: 14px 18px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
-.callout strong { color: var(--ink); }
-.contact-line { font-size: 17px; }
-.contact-line a { color: var(--accent-deep); font-weight: 700; }
-@media (max-width: 560px) {
-  .sec-hero { padding: 52px 0 4px; }
-  .policy { padding: 22px 20px; }
-  .lede { font-size: 17.5px; }
-}
-</style>
-<link rel="stylesheet" href="/assets/fonts/fonts.css">
-</head>
-<body id="top">
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="wordmark" href="/">CitMark<i>.</i></a>
-    <nav class="topnav">
-      <a href="/product/">Product</a>
-      <a href="/results/">Sample report</a>
-      <a href="/pricing/">Pricing</a>
-      <a href="/about/">About</a>
-      <a href="/pricing/#faq">FAQ</a>
-    </nav>
-    <div class="top-right">
-      <a class="login-link" href="/?auth=login">Log in</a>
-      <a class="btn" href="/signup/">Get started</a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <nav class="mmenu" id="mmenu">
-    <a href="/product/">Product</a>
-    <a href="/results/">Sample report</a>
-    <a href="/pricing/">Pricing</a>
-    <a href="/about/">About</a>
-    <a href="/pricing/#faq">FAQ</a>
-    <a href="/?auth=login">Log in</a>
-  </nav>
-</header>
-
-<main>
-  <div class="wrap">
-    <div class="sec-hero">
-      <p class="eyebrow">Security</p>
-      <h1>Your data belongs to you.</h1>
-      <p class="lede">How CitMark collects, protects, and deletes your data — in plain language.</p>
-    </div>
-    <div class="sec-body">
-      <section class="policy" aria-labelledby="collect">
+<main class="wrap"><div class="doc-col">
+<p class="label">— Security</p>
+<h1 class="doc-h1">Your data belongs to you.</h1>
+<p class="doc-lede">How CitMark collects, protects, and deletes your data — in plain language.</p>
+<div class="doc-body"><div class="doc-card">
         <h2 id="collect">What we collect</h2>
         <ul>
           <li><strong>Account data</strong>: email, name, workspace members. Needed to run your account.</li>
@@ -325,9 +195,9 @@ main .wrap{max-width:780px}
           <li><strong>Measurement data</strong>: AI answers we collect, extracted citations, your scores. Anonymized before any aggregate use.</li>
           <li><strong>Logs</strong>: sign-ins, API calls, admin actions. Kept 90 days (audit logs 1 year).</li>
         </ul>
-        <div class="callout"><strong>What we never touch</strong>: payment card data. Billing is handled entirely by Creem (our Merchant of Record) — card numbers never reach our servers.</div>
-      </section>
-      <section class="policy" aria-labelledby="protect">
+        <div class="doc-callout"><strong>What we never touch</strong>: payment card data. Billing is handled entirely by Creem (our Merchant of Record) — card numbers never reach our servers.</div>
+      </div>
+<div class="doc-card">
         <h2 id="protect">How we protect it</h2>
         <ul>
           <li>Tokens are encrypted with AES-256-GCM via a key management service before storage.</li>
@@ -335,16 +205,16 @@ main .wrap{max-width:780px}
           <li>All admin access to personal data is logged (who, when, what).</li>
           <li>We request the minimum OAuth scopes needed, and each new scope is reviewed before it&rsquo;s added.</li>
         </ul>
-      </section>
-      <section class="policy" aria-labelledby="never">
+      </div>
+<div class="doc-card">
         <h2 id="never">What we will never do</h2>
         <ul>
           <li>Sell your data. Ever.</li>
           <li>Use your brand&rsquo;s measurement data to benefit a competitor.</li>
           <li>Keep your personal data after you delete your account (30-day deletion; see below).</li>
         </ul>
-      </section>
-      <section class="policy" aria-labelledby="rights">
+      </div>
+<div class="doc-card">
         <h2 id="rights">Your rights (GDPR)</h2>
         <ul>
           <li><strong>Export</strong>: download all your data as JSON, anytime, from Settings &rarr; Privacy.</li>
@@ -352,59 +222,74 @@ main .wrap{max-width:780px}
           <li><strong>Complain</strong>: you have the right to lodge a complaint with your supervisory authority.</li>
           <li>Your data lives in Singapore: our primary database (Supabase) is in Singapore, and no user data is stored in the United States. The website itself is served globally (GitHub Pages + Cloudflare edge network). EU users are covered by a Data Processing Agreement and Standard Contractual Clauses.</li>
         </ul>
-      </section>
-      <section class="policy" aria-labelledby="breach">
+      </div>
+<div class="doc-card">
         <h2 id="breach">If something goes wrong</h2>
-        <p class="intro">If we discover a data breach, we will:</p>
+        <p>If we discover a data breach, we will:</p>
         <ol>
           <li>Contain it immediately (revoke tokens, block access).</li>
           <li>Assess what was affected within 24 hours.</li>
           <li><strong>Notify affected users within 72 hours</strong>, and notify regulators as required by GDPR.</li>
           <li>Publish a post-incident report within 7 days.</li>
         </ol>
-      </section>
-      <section class="policy" aria-labelledby="contact">
-        <h2 id="contact">Contact</h2>
-        <p class="intro contact-line">Security questions or reports: <a href="/cdn-cgi/l/email-protection#d6a5b3b5a3a4bfa2af96b5bfa2bbb7a4bdf8b5b9bb"><strong><span class="__cf_email__" data-cfemail="ec9f898f999e859895ac8f8598818d9e87c28f8381">[email&#160;protected]</span></strong></a></p>
-      </section>
-    </div>
-  </div>
-</main>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="wordmark" href="/">CitMark<i>.</i></a>
-        <p>AI visibility measurement for small, independent brands.</p>
       </div>
-      <div class="foot-col"><h4>Product</h4><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/pricing/#faq">FAQ</a></div>
-      <div class="foot-col"><h4>Company</h4><a href="/about/">About</a><a href="/methodology/">Methodology</a><a href="/contact/">Contact</a></div>
-      <div class="foot-col"><h4>Legal</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Service</a></div>
-    </div>
-    <div class="foot-bottom">
-      <span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span>
-      <span>support@citmark.com</span>
-    </div>
-  </div>
-</footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script>
-document.querySelectorAll("form[data-lead]").forEach(f => {
-  f.addEventListener("submit", ev => {
-    ev.preventDefault();
-    const inp = f.querySelector("input[type=email]");
-    const v = (inp.value || "").trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { f.classList.add("err"); inp.focus(); return; }
-    f.classList.remove("err");
-    location.href = "/signup/?email=" + encodeURIComponent(v);
+<div class="doc-card">
+        <h2 id="contact">Contact</h2>
+        <p>Security questions or reports: <a href="mailto:support@citmark.com"><strong>support@citmark.com</strong></a></p>
+      </div>
+</div>
+</div></main>
+
+<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/pricing/#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div></footer><script>
+(function () {
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function setMenu(open) {
+    mobileMenu.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
+  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
+
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    q.addEventListener("click", function () {
+      var open = item.classList.toggle("open");
+      q.setAttribute("aria-expanded", open ? "true" : "false");
+    });
   });
-});
-const burger = document.getElementById("burger"), mmenu = document.getElementById("mmenu");
-burger.addEventListener("click", () => {
-  const open = mmenu.classList.toggle("open");
-  burger.setAttribute("aria-expanded", open);
-});
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* Final-CTA form: same shape as the homepage hero form. Validates the
+     email, then hands off to the real signup page to finish registering. */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  document.querySelectorAll("form.waitlist").forEach(function (form) {
+    var input = form.querySelector('input[type="email"]');
+    var msg = form.parentElement.querySelector(".form-msg");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var email = (input.value || "").trim();
+      msg.className = "form-msg"; msg.textContent = "";
+      if (!EMAIL_RE.test(email)) {
+        input.setAttribute("aria-invalid", "true");
+        msg.textContent = "That email doesn't look complete — check it and try again.";
+        msg.classList.add("show", "err"); input.focus(); return;
+      }
+      input.removeAttribute("aria-invalid");
+      window.location.href = "/signup/";
+    });
+  });
+})();
 </script>
-</body>
-</html>
+</body></html>
