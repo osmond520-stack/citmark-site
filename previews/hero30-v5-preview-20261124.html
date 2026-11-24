@@ -1,0 +1,190 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CitMark — AI visibility for small brands</title><link rel="stylesheet" href="../assets/fonts.css"><link rel="stylesheet" href="../assets/citmark.css">
+<style>
+@media (max-width:600px){.vs{flex-direction:column}}
+.hv3{position:relative}
+.tierbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tbtn{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--ink-2);border:1.5px solid var(--line);border-radius:99px;padding:8px 16px;cursor:pointer}
+.tbtn[aria-pressed="true"]{background:var(--ink);color:var(--on-dark);border-color:var(--ink)}
+.tbtn:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.hv-status{font-size:14.5px;color:var(--ink-2);margin-bottom:20px}
+.hv-cap{margin-top:26px;border-top:2px solid var(--ink);padding-top:18px;width:560px;max-width:100%}
+.hv-srow{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+.hv-srow .b{font-weight:700;font-size:16.5px}
+.hv-srow .s{font-family:var(--f-num);font-weight:800;font-size:24px}
+.hv-srow .s .of{font-size:.5em;color:var(--ink-3);font-weight:600}
+.hv-legend{margin-top:14px;max-width:520px}
+.radar .mob{display:none}
+@media (max-width:600px){.radar .dsk{display:none}.radar .mob{display:block}}
+@media (prefers-reduced-motion: no-preference){
+.hv3 .zone{transition:opacity var(--dur-base) var(--ease-out)}
+.tbtn{transition:background var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out)}
+}
+.hv3.js-on[data-tier="starter"] .z2,.hv3.js-on[data-tier="growth"] .z2{opacity:.22}
+.hv3.js-on[data-tier="starter"] .z3,.hv3.js-on[data-tier="growth"] .z3,.hv3.js-on[data-tier="pro"] .z3{opacity:.12}
+.hv3.js-on[data-tier="teams"] .z3{opacity:.6}
+
+/* ---- motion layer (standard v1): pre-states only with JS + no-preference ---- */
+@media (prefers-reduced-motion: no-preference){
+.js-motion .hv3 .ringdraw{stroke-dasharray:100;stroke-dashoffset:100}
+.js-motion .hv3.play .ringdraw{stroke-dashoffset:0;transition:stroke-dashoffset .3s var(--ease-out)}
+.js-motion .hv3.play .z2 .ringdraw{transition-delay:.06s}
+.js-motion .hv3.play .z3 .ringdraw{transition-delay:.12s}
+.js-motion .hv3 .ringfade{opacity:0}
+.js-motion .hv3.play .ringfade{opacity:1;transition:opacity .6s var(--ease-out) .2s}
+.js-motion .hv3 .edot{transform-box:fill-box;transform-origin:center;transform:scale(0)}
+.js-motion .hv3.play .edot{transform:scale(1);transition:transform var(--dur-base) var(--ease-out) .3s}
+.js-motion .hv3.play .z2 .edot{transition-delay:.36s}
+.js-motion .hv3.play .z3 .edot{transition-delay:.42s}
+.js-motion .hv3 .cdot{transform-box:fill-box;transform-origin:center;transform:scale(0)}
+.js-motion .hv3.play .cdot{transform:scale(1);transition:transform var(--dur-base) var(--ease-out) .54s}
+.js-motion .hv3 .pulse{opacity:0;transform-box:fill-box;transform-origin:center}
+.js-motion .hv3.play .pulse{animation:pulseonce .6s var(--ease-out) .56s 1 forwards}
+@keyframes pulseonce{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(3.6)}}
+.js-motion .reveal{opacity:0;transform:translateY(12px)}
+.js-motion .reveal.in{opacity:1;transform:none;transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out)}
+}
+</style>
+<script>document.documentElement.classList.add('js-motion')</script></head><body><header class="wrap nav"><a class="logo" href="index.html">CitMark<i>.</i></a><nav class="nav-links"><a href="product.html" class="">Product</a><a href="index.html#report" class="">Sample report</a><a href="pricing.html" class="">Pricing</a><a href="about.html" class="">About</a><a href="index.html#faq" class="">FAQ</a></nav><div class="nav-r"><a href="#login">Log in</a><a class="btn" href="#signup">Get started</a><span class="nav-menu" aria-label="Menu"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M0 1h16M0 6h16M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></span></div></header>
+<section class="wrap hero">
+ <div class="copy">
+  <span class="label">— AI visibility radar</span>
+  <h1 class="display">When buyers ask AI, it names your competitors <span class="serif dim">— not you.</span></h1>
+  <p class="lead">CitMark measures how close you sit to the center of <b>ChatGPT, Perplexity and Gemini</b> answers, shows who gets cited instead — and <b>drafts the corrections</b> for you to approve. Founding price from <b>$12.50/mo</b>.</p>
+  <div class="field-cta"><span class="ph">you@yoursite.com</span><span class="btn">Create your free account →</span></div>
+  <div class="fine">No card required · 0 code to install</div>
+ </div>
+ <div class="radar hv3" data-tier="starter">
+<div class="tierbar" role="group" aria-label="Plan tier">
+<button type="button" class="tbtn" data-tier-btn="starter" aria-pressed="true">Starter</button>
+<button type="button" class="tbtn" data-tier-btn="growth" aria-pressed="false">Growth</button>
+<button type="button" class="tbtn" data-tier-btn="pro" aria-pressed="false">Pro</button>
+<button type="button" class="tbtn" data-tier-btn="teams" aria-pressed="false">Teams</button>
+</div>
+<p class="hv-status" data-tier-status>Starter — ChatGPT · Perplexity · Gemini</p>
+<div class="dsk"><svg viewBox="0 0 700 620" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans" role="img" aria-label="Engine coverage by plan tier"><defs><radialGradient id="gd" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E8541E" stop-opacity=".22"/><stop offset="1" stop-color="#E8541E" stop-opacity="0"/></radialGradient></defs><circle cx="310" cy="310" r="105" fill="url(#gd)"/><circle cx="310" cy="310" r="285" class="ringfade" fill="none" stroke="#141311" stroke-opacity="0.22" stroke-width="1.3" stroke-dasharray="4 6"/><g class="zone z3"><circle cx="310" cy="310" r="225" class="ringdraw" pathLength="100" fill="none" stroke="#141311" stroke-opacity="0.35" stroke-width="1.3"/><circle class="edot" cx="106.1" cy="214.9" r="7" fill="#6F685C"/><text x="92.1" y="214.9" font-size="15" font-weight="600" fill="#6F685C" text-anchor="end">Mistral</text><rect x="34.3" y="224.9" width="58" height="21" fill="none" stroke="#6F685C" stroke-width="1.2"/><text x="63.2" y="238.2" text-anchor="middle" font-family="JetBrains Mono" font-size="11" letter-spacing="1.5" fill="#6F685C">SOON</text></g><g class="zone z2"><circle cx="310" cy="310" r="165" class="ringdraw" pathLength="100" fill="none" stroke="#141311" stroke-opacity="0.35" stroke-width="1.3"/><circle class="edot" cx="466.9" cy="361.0" r="8" fill="#141311"/><text x="482.9" y="366.9" font-size="17" font-weight="650" fill="#141311">DeepSeek</text><rect x="482.9" y="371.0" width="95" height="21" fill="none" stroke="#C2410C" stroke-width="1.2"/><text x="530.5" y="384.2" text-anchor="middle" font-family="JetBrains Mono" font-size="11" letter-spacing="1.5" fill="#C2410C">SYNTHETIC</text></g><g class="zone z1"><circle cx="310" cy="310" r="105" class="ringdraw main" pathLength="100" fill="none" stroke="#E8541E" stroke-opacity="0.9" stroke-width="2"/><rect x="248" y="195" width="124" height="20" fill="#F4F1EA"/><text class="tier-name" x="310" y="210" text-anchor="middle" font-family="JetBrains Mono" font-size="12.5" letter-spacing="1.8" fill="#E8541E" font-weight="600">STARTER</text><circle class="edot" cx="224.0" cy="249.8" r="8" fill="#141311"/><text x="208.0" y="255.7" font-size="17" font-weight="650" fill="#141311" text-anchor="end">ChatGPT</text><circle class="edot" cx="396.0" cy="249.8" r="8" fill="#141311"/><text x="412.0" y="255.7" font-size="17" font-weight="650" fill="#141311" text-anchor="start">Perplexity</text><circle class="edot" cx="310.0" cy="415.0" r="8" fill="#141311"/><text x="326.0" y="420.9" font-size="17" font-weight="650" fill="#141311" text-anchor="start">Gemini</text></g><circle class="edot" cx="63.2" cy="452.5" r="6" fill="#6F685C"/><text x="77.2" y="452.5" font-size="15" font-weight="600" fill="#6F685C" text-anchor="start">Grok</text><text x="77.2" y="473.5" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5" fill="#9A9385" text-anchor="start">TEST ONLY</text><circle class="edot" cx="556.8" cy="452.5" r="6" fill="#6F685C"/><text x="542.8" y="452.5" font-size="15" font-weight="600" fill="#6F685C" text-anchor="end">Claude</text><text x="542.8" y="473.5" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5" fill="#9A9385" text-anchor="end">RESEARCH PANEL</text><circle class="pulse" cx="310" cy="310" r="7" fill="none" stroke="#E8541E" stroke-width="2"/><circle class="cdot" cx="310" cy="310" r="7" fill="#E8541E"/><text x="310" y="338" text-anchor="middle" font-family="JetBrains Mono" font-size="12" letter-spacing="2" fill="#E8541E">AI'S ANSWER</text></svg></div><div class="mob"><svg viewBox="-60 0 740 620" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans" role="img" aria-label="Engine coverage by plan tier"><defs><radialGradient id="gm" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E8541E" stop-opacity=".22"/><stop offset="1" stop-color="#E8541E" stop-opacity="0"/></radialGradient></defs><circle cx="310" cy="310" r="105" fill="url(#gm)"/><circle cx="310" cy="310" r="285" class="ringfade" fill="none" stroke="#141311" stroke-opacity="0.22" stroke-width="1.3" stroke-dasharray="4 6"/><g class="zone z3"><circle cx="310" cy="310" r="225" class="ringdraw" pathLength="100" fill="none" stroke="#141311" stroke-opacity="0.35" stroke-width="1.3"/><circle class="edot" cx="106.1" cy="214.9" r="12" fill="#6F685C"/><text x="92.1" y="214.9" font-size="28" font-weight="600" fill="#6F685C" text-anchor="end">Mistral</text><rect x="-9.9" y="224.9" width="102" height="34" fill="none" stroke="#6F685C" stroke-width="1.2"/><text x="41.1" y="248.3" text-anchor="middle" font-family="JetBrains Mono" font-size="24" letter-spacing="1.5" fill="#6F685C">SOON</text></g><g class="zone z2"><circle cx="310" cy="310" r="165" class="ringdraw" pathLength="100" fill="none" stroke="#141311" stroke-opacity="0.35" stroke-width="1.3"/><circle class="edot" cx="466.9" cy="361.0" r="13" fill="#141311"/><text x="482.9" y="371.5" font-size="30" font-weight="650" fill="#141311">DeepSeek</text><rect x="482.9" y="371.0" width="168" height="34" fill="none" stroke="#C2410C" stroke-width="1.2"/><text x="566.9" y="394.4" text-anchor="middle" font-family="JetBrains Mono" font-size="24" letter-spacing="1.5" fill="#C2410C">SYNTHETIC</text></g><g class="zone z1"><circle cx="310" cy="310" r="105" class="ringdraw main" pathLength="100" fill="none" stroke="#E8541E" stroke-opacity="0.9" stroke-width="2"/><rect x="248" y="195" width="124" height="20" fill="#F4F1EA"/><text class="tier-name" x="310" y="210" text-anchor="middle" font-family="JetBrains Mono" font-size="25.5" letter-spacing="1.8" fill="#E8541E" font-weight="600">STARTER</text><circle class="edot" cx="224.0" cy="249.8" r="13" fill="#141311"/><text x="208.0" y="260.3" font-size="30" font-weight="650" fill="#141311" text-anchor="end">ChatGPT</text><circle class="edot" cx="396.0" cy="249.8" r="13" fill="#141311"/><text x="412.0" y="260.3" font-size="30" font-weight="650" fill="#141311" text-anchor="start">Perplexity</text><circle class="edot" cx="310.0" cy="415.0" r="13" fill="#141311"/><text x="326.0" y="425.5" font-size="30" font-weight="650" fill="#141311" text-anchor="start">Gemini</text></g><circle class="edot" cx="63.2" cy="452.5" r="11" fill="#6F685C"/><text x="77.2" y="452.5" font-size="28" font-weight="600" fill="#6F685C" text-anchor="start">Grok</text><text x="77.2" y="486.5" font-family="JetBrains Mono" font-size="23" letter-spacing="1.5" fill="#9A9385" text-anchor="start">TEST ONLY</text><circle class="edot" cx="556.8" cy="452.5" r="11" fill="#6F685C"/><text x="542.8" y="452.5" font-size="28" font-weight="600" fill="#6F685C" text-anchor="end">Claude</text><text x="542.8" y="486.5" font-family="JetBrains Mono" font-size="23" letter-spacing="1.5" fill="#9A9385" text-anchor="end">RESEARCH PANEL</text><circle class="pulse" cx="310" cy="310" r="7" fill="none" stroke="#E8541E" stroke-width="2"/><circle class="cdot" cx="310" cy="310" r="7" fill="#E8541E"/><text x="310" y="338" text-anchor="middle" font-family="JetBrains Mono" font-size="25" letter-spacing="2" fill="#E8541E">AI'S ANSWER</text></svg></div>
+<div class="hv-cap">
+ <div class="hv-scores">
+  <span class="label">— Sample run · Nov 23, 2026</span>
+  <div class="hv-srow"><span class="b">Good Molecules</span><span class="s">100.0<span class="of">/100</span></span></div>
+  <div class="hv-srow"><span class="b">The Ordinary</span><span class="s">22.2<span class="of">/100</span></span></div>
+ </div>
+ <p class="fine hv-legend">Orange ring — the engines every plan tracks. DeepSeek joins at Pro, synthetic and labelled as such. Dashed ring — measured for research only, never sold.</p>
+</div>
+</div></section>
+<section class="sec paper"><div class="wrap">
+ <div class="sec-head reveal"><div><span class="label">— Why CitMark</span><h2 class="h2">A score is the start of the work. <span class="or">CitMark does the rest.</span></h2></div></div>
+ <div class="rows">
+  <div class="row"><span class="n">01</span><div><div class="t">Measured, not modeled.</div><div class="d">Real buyer questions, every answer recorded, every score with a 95% Wilson band.</div></div><span class="x"><s>Black-box estimates</s></span></div>
+  <div class="row"><span class="n">02</span><div><div class="t">Diagnosed: who’s cited instead of you.</div><div class="d">Citation gaps, wrong facts and page readiness — pinpointed.</div></div><span class="x"><s>A number with no next step</s></span></div>
+  <div class="row"><span class="n">03</span><div><div class="t">Corrections drafted. Nothing sent.</div><div class="d">Drafts land in your approval inbox, written only from your confirmed facts.</div></div><span class="x"><s>Auto-posting for you</s></span></div>
+  <div class="row"><span class="n">04</span><div><div class="t">On demand, priced for small sites.</div><div class="d">Run a snapshot whenever you need one. No demo call.</div></div><span class="x"><s>Sales-led contracts</s></span></div>
+ </div>
+</div></section>
+<section class="band-dark" id="report"><div class="wrap">
+ <div class="report-top"><div>
+  <span class="label">— Sample report</span>
+  <h2 class="h2" style="margin-top:18px">The Ordinary was named in <span class="serif">8 of 9</span> answers. Good Molecules, in 2.</h2>
+  <div class="vs"><div><span class="score xl">88.9<span class="of">/100</span></span><div class="cap"><b>The Ordinary</b> · most named</div></div>
+   <div><span class="score xl you">22.2<span class="of">/100</span></span><div class="cap"><b>Good Molecules</b> · the brand scanned</div></div></div>
+  <div style="margin-top:36px"><span class="stamp"><i></i><b>Public scan</b> · Nov 13, 2026 · Not a customer</span></div>
+ </div>
+ <div class="sector"><svg viewBox="0 0 560 560" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans">
+<path d="M280,280 L80.8,165.0 A230,230 0 0 1 479.2,165.0 Z" fill="#F4F1EA" fill-opacity="0.05" stroke="#F4F1EA" stroke-opacity=".22" stroke-width="1"/>
+<text x="280.0" y="29.0" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="1.5" fill="#B8B3A7">CHATGPT</text>
+<path d="M280,280 L479.2,165.0 A230,230 0 0 1 280.0,510.0 Z" fill="#F4F1EA" fill-opacity="0.03" stroke="#F4F1EA" stroke-opacity=".22" stroke-width="1"/>
+<text x="501.7" y="413.0" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="1.5" fill="#B8B3A7">PERPLEXITY</text>
+<path d="M280,280 L280.0,510.0 A230,230 0 0 1 80.8,165.0 Z" fill="#F4F1EA" fill-opacity="0.045" stroke="#F4F1EA" stroke-opacity=".22" stroke-width="1"/>
+<text x="58.3" y="413.0" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="1.5" fill="#B8B3A7">GEMINI</text>
+<circle cx="280" cy="280" r="230.0" fill="none" stroke="#F4F1EA" stroke-opacity=".16" stroke-dasharray="2 4"/>
+<circle cx="280" cy="280" r="153.3" fill="none" stroke="#F4F1EA" stroke-opacity=".16" stroke-dasharray="2 4"/>
+<circle cx="280" cy="280" r="76.7" fill="none" stroke="#F4F1EA" stroke-opacity=".16" stroke-dasharray="2 4"/>
+<circle cx="272.5" cy="263.2" r="8.5" fill="#F4F1EA"/>
+<text x="286.5" y="268.2" font-family="JetBrains Mono" font-size="13" fill="#F4F1EA">3/3</text>
+<circle cx="280.0" cy="191.1" r="8.5" fill="#8C877C"/>
+<text x="294.0" y="196.1" font-family="JetBrains Mono" font-size="13" fill="#8C877C">2/3</text>
+<circle cx="344.9" cy="134.3" r="10" fill="#FF7A45"/>
+<circle cx="344.9" cy="134.3" r="17" fill="none" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="364.9" y="139.3" font-family="JetBrains Mono" font-size="13" fill="#FF7A45">1/3</text>
+<circle cx="298.3" cy="281.9" r="8.5" fill="#F4F1EA"/>
+<text x="312.3" y="286.9" font-family="JetBrains Mono" font-size="13" fill="#F4F1EA">3/3</text>
+<circle cx="357.0" cy="324.5" r="8.5" fill="#8C877C"/>
+<text x="371.0" y="329.5" font-family="JetBrains Mono" font-size="13" fill="#8C877C">2/3</text>
+<circle cx="415.2" cy="466.1" r="10" fill="#FF7A45"/>
+<circle cx="415.2" cy="466.1" r="17" fill="none" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="435.2" y="471.1" font-family="JetBrains Mono" font-size="13" fill="#FF7A45">0/3</text>
+<circle cx="227.7" cy="351.9" r="8.5" fill="#F4F1EA"/>
+<text x="241.7" y="356.9" font-family="JetBrains Mono" font-size="13" fill="#F4F1EA">2/3</text>
+<circle cx="203.0" cy="324.5" r="8.5" fill="#8C877C"/>
+<text x="217.0" y="329.5" font-family="JetBrains Mono" font-size="13" fill="#8C877C">2/3</text>
+<circle cx="121.4" cy="296.7" r="10" fill="#FF7A45"/>
+<circle cx="121.4" cy="296.7" r="17" fill="none" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="141.4" y="301.7" font-family="JetBrains Mono" font-size="13" fill="#FF7A45">1/3</text>
+<circle cx="280" cy="280" r="5" fill="#FF7A45"/>
+</svg>
+  <div class="sector-note">Each slice is one engine. Closer to the center = named in more of its answers.</div>
+  <div class="sector-legend"><span><i style="background:#F4F1EA"></i>The Ordinary</span><span><i style="background:#8C877C"></i>CeraVe</span><span><i style="background:#FF7A45"></i>Good Molecules</span></div></div>
+ </div>
+ <table class="tbl d-only"><thead><tr><th>Brand</th><th>ChatGPT</th><th>Perplexity</th><th>Gemini</th><th class="r">Score</th></tr></thead><tbody><tr class=""><td>The Ordinary</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span>3/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span>3/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="r sc">88.9<small>/100</small></td></tr><tr class=""><td>CeraVe</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="r sc">66.7<small>/100</small></td></tr><tr class=""><td>The Inkey List</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="r sc">55.6<small>/100</small></td></tr><tr class=""><td>Naturium</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span>3/3</td><td class="r sc">44.4<small>/100</small></td></tr><tr class="you"><td>Good Molecules<span class=youtag>YOU</span></td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="r sc">22.2<small>/100</small></td></tr></tbody></table>
+ <div class="mlist"><div class="mi "><div><span class="nm">The Ordinary</span><span class="ct">8 of 9 answers</span></div><span class="sc">88.9<small>/100</small></span></div><div class="mi "><div><span class="nm">CeraVe</span><span class="ct">6 of 9 answers</span></div><span class="sc">66.7<small>/100</small></span></div><div class="mi "><div><span class="nm">The Inkey List</span><span class="ct">5 of 9 answers</span></div><span class="sc">55.6<small>/100</small></span></div><div class="mi "><div><span class="nm">Naturium</span><span class="ct">4 of 9 answers</span></div><span class="sc">44.4<small>/100</small></span></div><div class="mi you"><div><span class="nm">Good Molecules<span class=youtag>YOU</span></span><span class="ct">2 of 9 answers</span></div><span class="sc">22.2<small>/100</small></span></div></div>
+ <div class="tbl-foot"><p class="disclaim">A CitMark run for Good Molecules · 3 buyer questions × 3 engines = 9 answers · 95% Wilson band shown in the full report.<br>Independent sample. CitMark is not affiliated with or endorsed by the brands shown. Scores change week to week and vary by brand.</p><span class="more">Show all 21 brands +</span></div>
+</div></section>
+<section class="sec"><div class="wrap split">
+ <div><span class="label">— How you close the gap</span>
+  <h2 class="h2" style="margin-top:16px">Every wrong fact becomes a correction draft.</h2>
+  <p class="lead" style="margin-top:20px">CitMark never publishes or contacts a source for you. You review, you send — then your next check re-measures how close you are to the center.</p>
+  <div class="steps"><span>MEASURE</span><span>DIAGNOSE</span><span class="on">DRAFT →</span></div></div>
+ <div class="card feature ticket">
+  <div class="hd"><span class="label ink">Approval inbox</span><span class="label ink">Illustrative example</span></div>
+  <span class="tg">FACTUAL ERROR · GEMINI</span>
+  <div class="l"><span class="label ink">The answer said</span><s>“Your brand doesn’t ship outside the US.”</s></div>
+  <div class="l"><span class="label ink">Your confirmed fact</span>Ships internationally from your own store.</div>
+  <div class="l dr"><span class="label">Correction draft</span>Update your shipping page and FAQ to state international delivery plainly, listing the countries you serve.</div>
+  <div class="st"><span>● Waiting for your review</span><b>Nothing sent</b></div>
+ </div>
+</div></section>
+<section class="sec tight rule-top" style="border-top:2px solid var(--ink)"><div class="wrap price-strip">
+ <div><span class="label">— Founding price · first 50 members</span><h3 class="h3" style="margin-top:14px">Priced for the sites enterprise tools ignore.</h3><p class="body" style="margin-top:12px">50% off for 12 months, first 50 members. Every plan runs the full Measure → Diagnose → Draft loop.</p><p style="margin-top:18px"><a class="link" href="pricing.html">Compare plans →</a></p></div>
+ <div class="tiers">
+  <div class="tier main"><div class="nm">Starter</div><div class="pr">$12.50<small>/mo</small></div><div class="df">1 site · 3 engines</div></div>
+  <div class="tier"><div class="nm">Growth</div><div class="pr">$24.50<small>/mo</small></div><div class="df">3 sites · 4 engines</div></div>
+  <div class="tier"><div class="nm">Pro</div><div class="pr">$64.50<small>/mo</small></div><div class="df">10 sites · 5 engines</div></div>
+ </div>
+</div></section>
+<section class="final"><svg class="rings" width="1200" height="1200" viewBox="0 0 1200 1200"><g fill="none" stroke="#F4F1EA"><circle cx="600" cy="600" r="580" stroke-opacity="0.05"/><circle cx="600" cy="600" r="440" stroke-opacity="0.06"/><circle cx="600" cy="600" r="300" stroke-opacity="0.07"/><circle cx="600" cy="600" r="160" stroke-opacity="0.09"/></g><circle cx="600" cy="600" r="5" fill="#FF7A45" fill-opacity=".0"/></svg><div class="wrap in"><span class="label">— Close the gap</span><h2>Find out what AI says about you — <span class="serif">before</span> your competitors do.</h2><div class="field-cta"><span class="ph">you@yoursite.com</span><span class="btn">Create your free account →</span></div><div class="fine">Free snapshot included · no card required</div></div></section>
+<footer class="wrap foot"><div class="foot-g"><div><div class="logo">CitMark<i>.</i></div><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li>Product</li><li>Sample report</li><li>Pricing</li><li>FAQ</li></ul></div><div><h5>COMPANY</h5><ul><li>About</li><li>Methodology</li><li>Contact</li></ul></div><div><h5>LEGAL</h5><ul><li>Privacy Policy</li><li>Terms of Service</li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span>support@citmark.com</span></div></footer>
+<script>
+(function(){
+  var root = document.querySelector('.hv3');
+  if(!root) return;
+  root.classList.add('js-on');
+  var names = {starter:'STARTER', growth:'GROWTH', pro:'PRO', teams:'TEAMS'};
+  var lines = {
+    starter:'Starter — ChatGPT · Perplexity · Gemini',
+    growth:'Growth — ChatGPT · Perplexity · Gemini',
+    pro:'Pro — adds DeepSeek (synthetic)',
+    teams:'Teams — adds Mistral · SOON, not on sale'
+  };
+
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add(e.target.classList.contains('hv3') ? 'play' : 'in'); io.unobserve(e.target); } });
+  }, {threshold: 0.12}) : null;
+  var hv = document.querySelector('.hv3');
+  if (io && hv) io.observe(hv); else if (hv) hv.classList.add('play');
+  document.querySelectorAll('.reveal').forEach(function(el){ if (io) io.observe(el); else el.classList.add('in'); });
+  setTimeout(function(){
+    if (hv) hv.classList.add('play');
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+  }, 3000);
+  var btns = root.querySelectorAll('[data-tier-btn]');
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = b.getAttribute('data-tier-btn');
+      root.setAttribute('data-tier', t);
+      btns.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      root.querySelectorAll('.tier-name').forEach(function(n){ n.textContent = names[t]; });
+      root.querySelector('[data-tier-status]').textContent = lines[t];
+    });
+  });
+})();
+</script>
+</body></html>
