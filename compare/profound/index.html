@@ -1468,5 +1468,7 @@ body{background:var(--bg);color:var(--ink)}
 h1,h2{text-wrap:balance}
 .cede h3{text-wrap:balance}
 </style>
+<style id="singleside">/* [prod] section boundaries single-sided (alignment table 2026-11-24): lower section keeps its top, upper bottom zeroed; last section (sibling-links tail) keeps its bottom - footer is not a section */
+main section:not(:last-of-type){padding-bottom:0}</style>
 </body>
 </html>
