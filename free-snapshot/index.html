@@ -30,7 +30,7 @@ html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
-h1, h2 { font-family: "Bricolage Grotesque", "Plus Jakarta Sans", sans-serif;
+h1, h2 { font-family: "Plus Jakarta Sans", sans-serif;
   letter-spacing: -.015em; margin: 0; font-weight: 800; }
 a { color: var(--accent-deep); }
 
@@ -118,6 +118,8 @@ a { color: var(--accent-deep); }
 
 .foot { max-width: 720px; margin: 0 auto; padding: 0 24px 40px; text-align: center;
   color: var(--muted); font-size: 12.5px; }
+.legal-links { max-width: 720px; margin: 0 auto; padding: 0 24px 32px; text-align: center; font-size: 13px; color: var(--muted); }
+.legal-links a { color: inherit; }
 
 @media (max-width: 720px) {
   .hero { padding-top: 32px; }
@@ -205,7 +207,7 @@ a { color: var(--accent-deep); }
     <input type="hidden" id="turnstileToken" name="turnstile_token" value="" />
 
     <button class="btn" id="submitBtn" type="submit">Get my free snapshot</button>
-    <p class="privacy">One email = one report. We email your snapshot and add you to the CitMark waitlist. No spam, unsubscribe anytime.</p>
+    <p class="privacy">One email = one report. We email your snapshot to this address, plus one follow-up question about it — nothing else.</p>
 
     <div class="state ok" id="stateOk"></div>
     <div class="state err" id="stateErr"></div>
@@ -223,6 +225,7 @@ a { color: var(--accent-deep); }
 <div style="max-width:720px;margin:0 auto;padding:24px 24px 8px"><h2>Frequently asked questions</h2><h3>Is the snapshot really free?</h3><p>Yes. One snapshot is free — no card, no account, no charge when it ends. We email the report to the address you give us. The check is rate-limited to one snapshot per email per day to keep it fair.</p><h3>Is this a free plan or a free trial?</h3><p>Neither. A free plan would be an ongoing account with limits; a trial would be full access that expires. This is a single free check: we run 3 questions across ChatGPT, Perplexity, and Gemini once, and send you the results. Nothing to cancel, nothing that converts to a paid plan on its own.</p><h3>What exactly do I get?</h3><p>A per-question breakdown: for each of the 3 questions and each of the 3 engines, whether your brand was mentioned, which competitors were named in the same answers, and your visibility score for the run — the share of answers that mentioned your brand, computed from the answers actually collected.</p><h3>Why only 3 questions?</h3><p>Because it's a snapshot, not a full measurement. Three questions across three engines is nine real answers — enough to show you where you stand and how the full check works, with the honest caveat that a sample that size carries a wide confidence interval. Paid plans run larger question sets that you re-run on demand over time.</p><h3>What does it cost to keep tracking after the free check?</h3><p>Starter is $25/mo during launch pricing ($35/mo standard) — one brand, with a monthly points balance that every check draws from. It is priced for a small team to run real measurement without an enterprise budget; larger sets and more brands sit in the higher plans on the pricing page.</p></div>
 
 <p class="foot">This check is free and rate-limited to keep it fair — one snapshot per email per day. Abuse protection by Cloudflare Turnstile.</p>
+<p class="legal-links"><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
 
 <script>
 "use strict";
@@ -526,7 +529,7 @@ function landingFailed() {
   landingShow("stateErr", "Your email is verified \u2014 but starting your snapshot failed on our side. Submit the form once more and it will run.");
 }
 function landingPool(body) {
-  var html = "Your email is verified \u2014 but today's free runs are full. Join the waitlist and we'll start your snapshot as soon as a slot opens.";
+  var html = "Today's free runs are used up \u2014 new runs open tomorrow.";
   if (body && body.exit === "plans") { html += " <a href=\"/pricing\">See plans</a>."; }
   landingShow("stateErr", html);
 }

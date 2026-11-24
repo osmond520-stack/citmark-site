@@ -356,30 +356,7 @@ button { font: inherit; }
 .count-card h2 { font-size: 18px; margin-bottom: 4px; }
 .count-card .desc { color: var(--muted); font-size: 13.5px; margin: 0 0 16px; }
 .count-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.count-big { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800;
-  font-size: 44px; line-height: 1; color: var(--skin-accent-deep); }
-.count-big small { font-size: 20px; color: var(--muted); font-weight: 700; }
-.count-bar { height: 12px; border-radius: 99px; background: var(--bg-sink);
-  overflow: hidden; margin-top: 14px; }
-.count-bar i { display: block; height: 100%; border-radius: 99px;
-  background: var(--skin-accent); transition: width .8s cubic-bezier(.2,.7,.2,1); }
-.count-note { color: var(--muted); font-size: 13px; margin-top: 10px; }
-.count-loading { color: var(--muted); font-size: 14px; }
 
-/* waitlist */
-.wl-form { display: flex; gap: 10px; margin-top: 4px; }
-.wl-form input[type="email"] { flex: 1; min-width: 0; padding: 12px 14px;
-  font: inherit; font-size: 15px; color: var(--ink); background: var(--bg);
-  border: 1px solid var(--line-strong); border-radius: 10px; outline: none; }
-.wl-form input[type="email"]:focus { border-color: var(--skin-accent);
-  box-shadow: 0 0 0 3px rgba(232,73,15,.15); background: var(--bg-raise); }
-.wl-form input.invalid { border-color: var(--bad); }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.wl-msg { display: none; border-radius: 10px; padding: 12px 14px; margin-top: 12px;
-  font-size: 14px; font-weight: 600; }
-.wl-msg.show { display: block; }
-.wl-msg.ok { background: var(--good-soft); border: 1px solid #bfe3cb; color: #14532d; }
-.wl-msg.err { background: var(--bad-soft); border: 1px solid #f0c4c0; color: var(--bad); }
 
 @media (max-width: 900px) {
   .pub-topbar-in { padding: 14px 16px; }
@@ -388,8 +365,6 @@ button { font: inherit; }
   .pub-topbar .toplink { white-space: nowrap; font-size: 12.5px; }
   .result-head { padding: 24px 16px 0; }
   .result-head h1 { font-size: 24px; }
-  .wl-form { flex-direction: column; }
-  .wl-form .btn { width: 100%; }
 }
 @media (max-width: 480px) {
   .pub-topbar .pill { display: none; }
@@ -472,38 +447,11 @@ button { font: inherit; }
     <div id="sugList"></div>
   </div>
 
-  <!-- countdown (P-021 counter) -->
+  <!-- founding offer -->
   <div class="count-card" id="countCard">
     <h2>Founding-member offer</h2>
-    <p class="desc">First 50 members lock in 50% off for 12 months.</p>
-    <div id="countLoading" class="count-loading">Checking remaining spots…</div>
-    <div id="countLive" style="display:none;">
-      <div class="count-row">
-        <span class="count-big"><span id="spotsLeft">–</span><small> spots left</small></span>
-        <span style="color:var(--muted);font-size:14px;">of 50 founding spots</span>
-      </div>
-      <div class="count-bar"><i id="countFill" style="width:0%"></i></div>
-      <p class="count-note" id="countNote"></p>
-    </div>
-    <div id="countOffer" style="display:none;">
-      <p style="margin:0;font-size:14.5px;">Founding pricing — <b>50% off for 12 months</b> — is limited to the first 50 members. Join the waitlist below to claim a spot.</p>
-    </div>
-  </div>
-
-  <!-- waitlist -->
-  <div class="card">
-    <h2>Get the full report + claim founding pricing</h2>
-    <p class="desc">One click joins the waitlist — no new page, no re-typing. We email your full report and founding offer.</p>
-    <form id="wlForm" novalidate>
-      <div class="wl-form">
-        <input type="email" id="wlEmail" placeholder="you@company.com" autocomplete="email" />
-        <!-- honeypot: real users never see it; bots fill it and get ignored -->
-        <input type="text" id="wlWebsite" class="hp" tabindex="-1" autocomplete="off" />
-        <button class="btn" id="wlBtn" type="submit" style="width:auto;">Join waitlist</button>
-      </div>
-      <div class="wl-msg ok" id="wlOk"></div>
-      <div class="wl-msg err" id="wlErr"></div>
-    </form>
+    <p style="margin:0 0 14px;font-size:14.5px;">Founding offer: 50% off Starter, Growth and Pro for 12 months — for the first 50 members, on monthly billing. After the 12 months, your plan renews at the standard price.</p>
+    <a class="btn" href="/pricing/" style="width:auto;">See pricing</a>
   </div>
 </div>
 
@@ -886,90 +834,6 @@ document.getElementById("drawerClose").addEventListener("click", closeDrawer);
 document.getElementById("drawerScrim").addEventListener("click", closeDrawer);
 document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
 
-/* =====================================================================
-   P-021 counter: founding spots remaining = 50 − valid signups.
-   Valid = dedup + valid format + honeypot excluded (enforced server-side
-   by the Apps Script; the count endpoint returns the live row count).
-   Single implementation reused by every surface (result page, funnel).
-   The count endpoint is a 2-minute Apps Script deploy (doGet ?action=count);
-   until it is live, the component shows the offer terms and NO fabricated
-   number — a fake countdown is worse than no countdown.
-   ===================================================================== */
-var FOUNDING_TOTAL = 50;
-var WAITLIST_EXEC_URL = "https://script.google.com/macros/s/AKfycbxdBYcFBwGF_M-5Sgpc3GxB84Bs6ZTNhDRA4LmsPMyG_5Kc3WN3gjJlgN7Cf7Z6equ6/exec";
-function loadCountdown() {
-  var loading = document.getElementById("countLoading");
-  var live = document.getElementById("countLive");
-  var offer = document.getElementById("countOffer");
-  fetch(WAITLIST_EXEC_URL + "?action=count", { method: "GET" })
-    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(function (d) {
-      if (typeof d.count !== "number") throw new Error("no count in response");
-      var left = Math.max(0, FOUNDING_TOTAL - d.count);
-      loading.style.display = "none";
-      live.style.display = "block";
-      document.getElementById("spotsLeft").textContent = left;
-      document.getElementById("countFill").style.width = Math.round(left / FOUNDING_TOTAL * 100) + "%";
-      document.getElementById("countNote").textContent =
-        left > 0
-          ? left + " of " + FOUNDING_TOTAL + " founding spots remain. Members lock in 50% off for 12 months."
-          : "All founding spots are taken — join the waitlist for the next opening.";
-    })
-    .catch(function () {
-      /* No live count yet: show the offer, claim no number. */
-      loading.style.display = "none";
-      offer.style.display = "block";
-    });
-}
-
-/* =====================================================================
-   One-click waitlist (Apps Script v3, proven on the landing page).
-   POST JSON {email, source, page, website(honeypot)}.
-   Responses: added / duplicate / ignored / invalid_email.
-   ===================================================================== */
-document.getElementById("wlForm").addEventListener("submit", function (ev) {
-  ev.preventDefault();
-  var okEl = document.getElementById("wlOk");
-  var errEl = document.getElementById("wlErr");
-  okEl.classList.remove("show"); errEl.classList.remove("show");
-  var emailInput = document.getElementById("wlEmail");
-  var email = emailInput.value.trim().toLowerCase();
-  var honeypot = document.getElementById("wlWebsite").value;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-    emailInput.classList.add("invalid");
-    errEl.textContent = "Please enter a valid email address.";
-    errEl.classList.add("show");
-    return;
-  }
-  emailInput.classList.remove("invalid");
-  var btn = document.getElementById("wlBtn");
-  btn.disabled = true; btn.textContent = "Joining…";
-  fetch(WAITLIST_EXEC_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: email, source: "results", page: "results", website: honeypot })
-  }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(function (d) {
-      if (d.ok && (d.result === "added" || d.result === "ignored")) {
-        okEl.textContent = "You're on the list. We'll email your full report and founding offer.";
-        okEl.classList.add("show");
-        emailInput.value = "";
-      } else if (d.ok && d.result === "duplicate") {
-        okEl.textContent = "You're already on the list — we'll email you when your report is ready.";
-        okEl.classList.add("show");
-      } else {
-        throw new Error(d.error || "rejected");
-      }
-    })
-    .catch(function () {
-      errEl.textContent = "Could not join right now. Please check your connection and try again.";
-      errEl.classList.add("show");
-    })
-    .finally(function () {
-      btn.disabled = false; btn.textContent = "Join waitlist";
-    });
-});
-
 /* ---------------- helpers & init ---------------- */
 function escapeHtml(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
@@ -979,7 +843,6 @@ function trunc(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
 renderScore();
 renderReport();
-loadCountdown();
 
 /* ---------------- sources (evidence beat; fail-soft) ---------------- */
 function renderSources(list) {
