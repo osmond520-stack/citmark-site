@@ -107,6 +107,11 @@ h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spac
 .doc-body tr{display:block;border-bottom:1px solid var(--line-soft);padding:8px 0}
 }
 </style>
+<style id="docframe-fix">
+/* batch-B frame values: topbar 76/64 (TD ruling 2026-11-24) */
+.topbar .topbar-in{height:75px}
+@media (max-width:860px){.topbar .topbar-in{height:63px}}
+</style>
 </head>
 <body>
 <header class="topbar">
