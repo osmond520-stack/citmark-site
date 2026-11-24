@@ -25,11 +25,11 @@ html:not([data-identity="set"]):not([data-state="demo"]) #menuTierBadge,html:not
 html[data-state="empty"] [data-empty-slot]{display:block!important}
 .tk-brief{white-space:pre-line;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.55}
 .tk-fix{border-top:1px dashed var(--line);padding:10px 0}
-.tk-fix .tk-ba{font-size:13.5px;color:var(--muted)}
+.tk-fix .tk-ba{font-size:14px;color:var(--muted)}
 .tk-fix .tk-ba b{color:var(--ink);font-weight:700}
 </style>
 <title>Dashboard — CitMark</title>
-<meta name="description" content="CitMark dashboard demo: run a visibility snapshot, see your score, read the report." />
+<meta name="description" content="CitMark dashboard: run a visibility snapshot, see your score, read the report." />
 <style>
 
 
@@ -109,6 +109,9 @@ a.wordmark { color: inherit; text-decoration: none; }
   background: var(--skin-badge-bg); color: var(--skin-badge-fg);
   padding: 4px 10px; border-radius: 999px; }
 .nav { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.nav .nav-group { padding: 0 12px; margin: 14px 0 2px; font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.nav .nav-group:first-child { margin-top: 2px; }
 .nav button { display: flex; align-items: center; gap: 12px; width: 100%;
   padding: 11px 12px; border: 0; border-radius: 10px; background: transparent;
   color: var(--ink-2); font-weight: 600; font-size: 14.5px; cursor: pointer;
@@ -130,7 +133,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--bg);
   border-bottom: 1px solid var(--line); }
-.topbar-in { max-width: 1080px; margin: 0 auto; padding: 16px 28px;
+.topbar-in { max-width: 1240px; margin: 0 auto; padding: 16px 40px;
   display: flex; align-items: center; gap: 16px; }
 .topbar h1 { font-size: 21px; }
 .topbar .sub { color: var(--muted); font-size: 13px; margin-left: 2px; }
@@ -138,7 +141,7 @@ a.wordmark { color: inherit; text-decoration: none; }
   color: var(--warn); background: var(--warn-soft); border: 1px solid #ecd9a8;
   padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
 
-.content { max-width: 1080px; width: 100%; margin: 0 auto; padding: 28px;
+.content { max-width: 1240px; width: 100%; margin: 0 auto; padding: 28px 40px;
   padding-bottom: 96px; }
 .view { display: none; }
 .view.active { display: block; animation: fadein .15s ease; }
@@ -298,6 +301,18 @@ a.wordmark { color: inherit; text-decoration: none; }
 .card .empty { color: var(--muted); background: var(--bg); border: 1px dashed var(--line);
   border-radius: 8px; padding: 14px; font-size: 14px; text-align: left; }
 .card .empty .btn { margin-top: 10px; }
+/* one input face for the whole app (P1 input unification) */
+.content input:not([type]), .content input[type="text"], .content input[type="email"],
+.content input[type="password"], .content input[type="url"], .content input[type="search"],
+.content select, .content textarea { border: 1px solid var(--line-strong); border-radius: 10px;
+  padding: 10px 12px; background: var(--bg); color: var(--ink); font-size: 14px; box-sizing: border-box; }
+.content input:focus, .content select:focus, .content textarea:focus,
+#view-questions input:focus, #view-competitors input:focus, #view-sources input:focus,
+#view-tools input:focus, #view-settings input:focus, #view-questions select:focus,
+#view-competitors select:focus, #view-sources select:focus, #view-tools select:focus,
+#view-settings select:focus { border-color: var(--skin-accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--skin-accent) 22%, transparent); outline: none; }
+
 .state-err { background: var(--bad-soft); border: 1px solid #f0c4c0; color: var(--bad);
   border-radius: 12px; padding: 16px 18px; font-size: 14px; font-weight: 600; }
 
@@ -375,7 +390,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 .cfg-field { display: block; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
 .cfg-field input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px;
   border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg);
-  color: var(--ink); font: inherit; font-size: 14.5px; }
+  color: var(--ink); font: inherit; font-size: 14px; }
 .cfg-check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0;
   border-bottom: 1px solid var(--line); font-size: 14px; cursor: pointer; }
 .cfg-check:last-child { border-bottom: 0; }
@@ -399,6 +414,16 @@ a.wordmark { color: inherit; text-decoration: none; }
 .neg-item { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.6; }
 .neg-item:last-child { border-bottom: 0; }
 .grid2 > .card { margin-top: 0; } /* flattened grid: the global .card + .card margin must not offset grid rows */
+@media (min-width: 901px) {
+  /* P0-1: overview on the 12-column grid — main 7 + ring/engines 5, actions 8 + trend 4 */
+  #view-overview .grid2 { grid-template-columns: repeat(12, 1fr); gap: 20px; }
+  #view-overview .grid2 > .card:nth-child(1) { grid-column: span 7; }
+  #view-overview .grid2 > .card:nth-child(2) { grid-column: span 5; }
+  #view-overview .grid2 > .card:nth-child(3) { grid-column: span 8; }
+  #view-overview .grid2 > .card:nth-child(4) { grid-column: span 4; }
+  #view-overview .grid2 > .card:nth-child(5) { grid-column: span 8; }
+  #view-overview .grid2 > .card:nth-child(6) { grid-column: span 4; }
+}
 .ov-neg-card { min-width: 0; } /* nowrap question line must not force the grid track wider than its 1fr share */
 .ov-neg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .ov-neg-count { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 800; }
@@ -412,18 +437,19 @@ a.wordmark { color: inherit; text-decoration: none; }
 .ov-neg-sub { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
 .ov-neg-more { display: inline-block; margin-top: 10px; font-size: 14px; }
 .sug-fix-link { display: inline-block; margin-top: 6px; font-size: 14px; }
-#view-tools-p4 .tk-context { background: var(--bg-sink); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.55; margin: 0 0 14px; }
+#view-tools-p4 .tk-context { background: var(--bg-sink); border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.55; margin: 0 0 14px; }
 .week-sum { font-size: 14px; margin: 0 0 12px; color: var(--ink-2); line-height: 1.6; }
 .week-item { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; }
 .week-item:last-child { border-bottom: 0; }
 .week-item .n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--skin-accent); color: #fff; font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; }
 
 /* ============ 5A+6A integration (local, scoped to the 5 new views) ============ */
-#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
-#view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{margin:0 0 4px;font-size:20px}
-#view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{margin:0 0 8px;font-size:16px}
+#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+#view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{margin:0 0 4px;font-size:21px}
+#view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{margin:0 0 8px;font-size:18px}
 #view-tools .tk-tier{color:var(--muted);font-size:12px;margin:0 0 10px}
-#view-questions .desc, #view-competitors .desc, #view-sources .desc, #view-tools .desc, #view-settings .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-questions .desc, #view-competitors .desc, #view-sources .desc, #view-tools .desc, #view-settings .desc{color:var(--muted);margin:0 0 14px;font-size:15px}
+
 #view-questions .sample-tag, #view-competitors .sample-tag, #view-sources .sample-tag, #view-tools .sample-tag, #view-settings .sample-tag, #view-billing .sample-tag, #view-team .sample-tag, #view-connections .sample-tag, #view-developer .sample-tag{font-size:11px;font-weight:700;color:#6b7280;border:1px solid var(--line);border-radius:999px;padding:1px 7px;vertical-align:middle;white-space:nowrap}
 #view-questions .badge-soon, #view-competitors .badge-soon, #view-sources .badge-soon, #view-tools .badge-soon, #view-settings .badge-soon{display:inline-block;background:#f3f4f6;color:#6b7280;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
 #view-questions .badge-ok, #view-competitors .badge-ok, #view-sources .badge-ok, #view-tools .badge-ok, #view-settings .badge-ok{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
@@ -442,7 +468,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 #view-questions .btn, #view-competitors .btn, #view-sources .btn, #view-tools .btn, #view-settings .btn{display:inline-block;border:0;background:var(--ink);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
 #view-questions .btn.ghost, #view-competitors .btn.ghost, #view-sources .btn.ghost, #view-tools .btn.ghost, #view-settings .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 #view-billing .btn.small, #view-questions .btn.small, #view-competitors .btn.small, #view-sources .btn.small, #view-tools .btn.small, #view-settings .btn.small{padding:6px 12px;font-size:13px}
-#view-questions input[type=text], #view-competitors input[type=text], #view-sources input[type=text], #view-tools input[type=text], #view-settings input[type=text], #view-questions input[type=password], #view-competitors input[type=password], #view-sources input[type=password], #view-tools input[type=password], #view-settings input[type=password], #view-questions select, #view-competitors select, #view-sources select, #view-tools select, #view-settings select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--ink)}
+#view-questions input[type=text], #view-competitors input[type=text], #view-sources input[type=text], #view-tools input[type=text], #view-settings input[type=text], #view-questions input[type=password], #view-competitors input[type=password], #view-sources input[type=password], #view-tools input[type=password], #view-settings input[type=password], #view-questions select, #view-competitors select, #view-sources select, #view-tools select, #view-settings select{width:100%;padding:10px 12px;border:1px solid var(--line-strong);border-radius:10px;font-size:14px;background:var(--bg);color:var(--ink);box-sizing:border-box}
 #view-questions .field, #view-competitors .field, #view-sources .field, #view-tools .field, #view-settings .field{margin-bottom:12px}
 #view-questions .field label, #view-competitors .field label, #view-sources .field label, #view-tools .field label, #view-settings .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
 #view-questions .row, #view-competitors .row, #view-sources .row, #view-tools .row, #view-settings .row{display:flex;gap:12px;flex-wrap:wrap}
@@ -646,8 +672,8 @@ a.wordmark { color: inherit; text-decoration: none; }
 @media (min-width:901px){
   .topbar-in .id-badge{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px;background:#ff5a1f;color:#141519}
   .topbar-in .id-avatar-btn{border:0;background:transparent;padding:6px;border-radius:50%;cursor:pointer;line-height:0}
-  .id-row{display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:0 auto;padding:0 28px 16px}
-  .acct-menu{right:max(28px, (100% - 1080px) / 2 + 28px)}
+  .id-row{display:flex;justify-content:space-between;align-items:center;max-width:1240px;margin:0 auto;padding:0 40px 16px}
+  .acct-menu{right:max(40px, (100% - 1240px) / 2 + 40px)}
   .acct-menu.open{display:block}
 }
 
@@ -720,7 +746,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 #view-settings .switch-row b{font-size:15px!important}
 #view-settings .switch-row span{white-space:nowrap!important}
 #view-settings input[type=text]{height:44px!important}
-#view-settings .card{padding:16px!important;margin-bottom:18px!important}
+#view-settings .card{padding:24px!important;margin-bottom:18px!important}
 </style>
 <style>
 /* v2: Settings all lists -> v3 single-line row */
@@ -787,7 +813,7 @@ a.wordmark { color: inherit; text-decoration: none; }
 /* v8: brand-edit subview like security subviews */
 #view-brand-edit .card{padding:16px!important;margin-bottom:18px!important}
 #view-brand-edit .back-btn{background:transparent!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:999px!important;padding:6px 12px!important;font-size:13px!important;font-weight:700!important;margin-bottom:12px!important}
-#view-brand-edit input[type=text]{height:44px!important;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+#view-brand-edit input[type=text]{height:44px!important;width:100%;padding:10px 12px;border:1px solid var(--line-strong);border-radius:10px;font-size:14px;background:var(--bg)}
 #view-brand-edit .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
 #view-brand-edit .field{margin-bottom:12px}
 #view-settings .card h3{margin-bottom:8px}
@@ -910,19 +936,25 @@ html[data-state="demo"] [data-live-layer]{display:none!important}
 #view-tools-p2 .card,
 #view-tools-p3 .card,
 #view-tools-p4 .card,
-#view-tools-p5 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+#view-tools-p5 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
 #view-tools-p0 .card h3,
 #view-tools-p1 .card h3,
 #view-tools-p2 .card h3,
 #view-tools-p3 .card h3,
 #view-tools-p4 .card h3,
-#view-tools-p5 .card h3{margin:0 0 8px;font-size:16px}
+#view-tools-p5 .card h3{margin:0 0 8px;font-size:18px}
+#view-tools-p0 .card h2,
+#view-tools-p1 .card h2,
+#view-tools-p2 .card h2,
+#view-tools-p3 .card h2,
+#view-tools-p4 .card h2,
+#view-tools-p5 .card h2{margin:0 0 4px;font-size:21px}
 #view-tools-p0 .desc,
 #view-tools-p1 .desc,
 #view-tools-p2 .desc,
 #view-tools-p3 .desc,
 #view-tools-p4 .desc,
-#view-tools-p5 .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-tools-p5 .desc{color:var(--muted);margin:0 0 14px;font-size:15px}
 #view-tools-p0 .btn,
 #view-tools-p1 .btn,
 #view-tools-p2 .btn,
@@ -1138,10 +1170,11 @@ kept apart from the gate-row pill set. */
 #view-tools .btn[data-go]:hover, #view-tools-p0 #tkRunBtn:hover { background: var(--skin-accent-deep); border-color: var(--skin-accent-deep); }</style>
 
 <style id="t7-css">
-#view-tools-p6 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
-#view-tools-p6 .card h2{margin:0 0 4px;font-size:20px}
-#view-tools-p6 .card h3{margin:0 0 8px;font-size:16px}
-#view-tools-p6 .desc{color:var(--muted);margin:0 0 14px;font-size:14px}
+#view-tools-p6 .card{background:var(--bg-raise);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+#view-tools-p6 .card h2{margin:0 0 4px;font-size:21px}
+#view-tools-p6 .card h3{margin:0 0 8px;font-size:18px}
+#view-tools-p6 .desc{color:var(--muted);margin:0 0 14px;font-size:15px}
+
 .t7-run{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:12px 2px;cursor:pointer;font:inherit;color:inherit}
 .t7-run:first-of-type{border-top:0}
 .t7-run b{font-size:15px}
@@ -1154,7 +1187,7 @@ kept apart from the gate-row pill set. */
 .t7-ans th{color:var(--muted);font-size:12px;border-top:0}
 .t7-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:12px}
 .t7-pick label{display:grid;gap:4px;font-size:12.5px;color:var(--muted);font-weight:600}
-.t7-pick select{font:inherit;color:var(--ink);background:var(--bg-raise);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:170px}
+.t7-pick select{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;min-width:170px}
 .t7-sum{display:flex;flex-wrap:nowrap;gap:8px 22px;font-size:14.5px;font-weight:600;margin:6px 0 12px;white-space:nowrap}
 .t7-sum b{font-size:20px;font-weight:800}
 @media (max-width:560px){.t7-sum{gap:6px 8px;font-size:12.5px} .t7-sum b{font-size:16px}}
@@ -1221,12 +1254,15 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       <div class="side-id"><div class="brand-switcher" id="brandSwitcher"><button type="button" class="bs-head" id="bsHead" aria-haspopup="listbox" aria-expanded="false"><span class="bs-ava" id="bsAva">?</span><span class="bs-text"><span class="bs-name" id="bsName"></span><span class="bs-domain" id="bsDomain"></span></span><span class="bs-caret" aria-hidden="true">▾</span></button><div class="bs-menu" id="bsMenu" role="listbox" aria-label="Switch brand" hidden><div class="bs-list" id="bsList"></div><button type="button" class="bs-add" id="bsAdd">+ Add a brand</button><button type="button" class="bs-add bs-upgrade" id="bsUpgrade" hidden></button></div></div></div>
     </div>
     <nav class="nav" id="sideNav">
+      <div class="nav-group" aria-hidden="true">Measure</div>
       <button data-view="overview" class="active" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
       <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Visibility score</button>
       <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Weekly report</button>
       <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Prompts</button>
+      <div class="nav-group" aria-hidden="true">Compare</div>
       <button data-view="competitors"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11"/><path d="M11 20V5"/><path d="M17 20V14"/></svg></span>Competitors</button>
       <button data-view="sources"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4Q9 12 12 20"/><path d="M12 4Q15 12 12 20"/></svg></span>Citations</button>
+      <div class="nav-group" aria-hidden="true">Act</div>
       <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Toolkit</button>
       <button data-view="inbox"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></span>Approval inbox<span class="nav-badge" id="inboxBadge" hidden></span></button>       <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
     </nav>
@@ -1236,10 +1272,6 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
     <div class="topbar">
       <div class="topbar-in">
         <div class="toplogo"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></div>
-        <div class="toptitles">
-          <h1 id="pageTitle">Overview</h1>
-          <span class="sub" id="pageSub">Your brand's AI visibility at a glance</span>
-        </div>
         
         <button class="bell-btn" id="bellBtn" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="bell-badge" id="bellBadge">4</span></button>
         <button class="id-avatar-btn" id="idAvatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span></button>
@@ -1251,9 +1283,10 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       <div class="acct-menu" id="acctMenu" role="menu" aria-label="Account">
         <div class="acct-head" role="none">
           <span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span>
-          <div><div class="acct-name">Sample account</div><div class="acct-meta"><span class="id-badge" id="menuTierBadge">STARTER</span> <span>(demo)</span></div></div>
+          <div><div class="acct-name">Sample account</div><div class="acct-meta"><span class="id-badge" id="menuTierBadge">STARTER</span></div></div>
         </div>
         <button class="acct-item" role="menuitem" type="button" data-acct="plan">My plan</button>
+        <button class="acct-item" role="menuitem" type="button" data-acct="settings">Settings</button>
         <button class="acct-item" role="menuitem" type="button" data-acct="help">Help center</button>
         <div class="acct-sep" role="separator"></div>
         <button class="acct-item" role="menuitem" type="button" data-acct="logout">Log out</button>
@@ -1262,16 +1295,16 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
     <div class="content">
       <!-- ============ VIEW: OVERVIEW ============ -->
-      <section class="view active" id="view-overview"><p id="ovPoolLine" data-live-layer hidden></p><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+      <section class="view active" id="view-overview"><p id="ovPoolLine" data-live-layer hidden></p><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
         <div class="ov-head">
           <div>
             <div class="ov-brand"><b id="ovBrandName"></b><span id="ovBrandDomain"></span></div>
             <p class="ov-fresh" id="ovFresh"></p>
           </div>
-          <button class="btn" id="ovRunBtn">▶&nbsp; Run new snapshot</button>
+          <button class="btn" id="ovRunBtn">▶&nbsp; Run snapshot</button>
         </div>
         <div id="ovDone" class="ov-done" style="display:none;">✓ Snapshot complete — your overview is up to date.</div>
-        <div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.</p></div><div class="grid2" data-sample-layer>
+        <div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.<br/>Your first snapshot is free. No card needed.</p></div><div class="grid2" data-sample-layer>
 <div class="card">
             <h2>Overview</h2>
             <p class="desc">Overall visibility</p>
@@ -1283,7 +1316,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
               </svg>
               <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
             </div>
-            <p class="ci">95% Wilson CI <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
+            <p class="ci" id="ovCiLine" style="display:none">Likely range <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
             <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
             <p class="def-note" id="ovDefNote">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
             <p class="desc" style="margin:0;" id="ovScoreBlurb"></p>
@@ -1326,12 +1359,12 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       </section>
 
       <!-- ============ VIEW: SCORE ============ -->
-      <section class="view" id="view-score"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+      <section class="view" id="view-score"><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
         <div id="scoreEmpty" class="card state-card" data-empty-slot>
           <div class="state-eyebrow">Visibility score</div>
           <p class="state-title">No snapshot.</p>
           <p class="state-desc">Run your first snapshot to see your visibility score, how each engine answers, and what to fix first.</p>
-          <div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div>
+          <div class="state-actions"><button class="btn" type="button" data-state-run>Run snapshot</button></div>
         </div>
         <div id="scoreFail" class="card state-card fail" style="display:none;">
           <div class="state-eyebrow">Visibility score</div>
@@ -1343,7 +1376,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
             <div class="ring">
               <svg width="168" height="168" viewBox="0 0 168 168">
                 <circle cx="84" cy="84" r="72" fill="none" stroke="var(--bg-sink)" stroke-width="14"/>
-                <circle id="ciArc" cx="84" cy="84" r="80" fill="none" stroke="var(--muted)" stroke-width="3" stroke-dasharray="502.7" stroke-dashoffset="502.7"><title>95% Wilson CI</title></circle>
+                <circle id="ciArc" cx="84" cy="84" r="80" fill="none" stroke="var(--muted)" stroke-width="3" stroke-dasharray="502.7" stroke-dashoffset="502.7"><title>Likely range</title></circle>
                 <circle id="ringFg" cx="84" cy="84" r="72" fill="none" stroke="var(--skin-accent)"
                   stroke-width="14" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="452.4"/>
               </svg>
@@ -1353,7 +1386,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
               <h2>Visibility score</h2>
               <p class="desc">Overall visibility</p>
               <div><span class="note-badge" id="scoreNote">–</span></div>
-              <p class="ci">95% Wilson CI <b id="scoreCi">–</b> · <span id="scoreN">–</span> valid answers</p>
+              <p class="ci" id="scoreCiLine" style="display:none">Likely range <b id="scoreCi">–</b> · <span id="scoreN">–</span> valid answers</p>
               <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
               <p class="def-note" id="scoreDefNote">Score 18.2 is based on this snapshot: 2 mentions in 11 valid answers (18.2%).</p>
               <p class="desc" style="margin:0;" id="scoreBlurb"></p>
@@ -1387,12 +1420,12 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       </section>
 
       <!-- ============ VIEW: REPORT ============ -->
-      <section class="view" id="view-report"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+      <section class="view" id="view-report"><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
         <div id="reportEmpty" class="card state-card" data-empty-slot>
           <div class="state-eyebrow">Weekly report</div>
           <p class="state-title">No report.</p>
           <p class="state-desc">Run a snapshot first — your report appears here.</p>
-          <div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div>
+          <div class="state-actions"><button class="btn" type="button" data-state-run>Run snapshot</button></div>
         </div>
         <div id="reportFail" class="card state-card fail" style="display:none;">
           <div class="state-eyebrow">Weekly report</div>
@@ -1438,10 +1471,10 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
         </div>
       </section>
       <!-- ============ VIEW: QUESTIONS (shell, Phase 3) ============ -->
-      <section class="view" id="view-questions"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Questions you track appear here after your first snapshot.</p></div><div id="questionsFail" class="card state-card fail" style="display:none;"><div class="state-eyebrow">Prompts</div><p class="state-title">Couldn't load your questions.</p><div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div></div><div class="card" data-sample-layer data-bface="main">
+      <section class="view" id="view-questions"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Questions you track appear here after your first snapshot.</p></div><div id="questionsFail" class="card state-card fail" style="display:none;"><div class="state-eyebrow">Prompts</div><p class="state-title">Couldn't load your questions.</p><div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div></div><div class="card" data-sample-layer data-bface="main">
 <h2>Prompts</h2>
 <p class="desc">Questions you track, plus templates and suggestions.</p>
-<div class="state-strip"><p>No snapshot. Questions you track appear here after your first snapshot.</p><button class="btn small" type="button" data-state-run>Run a snapshot</button></div>
+<div class="state-strip"><p>No snapshot. Questions you track appear here after your first snapshot.</p><button class="btn small" type="button" data-state-run>Run snapshot</button></div>
 
 <div class="table-wrap"><table>
 <thead><tr><th>Question</th><th>Mentioned on</th><th>Sentiment</th><th>Visibility</th><th>Tags</th></tr></thead>
@@ -1462,15 +1495,15 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
 <div class="card">
 <h3>Suggested questions</h3>
-<p class="desc">Accept / reject update this list in this demo only.</p>
+
 <div class="empty">No suggested questions yet. Suggested items with one-click accept / reject will appear here.</div>
 </div></section>
 
       <!-- ============ VIEW: COMPETITORS (shell, Phase 3) ============ -->
-      <section class="view" id="view-competitors"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Competitor comparisons appear here after your first snapshot.</p></div><div id="competitorsFail" class="card state-card fail" style="display:none;"><div class="state-eyebrow">Competitors</div><p class="state-title">Couldn't load your competitors.</p><div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div></div><div class="card" data-sample-layer data-bface="main">
+      <section class="view" id="view-competitors"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="empty" data-empty-slot><div class="big">◎</div><p><b>No snapshot.</b><br/>Competitor comparisons appear here after your first snapshot.</p></div><div id="competitorsFail" class="card state-card fail" style="display:none;"><div class="state-eyebrow">Competitors</div><p class="state-title">Couldn't load your competitors.</p><div class="state-actions"><button class="btn" type="button" data-brand-retry>Retry</button></div></div><div class="card" data-sample-layer data-bface="main">
 <h2>Competitors</h2>
 <p class="desc">Your visibility vs tracked competitors.</p>
-<div class="state-strip"><p>No snapshot. Competitor comparisons appear here after your first snapshot.</p><button class="btn small" type="button" data-state-run>Run a snapshot</button></div>
+<div class="state-strip"><p>No snapshot. Competitor comparisons appear here after your first snapshot.</p><button class="btn small" type="button" data-state-run>Run snapshot</button></div>
 <div class="bar-row"><span class="nm">Bombas</span><span class="bar"><i style="width:18.2%"></i></span><span class="val">18.2 · 2/11</span></div>
 <div class="bar-row"><span class="nm">Balega</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
 <div class="bar-row"><span class="nm">Feetures</span><span class="bar"><i style="width:0%"></i></span><span class="val">No mention data yet</span></div>
@@ -1487,7 +1520,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
 <div class="card" data-bface="side">
 <h3>Overtaking alerts</h3>
-<div class="empty">No data: without competitor mention data this is an empty-state note; no invented “who overtook you”.</div>
+<div class="empty">No competitor mention data yet.</div>
 </div>
 
 <div class="card" data-bface="side">
@@ -1496,7 +1529,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: SOURCES (shell, Phase 3) ============ -->
-      <section class="view" id="view-sources"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
+      <section class="view" id="view-sources"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card">
 <h2>Citations</h2>
 <p class="desc">Where AI gets its answers.</p>
 <div class="table-wrap"><table>
@@ -1505,7 +1538,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </table></div>
 <h3 style="margin-top:18px">Source types</h3> <p class="desc">What kind of site each cited domain is.</p> <!-- categories only, not data -->
 <p><span class="tag" style="background:#dbeafe;color:#1e40af">Brand site</span> <span class="tag" style="background:#fef3c7;color:#92400e">News media</span> <span class="tag" style="background:#dcfce7;color:#166534">Community forums</span> <span class="tag" style="background:#ede9fe;color:#5b21b6">Encyclopedia &amp; Q&amp;A</span> <span class="tag">Other</span></p>
-<p style="color:var(--muted);font-size:13px">Domain types use color + text dual encoding, not color alone.</p>
+
 </div>
 
 <div class="card">
@@ -1514,7 +1547,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: TOOLS (shell, Phase 3) ============ -->
-            <section class="view" id="view-tools"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card">
+            <section class="view" id="view-tools"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card">
 <h2>Toolkit</h2>
 <p class="desc">Tools that turn your score into fixes.</p>
 </div>
@@ -1549,23 +1582,23 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
 <p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
 </section>
-<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-http-slot id="impEmpty"><div class="state-eyebrow">Impact tracker</div><p class="state-title">Nothing to track yet.</p><p class="state-desc">Impact tracking starts with your first snapshot and the fixes you make from it.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card" data-live-layer id="impActionsCard" hidden><h3>Fixes</h3><div id="impActions"></div></div>
+<section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card state-card" data-http-slot id="impEmpty"><div class="state-eyebrow">Impact tracker</div><p class="state-title">Nothing to track yet.</p><p class="state-desc">Impact tracking starts with your first snapshot and the fixes you make from it.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run snapshot</button></div></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card" data-live-layer id="impActionsCard" hidden><h3>Fixes</h3><div id="impActions"></div></div>
 <div class="card" data-live-layer id="impSeriesCard" hidden><h3>Score history</h3><div id="impSeries"></div><p class="desc" id="impWithheld" hidden></p></div>
 <div class="card" data-live-layer id="impFeedCard" hidden><h3>This week</h3><div id="impFeed"></div></div>
 <div class="card state-card fail" data-live-layer id="impError" hidden><div class="state-eyebrow">Impact tracker</div><p class="state-title">Couldn't load your impact data.</p><div class="state-actions"><button class="btn" type="button" id="impRetry">Retry</button></div></div></section>
-<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-http-slot id="chkEmpty"><div class="state-eyebrow">Page checkup</div><p class="state-title">No checkup yet.</p><p class="state-desc">Page checkup fetches one page and checks it the way AI reads it — whether AI can quote it, how it is structured, and whether its facts are fresh. Run one on any page URL.</p><div class="state-actions"><button class="btn" type="button" id="chkEmptyRun">Run a checkup</button></div></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
+<section class="view" id="view-tools-p1"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card state-card" data-http-slot id="chkEmpty"><div class="state-eyebrow">Page checkup</div><p class="state-title">No checkup yet.</p><p class="state-desc">Page checkup fetches one page and checks it the way AI reads it — whether AI can quote it, how it is structured, and whether its facts are fresh. Run one on any page URL.</p><div class="state-actions"><button class="btn" type="button" id="chkEmptyRun">Run a checkup</button></div></div><div class="card"><h2>Page checkup</h2><p class="desc">Why AI skips your pages — and the brief to fix it.</p></div><div class="card" data-live-layer id="chkRunCard"><h3>Run a checkup</h3><label class="tk-field">Page URL<input id="chkUrl" type="url" placeholder="https://yourbrand.com/page"></label><p class="tk-errline" id="chkUrlErr" hidden></p><button class="btn" type="button" id="chkRunBtn">Run checkup</button></div>
 <div class="card" data-live-layer id="chkResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="chkSummary"></p><div id="chkResults"></div><div id="chkFixesWrap" hidden><h3 style="margin-top:16px">Priority fixes</h3><div id="chkFixes"></div></div><div id="chkBriefWrap" hidden><h3 style="margin-top:16px">Fix brief</h3><p class="desc">Hand this brief to whoever edits the page.</p><div class="tk-brief" id="chkBrief"></div><div class="state-actions" style="margin-top:10px"><button class="btn small" type="button" id="chkBriefCopy">Copy brief</button><span class="brand-save-note" id="chkBriefNote" role="status"></span></div></div></div>
 <div class="card" data-live-layer id="chkHistoryCard" hidden><h3>History</h3><div id="chkHistory"></div></div>
 <div class="card state-card fail" data-live-layer id="chkError" hidden><div class="state-eyebrow">Page checkup</div><p class="state-title">Couldn't load your checkups.</p><div class="state-actions"><button class="btn" type="button" id="chkRetry">Retry</button></div></div>
 </section>
-<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="winDomHint" hidden><p class="desc" style="margin:0">Some rivals have no domain on file, so domain-based sources can't be matched yet. <button class="btn small" type="button" data-go="brand-edit">Add competitor domains</button></p></div>
-<div class="card" data-live-layer id="winCard" hidden><h3>Citation gaps</h3><div id="winList"></div><p class="desc" id="winDomNote" hidden style="margin:10px 0 0">Domain-based sources join this list once competitor domains are on file.</p></div><div class="card" data-live-layer id="winNoneCard" hidden><h3>Cited by neither you nor your rivals</h3><div id="winNoneList"></div></div><div class="card state-card" data-live-layer id="winEmpty" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No snapshot.</p><p class="state-desc">Win citations reads your latest snapshot. Run one to see which sites cite your rivals but not you.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run a snapshot</button></div></div><div class="card state-card" data-live-layer id="winZero" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No citation gaps.</p><p class="state-desc">Your latest snapshot found no sources that cite competitors but not you.</p></div><div class="card state-card fail" data-live-layer id="winError" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">Couldn't load your win citations.</p><div class="state-actions"><button class="btn" type="button" id="winRetry">Retry</button></div></div></section>
-<section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="rdRunCard" hidden><h3>Run a checkup</h3><div class="tk-run"><input id="rdUrl" type="url" inputmode="url" autocomplete="url"><button class="btn" type="button" id="rdRunBtn">Run checkup</button></div><p class="desc" id="rdUrlErr" hidden></p><p class="desc" id="rdCap" hidden></p><p class="desc" id="rdNone" hidden>No checkups yet for this brand.</p></div><div class="card" data-live-layer id="rdResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="rdSummary"></p><div id="rdResults"></div></div><div class="card" data-live-layer id="rdHistoryCard" hidden><h3>History</h3><div id="rdHistory"></div></div><div class="card state-card fail" data-live-layer id="rdError" hidden><div class="state-eyebrow">AI readiness</div><p class="state-title">Couldn't load your readiness data.</p><div class="state-actions"><button class="btn" type="button" id="rdRetry">Retry</button></div></div></section>
-<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="bmListCard" hidden><h3>Cases</h3><div id="bmList"></div></div><div class="card state-card" data-live-layer id="bmArmed" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title" id="bmArmedText"></p></div><div class="card" data-live-layer id="bmNewCard" hidden><h3>Open a case manually</h3><p class="desc" id="bmNewNote"></p><label class="tk-s" id="bmClaimLabel" for="bmClaim"></label><textarea id="bmClaim" rows="3" style="width:100%"></textarea><label class="tk-s" id="bmWhereLabel" for="bmWhere"></label><input id="bmWhere" type="text" style="width:100%"><p class="desc" id="bmNewErr" hidden></p><div class="state-actions"><button class="btn" type="button" id="bmCreateBtn">Open case</button></div></div><div class="card" data-live-layer id="bmDetailCard" hidden><button class="btn small" type="button" id="bmBackBtn">Back to cases</button><h3 id="bmClaimText"></h3><p class="desc" id="bmMeta"></p><div id="bmBaseline"></div><div id="bmProposal"></div><div id="bmAccurate"></div><div id="bmSteps"></div><div id="bmDraftBox"></div></div><div class="card state-card fail" data-live-layer id="bmError" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title">Couldn't load your cases.</p><div class="state-actions"><button class="btn" type="button" id="bmRetry">Retry</button></div></div></section>
-<section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="llmCard" hidden><h3>Your llms.txt</h3><p class="desc" id="llmStatus">No llms.txt generated.</p><pre id="llmPreview" hidden style="white-space:pre-wrap;word-break:break-word;font-size:12px"></pre><div class="state-actions"><button class="btn" type="button" id="llmGenBtn">Generate llms.txt</button><a class="btn" id="llmDl" href="#" hidden>Download</a></div></div><div class="card state-card fail" data-live-layer id="llmError" hidden><div class="state-eyebrow">llms.txt generator</div><p class="state-title">Couldn't load your llms.txt status.</p><div class="state-actions"><button class="btn" type="button" id="llmRetry">Retry</button></div></div></section>
-<section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
+<section class="view" id="view-tools-p2"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Win citations</h2><p class="desc">Sites that cite your rivals but not you — with outreach drafts.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Gap list</span><span class="badge-ok">Available</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="winDomHint" hidden><p class="desc" style="margin:0">Some rivals have no domain on file, so domain-based sources can't be matched yet. <button class="btn small" type="button" data-go="brand-edit">Add competitor domains</button></p></div>
+<div class="card" data-live-layer id="winCard" hidden><h3>Citation gaps</h3><div id="winList"></div><p class="desc" id="winDomNote" hidden style="margin:10px 0 0">Domain-based sources join this list once competitor domains are on file.</p></div><div class="card" data-live-layer id="winNoneCard" hidden><h3>Cited by neither you nor your rivals</h3><div id="winNoneList"></div></div><div class="card state-card" data-live-layer id="winEmpty" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No snapshot.</p><p class="state-desc">Win citations reads your latest snapshot. Run one to see which sites cite your rivals but not you.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run snapshot</button></div></div><div class="card state-card" data-live-layer id="winZero" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">No citation gaps.</p><p class="state-desc">Your latest snapshot found no sources that cite competitors but not you.</p></div><div class="card state-card fail" data-live-layer id="winError" hidden><div class="state-eyebrow">Win citations</div><p class="state-title">Couldn't load your win citations.</p><div class="state-actions"><button class="btn" type="button" id="winRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p3"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>AI readiness</h2><p class="desc">Can AI read your site? A technical check, plus a one-line brief for your developer.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Readability check</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="rdRunCard" hidden><h3>Run a checkup</h3><div class="tk-run"><input id="rdUrl" type="url" inputmode="url" autocomplete="url"><button class="btn" type="button" id="rdRunBtn">Run checkup</button></div><p class="desc" id="rdUrlErr" hidden></p><p class="desc" id="rdCap" hidden></p><p class="desc" id="rdNone" hidden>No checkups yet for this brand.</p></div><div class="card" data-live-layer id="rdResultsCard" hidden><h3>Latest checkup</h3><p class="desc" id="rdSummary"></p><div id="rdResults"></div></div><div class="card" data-live-layer id="rdHistoryCard" hidden><h3>History</h3><div id="rdHistory"></div></div><div class="card state-card fail" data-live-layer id="rdError" hidden><div class="state-eyebrow">AI readiness</div><p class="state-title">Couldn't load your readiness data.</p><div class="state-actions"><button class="btn" type="button" id="rdRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p4"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Fix a bad mention</h2><p class="desc">Step-by-step when AI gets your facts wrong.</p></div><p class="tk-context" id="negFixContext" style="display:none"></p><div class="card"><div class="tk-row"><div class="tk-row-top"><span>Negative-mention playbook</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="bmListCard" hidden><h3>Cases</h3><div id="bmList"></div></div><div class="card state-card" data-live-layer id="bmArmed" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title" id="bmArmedText"></p></div><div class="card" data-live-layer id="bmNewCard" hidden><h3>Open a case manually</h3><p class="desc" id="bmNewNote"></p><label class="tk-s" id="bmClaimLabel" for="bmClaim"></label><textarea id="bmClaim" rows="3" style="width:100%"></textarea><label class="tk-s" id="bmWhereLabel" for="bmWhere"></label><input id="bmWhere" type="text" style="width:100%"><p class="desc" id="bmNewErr" hidden></p><div class="state-actions"><button class="btn" type="button" id="bmCreateBtn">Open case</button></div></div><div class="card" data-live-layer id="bmDetailCard" hidden><button class="btn small" type="button" id="bmBackBtn">Back to cases</button><h3 id="bmClaimText"></h3><p class="desc" id="bmMeta"></p><div id="bmBaseline"></div><div id="bmProposal"></div><div id="bmAccurate"></div><div id="bmSteps"></div><div id="bmDraftBox"></div></div><div class="card state-card fail" data-live-layer id="bmError" hidden><div class="state-eyebrow">Fix a bad mention</div><p class="state-title">Couldn't load your cases.</p><div class="state-actions"><button class="btn" type="button" id="bmRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="llmCard" hidden><h3>Your llms.txt</h3><p class="desc" id="llmStatus">No llms.txt generated.</p><pre id="llmPreview" hidden style="white-space:pre-wrap;word-break:break-word;font-size:12px"></pre><div class="state-actions"><button class="btn" type="button" id="llmGenBtn">Generate llms.txt</button><a class="btn" id="llmDl" href="#" hidden>Download</a></div></div><div class="card state-card fail" data-live-layer id="llmError" hidden><div class="state-eyebrow">llms.txt generator</div><p class="state-title">Couldn't load your llms.txt status.</p><div class="state-actions"><button class="btn" type="button" id="llmRetry">Retry</button></div></div></section>
+<section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
-            <section class="view" id="view-inbox"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Approval inbox</h2><p class="desc">Nothing is sent from here.</p></div><div class="card" data-live-layer id="inboxListCard" hidden><p class="desc" id="inboxCaughtUp" hidden>You're all caught up.</p><div id="inboxList"></div></div><div class="card state-card" data-live-layer id="inboxEmpty" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">No drafts waiting.</p><p class="state-desc">Drafts you generate from a case land here for your review. Nothing is ever sent from here.</p></div><div class="card" data-live-layer id="inboxDetailCard" hidden><div class="tk-row-top"><span><button class="btn small" type="button" id="inboxBackBtn">← Approval inbox</button> <button class="btn small ghost" type="button" id="inboxToCaseBtn">Back to case</button></span><span class="tk-badge-note" id="inboxChip"></span></div><p class="desc" id="inboxMeta"></p><div id="inboxBodyBox"></div><div id="inboxProv"></div><div class="state-actions"><button class="btn" type="button" id="inboxExportBtn">Download draft</button><button class="btn ghost" type="button" id="inboxCopyBtn">Copy text</button><button class="btn ghost" type="button" id="inboxUsedBtn">Mark as used</button><button class="btn ghost" type="button" id="inboxDiscardBtn">Discard</button></div><p class="desc" id="inboxMsg" hidden></p></div><div class="card state-card fail" data-live-layer id="inboxError" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">Couldn't load your approval inbox.</p><div class="state-actions"><button class="btn" type="button" id="inboxRetry">Retry</button></div></div></section><section class="view" id="view-facts"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Your facts</h2><p class="desc">We check what AI says against the facts you confirm here. Nothing is used until you confirm it.</p></div><div class="card" data-live-layer id="factsBar" hidden><p class="desc">Changes aren't confirmed yet — new cases can't be checked against them until you confirm.</p><div class="state-actions"><button class="btn" type="button" id="factsConfirmBtn">Confirm facts</button></div><p class="desc" id="factsBarErr" hidden></p></div><p class="desc" data-live-layer id="factsVerLine" hidden></p><div class="card" data-live-layer id="factsListCard" hidden><div id="factsList"></div></div><div class="card state-card" data-live-layer id="factsEmpty" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Confirm your facts first</p><p class="state-desc">We check claims against facts you've confirmed — and this workspace doesn't have a confirmed set yet. Add your key facts and confirm them, and we'll classify this mention right away.</p></div><div class="card" data-live-layer id="factsAddCard" hidden><h3>Add a fact</h3><div class="field"><label for="factStmt">Fact</label><input type="text" id="factStmt" placeholder="Allbirds shoes are not made of leather."></div><div class="field"><label for="factLink">Source link</label><input type="text" id="factLink" placeholder="https://"></div><p class="desc" id="factAddErr" hidden></p><div class="state-actions"><button class="btn ghost" type="button" id="factAddBtn">Add fact</button></div></div><div class="card state-card fail" data-live-layer id="factsError" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Couldn't load your facts.</p><div class="state-actions"><button class="btn" type="button" id="factsRetry">Retry</button></div></div></section><section class="view" id="view-notifications"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card state-card" data-empty-slot><div class="state-eyebrow">Notifications</div><p class="state-title">No notifications yet.</p><p class="state-desc">Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
+            <section class="view" id="view-inbox"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Approval inbox</h2><p class="desc">Nothing is sent from here.</p></div><div class="card" data-live-layer id="inboxListCard" hidden><p class="desc" id="inboxCaughtUp" hidden>You're all caught up.</p><div id="inboxList"></div></div><div class="card state-card" data-live-layer id="inboxEmpty" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">No drafts waiting.</p><p class="state-desc">Drafts you generate from a case land here for your review. Nothing is ever sent from here.</p></div><div class="card" data-live-layer id="inboxDetailCard" hidden><div class="tk-row-top"><span><button class="btn small" type="button" id="inboxBackBtn">← Approval inbox</button> <button class="btn small ghost" type="button" id="inboxToCaseBtn">Back to case</button></span><span class="tk-badge-note" id="inboxChip"></span></div><p class="desc" id="inboxMeta"></p><div id="inboxBodyBox"></div><div id="inboxProv"></div><div class="state-actions"><button class="btn" type="button" id="inboxExportBtn">Download draft</button><button class="btn ghost" type="button" id="inboxCopyBtn">Copy text</button><button class="btn ghost" type="button" id="inboxUsedBtn">Mark as used</button><button class="btn ghost" type="button" id="inboxDiscardBtn">Discard</button></div><p class="desc" id="inboxMsg" hidden></p></div><div class="card state-card fail" data-live-layer id="inboxError" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">Couldn't load your approval inbox.</p><div class="state-actions"><button class="btn" type="button" id="inboxRetry">Retry</button></div></div></section><section class="view" id="view-facts"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Your facts</h2><p class="desc">We check what AI says against the facts you confirm here. Nothing is used until you confirm it.</p></div><div class="card" data-live-layer id="factsBar" hidden><p class="desc">Changes aren't confirmed yet — new cases can't be checked against them until you confirm.</p><div class="state-actions"><button class="btn" type="button" id="factsConfirmBtn">Confirm facts</button></div><p class="desc" id="factsBarErr" hidden></p></div><p class="desc" data-live-layer id="factsVerLine" hidden></p><div class="card" data-live-layer id="factsListCard" hidden><div id="factsList"></div></div><div class="card state-card" data-live-layer id="factsEmpty" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Confirm your facts first</p><p class="state-desc">We check claims against facts you've confirmed — and this workspace doesn't have a confirmed set yet. Add your key facts and confirm them, and we'll classify this mention right away.</p></div><div class="card" data-live-layer id="factsAddCard" hidden><h3>Add a fact</h3><div class="field"><label for="factStmt">Fact</label><input type="text" id="factStmt" placeholder="Allbirds shoes are not made of leather."></div><div class="field"><label for="factLink">Source link</label><input type="text" id="factLink" placeholder="https://"></div><p class="desc" id="factAddErr" hidden></p><div class="state-actions"><button class="btn ghost" type="button" id="factAddBtn">Add fact</button></div></div><div class="card state-card fail" data-live-layer id="factsError" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Couldn't load your facts.</p><div class="state-actions"><button class="btn" type="button" id="factsRetry">Retry</button></div></div></section><section class="view" id="view-notifications"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card state-card" data-empty-slot><div class="state-eyebrow">Notifications</div><p class="state-title">No notifications yet.</p><p class="state-desc">Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
 <h2>Notifications</h2>
 <p class="desc">Snapshot, score, report and alert updates for your brand.</p>
 </div>
@@ -1581,11 +1614,11 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><p class="sample-note">Sample data for demo only. Actions are not really saved.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
+      <section class="view" id="view-settings"><p class="sample-note">Sample data — run a snapshot to see your own results.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
 <div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_negative" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
 <div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_changes" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
 </div> <div class="card sec-title-card" id="securityEntryCard" data-go="security" role="button" tabindex="0" aria-label="Security"><span class="sec-title-main"><span class="sec-title">Security</span><span class="sec-title-status">Password · Logins · Export</span></span><span class="sec-title-arrow" aria-hidden="true">›</span></div> </section>
-<section class="view" id="view-security-password"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-security-password"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card"><h3>Change password</h3>
 <p class="desc" style="margin:0 0 12px">We'll send a password reset link to your account email.</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -1593,7 +1626,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <button class="btn small ghost" type="button" data-go="settings">Cancel</button>
 </div>
 <p class="form-msg" id="pwResetMsg" role="alert" style="margin-top:10px"></p></div></section>
-<section class="view" id="view-security-logins"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-security-logins"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card state-card" data-http-slot id="lhEmpty"><div class="state-eyebrow">Login history</div><p class="state-title">No login history available yet.</p></div><div class="card" data-demo-layer><h3>Login history</h3>
 <div class="login-list">
 <div class="login-row"><span class="login-device">Chrome · macOS <span class="sample-tag">Sample</span></span><span class="login-time">2026-10-25 09:12</span></div>
@@ -1603,7 +1636,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="login-list" id="lhRows"></div>
 <p style="margin:10px 0 0"><button class="btn small" type="button" id="lhMore" hidden>Load more</button></p></div><div class="card state-card fail" data-live-layer id="lhError" hidden><div class="state-eyebrow">Login history</div><p class="state-title">Couldn't load your login history.</p><div class="state-actions"><button class="btn" type="button" id="lhRetry">Retry</button></div></div>
 </section>
-<section class="view" id="view-security-delete"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-security-delete"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="danger-block">
 <p class="danger-title">⚠ Delete account</p>
 <p class="danger-note">Deleting your account is permanent and can't be undone. To delete your account, contact support — we'll verify it's you and process it manually.</p>
@@ -1616,8 +1649,8 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <p class="desc">To export your data, contact support — we'll prepare your export and email it to you.</p>
 <a class="btn small" href="/cdn-cgi/l/email-protection#e4979194948b9690a4878d908985968fca878b89">Contact support to export my data</a>
 </div></section>
-<section class="view" id="view-help"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Help & support</h2><p class="desc">Email us at <a href="/cdn-cgi/l/email-protection#0d7e787d7d627f794d6e6479606c7f66236e6260"><span class="__cf_email__" data-cfemail="b3c0c6c3c3dcc1c7f3d0dac7ded2c1d89dd0dcde">[email&#160;protected]</span></a> — our support team replies by email.</p><p class="desc">To help us find your account, write from the email you signed up with (or tell us what it is) and describe what's happening. A screenshot of what you see helps.</p><p class="desc">Two places answer most questions:</p><ul class="desc" style="list-style:none;padding:0"><li style="padding-left:15px;text-indent:-15px;margin-bottom:6px">· Every tool in the Toolkit has a ? next to its name — it explains what the tool does and how to use it.</li><li style="padding-left:15px;text-indent:-15px">· Your Weekly report shows what changed in your scores and why.</li></ul><button class="btn small ghost" type="button" data-go="settings">Back to Settings</button></div></section>
-<section class="view" id="view-brand-edit"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-help"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Help & support</h2><p class="desc">Email us at <a href="/cdn-cgi/l/email-protection#0d7e787d7d627f794d6e6479606c7f66236e6260"><span class="__cf_email__" data-cfemail="b3c0c6c3c3dcc1c7f3d0dac7ded2c1d89dd0dcde">[email&#160;protected]</span></a> — our support team replies by email.</p><p class="desc">To help us find your account, write from the email you signed up with (or tell us what it is) and describe what's happening. A screenshot of what you see helps.</p><p class="desc">Two places answer most questions:</p><ul class="desc" style="list-style:none;padding:0"><li style="padding-left:15px;text-indent:-15px;margin-bottom:6px">· Every tool in the Toolkit has a ? next to its name — it explains what the tool does and how to use it.</li><li style="padding-left:15px;text-indent:-15px">· Your Weekly report shows what changed in your scores and why.</li></ul><button class="btn small ghost" type="button" data-go="settings">Back to Settings</button></div></section>
+<section class="view" id="view-brand-edit"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card"><h2>Brand profile</h2>
 <p class="desc">Brand name and domain shown across Overview, Visibility score and Weekly report.</p>
 <div class="row"><div class="field"><label>Brand name</label><input type="text" id="brandNameInput" value="" placeholder="No brand"></div>
@@ -1645,7 +1678,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" type="submit" id="bnSubmit">Add brand</button><button class="btn ghost" type="button" data-go="overview">Cancel</button></div>
 </form></div></section>
 
-<section class="view" id="view-security"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-security"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card"><h3>Security &amp; account</h3>
 <div class="sec-list">
 <button class="sec-row" type="button" data-go="security-password"><span class="sec-label" title="Change password">Change password</span><span class="sec-arrow" aria-hidden="true">›</span></button>
@@ -1654,7 +1687,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <button class="sec-row" type="button" data-go="security-export"><span class="sec-label" title="Export my data">Export my data</span><span class="sec-arrow" aria-hidden="true">›</span></button>
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
-<section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card state-card" data-http-slot id="invEmpty"><div class="state-eyebrow">Invoices</div><p class="state-title">No invoices yet.</p><p class="state-desc">Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody><tr><td>Oct 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document?download=1">Download</a></td></tr>
@@ -1664,7 +1697,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
 </section>
 
-<section class="view" id="view-plan"><button class="back-btn" type="button" id="planBackBtn" aria-label="Back">← Back</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-plan"><button class="back-btn" type="button" id="planBackBtn" aria-label="Back">← Back</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card" id="planPastDueCard" style="display:none"><h3>Payment problem</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">We could not collect your last payment, so your plan is past due. Update your payment method to keep your plan running.</p><button class="btn small" type="button" id="pastDueBillingBtn">View invoices</button></div>
 <div class="card" id="planNoPlanCard" style="display:none"><h3>No plan yet</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">You do not have a subscription yet. Choose a plan to start measuring how AI search shows your brand.</p><button class="btn small" type="button" id="noPlanCta">Choose</button></div>
 <div id="planMain">
@@ -1688,13 +1721,13 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div>
 </section>
 
-<section class="view" id="view-pricing-cards"><button class="back-btn" type="button" id="pricingBackBtn" aria-label="Back to Change plan">← Back to Change plan</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p><div class="card"><h2>Pricing</h2><p class="desc">Compare all plans. Prices are promo prices for the first 12 months, then standard prices. No purchase is made from this page.</p></div>
+<section class="view" id="view-pricing-cards"><button class="back-btn" type="button" id="pricingBackBtn" aria-label="Back to Change plan">← Back to Change plan</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Pricing</h2><p class="desc">Compare all plans. Prices are promo prices for the first 12 months, then standard prices. No purchase is made from this page.</p></div>
 <div class="card"><h3>Starter</h3><p>$25/mo for the first 12 months, then $35/mo</p><p>Seats: 1</p><p>Engines: 3</p><p>Sites: 1</p><p>History: last 4 weeks</p><p>White-label reports: No</p><p>Alerts when AI turns negative about your brand</p></div>
 <div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 3</p><p>Sites: 1</p><p>History: last 3 months</p><p>White-label reports: No</p><p>Alerts when your score really moves — noise doesn't count</p></div>
 <div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $169/mo</p><p>Seats: 10</p><p>Engines: 4 (+DeepSeek)</p><p>Sites: 1</p><p>History: full history</p><p>White-label reports: No</p><p>Alerts when a question drops you, or a rival overtakes you</p></div>
 <div class="card"><h3>Teams</h3><p>$199/mo for the first 12 months, then $300/mo</p><p>Seats: 20</p><p>Engines: 5 (+Mistral)</p><p>Sites: 10</p><p>History: full history</p><p>White-label reports: Yes</p><p>Every alert, across all your sites, in one roll-up</p></div></section>
 
-<section class="view" id="view-team"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-team"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card">
 <h2>Team</h2>
 <p class="desc">Members, roles, and seats.</p>
@@ -1711,7 +1744,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div id="teamMembers"><p id="teamMembersMsg">Loading members…</p></div>
 <p>Seats: <span id="teamSeats">1 seat</span></p></div></section>
 
-<section class="view" id="view-connections"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-connections"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card">
 <h2>Connections</h2>
 <p class="desc">Data sources linked to your brand.</p>
@@ -1719,7 +1752,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <div class="card"><h3>Connected services</h3>
 <div id="connRows"><div class="switch-row"><div><b>Google Search Console</b><p class="muted">Loading…</p></div></div></div></div></section>
 
-<section class="view" id="view-developer"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data for demo only. Actions are not really saved.</p>
+<section class="view" id="view-developer"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card">
 <h2>Developer</h2>
 <p class="desc">API keys and usage.</p>
@@ -1773,7 +1806,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
   <div class="panel">
     <button class="close" id="runClose">✕</button>
     <div id="runConfirm">
-      <h3>Run new snapshot</h3>
+      <h3>Run snapshot</h3>
       <p class="qtext" id="runConfirmNote">Runs with your last configuration. Change it any time.</p>
       <div class="run-summary" id="runSummary"></div><div id="runPool" data-live-layer hidden><p id="runPoolLine"></p><p class="pool-note" id="runPoolShortNote" hidden></p><div id="runTopupRow" hidden><span id="runTopupBtns"></span><p class="pool-note" id="runBuyErr" hidden></p></div></div>
       <div id="runErr"></div>
@@ -2302,8 +2335,6 @@ function go(view) {
   document.getElementById("view-" + view).classList.add("active");
   document.querySelectorAll("[data-view]").forEach(b =>
     b.classList.toggle("active", b.dataset.view === view));
-  document.getElementById("pageTitle").textContent = TITLES[view][0];
-  document.getElementById("pageSub").textContent = TITLES[view][1];
   window.scrollTo({ top: 0 });
 }
 /* Standalone back: browser/gesture back from a standalone page returns to Settings. */
@@ -2343,6 +2374,7 @@ function renderOverview() {
   document.getElementById("ovFresh").textContent = "Last updated " + snap.created_at.slice(0, 10);
   document.getElementById("ovScoreVal").textContent = s.value.toFixed(1);
   document.getElementById("ovScoreCi").textContent = s.ci_low.toFixed(1) + "–" + s.ci_high.toFixed(1);
+  document.getElementById("ovCiLine").style.display = "";
   document.getElementById("ovScoreN").textContent = s.n_valid;
   document.getElementById("ovScoreBlurb").textContent =
     snap.brand.name + " was mentioned in " + s.hits + " of " + s.n_valid + " AI answers.";
@@ -2661,6 +2693,7 @@ function renderScore() {
   document.getElementById("scoreVal").textContent = s.value.toFixed(1);
   document.getElementById("scoreNote").textContent = "⚠ " + s.note;
   document.getElementById("scoreCi").textContent = s.ci_low.toFixed(1) + "–" + s.ci_high.toFixed(1);
+  document.getElementById("scoreCiLine").style.display = "";
   document.getElementById("scoreN").textContent = s.n_valid;
   document.getElementById("scoreBlurb").textContent =
     `${state.snapshot.brand.name} was mentioned in ${s.hits} of ${s.n_valid} AI answers.`;
@@ -2786,7 +2819,7 @@ function renderReport() {
   var _rf = document.getElementById("rescanRingFg"); if (_rf) { _rf.style.transition = "none"; _rf.style.strokeDashoffset = 452.4; }
   var _rb = document.getElementById("rescanBar"); if (_rb) { _rb.style.transition = "none"; _rb.style.width = "0%"; }
   document.getElementById("rescanNote").textContent =
-    `✓ Marked in this demo. Run a new snapshot from Overview to compare against this snapshot (${s.value.toFixed(1)}, ${snap.created_at.slice(0, 10)}).`;
+    `✓ Marked. Run a snapshot from Overview to compare against this snapshot (${s.value.toFixed(1)}, ${snap.created_at.slice(0, 10)}).`;
 }
 document.getElementById("rescanBtn").addEventListener("click", () => {
   var area = document.getElementById("rescanArea");
@@ -3103,7 +3136,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
 .tk-compare label{font-size:13px;color:var(--muted)}
 </style>
 <div id="sessionGate" style="display:none" role="dialog" aria-modal="true" aria-labelledby="sessionGateTitle"><div class="sg-card"><p class="sg-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="sessionGateTitle">You are not signed in</h2><p class="sg-copy">Sign in to open your CitMark dashboard.</p><a class="btn" href="/">Sign in</a></div></div>
-<div id="ppGuide" style="display:none" role="dialog" aria-modal="true" aria-labelledby="ppGuideTitle"><div class="pp-card"><p class="pp-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="ppGuideTitle">Thank you.</h2><p class="pp-sub">Your payment is complete.</p><div id="ppConfirm"><div class="pp-row"><span>Plan</span><b id="ppTier">Processing</b></div><div class="pp-row"><span>Status</span><b id="ppStatus">Processing</b></div><div class="pp-row"><span>Amount paid</span><b id="ppAmount">Processing</b></div></div><div class="pp-choice"><h3>Start with your brand</h3><p class="pp-desc">Add your brand so CitMark can track how AI answers talk about it.</p><label class="pp-field">Brand name<input id="ppBrandName" type="text" autocomplete="organization"></label><label class="pp-field">Domain<input id="ppBrandDomain" type="text" placeholder="yourbrand.com" autocomplete="url"></label><p class="pp-err" id="ppBrandErr" hidden></p><button class="btn" id="ppBrandBtn" type="button" style="width:100%">Add your brand</button></div><div class="pp-choice"><h3>Or run your first snapshot</h3><p class="pp-desc">See how AI answers talk about your brand today.</p><label class="pp-field" id="ppRunDomainWrap" hidden>Domain<input id="ppRunDomain" type="text" placeholder="yourbrand.com"></label><p class="pp-err" id="ppRunErr" hidden></p><button class="btn ghost" id="ppRunBtn" type="button" style="width:100%">Run your first snapshot</button></div><button class="pp-skip" id="ppSkip" type="button">Skip</button></div></div>
+<div id="ppGuide" style="display:none" role="dialog" aria-modal="true" aria-labelledby="ppGuideTitle"><div class="pp-card"><p class="pp-mark"><span class="wordmark">CitMark<span class="dot">.</span></span></p><h2 id="ppGuideTitle">Thank you.</h2><p class="pp-sub">Your payment is complete.</p><div id="ppConfirm"><div class="pp-row"><span>Plan</span><b id="ppTier">Processing</b></div><div class="pp-row"><span>Status</span><b id="ppStatus">Processing</b></div><div class="pp-row"><span>Amount paid</span><b id="ppAmount">Processing</b></div></div><div class="pp-choice"><h3>Start with your brand</h3><p class="pp-desc">Add your brand so CitMark can track how AI answers talk about it.</p><label class="pp-field">Brand name<input id="ppBrandName" type="text" autocomplete="organization"></label><label class="pp-field">Domain<input id="ppBrandDomain" type="text" placeholder="yourbrand.com" autocomplete="url"></label><p class="pp-err" id="ppBrandErr" hidden></p><button class="btn" id="ppBrandBtn" type="button" style="width:100%">Add your brand</button></div><div class="pp-choice"><h3>Or run your first snapshot</h3><p class="pp-desc">See how AI answers talk about your brand today.</p><label class="pp-field" id="ppRunDomainWrap" hidden>Domain<input id="ppRunDomain" type="text" placeholder="yourbrand.com"></label><p class="pp-err" id="ppRunErr" hidden></p><button class="btn ghost" id="ppRunBtn" type="button" style="width:100%">Run snapshot</button></div><button class="pp-skip" id="ppSkip" type="button">Skip</button></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 /* Audit trial c 20261025: toast + demo actions + account gating + data-go */
@@ -3495,7 +3528,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 <style>
 /* Settings card spacing 20261026 (real-device feedback: cards blank uneven, only spacing, no content, no other views): unify card padding, row height, card gap. Root causes fixed here: set-links margin-bottom 18px made card bottom blank 34px vs top 16px; switch rows 12px padding made 2-line rows 62px vs menu rows 44px. */
 #view-settings h2{margin-bottom:16px!important}
-#view-settings .card{padding:16px!important;margin-bottom:16px!important;margin-top:0!important}
+#view-settings .card{padding:24px!important;margin-bottom:16px!important;margin-top:0!important}
 #view-settings .card + .card{margin-top:0!important}
 #view-settings .card .set-links{margin-bottom:0!important}
 #view-settings .card h3{margin-bottom:8px!important}
@@ -3529,7 +3562,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 #upgradeCard .dtc-pos{display:block!important;color:var(--muted)!important;font-size:14px!important;line-height:1.45!important;margin-bottom:10px!important}
 #upgradeCard .dtc-price{display:block!important;margin-bottom:2px!important}
 #upgradeCard .dtc-price b{font-size:20px!important;font-weight:800!important}
-#upgradeCard .dtc-price s{color:var(--muted)!important;font-weight:400!important;margin-left:6px!important;font-size:14px!important}
+#upgradeCard .dtc-price s{color:var(--muted)!important;font-weight:400!important;margin-left:10px!important;font-size:14px!important}
 #upgradeCard .dtc-note{display:block!important;color:var(--muted)!important;font-size:13px!important;line-height:1.45!important;margin-bottom:8px!important}
 #upgradeCard .dtc-founding{display:block!important;color:var(--muted)!important;font-size:13px!important;line-height:1.45!important;margin-bottom:8px!important}
 #upgradeCard .dtc-meta{display:block!important;color:var(--muted)!important;font-size:13px!important;line-height:1.45!important}
@@ -3836,7 +3869,11 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     (list || []).forEach(function (c) { if (c && c.provider) byKey[c.provider] = c; });
     var linkStatus = $('connLinkStatus');
     if (linkStatus) {
-      var nConn = (list || []).filter(function (c) { return c && c.status === 'connected'; }).length;
+      /* One predicate for both surfaces: a provider counts as connected
+         exactly when its row renders as Connected (a row exists). The old
+         hub count required status === 'connected', which disagreed with
+         the rows whenever a provider's row carried any other status. */
+      var nConn = PROVIDERS.filter(function (p) { return byKey[p.key]; }).length;
       linkStatus.textContent = nConn === 0 ? 'No sources connected' : (nConn === 1 ? '1 source connected' : nConn + ' sources connected');
     }
     var html = '';
@@ -3929,9 +3966,8 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
 .brand-save-note{font-size:13.5px;color:var(--muted)}
 .brand-save-note.err{color:#b91c1c}
 #view-brands-new .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
-#view-brands-new .field input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}
-#view-brands-new .field input[type=text]:focus{outline:2px solid var(--skin-accent);outline-offset:1px;border-color:transparent}
-#view-brands-new .field select,#view-brand-edit .field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink);box-sizing:border-box}
+#view-brands-new .field input[type=text]{width:100%;border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink)}
+#view-brands-new .field select,#view-brand-edit .field select{width:100%;border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink);box-sizing:border-box}
 #view-brands-new .field select:focus,#view-brand-edit .field select:focus{outline:2px solid var(--skin-accent);outline-offset:1px;border-color:transparent}
 #view-brands-new .row{display:flex;flex-wrap:nowrap;gap:8px}
 #view-brands-new .row > *{min-width:0;flex:1 1 0}
