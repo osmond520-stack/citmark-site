@@ -4485,9 +4485,22 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
             if (linkBox) { linkBox.textContent = res.body.invite_link; linkBox.style.display = 'block'; }
           } else if (msg) { msg.textContent = 'Invite sent to ' + email + '.'; }
           emailEl.value = '';
+          if (window.__loadTeamMembers) window.__loadTeamMembers();
         } else if (res.status === 422) { if (msg) msg.textContent = "That email address doesn't look right — check it and try again."; }
         else if (res.status === 409) { if (msg) msg.textContent = 'That person is already a member of your team.'; }
-        else if (res.status === 403) { if (msg) msg.textContent = (res.body && (res.body.reason || res.body.detail)) || 'Invites are not available on your current plan.'; }
+        else if (res.status === 403) {
+          /* Split by backend reason (PD copy 2026-11-24; payload {detail, reason},
+             BE1 in-service evidence). seats_exceeded must NOT take the plan
+             sentence (TD boundary) -- it takes PD's seat sentence.
+             Unknown 403s default to permission,
+             never to plan. */
+          var rsn = res.body && res.body.reason;
+          if (msg) msg.textContent = rsn === 'tier_locked'
+            ? "Inviting members isn't included in your current plan."
+            : rsn === 'seats_exceeded'
+              ? "Your plan's seats are all in use \u2014 free a seat or upgrade to invite more members."
+              : "You don't have permission to invite members \u2014 ask the workspace owner or an admin.";
+        }
         else { if (msg) msg.textContent = "Couldn't send the invite. Try again."; }
       })
       .catch(function () { if (msg) msg.textContent = "Couldn't send the invite. Try again."; })
@@ -5252,10 +5265,9 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
     });
   }
   function markSeen() {
-    lsSet(MIRROR, "1");
     try {
       fetch(WRITE_PATH, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: "{}" })
-        .then(function (r) { return r.ok ? r.json().catch(function () { return null; }) : null; })
+        .then(function (r) { if (r.ok) lsSet(MIRROR, "1"); return r.ok ? r.json().catch(function () { return null; }) : null; })
         .then(function (d) {
           /* Contract response {guide_seen, seen_at} (backend line-1, 2026-11-15):
              an already-set marker returns its ORIGINAL seen_at, long before this
