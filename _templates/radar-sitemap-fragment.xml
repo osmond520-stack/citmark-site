@@ -1,0 +1,5 @@
+<!-- Radar sitemap fragment — append these <url> entries to sitemap.xml at publish.
+     One additional <url> per brand page is generated at assembly from the brand
+     register (82 brands, 55410c92): /ai-visibility-leaderboard/cross-border-consumer-brands/{brand-slug}/ -->
+<url><loc>https://citmark.com/ai-visibility-leaderboard/cross-border-consumer-brands/</loc></url>
+<url><loc>https://citmark.com/ai-visibility-leaderboard/cross-border-consumer-brands/open-questions/</loc></url>
