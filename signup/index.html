@@ -216,9 +216,7 @@ header.nav .nav-r>a:not(.btn){color:var(--ink)}
 .auth-card-foot{text-align:center;margin-top:26px;color:var(--ink-2);font-size:15px}
 .auth-card-foot a{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .linkbtn{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:24px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font-weight:700;font-size:15px;color:var(--ink);cursor:pointer;font-family:inherit}
-.shopbtn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;margin-top:26px;border:0;border-radius:999px;background:#008060;font-weight:700;font-size:16px;color:#fff;cursor:pointer;font-family:inherit}
 .mailmark{width:64px;height:64px;border:2px solid var(--or);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:4px auto 0}
-.shopify-note{font-size:13.5px;line-height:1.5;color:var(--ink-2);margin-top:10px}
 /* state heads */
 .auth-head.head-register{display:none}
 #authCard.mode-register .auth-head.head-register{display:block}
@@ -229,13 +227,11 @@ header.nav .nav-r>a:not(.btn){color:var(--ink)}
 /* state visibility (live matrix; pending per BATCH-E mock composition) */
 #authCard.mode-reset .auth-card-oauth-row,#authCard.mode-reset .auth-card-divider,
 #authCard.mode-pending .auth-card-oauth-row,#authCard.mode-pending .auth-card-divider,
-#authCard.mode-neutraldone .auth-card-oauth-row,#authCard.mode-neutraldone .auth-card-divider,
-#authCard.mode-shopify .auth-card-oauth-row,#authCard.mode-shopify .auth-card-divider{display:none}
-#authCard.mode-pending .auth-head,#authCard.mode-neutraldone .auth-head,#authCard.mode-shopify .auth-head,
-#authCard.mode-pending .auth-card-reset-head,#authCard.mode-neutraldone .auth-card-reset-head,#authCard.mode-shopify .auth-card-reset-head{display:none}
-#authCard.mode-pending form,#authCard.mode-neutraldone form,#authCard.mode-shopify form.shopify-hideable{display:none}
-#authCard.mode-shopify #authCardLoginForm{display:none}
-#authCard.mode-pending .auth-card-foot,#authCard.mode-neutraldone .auth-card-foot,#authCard.mode-shopify .auth-card-foot{display:none}
+#authCard.mode-neutraldone .auth-card-oauth-row,#authCard.mode-neutraldone .auth-card-divider{display:none}
+#authCard.mode-pending .auth-head,#authCard.mode-neutraldone .auth-head,
+#authCard.mode-pending .auth-card-reset-head,#authCard.mode-neutraldone .auth-card-reset-head{display:none}
+#authCard.mode-pending form,#authCard.mode-neutraldone form{display:none}
+#authCard.mode-pending .auth-card-foot,#authCard.mode-neutraldone .auth-card-foot{display:none}
 #authCard.mode-register .pw-field,#authCard.mode-reset .pw-field{display:none}
 .cf-field{display:none}
 #authCard.mode-register .auth-card-forgot-row,#authCard.mode-reset .auth-card-forgot-row{display:none}
@@ -255,9 +251,6 @@ header.nav .nav-r>a:not(.btn){color:var(--ink)}
 .auth-card-neutraldone{display:none;text-align:center;padding:10px 0 4px}
 #authCard.mode-neutraldone .auth-card-neutraldone{display:block}
 .auth-card-neutraldone p{font-size:15.5px;line-height:1.6;color:var(--ink-2);margin:0}
-/* shopify state */
-.auth-shopify{display:none}
-#authCard.mode-shopify .auth-shopify{display:block}
 .auth-card-demo-toast { position: fixed; left: 50%; bottom: 28px; z-index: 300; transform: translateX(-50%);
         max-width: calc(100% - 48px); padding: 12px 18px; border-radius: 999px;
         background: var(--ink); color: var(--bg-raise); font-size: 14px; font-weight: 600; text-align: center;
@@ -284,7 +277,6 @@ header.nav .nav-r>a:not(.btn){color:var(--ink)}
         </div>
         <div class="auth-card-oauth-row">
         <button class="gbtn" type="button" id="authCardGoogleBtn" aria-disabled="false"><svg width="20" height="20" viewBox="0 0 48 48" style="flex:none;display:block"><path fill="#4285F4" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,13.955,4,4,13.955,4,24s9.955,20,20,20,20-9.955,20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#34A853" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4,16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#FBBC05" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#EA4335" d="M43.611,20.083H42V20H24v8h11.303c-.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C36.971,39.205,44,34,44,24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="btn-capsule-label">Continue with Google</span></button>
-        <button class="gbtn" type="button" id="authCardShopifyBtn">Continue with Shopify</button>
         </div>
         <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
         <div class="auth-card-reset-head">
@@ -315,20 +307,6 @@ header.nav .nav-r>a:not(.btn){color:var(--ink)}
           <button class="btn capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false" aria-label="Log in"><span class="sb-txt">Log in</span></button>
           <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
         </form>
-      <div class="auth-shopify" id="authCardShopifyView">
-        <p class="label">&mdash; Shopify</p>
-        <h1 class="auth-h1">Sign in with <span class="serif">Shopify</span></h1>
-        <p class="sub">Use the Shopify account connected to your store &mdash; no separate CitMark password.</p>
-        <form method="get" action="https://citmark.com/auth/shopify/login">
-          <input type="hidden" name="intent" value="login">
-          <div class="f-field"><label for="shopifyShop">Store domain</label><input id="shopifyShop" type="text" name="shop" required placeholder="yourstore.myshopify.com"></div>
-          <p class="shopify-note">Enter your store&rsquo;s Shopify domain.</p>
-          <button class="shopbtn" type="submit">Continue with Shopify</button>
-        </form>
-        <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
-        <button class="linkbtn" type="button" id="authCardShopifyBack" style="margin-top:6px">Sign in with email instead</button>
-        <p class="f-fine">We will send you to Shopify to approve access for that store.</p>
-      </div>
         <div class="auth-card-pending" id="authCardPending">
           <div class="mailmark"><svg width="28" height="22" viewBox="0 0 28 22"><rect x="1.5" y="1.5" width="25" height="19" rx="3" fill="none" stroke="#E8541E" stroke-width="2"/><path d="M3 4l11 8 11-8" fill="none" stroke="#E8541E" stroke-width="2"/></svg></div>
           <h1 class="auth-h1">Check your <span class="serif">inbox</span> to finish signing up.</h1>
@@ -710,21 +688,6 @@ setMode("register");
       window.location.href = "/signup/";
     });
   });
-})();
-</script>
-<script id="shopify-view-switch">
-/* [prod] batch-E: Shopify card view entry/exit. Capture-phase intercept so the
-   stock script's direct-navigation handler on the same button never fires. */
-(function () {
-  var card = document.getElementById("authCard");
-  if (!card) return;
-  card.addEventListener("click", function (ev) {
-    var t = ev.target;
-    var entry = t && t.closest ? t.closest("#authCardShopifyBtn") : null;
-    if (entry) { ev.preventDefault(); ev.stopPropagation(); card.classList.add("mode-shopify"); return; }
-    var back = t && t.closest ? t.closest("#authCardShopifyBack") : null;
-    if (back) { ev.preventDefault(); card.classList.remove("mode-shopify"); }
-  }, true);
 })();
 </script>
 </body>
