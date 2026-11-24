@@ -1683,7 +1683,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></div>
 <div class="card" style="border:2px solid #dc2626;background:#fef2f2"><h3 style="color:#b91c1c">⚠ Delete account</h3><p class="desc" style="color:#7f1d1d">Deleting your account cannot be undone. This removes your brand, snapshots, and reports. Separate from Export.</p><button class="btn" type="button" data-go="security-delete" style="background:#dc2626;border-color:#dc2626">Delete account ›</button></div></section>
 <section class="view" id="view-billing"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
-<div class="card state-card" data-http-slot id="invEmpty"><div class="state-eyebrow">Invoices</div><p class="state-title">No invoices yet.</p><p class="state-desc">Invoices from your subscription will appear here.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
+<div class="card state-card" data-http-slot id="invEmpty"><div class="state-eyebrow">Invoices</div><p class="state-title">No invoices yet.</p><p class="state-desc">Invoices appear here after your first payment.</p></div><div class="card" data-demo-layer><h3>Invoices</h3>
 <table class="inv-table" style="min-width:0"><thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody><tr><td>Oct 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20261026/document?download=1">Download</a></td></tr>
 <tr><td>Sep 26, 2026 <span class="sample-tag">Sample</span></td><td data-label="Amount">$25</td><td data-label="Status"><span class="badge-ok">Paid</span></td><td data-label="Actions"><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document" target="_blank" rel="noopener">View</a><a class="inv-action" href="/billing/invoices/inv-sample-20260926/document?download=1">Download</a></td></tr></tbody></table></div><div class="card" data-live-layer id="invCard" hidden><h3>Invoices</h3>
@@ -5026,8 +5026,19 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     var err = document.getElementById("invError");
     if (!empty || !card || !body) return;
     fetch("/billing/invoices", { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) { throw new Error("http " + r.status); } return r.json(); })
+      .then(function (r) {
+        if (r.status === 403) {
+          /* No plan: a normal empty state, not a load failure. */
+          if (err) err.hidden = true;
+          card.hidden = true;
+          empty.style.display = "";
+          return null;
+        }
+        if (!r.ok) { throw new Error("http " + r.status); }
+        return r.json();
+      })
       .then(function (data) {
+        if (!data) return;
         var list = (data && data.invoices) || [];
         body.textContent = "";
         if (err) err.hidden = true;
@@ -5656,7 +5667,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     rowsBox.textContent = "";
     if (!v || v.source === "demo") {
       card.hidden = false;
-      rowsBox.appendChild(el("p", null, "Billing details aren't available in this demo view."));
+      rowsBox.appendChild(el("p", null, "Billing details aren't available in this sample view."));
       return;
     }
     var n = 0;
@@ -5682,10 +5693,20 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     }
     card.hidden = n === 0;
   }
+  function noPlan() {
+    if (errLine) errLine.hidden = true;
+    rowsBox.textContent = "";
+    rowsBox.appendChild(el("p", null, "No plan yet \u00b7 Your free snapshot is included."));
+    card.hidden = false;
+  }
   function load() {
     fetch("/billing/view", { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) throw new Error("billing-view"); return r.json(); })
-      .then(render)
+      .then(function (r) {
+        if (r.status === 403) { noPlan(); return null; }
+        if (!r.ok) throw new Error("billing-view");
+        return r.json();
+      })
+      .then(function (v) { if (v) render(v); })
       .catch(fail);
   }
   if (retryBtn) retryBtn.addEventListener("click", load);
