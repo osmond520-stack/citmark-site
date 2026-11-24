@@ -3436,7 +3436,7 @@ if(tog){ tog.addEventListener("change",function(){
 /* v2: hold pre-play state from init; IO (threshold .15) is the only play path.
    Retrigger (his ruling 2026-10-30): no once-lock - entry plays, exit resets. */
 var PRIME={S1:".hero-mini",S2:".hero-chips > span",S4:".sr-table tbody tr",S5:"#why .ds-item",S6:"#how .step",S7:"#toolkit .tkrow",S8:"#pricing .plan",S9:".pricing-foot",S10:"#join .jstep"};
-if(!reduced.matches){ Object.keys(PRIME).forEach(function(k){ qa(PRIME[k]).forEach(function(el){ el.classList.add("m-anim"); el.classList.add("m-pre"); }); });
+if(!reduced.matches){ Object.keys(PRIME).forEach(function(k){ if(k==="S1") return; qa(PRIME[k]).forEach(function(el){ el.classList.add("m-anim"); el.classList.add("m-pre"); }); });
   qa(".hero-mini-track > span").forEach(function(el){ el.classList.add("m-bar"); el.classList.add("m-bar-pre"); }); }
 var IO_MAP={S1:".hero-mini",S2:".hero-chips",S4:"#sample-table",S5:"#why",S6:"#how",S7:"#toolkit",S8:"#pricing",S9:".pricing-foot",S10:"#join"};
 var GEN={};
@@ -3449,9 +3449,13 @@ function mReset(k){
   if(anch){ var sec=document.querySelector(anch); sec=sec?sec.closest("section"):null; var r=sec?sec.querySelector(".m-rule"):null; if(r) r.classList.remove("go"); }
 }
 if("IntersectionObserver" in window){
-  var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ var k=e.target.getAttribute("data-m"); if(e.isIntersecting){ if(PLAY[k]) PLAY[k](); } else { mReset(k); } }); },{threshold:.01});
-  Object.keys(IO_MAP).forEach(function(k){ var el=document.querySelector(IO_MAP[k]); if(el){ el.setAttribute("data-m",k); mio.observe(el); } });
+  var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ var k=e.target.getAttribute("data-m"); if(e.isIntersecting){ if(PLAY[k]) PLAY[k](); mio.unobserve(e.target); } }); },{threshold:.01});
+  Object.keys(IO_MAP).forEach(function(k){ if(k==="S1") return; var el=document.querySelector(IO_MAP[k]); if(el){ el.setAttribute("data-m",k); mio.observe(el); } });
 }
+/* fault fix 2026-11-24: first-screen card plays at init, never gated on the observer;
+   watchdog guarantees nothing stays in the pre-play hidden state if delivery fails. */
+if(PLAY.S1) PLAY.S1();
+setTimeout(function(){ qa(".m-pre").forEach(function(el){ el.classList.remove("m-pre"); }); qa(".m-bar-pre").forEach(function(el){ el.classList.remove("m-bar-pre"); }); },3000);
 
 /* INTENSITY C: drawn accents — injections + play hook (production form;
    staging semantics identical to the approved C demo). */
