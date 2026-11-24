@@ -4488,7 +4488,19 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
           if (window.__loadTeamMembers) window.__loadTeamMembers();
         } else if (res.status === 422) { if (msg) msg.textContent = "That email address doesn't look right — check it and try again."; }
         else if (res.status === 409) { if (msg) msg.textContent = 'That person is already a member of your team.'; }
-        else if (res.status === 403) { if (msg) msg.textContent = (res.body && (res.body.reason || res.body.detail)) || 'Invites are not available on your current plan.'; }
+        else if (res.status === 403) {
+          /* Split by backend reason (PD copy 2026-11-24; payload {detail, reason},
+             BE1 in-service evidence). seats_exceeded must NOT take the plan
+             sentence (TD boundary) -- it uses the generic line until PD rules
+             a seat-specific sentence. Unknown 403s default to permission,
+             never to plan. */
+          var rsn = res.body && res.body.reason;
+          if (msg) msg.textContent = rsn === 'tier_locked'
+            ? "Inviting members isn't included in your current plan."
+            : rsn === 'seats_exceeded'
+              ? "Couldn't send the invite. Try again."
+              : "You don't have permission to invite members \u2014 ask the workspace owner or an admin.";
+        }
         else { if (msg) msg.textContent = "Couldn't send the invite. Try again."; }
       })
       .catch(function () { if (msg) msg.textContent = "Couldn't send the invite. Try again."; })
