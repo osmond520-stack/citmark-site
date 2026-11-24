@@ -318,14 +318,16 @@ header.nav .nav-r>a:not(.btn){color:var(--ink)}
       <div class="auth-shopify" id="authCardShopifyView">
         <p class="label">&mdash; Shopify</p>
         <h1 class="auth-h1">Sign in with <span class="serif">Shopify</span></h1>
+        <p class="sub">Use the Shopify account connected to your store &mdash; no separate CitMark password.</p>
         <form method="get" action="https://citmark.com/auth/shopify/login">
           <input type="hidden" name="intent" value="login">
           <div class="f-field"><label for="shopifyShop">Store domain</label><input id="shopifyShop" type="text" name="shop" required placeholder="yourstore.myshopify.com"></div>
-          <p class="shopify-note">Enter your store&rsquo;s Shopify domain. We will send you to Shopify to approve access for that store.</p>
+          <p class="shopify-note">Enter your store&rsquo;s Shopify domain.</p>
           <button class="shopbtn" type="submit">Continue with Shopify</button>
         </form>
         <div class="auth-card-divider" aria-hidden="true"><span>or</span></div>
         <button class="linkbtn" type="button" id="authCardShopifyBack" style="margin-top:6px">Sign in with email instead</button>
+        <p class="f-fine">We will send you to Shopify to approve access for that store.</p>
       </div>
         <div class="auth-card-pending" id="authCardPending">
           <div class="mailmark"><svg width="28" height="22" viewBox="0 0 28 22"><rect x="1.5" y="1.5" width="25" height="19" rx="3" fill="none" stroke="#E8541E" stroke-width="2"/><path d="M3 4l11 8 11-8" fill="none" stroke="#E8541E" stroke-width="2"/></svg></div>
