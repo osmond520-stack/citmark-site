@@ -1278,6 +1278,18 @@ body{background:var(--bg);color:var(--ink)}
 @media (max-width:340px){.final h2 .nowrap{font-size:22px}}
 @media (max-width:860px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
 </style>
+<style id="batchd">
+/* [prod] batch-D landing deltas to the approved c3 form: hero top tightening (c3 first-section 56px) + closing form mobile shadow step (5px to 4px, BATCH-D3) + comparison-table scroll set (sticky label column, right-edge fade, SCROLL hint) */
+.hero-sec{padding-top:56px}
+@media (max-width:600px){.final .field-cta{box-shadow:4px 4px 0 var(--or)}}
+.tscroll-shell{display:grid;grid-template-rows:auto auto}
+.tscroll-hint{grid-row:1;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink-3);text-align:right;margin:0 0 8px;display:none}
+.tscroll-shell .tscroll{grid-row:2;grid-column:1}
+.tscroll-shell::after{content:"";grid-row:2;grid-column:1;justify-self:end;width:32px;pointer-events:none;background:linear-gradient(to right,rgba(244,241,234,0),var(--bg));display:none;z-index:2}
+@media (max-width:640px){.tscroll-hint{display:block}.tscroll-shell::after{display:block}}
+.cmp-table thead th:first-child{position:sticky;left:0;background:var(--bg);z-index:3;box-shadow:inset -1px 0 0 var(--line)}
+.cmp-table tbody tr:not(.grp) td:first-child{position:sticky;left:0;background:var(--bg);z-index:1;box-shadow:inset -1px 0 0 var(--line)}
+</style>
 </head>
 <body class="session-ready">
 <header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
@@ -1319,7 +1331,7 @@ body{background:var(--bg);color:var(--ink)}
   <div class="wrap">
     <p class="eyebrow">SIDE BY SIDE</p>
     <h2>The table, concessions included</h2>
-    <div class="tscroll"><table class="cmp-table"><thead><tr><th></th><th>CitMark</th><th>Profound</th></tr></thead><tbody>
+    <div class="tscroll-shell"><p class="tscroll-hint" aria-hidden="true">&rarr; SCROLL</p><div class="tscroll"><table class="cmp-table"><thead><tr><th></th><th>CitMark</th><th>Profound</th></tr></thead><tbody>
 <tr class="grp"><td colspan="3">MEASURE</td></tr>
 <tr><td><span class="tag-win">Their win</span>Answer engines</td><td>3 (Pro: 4, incl. DeepSeek (synthetic))</td><td>Up to 10</td></tr>
 <tr><td>Domains tracked</td><td>1–10 by plan</td><td>Unlimited</td></tr>
@@ -1337,7 +1349,7 @@ body{background:var(--bg);color:var(--ink)}
 <tr><td>Public pricing</td><td>Every price and point, on the pricing page</td><td>Custom — no public prices</td></tr>
 <tr><td><span class="tag-win">Their win</span>Security &amp; SSO</td><td>—</td><td>SOC 2 · SSO/SAML</td></tr>
 <tr><td><span class="tag-win">Their win</span>Agent automation</td><td>—</td><td>AI Marketer, on credits</td></tr>
-</tbody></table></div>
+</tbody></table></div></div>
     <p class="asof">Grok and Claude are measured in our research panel; neither is sold in any plan.</p>
     <p class="asof">Facts on this page checked November 21, 2026 against Profound's pricing &amp; feature pages.</p>
   </div>
