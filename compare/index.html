@@ -1283,6 +1283,10 @@ body{background:var(--bg);color:var(--ink)}
 .hero-sec{padding-top:56px}
 @media (max-width:600px){.final .field-cta{box-shadow:4px 4px 0 var(--or)}}
 </style>
+<style id="type5-fix">
+/* type batch 5 (2026-11-24): compare body text 14.5 -> 17 (SPEC S11); .engine-tab stays 14.5 as a UI control label */
+.fix-card p,.score-sub,.check-item .fix,.cede p,.tue p,.price-cols p,.hubcard p,.sib,.check-row{font-size:17px}
+</style>
 </head>
 <body class="session-ready">
 <header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
@@ -1292,11 +1296,12 @@ body{background:var(--bg);color:var(--ink)}
     <p class="eyebrow">COMPARE</p>
     <h1 style="margin:0 0 14px">Compared, with the <span class="it">concessions</span> in writing.</h1>
     <p class="p-sub" style="max-width:44em">Three rules govern every comparison on this site. We name the rows where the other tool genuinely wins — and tag them in the table. Every fact carries the date it was checked. And we compare the whole job — measure, diagnose, draft — not just the scoreboard.</p>
+      <p class="p-sub" style="margin-top:16px"><a href="#comparisons" style="color:#C2410C;text-decoration:underline;text-underline-offset:3px">See the comparisons ↓</a></p>
   </div>
 </section>
 <section class="sec">
   <div class="wrap">
-    <div class="hubcards">
+    <div class="hubcards" id="comparisons">
       <div class="hubcard"><h3>CitMark vs Otterly</h3>
         <p>The default AI-visibility dashboard: seven engines, a wide free-tool surface, plans from €29 a month.</p>
         <p>Where they win: engine breadth, prompt volume, free tools, agency form, API access.</p>
