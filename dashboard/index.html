@@ -1279,7 +1279,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       <div class="nav-group" aria-hidden="true">Act</div>
       <button data-view="tools"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>Toolkit</button>
       <button data-view="inbox"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></span>Approval inbox<span class="nav-badge" id="inboxBadge" hidden></span></button>       <button data-view="settings"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9"/><circle cx="16.5" cy="8" r="2.2"/><path d="M4 16h3"/><circle cx="10.5" cy="16" r="2.2"/><path d="M14 16h6"/></svg></span>Settings</button>
-    </nav>
+    </nav> <div class="side-plan" id="sidePlan"><div class="sp-t" id="spTitle">No plan yet</div><div class="sp-d" id="spDesc">Your free snapshot is included</div><div class="meter"><i id="spMeter" style="width:0%"></i></div><button class="btn small ghost" type="button" data-go="plan">View plans</button></div>
     </aside>
 
   <div class="main">
@@ -1287,7 +1287,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       <div class="topbar-in">
         <div class="toplogo"><a class="wordmark" href="/">CitMark<span class="dot">.</span></a></div>
         
-        <button class="bell-btn" id="bellBtn" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="bell-badge" id="bellBadge">4</span></button>
+        <span class="snap-st none" id="snapSt" hidden><i></i><span id="snapStText"></span></span> <button class="bell-btn" id="bellBtn" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="bell-badge" id="bellBadge">4</span></button>
         <button class="id-avatar-btn" id="idAvatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span></button>
       </div>
       <div class="id-row" id="idRow">
@@ -1330,7 +1330,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
                 <circle id="ovRingFg" cx="94" cy="94" r="80" fill="none" stroke="var(--skin-accent)"
                   stroke-width="14" stroke-linecap="round" stroke-dasharray="502.7" stroke-dashoffset="502.7"/>
               </svg>
-              <div class="val"><b id="ovScoreVal">–</b><span>VISIBILITY</span></div>
+              <div class="val"><b id="ovScoreVal">–</b><small class="of">/100</small><span>VISIBILITY</span></div>
             </div>
             <p class="ci" id="ovCiLine" style="display:none">Likely range <b id="ovScoreCi">–</b> · <span id="ovScoreN">–</span> valid answers</p>
             <p class="ci-note">With this few answers, the true rate could plausibly sit anywhere in this range.</p>
@@ -1396,7 +1396,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
                 <circle id="ringFg" cx="84" cy="84" r="72" fill="none" stroke="var(--skin-accent)"
                   stroke-width="14" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="452.4"/>
               </svg>
-              <div class="val"><b id="scoreVal">–</b><span>VISIBILITY</span></div>
+              <div class="val"><b id="scoreVal">–</b><small class="of">/100</small><span>VISIBILITY</span></div>
             </div>
             <div class="score-meta">
               <h2>Visibility score</h2>
@@ -1473,7 +1473,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
             <div id="rescanAnim" style="display:none;padding:12px 0">
               <div class="ring" style="margin:0 auto">
                 <svg width="168" height="168" viewBox="0 0 168 168"><circle cx="84" cy="84" r="72" fill="none" stroke="var(--bg-sink)" stroke-width="14"/><circle id="rescanRingFg" cx="84" cy="84" r="72" fill="none" stroke="var(--skin-accent)" stroke-width="14" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="452.4"/></svg>
-                <div class="val"><b id="rescanScore">18.2</b><span>VISIBILITY</span></div>
+                <div class="val"><b id="rescanScore">18.2</b><small class="of">/100</small><span>VISIBILITY</span></div>
               </div>
               <div class="bar-track" style="margin-top:12px"><div class="bar-fill" id="rescanBar" style="width:0%"></div></div>
               <p class="ov-empty">Re-checking… mention rate 18.2%</p>
@@ -1563,41 +1563,32 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: TOOLS (shell, Phase 3) ============ -->
-            <section class="view" id="view-tools"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card">
+            <section class="view" id="view-tools"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card pg-head">
 <h2>Toolkit</h2>
 <p class="desc">Tools that turn your score into fixes.</p>
 </div>
 
 <div class="card"><h3>Impact tracker <button type="button" class="tool-info-btn" data-tool-info="impact" aria-label="About Impact tracker">?</button></h3>
-<p>Did it work? See what changed after each fix — with noise removed.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p0">Preview</button></div>
+<p>Did it work? See what changed after each fix — with noise removed.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p0">Open</button></div>
 
-<div class="card"><h3>Page checkup <button type="button" class="tool-info-btn" data-tool-info="checkup" aria-label="About Page checkup">?</button></h3>
-<p>Why AI skips your pages — and the brief to fix it.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p1">Preview</button></div>
+<div class="tool-row"><span class="tr-n">02</span><div><h3>Page checkup <button type="button" class="tool-info-btn" data-tool-info="checkup" aria-label="About Page checkup">?</button></h3> <p>Why AI skips your pages — and the brief to fix it.</p> <p class="tk-tier">All plans · deeper on Growth and above</p></div> <button type="button" class="btn ghost" data-go="tools-p1">Open</button></div>
 
-<div class="card"><h3>Win citations <button type="button" class="tool-info-btn" data-tool-info="citations" aria-label="About Win citations">?</button></h3>
-<p>Sites that cite your rivals but not you — with outreach drafts.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p2">Preview</button></div>
+<div class="tool-row"><span class="tr-n">03</span><div><h3>Win citations <button type="button" class="tool-info-btn" data-tool-info="citations" aria-label="About Win citations">?</button></h3> <p>Sites that cite your rivals but not you — with outreach drafts.</p> <p class="tk-tier">All plans · deeper on Growth and above</p></div> <button type="button" class="btn ghost" data-go="tools-p2">Open</button></div>
 
-<div class="card"><h3>AI readiness <button type="button" class="tool-info-btn" data-tool-info="readiness" aria-label="About AI readiness">?</button></h3>
-<p>Can AI read your site? A technical check, plus a one-line brief for your developer.</p> <p class="tk-tier">Included on all plans · full audit on Growth and above</p> <button type="button" class="btn" data-go="tools-p3">Preview</button></div>
+<div class="tool-row"><span class="tr-n">04</span><div><h3>AI readiness <button type="button" class="tool-info-btn" data-tool-info="readiness" aria-label="About AI readiness">?</button></h3> <p>Can AI read your site? A technical check, plus a one-line brief for your developer.</p> <p class="tk-tier">Included on all plans · full audit on Growth and above</p></div> <button type="button" class="btn ghost" data-go="tools-p3">Open</button></div>
 
-<div class="card"><h3>llms.txt generator <button type="button" class="tool-info-btn" data-tool-info="llms" aria-label="About llms.txt generator">?</button></h3>
-<p>A small file that tells AI what your site is about.</p> <p class="tk-tier">All plans · batch generation on Teams</p> <button type="button" class="btn" data-go="tools-p5">Preview</button></div>
+<div class="tool-row"><span class="tr-n">05</span><div><h3>llms.txt generator <button type="button" class="tool-info-btn" data-tool-info="llms" aria-label="About llms.txt generator">?</button></h3> <p>A small file that tells AI what your site is about.</p> <p class="tk-tier">All plans · batch generation on Teams</p></div> <button type="button" class="btn ghost" data-go="tools-p5">Open</button></div>
 
-<div class="card"><h3>Fix a bad mention <button type="button" class="tool-info-btn" data-tool-info="mention" aria-label="About Fix a bad mention">?</button></h3>
-<p>Step-by-step when AI gets your facts wrong.</p> <p class="tk-tier">All plans · deeper on Growth and above</p> <button type="button" class="btn" data-go="tools-p4">Preview</button></div>
+<div class="tool-row"><span class="tr-n">06</span><div><h3>Fix a bad mention <button type="button" class="tool-info-btn" data-tool-info="mention" aria-label="About Fix a bad mention">?</button></h3> <p>Step-by-step when AI gets your facts wrong.</p> <p class="tk-tier">All plans · deeper on Growth and above</p></div> <button type="button" class="btn ghost" data-go="tools-p4">Open</button></div>
 
-<div class="card"><h3>Answer history <button type="button" class="tool-info-btn" data-tool-info="history" aria-label="About Answer history">?</button></h3>
-<p>See how AI's answers about you changed, word for word.</p> <button type="button" class="btn" data-go="tools-p6">Preview</button></div>
+<div class="tool-row"><span class="tr-n">07</span><div><h3>Answer history <button type="button" class="tool-info-btn" data-tool-info="history" aria-label="About Answer history">?</button></h3> <p>See how AI's answers about you changed, word for word.</p></div> <button type="button" class="btn ghost" data-go="tools-p6">Open</button></div>
 
-<div class="card"><h3>What AI says about you <button type="button" class="tool-info-btn" data-tool-info="says" aria-label="About What AI says about you">?</button> <span class="badge-soon">Coming soon</span></h3>
-<p>Not just whether AI mentions you — what it says, checked against your facts.</p></div>
 
-<div class="card"><h3>Question radar <button type="button" class="tool-info-btn" data-tool-info="radar" aria-label="About Question radar">?</button> <span class="badge-soon">Coming soon</span></h3>
-<p>New questions worth tracking — from search data, not guesses.</p></div>
 
-<div class="card"><h3>MCP access (read-only) <button type="button" class="tool-info-btn" data-tool-info="mcp" aria-label="About MCP access (read-only)">?</button> <span class="badge-soon">Coming soon</span></h3>
-<p>Ask your CitMark data inside ChatGPT or Claude.</p></div>
-</section>
+
+
+
+<p class="tools-soon">Coming soon: What AI says about you \u00b7 Question radar \u00b7 MCP access (read-only)</p></section>
 <section class="view" id="view-tools-p0"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card state-card" data-http-slot id="impEmpty"><div class="state-eyebrow">Impact tracker</div><p class="state-title">Nothing to track yet.</p><p class="state-desc">Impact tracking starts with your first snapshot and the fixes you make from it.</p><div class="state-actions"><button class="btn" type="button" data-state-run>Run snapshot</button></div></div><div class="card"><h2>Impact tracker</h2><p class="desc">Did it work? See what changed after each fix — with noise removed.</p></div><div class="card" data-live-layer id="impActionsCard" hidden><h3>Fixes</h3><div id="impActions"></div></div>
 <div class="card" data-live-layer id="impSeriesCard" hidden><h3>Score history</h3><div id="impSeries"></div><p class="desc" id="impWithheld" hidden></p></div>
 <div class="card" data-live-layer id="impFeedCard" hidden><h3>This week</h3><div id="impFeed"></div></div>
@@ -1614,7 +1605,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <section class="view" id="view-tools-p5"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">← Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>llms.txt generator</h2><p class="desc">A small file that tells AI what your site is about.</p></div><div class="card"><div class="tk-row"><div class="tk-row-top"><span>File generation</span><span class="badge-ok">Always allowed</span><span class="tk-badge-notconn">Not connected</span></div></div></div><div class="card" data-live-layer id="llmCard" hidden><h3>Your llms.txt</h3><p class="desc" id="llmStatus">No llms.txt generated.</p><pre id="llmPreview" hidden style="white-space:pre-wrap;word-break:break-word;font-size:12px"></pre><div class="state-actions"><button class="btn" type="button" id="llmGenBtn">Generate llms.txt</button><a class="btn" id="llmDl" href="#" hidden>Download</a></div></div><div class="card state-card fail" data-live-layer id="llmError" hidden><div class="state-eyebrow">llms.txt generator</div><p class="state-title">Couldn't load your llms.txt status.</p><div class="state-actions"><button class="btn" type="button" id="llmRetry">Retry</button></div></div></section>
 <section class="view" id="view-tools-p6"><button class="back-btn" type="button" data-go="tools" aria-label="Back to Tools">&larr; Back to Tools</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Answer history</h2><p class="desc">See how AI's answers about you changed, word for word &mdash; run by run, question by question.</p></div><div class="card"><h3>Snapshot runs</h3><div id="t7Runs"></div></div><div class="card" id="t7LockedCard" hidden><p class="t7-locked-count" id="t7LockedCount"></p><p class="desc" id="t7LockedNote"></p><button type="button" class="btn small ghost" data-go="plan">See plans</button></div><div class="card" id="t7DetailCard" hidden><h3 id="t7DetailTitle">Run detail</h3><p class="desc" id="t7DetailMeta"></p><div id="t7DetailBody"></div></div><div class="card"><h3>Compare two runs</h3><div id="t7Compare"></div></div></section>
 
-            <section class="view" id="view-inbox"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Approval inbox</h2><p class="desc">Nothing is sent from here.</p></div><div class="card" data-live-layer id="inboxListCard" hidden><p class="desc" id="inboxCaughtUp" hidden>You're all caught up.</p><div id="inboxList"></div></div><div class="card state-card" data-live-layer id="inboxEmpty" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">No drafts waiting.</p><p class="state-desc">Drafts you generate from a case land here for your review. Nothing is ever sent from here.</p></div><div class="card" data-live-layer id="inboxDetailCard" hidden><div class="tk-row-top"><span><button class="btn small" type="button" id="inboxBackBtn">← Approval inbox</button> <button class="btn small ghost" type="button" id="inboxToCaseBtn">Back to case</button></span><span class="tk-badge-note" id="inboxChip"></span></div><p class="desc" id="inboxMeta"></p><div id="inboxBodyBox"></div><div id="inboxProv"></div><div class="state-actions"><button class="btn" type="button" id="inboxExportBtn">Download draft</button><button class="btn ghost" type="button" id="inboxCopyBtn">Copy text</button><button class="btn ghost" type="button" id="inboxUsedBtn">Mark as used</button><button class="btn ghost" type="button" id="inboxDiscardBtn">Discard</button></div><p class="desc" id="inboxMsg" hidden></p></div><div class="card state-card fail" data-live-layer id="inboxError" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">Couldn't load your approval inbox.</p><div class="state-actions"><button class="btn" type="button" id="inboxRetry">Retry</button></div></div></section><section class="view" id="view-facts"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Your facts</h2><p class="desc">We check what AI says against the facts you confirm here. Nothing is used until you confirm it.</p></div><div class="card" data-live-layer id="factsBar" hidden><p class="desc">Changes aren't confirmed yet — new cases can't be checked against them until you confirm.</p><div class="state-actions"><button class="btn" type="button" id="factsConfirmBtn">Confirm facts</button></div><p class="desc" id="factsBarErr" hidden></p></div><p class="desc" data-live-layer id="factsVerLine" hidden></p><div class="card" data-live-layer id="factsListCard" hidden><div id="factsList"></div></div><div class="card state-card" data-live-layer id="factsEmpty" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Confirm your facts first</p><p class="state-desc">We check claims against facts you've confirmed — and this workspace doesn't have a confirmed set yet. Add your key facts and confirm them, and we'll classify this mention right away.</p></div><div class="card" data-live-layer id="factsAddCard" hidden><h3>Add a fact</h3><div class="field"><label for="factStmt">Fact</label><input type="text" id="factStmt" placeholder="Allbirds shoes are not made of leather."></div><div class="field"><label for="factLink">Source link</label><input type="text" id="factLink" placeholder="https://"></div><p class="desc" id="factAddErr" hidden></p><div class="state-actions"><button class="btn ghost" type="button" id="factAddBtn">Add fact</button></div></div><div class="card state-card fail" data-live-layer id="factsError" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Couldn't load your facts.</p><div class="state-actions"><button class="btn" type="button" id="factsRetry">Retry</button></div></div></section><section class="view" id="view-notifications"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card state-card" data-empty-slot><div class="state-eyebrow">Notifications</div><p class="state-title">No notifications yet.</p><p class="state-desc">Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
+            <section class="view" id="view-inbox"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card pg-head"><h2>Approval inbox</h2><p class="desc">Nothing is sent from here.</p></div><div class="inbox-split"><div class="card" data-live-layer id="inboxListCard" hidden><p class="desc" id="inboxCaughtUp" hidden>You're all caught up.</p><div id="inboxList"></div></div><div class="card state-card" data-live-layer id="inboxEmpty" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">No drafts waiting.</p><p class="state-desc">Drafts you generate from a case land here for your review. Nothing is ever sent from here.</p></div><div class="card" data-live-layer id="inboxDetailCard" hidden><div class="tk-row-top"><span><button class="btn small" type="button" id="inboxBackBtn">← Approval inbox</button> <button class="btn small ghost" type="button" id="inboxToCaseBtn">Back to case</button></span><span class="tk-badge-note" id="inboxChip"></span></div><p class="desc" id="inboxMeta"></p><div id="inboxBodyBox"></div><div id="inboxProv"></div><div class="state-actions"><button class="btn" type="button" id="inboxExportBtn">Download draft</button><button class="btn ghost" type="button" id="inboxCopyBtn">Copy text</button><button class="btn ghost" type="button" id="inboxUsedBtn">Mark as used</button><button class="btn ghost" type="button" id="inboxDiscardBtn">Discard</button></div><p class="desc" id="inboxMsg" hidden></p></div></div><div class="card state-card fail" data-live-layer id="inboxError" hidden><div class="state-eyebrow">Approval inbox</div><p class="state-title">Couldn't load your approval inbox.</p><div class="state-actions"><button class="btn" type="button" id="inboxRetry">Retry</button></div></div></section><section class="view" id="view-facts"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Your facts</h2><p class="desc">We check what AI says against the facts you confirm here. Nothing is used until you confirm it.</p></div><div class="card" data-live-layer id="factsBar" hidden><p class="desc">Changes aren't confirmed yet — new cases can't be checked against them until you confirm.</p><div class="state-actions"><button class="btn" type="button" id="factsConfirmBtn">Confirm facts</button></div><p class="desc" id="factsBarErr" hidden></p></div><p class="desc" data-live-layer id="factsVerLine" hidden></p><div class="card" data-live-layer id="factsListCard" hidden><div id="factsList"></div></div><div class="card state-card" data-live-layer id="factsEmpty" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Confirm your facts first</p><p class="state-desc">We check claims against facts you've confirmed — and this workspace doesn't have a confirmed set yet. Add your key facts and confirm them, and we'll classify this mention right away.</p></div><div class="card" data-live-layer id="factsAddCard" hidden><h3>Add a fact</h3><div class="field"><label for="factStmt">Fact</label><input type="text" id="factStmt" placeholder="Allbirds shoes are not made of leather."></div><div class="field"><label for="factLink">Source link</label><input type="text" id="factLink" placeholder="https://"></div><p class="desc" id="factAddErr" hidden></p><div class="state-actions"><button class="btn ghost" type="button" id="factAddBtn">Add fact</button></div></div><div class="card state-card fail" data-live-layer id="factsError" hidden><div class="state-eyebrow">Your facts</div><p class="state-title">Couldn't load your facts.</p><div class="state-actions"><button class="btn" type="button" id="factsRetry">Retry</button></div></div></section><section class="view" id="view-notifications"><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card state-card" data-empty-slot><div class="state-eyebrow">Notifications</div><p class="state-title">No notifications yet.</p><p class="state-desc">Updates about your snapshots, scores and reports will appear here.</p></div><div class="card">
 <h2>Notifications</h2>
 <p class="desc">Snapshot, score, report and alert updates for your brand.</p>
 </div>
@@ -1630,7 +1621,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div></section>
 
       <!-- ============ VIEW: SETTINGS (shell, Phase 3) ============ -->
-      <section class="view" id="view-settings"><p class="sample-note">Sample data — run a snapshot to see your own results.</p> <h2 style="margin:0 0 12px">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro+</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
+      <section class="view" id="view-settings"><p class="sample-note">Sample data — run a snapshot to see your own results.</p> <h2 class="pg-head" style="margin:0 0 12px;font-size:34px;font-weight:800;letter-spacing:-.04em">Settings</h2> <div class="card"><div class="set-links"> <button class="set-link" type="button" data-go="brand-edit" aria-label="Brand profile"><span class="set-link-text"><span class="set-link-label" title="Brand">Brand</span><span class="set-link-status" id="hubBrandStatus">No brand yet</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="connections" aria-label="Manage connections"><span class="set-link-text"><span class="set-link-label" title="Connections">Connections</span><span class="set-link-status" id="connLinkStatus">Loading…</span></span><span aria-hidden="true">›</span></button> <button class="set-link" type="button" data-go="billing" aria-label="View invoices"><span class="set-link-text"><span class="set-link-label" title="Invoices">Invoices</span><span class="set-link-status">Paid invoices and receipts</span></span><span aria-hidden="true">›</span></button> </div></div> <div class="card"><h3>TEAM &amp; DEVELOPER</h3><div class="set-links"> <button class="set-link gated teamdev-row" type="button" data-go="team" aria-label="Team" id="teamMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Team">Team</span><span class="set-link-status" id="hubTeamStatus">Growth and above</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> <button class="set-link gated teamdev-row" type="button" data-go="developer" aria-label="Developer" id="developerMenuRow" disabled aria-disabled="true"><span class="set-link-text"><span class="set-link-label" title="Developer">Developer</span><span class="set-link-status">Pro+</span></span><span class="set-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span></button> </div></div> <div class="card"><h3>Notifications</h3>
 
 <div class="switch-row"><div><b title="Email me when negative mentions appear">Email me when negative mentions appear</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_negative" aria-label="Email me when negative mentions appear"><span class="knob"></span></button></div>
 <div class="switch-row"><div><b title="Email me when a re-check finishes">Email me when a re-check finishes</b></div><button class="notif-toggle on" type="button" role="switch" aria-checked="true" data-pref="email_changes" aria-label="Email me when a re-check finishes"><span class="knob"></span></button></div>
@@ -1716,7 +1707,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 
 <section class="view" id="view-plan"><button class="back-btn" type="button" id="planBackBtn" aria-label="Back">← Back</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
 <div class="card" id="planPastDueCard" style="display:none"><h3>Payment problem</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">We could not collect your last payment, so your plan is past due. Update your payment method to keep your plan running.</p><button class="btn small" type="button" id="pastDueBillingBtn">View invoices</button></div>
-<div class="card" id="planNoPlanCard" style="display:none"><h3>No plan yet</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">You do not have a subscription yet. Choose a plan to start measuring how AI search shows your brand.</p><button class="btn small" type="button" id="noPlanCta">Choose</button></div>
+<div class="card" id="planNoPlanCard" style="display:none"><h3>No plan yet</h3><p style="color:var(--muted);font-size:13px;margin:0 0 12px">Your free snapshot is included.</p><button class="btn small" type="button" id="noPlanCta">Choose a plan</button></div>
 <div id="planMain">
 <div class="card" id="currentPlanCard"><h3 class="current-tier" id="planName">Starter</h3>
 <p class="current-pos" id="planPos">For one brand getting started with AI visibility. Weekly full measurement, plus an alert when AI turns negative.</p>
@@ -1738,10 +1729,10 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 </div>
 </section>
 
-<section class="view" id="view-pricing-cards"><button class="back-btn" type="button" id="pricingBackBtn" aria-label="Back to Change plan">← Back to Change plan</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card"><h2>Pricing</h2><p class="desc">Compare all plans. Prices are promo prices for the first 12 months, then standard prices. No purchase is made from this page.</p></div>
+<section class="view" id="view-pricing-cards"><button class="back-btn" type="button" id="pricingBackBtn" aria-label="Back to Change plan">← Back to Change plan</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p><div class="card pg-head"><h2>Pricing</h2><p class="desc">Compare all plans. Prices are promo prices for the first 12 months, then standard prices. No purchase is made from this page.</p></div>
 <div class="card"><h3>Starter</h3><p>$25/mo for the first 12 months, then $35/mo</p><p>Seats: 1</p><p>Engines: 3</p><p>Sites: 1</p><p>History: last 4 weeks</p><p>White-label reports: No</p><p>Alerts when AI turns negative about your brand</p></div>
-<div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 3</p><p>Sites: 1</p><p>History: last 3 months</p><p>White-label reports: No</p><p>Alerts when your score really moves — noise doesn't count</p></div>
-<div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $169/mo</p><p>Seats: 10</p><p>Engines: 4 (+DeepSeek)</p><p>Sites: 1</p><p>History: full history</p><p>White-label reports: No</p><p>Alerts when a question drops you, or a rival overtakes you</p></div>
+<div class="card"><h3>Growth</h3><p>$49/mo for the first 12 months, then $70/mo</p><p>Seats: 3</p><p>Engines: 3</p><p>Sites: 3</p><p>History: last 3 months</p><p>White-label reports: No</p><p>Alerts when your score really moves — noise doesn't count</p></div>
+<div class="card"><h3>Pro</h3><p>$129/mo for the first 12 months, then $169/mo</p><p>Seats: 10</p><p>Engines: 4 (+DeepSeek)</p><p>Sites: 10</p><p>History: full history</p><p>White-label reports: No</p><p>Alerts when a question drops you, or a rival overtakes you</p></div>
 <div class="card"><h3>Teams</h3><p>$199/mo for the first 12 months, then $300/mo</p><p>Seats: 20</p><p>Engines: 5 (+Mistral)</p><p>Sites: 10</p><p>History: full history</p><p>White-label reports: Yes</p><p>Every alert, across all your sites, in one roll-up</p></div></section>
 
 <section class="view" id="view-team"><button class="back-btn" type="button" data-go="settings" aria-label="Back to Settings">← Back to Settings</button><p class="sample-note">Sample data — run a snapshot to see your own results.</p>
@@ -1783,13 +1774,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
     </div>
   </div>
 
-  <nav class="tabbar" id="tabbar">
-    <button data-view="overview" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button>
-    <button data-view="score"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ring-gap" d="M12 4a8 8 0 1 1-8 8"/><circle class="ring-full" cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></span>Visibility score</button>
-    <button data-view="questions"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="1.6" fill="currentColor" stroke="none"/><path d="M11 6h9"/><circle cx="6" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M11 12h9"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M11 18h9"/></svg></span>Prompts</button>
-    <button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Weekly report</button>
-    <button id="moreBtn" type="button" aria-haspopup="dialog" aria-expanded="false"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></span>More</button>
-  </nav>
+  <nav class="tabbar" id="tabbar"><button data-view="overview" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="fill" d="M4 14a8 8 0 0 1 16 0L12 14z" fill="currentColor" stroke="none"/><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-5"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M3 19h18"/></svg></span>Overview</button><button data-view="report"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path class="chk" d="M9 16l1.5 1.5L14 14"/></svg></span>Weekly report</button><button data-view="inbox"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></svg></span>Inbox</button><button type="button" id="moreBtn" aria-expanded="false"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></span>More</button></nav><div class="more-panel" id="morePanel"><button data-view="score">Visibility score</button><button data-view="questions">Prompts</button><button data-view="competitors">Competitors</button><button data-view="sources">Citations</button><button data-view="tools">Toolkit</button><button data-view="team">Team</button><button data-view="settings">Settings</button><button data-view="help">Help</button></div><script>(function(){var b=document.getElementById("moreBtn"),p=document.getElementById("morePanel");if(!b||!p)return;b.addEventListener("click",function(){var o=p.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");});p.addEventListener("click",function(e){if(e.target.closest("[data-view]")){p.classList.remove("open");b.setAttribute("aria-expanded","false");}});})();</script>
 <div class="more-backdrop" id="moreBackdrop"></div>
 <div class="more-sheet" id="moreSheet" role="dialog" aria-label="More navigation">
   <div class="more-handle"></div>
@@ -2388,7 +2373,7 @@ function renderOverview() {
   if (!s || !snap) return;
   document.getElementById("ovBrandName").textContent = snap.brand.name;
   document.getElementById("ovBrandDomain").textContent = snap.brand.domain;
-  document.getElementById("ovFresh").textContent = "Last updated " + snap.created_at.slice(0, 10);
+  document.getElementById("ovFresh").textContent = "Last updated " + snap.created_at.slice(0, 10); var ssEl = document.getElementById("snapSt"); if (ssEl) { var engN = (s.by_engine ? Object.keys(s.by_engine).length : null); document.getElementById("snapStText").textContent = "Last snapshot \u00b7 " + snap.created_at.slice(0, 10) + (engN ? " \u00b7 " + engN + " engines" : "") + " \u00b7 " + s.n_valid + " answers"; ssEl.classList.remove("none"); ssEl.hidden = false; }
   document.getElementById("ovScoreVal").textContent = s.value.toFixed(1);
   document.getElementById("ovScoreCi").textContent = s.ci_low.toFixed(1) + "–" + s.ci_high.toFixed(1);
   document.getElementById("ovCiLine").style.display = "";
@@ -3206,7 +3191,10 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
     document.querySelectorAll('.up-row').forEach(function (el) { el.style.display = curIdx < TIERS[el.dataset.tier] ? '' : 'none'; });
     var upEmpty = document.getElementById('upEmpty');
     if (upEmpty) upEmpty.style.display = skin === 'teams' ? '' : 'none';
-    var wsT = document.getElementById('wsTier');
+    var spT = document.getElementById('spTitle'); var spD = document.getElementById('spDesc'); var spM = document.getElementById('spMeter');
+  var SP = { starter: ['Starter', '1 seat \u00b7 3 AI engines \u00b7 1 site', 8], growth: ['Growth', '3 seats \u00b7 3 AI engines \u00b7 3 sites', 30], pro: ['Pro', '10 seats \u00b7 4 AI engines \u00b7 10 sites', 62], teams: ['Teams', '20 seats \u00b7 5 AI engines \u00b7 10 sites', 100], noplan: ['No plan yet', 'Your free snapshot is included', 0] };
+  var spv = SP[skin] || SP.noplan; if (spT) spT.textContent = spv[0]; if (spD) spD.textContent = spv[1]; if (spM) spM.style.width = spv[2] + '%';
+  var wsT = document.getElementById('wsTier');
     var wsS = document.getElementById('wsSeats');
     var bl = document.getElementById('billingLinkStatus');
     var tl = document.getElementById('teamLinkStatus');
@@ -6472,7 +6460,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   function openDetail(id) {
     var e = entries.filter(function (x) { return x.draft_id === id; })[0]; if (!e) return;
     current = e; currentBody = "";
-    $("inboxListCard").hidden = true; $("inboxEmpty").hidden = true; $("inboxError").hidden = true;
+    if (window.innerWidth < 901) $("inboxListCard").hidden = true; $("inboxEmpty").hidden = true; $("inboxError").hidden = true;
     $("inboxMeta").textContent = (e.purpose_label || PURPOSE[e.template_id || e.template_key] || "Draft") + " \u00B7 " + (e.brand_name || "") + " \u00B7 " + fmtDate(e.created_at);
     var chip = $("inboxChip"); var c = CHIP[e.status || "waiting"] || CHIP.waiting; chip.textContent = c[0]; chip.className = c[1];
     $("inboxMsg").hidden = true;
@@ -6807,5 +6795,80 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
 })();
 </script>
 
+<style id="dash-pkg">
+/* Dashboard package system (extraction table 2026-11-24): tokens, shell, type, components.
+   Dashboard family only; values per package dashboard.css. */
+:root{
+  --bg:#F4F1EA; --bg-raise:#FBF9F4; --bg-sink:#ECE7DB;
+  --ink:#141311; --ink-2:#4B463C; --muted:#6F685C;
+  --line:#E2DBCD; --line-strong:#CFC6B5;
+  --accent:#E8541E; --accent-deep:#C2410C;
+  --skin-accent:#E8541E; --skin-accent-deep:#C2410C;
+  --skin-hero-wash:linear-gradient(180deg, rgba(232,84,30,.08), rgba(232,84,30,0) 70%);
+  --skin-badge-bg:linear-gradient(135deg, #E8541E, #C2410C);
+  --radius:6px; --shadow:0 1px 2px rgba(20,19,17,.04);
+  --shadow-ink:6px 6px 0 #141311;
+}
+.sidebar{background:var(--bg)}
+.nav .nav-group{font-family:"JetBrains Mono", ui-monospace, monospace;font-size:10.5px;letter-spacing:.14em;color:var(--muted)}
+.topbar{background:rgba(244,241,234,.92);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.topbar-in{height:64px;padding:0 40px}
+.content{padding:36px 40px 72px}
+.card{box-shadow:none}
+.card h2,.card h3{font-size:17px;font-weight:750;letter-spacing:-.02em}
+.pg-head{background:transparent!important;border:0!important;box-shadow:none!important;padding:0 0 4px!important}
+.pg-head h2{font-size:34px!important;font-weight:800;letter-spacing:-.04em;line-height:1.08}
+.score-hero{background:#fff;border:2px solid var(--ink);border-radius:4px;box-shadow:var(--shadow-ink)}
+.state-card{background:transparent;border:1px dashed #CFC6B5;border-radius:6px;padding:28px;box-shadow:none}
+.state-card.fail{border:1px solid var(--line-strong)}
+.card .empty{border:1px dashed #CFC6B5;border-radius:6px;padding:28px;background:transparent}
+.content input:not([type="checkbox"]):not([type="radio"]), .content select{height:42px;border:1px solid #CFC6B5;border-radius:6px;background:#fff;font-size:14px;padding:0 14px}
+.content textarea{border:1px solid #CFC6B5;border-radius:6px;background:#fff;font-size:14px}
+.content input:focus, .content select:focus, .content textarea:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(20,19,17,.08);outline:none}
+#view-questions th, #view-competitors th, #view-sources th, #view-tools th, #view-settings th{font-family:"JetBrains Mono", ui-monospace, monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:500}
+.content table{font-size:14px}
+.current-price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ring .val b{font-family:"Bricolage Grotesque", "Plus Jakarta Sans", sans-serif;font-weight:800}
+.ring .val .of{font-family:"JetBrains Mono", ui-monospace, monospace;font-size:11px;font-weight:400;color:var(--muted);margin-left:3px}
+.side-plan{border:1px solid var(--line);border-radius:6px;padding:14px;background:var(--bg-raise);margin-top:auto}
+.side-plan .sp-t{font-weight:700;font-size:13.5px}
+.side-plan .sp-d{font-size:12.5px;color:var(--muted);margin:2px 0 10px;line-height:1.45}
+.side-plan .meter{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.side-plan .meter i{display:block;height:100%;background:var(--ink)}
+html:not([data-identity="set"]):not([data-state="demo"]) #sidePlan{visibility:hidden}
+.snap-st{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-left:auto}
+.snap-st i{width:7px;height:7px;border-radius:50%;background:#2F7D4F;flex:none}
+.snap-st.none i{background:#9A9385}
+.tool-row{display:grid;grid-template-columns:56px 1fr auto;gap:20px;align-items:center;padding:20px 4px;border-top:1px solid var(--line)}
+.tool-row .tr-n{font-family:"Bricolage Grotesque", sans-serif;font-weight:800;font-size:28px;color:var(--muted);letter-spacing:-.03em}
+.tool-row h3{font-size:16.5px;font-weight:750;letter-spacing:-.015em}
+.tool-row p{font-size:13.5px;color:var(--muted);margin-top:2px}
+.tools-soon{font-size:12.5px;color:var(--muted);padding:14px 4px;border-top:1px solid var(--line)}
+.inbox-split{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+.more-panel{display:none;position:fixed;left:0;right:0;bottom:64px;z-index:41;background:var(--bg-raise);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.more-panel.open{display:block}
+.more-panel button{display:block;width:100%;text-align:left;background:none;border:0;padding:11px 4px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--line)}
+.more-panel button:last-child{border-bottom:0}
+@media (max-width:900px){ .inbox-split{grid-template-columns:1fr} }
+@media (max-width:600px){
+  .topbar-in{height:56px;padding:0 16px}
+  .content{padding:20px 16px 32px}
+  .card{padding:20px}
+  .pg-head h2{font-size:28px!important}
+  .tabbar{height:64px;background:var(--bg-raise);border-top:1px solid var(--line);padding:0}
+  .tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:0;font-size:11px;font-weight:600;color:var(--muted)}
+  .tabbar button[aria-current="page"]{color:var(--ink);box-shadow:inset 0 2px 0 var(--accent)}
+}
+/* Legacy view-scoped skins retired to package values (extraction table: .pn pad 24 / radius 6, pn-h 17). */
+#view-questions .card, #view-competitors .card, #view-sources .card, #view-tools .card, #view-settings .card{border-radius:6px}
+#view-questions .card h2, #view-competitors .card h2, #view-sources .card h2, #view-tools .card h2, #view-settings .card h2{font-size:17px}
+#view-questions .card h3, #view-competitors .card h3, #view-sources .card h3, #view-tools .card h3, #view-settings .card h3{font-size:17px}
+#view-billing .card, #view-team .card, #view-connections .card, #view-developer .card, #view-security-password .card, #view-security-logins .card, #view-help .card{padding:24px!important}
+#view-billing .card h2, #view-team .card h2, #view-connections .card h2, #view-developer .card h2{font-size:17px!important}
+#view-billing .card h3, #view-team .card h3, #view-connections .card h3, #view-developer .card h3, #view-security-password .card h3, #view-security-logins .card h3{font-size:17px!important}
+#view-brand-edit .card{padding:24px!important}
+.card.state-card{padding:28px!important}
+#view-questions .card.state-card, #view-competitors .card.state-card, #view-sources .card.state-card, #view-tools .card.state-card, #view-settings .card.state-card, #view-billing .card.state-card, #view-team .card.state-card, #view-connections .card.state-card, #view-developer .card.state-card, #view-security-password .card.state-card, #view-security-logins .card.state-card, #view-help .card.state-card, #view-brand-edit .card.state-card{padding:28px!important}
+</style>
 </body>
 </html>
