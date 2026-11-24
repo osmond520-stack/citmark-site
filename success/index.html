@@ -1,2123 +1,245 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<link rel="stylesheet" href="/assets/fonts/fonts.css">
-    <meta name="color-scheme" content="light dark" />
-    <meta name="description" content="CitMark checks ChatGPT, Perplexity and Gemini every week to see whether your site gets mentioned, cited, or skipped — and tells you in plain English what to fix." />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Does AI recommend your business? — CitMark" />
-    <meta property="og:description" content="Check your site's llms.txt for free in seconds, then get a weekly report on what ChatGPT, Perplexity and Gemini say about you." />
-    <meta property="og:image" content="https://citmark.com/og.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Does AI recommend your business? — CitMark" />
-    <meta name="twitter:description" content="Check your site's llms.txt for free in seconds, then get a weekly report on what ChatGPT, Perplexity and Gemini say about you." />
-    <link rel="icon" href="data:," />
-    <title>Thank you — CitMark</title>
-    <style>
-      /* Fonts inlined as base64 data URIs (latin subsets) — the same files Google Fonts served, so rendering is identical everywhere with no external font requests. */
-      
-      
-      
-      
-      
-      
-      :root {
-        color-scheme: light dark;
-        --bg: #f4f4f1;
-        --bg-raise: #ffffff;
-        --bg-sink: #ececea;
-        --ink: #141519;
-        --ink-2: #3c4048;
-        --muted: #62666e;
-        --line: #dcdad2;
-        --line-strong: #c6c3b8;
-        --accent: #e8490f;
-        --accent-deep: #c23a08;
-        --accent-soft: #fdeee7;
-        --good: #177245;
-        --good-soft: #e4f2e9;
-        --warn: #9a6a00;
-        --warn-soft: #faf0d7;
-        --bad: #b3261e;
-        --bad-soft: #fbe9e7;
-        --shadow: 0 1px 2px rgba(20, 21, 25, .05), 0 12px 32px -12px rgba(20, 21, 25, .18);
-        --radius: 14px;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #0e1011;
-          --bg-raise: #171a1c;
-          --bg-sink: #101314;
-          --ink: #f1efe8;
-          --ink-2: #cfd2cd;
-          --muted: #9aa09b;
-          --line: #272c2e;
-          --line-strong: #3a4144;
-          --accent: #ff6a33;
-          --accent-deep: #ff8050;
-          --accent-soft: #2c1a12;
-          --good: #4cc084;
-          --good-soft: #14251c;
-          --warn: #e0aa3e;
-          --warn-soft: #2a2110;
-          --bad: #f0766d;
-          --bad-soft: #2b1614;
-          --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 16px 40px -16px rgba(0, 0, 0, .6);
-        }
-      }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--ink);
-        font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-        font-size: 17px;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-      }
-      ::selection { background: var(--accent); color: #fff; }
-      a { color: var(--accent-deep); }
-      a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-      .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
-
-      /* ---------- top bar ---------- */
-      .topbar {
-        position: sticky; top: 0; z-index: 40;
-        background: color-mix(in srgb, var(--bg) 88%, transparent);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--line);
-      }
-      .topbar-in { display: flex; align-items: center; gap: 28px; height: 60px; }
-      .wordmark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 21px; letter-spacing: -.01em; color: var(--ink); text-decoration: none; white-space: nowrap; }
-      .wordmark .dot { color: var(--accent); }
-      .topnav { display: flex; gap: 24px; margin-left: auto; }
-      .topnav a { color: var(--ink-2); text-decoration: none; font-size: 15px; font-weight: 500; }
-      .topnav a:hover { color: var(--accent-deep); }
-      .topbar .btn { margin-left: 4px; }
-
-      /* ---------- mobile menu ---------- */
-      .nav-toggle { display: none; }
-      .mobile-menu { display: none; }
-      @media (max-width: 720px) {
-        .topnav { display: none; }
-        .topbar .btn { margin-left: auto; }
-        /* Homepage login entry (spec 2026-10-26 S1/S6): no extra button in the mobile top bar. */
-        .topbar-in .topbar-login { display: none; }
-        .nav-toggle {
-          display: inline-flex; align-items: center; justify-content: center; flex: none;
-          width: 44px; height: 44px; margin-left: 10px; padding: 0;
-          background: transparent; color: var(--ink);
-          border: 1px solid var(--line-strong); border-radius: 10px; cursor: pointer;
-        }
-        .nav-toggle-bars { display: block; width: 20px; }
-        .nav-toggle-bars span { display: block; height: 2px; background: currentColor; border-radius: 2px; transition: transform .25s ease, opacity .25s ease; }
-        .nav-toggle-bars span + span { margin-top: 5px; }
-        .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2) { opacity: 0; }
-        .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-        .mobile-menu {
-          display: block; position: absolute; top: 100%; left: 0; right: 0;
-          background: var(--bg-raise); border-bottom: 1px solid var(--line-strong);
-          box-shadow: var(--shadow); padding: 8px 24px 20px;
-          visibility: hidden; opacity: 0; transform: translateY(-8px); pointer-events: none;
-          transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
-        }
-        .mobile-menu.open { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity .25s ease, transform .25s ease; }
-        .mobile-menu nav a {
-          display: flex; align-items: center; min-height: 48px;
-          color: var(--ink); text-decoration: none; font-size: 16px; font-weight: 500;
-          border-bottom: 1px solid var(--line);
-        }
-        .mobile-menu nav a:active { color: var(--accent-deep); }
-        .mobile-menu .btn { width: 100%; margin: 14px 0 0; min-height: 48px; }
-      }
-
-      /* ---------- top bar on small phones ---------- */
-      /* Measured root cause of the sideways push: wordmark (106) + top bar CTA
-         (148) + hamburger (44) + 28px gaps + page padding need a 387px minimum,
-         so below ~390px the whole page — and the fixed signup bar laid out
-         against it — slid off the right edge. Compact the bar, then drop the
-         duplicate CTA at 360px and under (it stays full-width in the menu). */
-      @media (max-width: 480px) {
-        .topbar-in { gap: 12px; }
-        .topbar-in .btn.small { padding: 8px 12px; font-size: 14px; }
-      }
-      @media (max-width: 360px) {
-        .topbar-in .btn { display: none; }
-        .topbar-in .nav-toggle { margin-left: auto; }
-      }
-
-      /* ---------- buttons & forms ---------- */
-      .btn {
-        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-        background: var(--accent); color: #fff; border: 1px solid var(--accent);
-        font: inherit; font-weight: 600; font-size: 16px;
-        padding: 11px 22px; border-radius: 10px; cursor: pointer; text-decoration: none;
-        transition: background .15s ease, transform .15s ease;
-        white-space: nowrap;
-      }
-      .btn:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
-      .btn:active { transform: translateY(1px); }
-      .btn.small { padding: 8px 16px; font-size: 15px; }
-      .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
-      .btn.ghost:hover { border-color: var(--accent); color: var(--accent-deep); background: transparent; }
-
-      .waitlist { display: flex; gap: 10px; max-width: 540px; }
-      .waitlist input {
-        flex: 1; min-width: 0; font: inherit; font-size: 16px;
-        padding: 12px 16px; border-radius: 10px;
-        border: 1px solid var(--line-strong); background: var(--bg-raise); color: var(--ink);
-      }
-      .waitlist input::placeholder { color: var(--muted); }
-      .waitlist input[aria-invalid="true"] { border-color: var(--bad); }
-      .form-note { font-size: 14px; color: var(--muted); margin-top: 12px; max-width: 540px; }
-      .form-msg { font-size: 15px; margin-top: 12px; max-width: 560px; display: none; }
-      .form-msg.show { display: block; }
-      .form-msg.err { color: var(--bad); }
-      .form-msg.ok {
-        color: var(--ink-2); background: var(--good-soft); border: 1px solid var(--good);
-        padding: 12px 16px; border-radius: 10px;
-      }
-      .form-msg.ok strong { color: var(--good); }
-      @media (max-width: 560px) { .waitlist { flex-direction: column; } .waitlist .btn { width: 100%; } }
-
-      /* ---------- hero ---------- */
-      .hero { padding: 76px 0 30px; position: relative; overflow: hidden; }
-      .hero::before {
-        content: ""; position: absolute; inset: 0; pointer-events: none;
-        background-image:
-          linear-gradient(var(--line) 1px, transparent 1px),
-          linear-gradient(90deg, var(--line) 1px, transparent 1px);
-        background-size: 56px 56px; opacity: .35;
-        mask-image: radial-gradient(ellipse 90% 70% at 30% 0%, #000 30%, transparent 75%);
-        -webkit-mask-image: radial-gradient(ellipse 90% 70% at 30% 0%, #000 30%, transparent 75%);
-      }
-      .hero-in { position: relative; max-width: 780px; }
-      .hero-tag {
-        display: inline-flex; align-items: center; gap: 8px;
-        font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500;
-        color: var(--accent-deep); background: var(--accent-soft);
-        border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-        padding: 5px 12px; border-radius: 999px; margin-bottom: 22px;
-      }
-      .hero-tag .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2.2s infinite; }
-      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
-      h1 {
-        font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800;
-        font-size: clamp(34px, 5.2vw, 54px); line-height: 1.08; letter-spacing: -.015em;
-        margin: 0 0 20px;
-      }
-      h1 .hl { color: var(--accent); }
-      .hero-sub { font-size: 19px; color: var(--ink-2); margin: 0 0 30px; max-width: 640px; }
-      .hero-chips { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); }
-      .hero-chips span { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; color: var(--muted); }
-      .hero-chips b { color: var(--ink); font-weight: 600; }
-
-      /* ---------- sections ---------- */
-      section { padding: 64px 0; }
-      section[id] { scroll-margin-top: 76px; }
-      .sec-head { max-width: 700px; margin-bottom: 36px; }
-      .sec-kicker { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-deep); margin: 0 0 10px; }
-      h2 { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; font-size: clamp(26px, 3.6vw, 36px); line-height: 1.15; letter-spacing: -.01em; margin: 0 0 12px; }
-      .sec-head p { color: var(--ink-2); margin: 0; font-size: 17.5px; }
-
-      /* ---------- dashboard mock ---------- */
-      .dash {
-        background: var(--bg-raise); border: 1px solid var(--line-strong);
-        border-radius: 18px; box-shadow: var(--shadow); overflow: hidden;
-      }
-      .dash-bar {
-        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-        padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--bg-sink);
-      }
-      .dash-bar .site { font-weight: 600; font-size: 15.5px; }
-      .dash-bar .site span { color: var(--muted); font-weight: 400; }
-      .demo-badge {
-        margin-left: auto; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600;
-        letter-spacing: .06em; color: var(--warn); background: var(--warn-soft);
-        border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent);
-        padding: 3px 10px; border-radius: 999px;
-      }
-      .engine-tabs { display: flex; gap: 6px; padding: 14px 20px 0; flex-wrap: wrap; }
-      .engine-tab {
-        font: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer;
-        padding: 7px 14px; border-radius: 999px;
-        border: 1px solid var(--line-strong); background: transparent; color: var(--ink-2);
-      }
-      .engine-tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-      .dash-grid { display: grid; grid-template-columns: 300px 1fr; gap: 0; }
-      .dash-score { padding: 22px 24px 26px; border-right: 1px solid var(--line); }
-      .score-big { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -.02em; }
-      .score-big small { font-size: 22px; color: var(--muted); font-weight: 500; }
-      .score-label { font-size: 14px; color: var(--muted); margin: 6px 0 20px; }
-      .score-delta { color: var(--good); font-weight: 600; }
-      .meter { margin-bottom: 14px; }
-      .meter-head { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 5px; }
-      .meter-head span { color: var(--muted); }
-      .meter-head b { font-family: "IBM Plex Mono", monospace; font-weight: 600; }
-      .meter-track { height: 8px; border-radius: 99px; background: var(--bg-sink); overflow: hidden; }
-      .meter-fill { height: 100%; border-radius: 99px; background: var(--accent); width: 0; transition: width .8s cubic-bezier(.22, .8, .3, 1); }
-      /* semantic meter colors — identical at every breakpoint, for every engine tab */
-      .meter-fill.m-mention { background: var(--accent); }
-      .meter-fill.m-citation { background: var(--good); }
-      .meter-fill.m-sov { background: var(--accent); }
-      .dash-main { padding: 22px 24px 26px; min-width: 0; }
-      .dash-main h3, .dash-side h3 { font-size: 15px; font-weight: 700; margin: 0 0 12px; letter-spacing: .01em; }
-      .prompt-row {
-        display: flex; align-items: baseline; gap: 12px;
-        padding: 10px 0; border-bottom: 1px solid var(--line);
-      }
-      .prompt-row:last-child { border-bottom: none; }
-      .prompt-q { flex: 1; min-width: 0; font-size: 15px; }
-      .prompt-q .page { display: block; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
-      .status {
-        font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600;
-        padding: 3px 9px; border-radius: 999px; white-space: nowrap;
-      }
-      .status.cited { color: var(--good); background: var(--good-soft); }
-      .status.mentioned { color: var(--warn); background: var(--warn-soft); }
-      .status.missed { color: var(--bad); background: var(--bad-soft); }
-      .dash-lower { display: grid; grid-template-columns: 1fr 1.4fr; border-top: 1px solid var(--line); }
-      .dash-side { padding: 22px 24px 26px; }
-      .dash-side + .dash-side { border-left: 1px solid var(--line); }
-      .check-row { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; font-size: 14.5px; }
-      .check-ic { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 13px; width: 20px; flex: none; text-align: center; }
-      .check-ic.ok { color: var(--good); }
-      .check-ic.warn { color: var(--warn); }
-      .check-row small { color: var(--muted); display: block; font-size: 13px; }
-      .fix-card {
-        border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px;
-        background: var(--bg);
-      }
-      .fix-card p { margin: 0; font-size: 14.5px; color: var(--ink-2); }
-      .fix-card .impact { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--accent-deep); }
-      .dash-more { display: none; }
-      @media (max-width: 860px) {
-        .dash-grid, .dash-lower { grid-template-columns: 1fr; }
-        .dash-score { border-right: none; border-bottom: 1px solid var(--line); padding: 18px 18px 20px; }
-        .dash-main, .dash-side { padding: 18px 18px 20px; }
-        .dash-side + .dash-side { border-left: none; border-top: 1px solid var(--line); }
-        .dash-bar { padding: 12px 18px; }
-        .engine-tabs { padding: 12px 18px 0; }
-        .score-big { font-size: 52px; }
-        .score-label { margin-bottom: 14px; }
-        .prompt-row { flex-wrap: wrap; padding: 8px 0; }
-        .fix-card { padding: 10px 12px; }
-        /* sub-blocks start collapsed on mobile; nothing is removed, one tap expands */
-        .prompt-row.m-extra, .check-row.m-extra, .fix-card.m-extra { display: none; }
-        .show-all .prompt-row.m-extra, .show-all .check-row.m-extra { display: flex; }
-        .show-all .fix-card.m-extra { display: block; }
-        .dash-more {
-          display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 8px;
-          font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600;
-          color: var(--accent-deep); background: transparent; border: none; padding: 6px 2px; cursor: pointer;
-        }
-        .dash-more .chev { font-size: 16px; line-height: 1; transition: transform .2s ease; }
-        .dash-more[aria-expanded="true"] .chev { transform: rotate(45deg); }
-      }
-
-      /* ---------- live llms.txt checker ---------- */
-      .checker {
-        background: var(--bg-raise); border: 1px solid var(--line-strong);
-        border-radius: 18px; box-shadow: var(--shadow); overflow: hidden;
-        margin-bottom: 22px;
-      }
-      .checker-head {
-        padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--bg-sink);
-        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      }
-      .checker-head .ttl { font-weight: 600; font-size: 15.5px; }
-      .live-badge {
-        margin-left: auto; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600;
-        letter-spacing: .06em; color: var(--good); background: var(--good-soft);
-        border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
-        padding: 3px 10px; border-radius: 999px; white-space: nowrap;
-      }
-      .checker-body { padding: 22px 24px 26px; }
-      .checker-intro { color: var(--ink-2); margin: 0 0 18px; max-width: 640px; }
-      .check-form { display: flex; gap: 10px; max-width: 560px; }
-      .check-form input {
-        flex: 1; min-width: 0; font: inherit; font-size: 16px;
-        padding: 12px 16px; border-radius: 10px;
-        border: 1px solid var(--line-strong); background: var(--bg); color: var(--ink);
-      }
-      .check-form input::placeholder { color: var(--muted); }
-      .check-form input[aria-invalid="true"] { border-color: var(--bad); }
-      .check-form .btn[disabled] { opacity: .75; cursor: wait; }
-      .spinner {
-        width: 16px; height: 16px; border-radius: 50%; flex: none;
-        border: 2px solid rgba(255, 255, 255, .45); border-top-color: #fff;
-        animation: spin .7s linear infinite; display: none;
-      }
-      .btn.loading .spinner { display: block; }
-      @keyframes spin { to { transform: rotate(360deg); } }
-      @media (max-width: 560px) { .check-form { flex-direction: column; } .check-form .btn { width: 100%; } }
-      .checker-result { margin-top: 22px; }
-      .checker-result[hidden] { display: none; }
-      .checker-error {
-        color: var(--ink-2); background: var(--bad-soft); border: 1px solid var(--bad);
-        padding: 14px 16px; border-radius: 10px; font-size: 15.5px;
-      }
-      .checker-error p { margin: 0 0 6px; }
-      .checker-error p:last-of-type { margin-bottom: 0; }
-      .checker-error strong { color: var(--bad); }
-      .checker-error .retry-link { margin-top: 10px; display: inline-block; font-weight: 600; }
-      .score-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-      .score-ring-wrap { position: relative; width: 96px; height: 96px; flex: none; }
-      .score-ring { width: 96px; height: 96px; transform: rotate(-90deg); }
-      .score-ring .ring-bg { stroke: var(--bg-sink); }
-      .score-ring .ring-fg { stroke: var(--accent); transition: stroke-dashoffset .8s cubic-bezier(.22, .8, .3, 1); }
-      .score-num {
-        position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-        font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 30px; line-height: 1;
-      }
-      .score-num small { font-size: 15px; color: var(--muted); font-weight: 500; }
-      .score-word { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 4px; }
-      .score-sub { color: var(--muted); font-size: 14.5px; margin: 0; }
-      .check-list { margin-top: 20px; border-top: 1px solid var(--line); }
-      .check-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
-      .check-item:last-child { border-bottom: none; }
-      .check-item-head { display: flex; gap: 10px; align-items: baseline; font-size: 15.5px; }
-      .check-item-head .pts { margin-left: auto; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-      .check-item .fix { margin: 6px 0 0 30px; color: var(--ink-2); font-size: 14.5px; }
-      .checker-cta {
-        margin-top: 20px; display: flex; align-items: center; gap: 14px 20px; flex-wrap: wrap;
-        background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-        border-radius: 10px; padding: 14px 18px;
-      }
-      .checker-cta p { margin: 0; font-size: 15px; flex: 1 1 240px; min-width: 0; }
-      /* CTA buttons in the checker may wrap their label instead of clipping
-         on narrow phones (the card clips overflow, so nowrap would cut text) */
-      .checker-cta .btn { white-space: normal; text-align: center; }
-      @media (max-width: 860px) { .checker-body { padding: 18px 18px 20px; } .checker-head { padding: 12px 18px; } }
-
-      /* ---------- competitor comparison (inside the checker result) ---------- */
-      .compare { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 22px; }
-      .compare-title { font-family: "Plus Jakarta Sans", sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 6px; }
-      .compare-intro { color: var(--ink-2); margin: 0 0 16px; font-size: 15.5px; max-width: 560px; }
-      .compare-form .btn[disabled] { opacity: .75; cursor: wait; }
-      .compare-result { margin-top: 20px; }
-      .compare-result[hidden] { display: none; }
-      .versus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-      .versus-card {
-        position: relative; border: 1px solid var(--line-strong); border-radius: 12px;
-        background: var(--bg); padding: 20px 16px;
-        display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
-      }
-      .versus-card .v-domain { font-weight: 700; font-size: 16.5px; margin: 0; overflow-wrap: anywhere; }
-      .versus-card .v-sum { color: var(--muted); font-size: 14px; margin: 0; }
-      .ahead-badge {
-        position: absolute; top: 12px; right: 12px;
-        font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .07em;
-        color: var(--good); background: var(--good-soft);
-        border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
-        padding: 3px 9px; border-radius: 999px;
-      }
-      .score-ring-wrap.mini { width: 76px; height: 76px; }
-      .score-ring-wrap.mini .score-ring { width: 76px; height: 76px; }
-      .score-ring-wrap.mini .score-num { font-size: 24px; }
-      .score-ring-wrap.mini .score-num small { font-size: 12px; }
-      .compare-delta { font-weight: 600; font-size: 16.5px; margin: 16px 0 0; }
-      .compare-result .checker-cta { margin-top: 16px; }
-      @media (max-width: 560px) { .versus-grid { grid-template-columns: 1fr; } }
-
-      /* ---------- founding-member cap note by the pricing toggle ---------- */
-      .price-toggle { flex-wrap: wrap; }
-      .cap-note { font-size: 13.5px; color: var(--muted); }
-      @media (prefers-reduced-motion: reduce) {
-        .spinner { animation-duration: 2s; }
-        .score-ring .ring-fg { transition: none; }
-      }
-
-      /* ---------- score fine print (what the grade does / doesn't measure) ---------- */
-      .score-fine { font-size: 13px; color: var(--muted); margin: 10px 0 0; max-width: 400px; }
-
-      /* ---------- how we check (methodology) ---------- */
-      .method { margin-top: 56px; border-top: 1px solid var(--line-strong); padding-top: 32px; }
-      .method h3 { font-family: "Plus Jakarta Sans", sans-serif; font-size: 22px; font-weight: 700; margin: 0 0 8px; }
-      .method .lede { color: var(--ink-2); margin: 0 0 26px; max-width: 640px; }
-      .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-      .method-item { border-top: 3px solid var(--ink); padding-top: 14px; }
-      .method-item .mono-tag {
-        display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600;
-        letter-spacing: .08em; color: var(--accent-deep); background: var(--accent-soft);
-        border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-        padding: 3px 9px; border-radius: 999px; margin-bottom: 10px;
-      }
-      .method-item p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
-      .method-item p b { color: var(--ink); }
-      @media (max-width: 760px) { .method-grid { grid-template-columns: 1fr; } }
-
-      /* ---------- most popular badge on the featured plan ---------- */
-      .plan.featured { position: relative; }
-      .pop-badge {
-        position: absolute; top: -13px; right: 24px;
-        font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; letter-spacing: .08em;
-        color: #fff; background: var(--accent); border-radius: 999px; padding: 4px 12px;
-      }
-      .waitlist .btn[disabled] { opacity: .75; cursor: wait; }
-
-      /* ---------- inline CTA after the sample report ---------- */
-      .inline-cta {
-        display: flex; align-items: center; gap: 18px 36px; flex-wrap: wrap;
-        margin-top: 22px; padding: 22px 26px;
-        background: var(--accent-soft);
-        border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-        border-radius: var(--radius);
-      }
-      .inline-cta-copy { flex: 1 1 260px; min-width: 0; }
-      .inline-cta-copy h3 { font-family: "Plus Jakarta Sans", sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 4px; }
-      .inline-cta-copy p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
-      .inline-cta-form { flex: 1 1 320px; min-width: 0; }
-      .inline-cta .waitlist { max-width: none; }
-      .inline-cta .form-msg { margin-bottom: 0; }
-      @media (max-width: 560px) { .inline-cta { padding: 20px; } }
-
-      /* ---------- how it works ---------- */
-      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-      .step { border-top: 3px solid var(--ink); padding-top: 18px; }
-      .step .num { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--accent-deep); letter-spacing: .1em; }
-      .step h3 { font-family: "Plus Jakarta Sans", sans-serif; font-size: 20px; font-weight: 700; margin: 8px 0 8px; }
-      .step p { color: var(--ink-2); margin: 0; font-size: 15.5px; }
-      @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
-
-      /* ---------- feature list ---------- */
-      .features { border-top: 1px solid var(--line-strong); }
-      .feature { display: grid; grid-template-columns: 260px 1fr; gap: 8px 32px; padding: 20px 0; border-bottom: 1px solid var(--line); }
-      .feature h3 { font-size: 17px; font-weight: 700; margin: 0; display: flex; align-items: baseline; gap: 10px; }
-      .feature h3 .mono { font-size: 12px; color: var(--accent-deep); font-weight: 600; }
-      .feature p { margin: 0; color: var(--ink-2); font-size: 16px; max-width: 640px; }
-      @media (max-width: 700px) { .feature { grid-template-columns: 1fr; } }
-
-      /* ---------- why now ---------- */
-      .why { background: var(--bg-sink); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-      .why-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 44px; }
-      .why h2 { margin-bottom: 14px; }
-      .why p.lede { color: var(--ink-2); font-size: 17.5px; margin: 0 0 16px; }
-      .fact { border-left: 3px solid var(--accent); padding: 2px 0 2px 16px; margin-bottom: 18px; }
-      .fact p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
-      .fact .src { font-size: 13px; color: var(--muted); }
-      @media (max-width: 800px) { .why-grid { grid-template-columns: 1fr; } }
-
-      /* ---------- pricing ---------- */
-      .price-toggle { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px; font-size: 15.5px; font-weight: 500; }
-      .switch-input { appearance: none; -webkit-appearance: none; width: 52px; height: 28px; flex: none; margin: 0; border: none; border-radius: 999px; background: var(--line-strong); position: relative; cursor: pointer; transition: background .2s; }
-      .switch-input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg-raise); transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
-      .switch-input:checked { background: var(--accent); }
-      .switch-input:checked::after { transform: translateX(24px); }
-      .switch-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-      .save-tag { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; font-weight: 600; color: var(--good); background: var(--good-soft); padding: 3px 9px; border-radius: 999px; }
-      .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
-      .plan { background: var(--bg-raise); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; }
-      .plan.featured { border-color: var(--accent); border-width: 2px; padding: 27px; }
-      .plan .pname { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
-      .plan.featured .pname { color: var(--accent-deep); }
-      .plan .pdesc { font-size: 15.5px; color: var(--ink-2); margin: 0 0 18px; }
-      .price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
-      .price .amt { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -.02em; }
-      .price .per { color: var(--muted); font-size: 15px; }
-      .price .was { font-family: "IBM Plex Mono", monospace; font-size: 14px; color: var(--muted); text-decoration: line-through; display: none; }
-      .founding-on .price .was { display: inline; }
-      .price-note { font-size: 13.5px; color: var(--muted); min-height: 20px; margin: 0 0 20px; }
-      .plan ul { list-style: none; margin: 0 0 26px; padding: 0; }
-      .plan li { padding: 7px 0 7px 26px; position: relative; font-size: 15.5px; color: var(--ink-2); border-bottom: 1px solid var(--line); }
-      .plan li:last-child { border-bottom: none; }
-      .plan li::before { content: "✓"; position: absolute; left: 2px; color: var(--good); font-weight: 700; }
-      .plan li b { color: var(--ink); }
-      .plan .btn { margin-top: auto; }
-      .pricing-foot { font-size: 14px; color: var(--muted); margin-top: 18px; max-width: 720px; }
-      @media (max-width: 760px) { .plans { grid-template-columns: 1fr; } }
-
-      /* ---------- FAQ ---------- */
-      .faq { max-width: 780px; }
-      .faq-item { border-bottom: 1px solid var(--line-strong); }
-      .faq-item:first-child { border-top: 1px solid var(--line-strong); }
-      .faq-q {
-        width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px;
-        background: none; border: none; cursor: pointer; text-align: left;
-        font: inherit; font-weight: 600; font-size: 17px; color: var(--ink);
-        padding: 18px 12px 18px 4px;
-      }
-      .faq-q .chev { font-family: "IBM Plex Mono", monospace; color: var(--accent-deep); font-size: 20px; transition: transform .2s; flex: none; }
-      .faq-item.open .faq-q .chev { transform: rotate(45deg); }
-      .faq-a { display: none; padding: 0 4px 20px; color: var(--ink-2); font-size: 16px; max-width: 680px; }
-      .faq-item.open .faq-a { display: block; }
-      .faq-a p { margin: 0 0 10px; }
-      .faq-a p:last-child { margin-bottom: 0; }
-
-      /* ---------- final CTA / footer ---------- */
-      .final { background: var(--ink); color: var(--bg); border-radius: 20px; padding: 48px 40px; }
-      .final h2 { color: var(--bg); }
-      .final p { color: color-mix(in srgb, var(--bg) 78%, transparent); max-width: 560px; }
-      .final .waitlist input { background: color-mix(in srgb, var(--bg) 10%, transparent); border-color: color-mix(in srgb, var(--bg) 35%, transparent); color: var(--bg); }
-      .final .waitlist input::placeholder { color: color-mix(in srgb, var(--bg) 55%, transparent); }
-      .final .form-note { color: color-mix(in srgb, var(--bg) 65%, transparent); }
-      .final .form-msg.ok { background: color-mix(in srgb, var(--bg) 12%, transparent); border-color: var(--good); color: var(--bg); }
-      @media (max-width: 560px) { .final { padding: 36px 24px; } }
-      footer { padding: 40px 0 56px; }
-      .foot-in { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; }
-      footer p { margin: 0; font-size: 14px; color: var(--muted); }
-      footer .fineprint { width: 100%; font-size: 13px; }
-
-      /* ---------- sticky mobile signup bar ---------- */
-      .sticky-cta { display: none; }
-      .sticky-cta .cta-short { display: none; }
-      @media (max-width: 720px) {
-        .sticky-cta {
-          display: flex; align-items: center; gap: 12px;
-          position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
-          width: auto; max-width: 100vw; box-sizing: border-box;
-          padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-          background: color-mix(in srgb, var(--bg-raise) 92%, transparent);
-          backdrop-filter: blur(10px);
-          border-top: 1px solid var(--line-strong);
-          transform: translateY(110%); transition: transform .25s ease;
-        }
-        .sticky-cta.visible { transform: none; }
-        .sticky-cta p { margin: 0; font-size: 13.5px; line-height: 1.35; color: var(--ink-2); flex: 1 1 auto; min-width: 0; }
-        .sticky-cta p b { color: var(--ink); }
-        .sticky-cta .btn { flex-shrink: 0; min-width: 0; min-height: 44px; }
-      }
-      /* narrow phones: tighter bar, smaller text, shorter button label —
-         the fluid width above must hold down to 320px with nothing cut off */
-      @media (max-width: 360px) {
-        .sticky-cta { gap: 10px; padding-left: 12px; padding-right: 12px; }
-        .sticky-cta p { font-size: 12.5px; }
-        .sticky-cta .btn { padding: 8px 12px; font-size: 14px; }
-        .sticky-cta .cta-full { display: none; }
-        .sticky-cta .cta-short { display: inline; }
-      }
-
-      /* ---------- consent microcopy & privacy policy ---------- */
-      .consent { font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 10px 0 0; max-width: 540px; }
-      .consent a { color: var(--accent-deep); }
-      .inline-cta .consent { margin-top: 8px; }
-      .final .consent { color: color-mix(in srgb, var(--bg) 65%, transparent); }
-      .final .consent a { color: var(--bg); }
-      .privacy-overlay {
-        position: fixed; inset: 0; z-index: 250;
-        background: rgba(12, 13, 15, .55);
-        display: flex; align-items: center; justify-content: center;
-        padding: 20px;
-      }
-      .privacy-overlay[hidden] { display: none; }
-      .privacy-panel {
-        position: relative; width: 100%; max-width: 680px; max-height: 92%;
-        overflow-y: auto; overscroll-behavior: contain;
-        background: var(--bg-raise); color: var(--ink);
-        border: 1px solid var(--line); border-radius: 16px;
-        box-shadow: var(--shadow); padding: 36px 40px 32px;
-      }
-      .privacy-panel h2 { margin: 0 48px 4px 0; font-size: 28px; }
-      .privacy-panel h3 { margin: 22px 0 6px; font-size: 17px; }
-      .privacy-panel p, .privacy-panel li { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
-      .privacy-panel p { margin: 0 0 10px; }
-      .privacy-panel ul { margin: 0 0 10px; padding-left: 20px; }
-      .privacy-panel .eff { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-      .privacy-close {
-        position: absolute; top: 12px; right: 12px;
-        width: 40px; height: 40px; padding: 0;
-        display: inline-flex; align-items: center; justify-content: center;
-        background: transparent; color: var(--ink-2);
-        border: 1px solid var(--line-strong); border-radius: 10px; cursor: pointer;
-        font-size: 20px; line-height: 1; font-family: inherit;
-      }
-      .privacy-close:hover { color: var(--ink); }
-      body.modal-open { overflow: hidden; }
-      @media (max-width: 560px) {
-        .privacy-overlay { padding: 12px; align-items: flex-end; }
-        .privacy-panel { padding: 28px 22px 24px; max-height: 94%; }
-      }
-
-      .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
-      .reveal.in { opacity: 1; transform: none; }
-      @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
-        .reveal { opacity: 1; transform: none; transition: none; }
-        .meter-fill { transition: none; }
-        .hero-tag .pulse { animation: none; }
-        .mobile-menu, .sticky-cta, .nav-toggle-bars span, .dash-more .chev { transition: none; }
-      }
-
-      
-
-      /* LOGIN-CARD-FROSTED-20261027: centered frosted-glass login card.
-         Replaces the former right slide-in panel. No spring, no drag. */
-      .auth-card-overlay { position: fixed; inset: 0; z-index: 200;
-        background: rgba(20, 21, 25, .20);
-        display: flex; padding: 24px 16px; overflow-y: auto; overscroll-behavior: contain;
-        opacity: 0; visibility: hidden;
-        transition: opacity .2s ease, visibility 0s linear .2s; }
-      .auth-card-overlay[hidden] { display: none; }
-      .auth-card-overlay.open { opacity: 1; visibility: visible; transition: opacity .2s ease; }
-      .auth-card { margin: auto; width: min(400px, calc(100vw - 32px)); box-sizing: border-box;
-        max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px);
-        overflow-y: auto; overscroll-behavior: contain;
-        padding: 28px; border-radius: 24px;
-        background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-        box-shadow: 0 24px 48px -16px rgba(20, 21, 25, .22), 0 2px 8px rgba(20, 21, 25, .08);
-        color: var(--ink); }
-      @media (prefers-color-scheme: dark) {
-        .auth-card-overlay { background: rgba(20, 21, 25, .35); }
-        .auth-card { box-shadow: var(--shadow); }
-      }
-      .auth-card-overlay.open .auth-card { animation: authCardIn .25s ease-out both; }
-      .auth-card-overlay.closing .auth-card { animation: authCardOut .2s ease-in both; }
-      @keyframes authCardIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
-      @keyframes authCardOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.98); } }
-      .auth-card-top-row { display: flex; align-items: center; justify-content: space-between; margin: 0 0 20px; }
-      .auth-card-top-row .auth-card-logo { margin: 0; }
-      .auth-card-logo .wordmark { font-size: 28px; }
-      .auth-card-oauth-row { display: flex; flex-direction: column; gap: 12px; width: min(100% - 8px, 256px); margin: 0 auto; }
-      .auth-card .btn-capsule { display: flex; align-items: center; justify-content: center; gap: 10px;
-        flex: none; min-width: 0; width: 100%; min-height: 54px; margin: 0; padding: 0 12px; border-radius: 999px; line-height: 1;
-        white-space: nowrap;
-        border: 1px solid var(--line-strong); background: transparent; color: var(--ink);
-        font-family: inherit; font-size: 16px; font-weight: 500; letter-spacing: 0; cursor: pointer; box-sizing: border-box; }
-      .auth-card .btn-capsule svg { flex: none; }
-      .auth-card .btn-capsule:active { transform: scale(.97); }
-      .auth-card .btn-capsule:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-      .auth-card-divider { position: relative; display: flex; align-items: center; justify-content: center; width: min(100% - 8px, 256px); height: 20.8px; margin: 16px auto; color: var(--ink-2); font-size: 13px; font-weight: 600; }
-      .auth-card-divider svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
-      .auth-card-divider svg path { fill: none; stroke: var(--line); }
-      .auth-card .capsule-field { position: relative; width: min(100% - 8px, 256px); margin: 0 auto 16px; }
-      .auth-card .capsule-field input { width: 100%; min-height: 54px; padding: 13px 88px 13px 52px;
-        border: 1px solid rgba(20, 21, 25, .12); border-radius: 999px;
-        background: rgba(255, 255, 255, .30); color: var(--ink); font-size: 16px; font-weight: 500; box-sizing: border-box; font-family: inherit; letter-spacing: 0; }
-      .auth-card .capsule-field input::placeholder { color: var(--ink-2); }
-      .auth-card .capsule-field input:-webkit-autofill,
-      .auth-card .capsule-field input:-webkit-autofill:hover,
-      .auth-card .capsule-field input:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0 100px rgb(247, 247, 245) inset;
-        box-shadow: 0 0 0 100px rgb(247, 247, 245) inset;
-        -webkit-text-fill-color: var(--ink);
-        caret-color: var(--ink);
-        transition: background-color 9999s ease-in-out 0s;
-      }
-      .auth-card .capsule-field input:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-      .auth-card .capsule-chip { position: absolute; left: 7px; top: 50%; transform: translateY(-50%);
-        width: 40px; height: 40px; border-radius: 50%; background: rgba(20, 21, 25, .06);
-        display: flex; align-items: center; justify-content: center; color: var(--ink);
-        font-size: 18px; font-weight: 700; pointer-events: none; }
-      .auth-card .capsule-chip svg { display: block; }
-      .auth-card .capsule-forgot { position: absolute; right: 7px; top: 50%; transform: translateY(-50%);
-        height: 32px; padding: 0 12px; border: 0; border-radius: 999px;
-        background: #fff; color: #141519; font-size: 13px; font-weight: 650; white-space: nowrap; cursor: pointer;
-        box-shadow: 0 1px 3px rgba(20, 21, 25, .14); }
-      .auth-card .capsule-forgot:active { transform: translateY(-50%) scale(.96); }
-      .auth-card .capsule-forgot:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-      /* Forgot/reset alignment with the main card (P1 fix 2026-10-31):
-         entry is a link row under the password field; reset is a card mode. */
-      .auth-card-forgot-row { text-align: right; margin: 8px 2px 0; }
-      .auth-card.mode-reset .auth-card-forgot-row { display: none; }
-      .auth-card-forgot-link { background: none; border: 0; padding: 0; font: inherit; font-size: 13px; color: var(--accent-deep); text-decoration: underline; cursor: pointer; }
-      .auth-card-reset-head { display: none; margin: 0 0 14px; text-align: center; }
-      .auth-card.mode-reset .auth-card-reset-head { display: block; }
-      .auth-card-reset-head h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
-      .auth-card-reset-head p { font-size: 13.5px; line-height: 19px; color: var(--ink-2); margin: 0; }
-      .auth-card.mode-reset .auth-card-oauth-row, .auth-card.mode-reset .auth-card-divider, .auth-card.mode-reset .pw-field, .auth-card.mode-reset .auth-card-terms, .auth-card.mode-reset .auth-card-consent-subs { display: none; }
-      .auth-card-msg { font-size: 13px; line-height: 18px; color: var(--muted); text-align: center; margin: 12px 0 0; }
-      .auth-card-back-row { display: none; margin: 12px 0 0; text-align: center; }
-      .auth-card.mode-reset .auth-card-back-row { display: block; }
-      .auth-card:not(.mode-register) .auth-card-terms { display: none; }
-      /* P2 hide (2026-11-01, GM+QA b-form): demo login buttons removed from the DOM; the card serves the verified reset path only, so there is no way back to a login mode. */
-      .auth-card .auth-card-back-row { display: none !important; }
-      .auth-card-back-row a { font-size: 13px; color: var(--accent-deep); text-decoration: underline; cursor: pointer; }
-      /* Reset-mode submit: centered, smaller capsule (Tao Yu 2026-10-31). */
-      .auth-card.mode-reset .capsule-foot-row { justify-content: center; }
-      .auth-card.mode-reset .capsule-submit { min-height: 40px; padding: 0 16px; font-size: 14px; }
-      .auth-card .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-      .auth-card-terms { display: flex; align-items: flex-start; gap: 8px; width: min(100% - 8px, 256px); margin: 0 auto 12px; }
-      .auth-card-terms input { flex: none; width: 20px; height: 20px; margin: 0; padding: 0; -webkit-appearance: none; appearance: none; border: 1.5px solid var(--ink-2); border-radius: 6px; background: transparent; cursor: pointer; box-sizing: border-box; }
-      .auth-card-terms input:checked { border-color: var(--accent); background-color: var(--accent); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.5 4.8 9 10 3.5' fill='none' stroke='%23141519' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: 12px 12px; }
-      .auth-card-terms input:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-      .auth-card-terms label { font-size: 13px; line-height: 20px; color: var(--ink-2); cursor: pointer; }
-      .auth-card-terms label a { color: var(--accent-deep); font-weight: 600; }
-      .auth-card .capsule-foot-row { display: flex; align-items: center; gap: 16px; width: min(100% - 8px, 256px); margin: 6px auto 0; }
-      .auth-card-consent-subs { flex: 1; min-width: 0; }
-      .auth-card-consent-subs p { font-size: 12px; line-height: 1.45; color: var(--ink-2); margin: 0; }
-      .auth-card-consent-subs p + p { margin-top: 2px; }
-      .auth-card .capsule-submit { display: flex; align-items: center; justify-content: center; gap: 8px;
-        flex: none; min-height: 48px; margin: 0; padding: 0 18px; border: 0; border-radius: 999px;
-        background: var(--accent); color: #141519; white-space: nowrap;
-        font-size: 15px; font-weight: 650; letter-spacing: -0.01em; line-height: 1; cursor: pointer; box-sizing: border-box; }
-      .auth-card .capsule-submit:active { transform: scale(.96); }
-      .auth-card .capsule-submit:focus-visible { outline: 2px solid var(--skin-accent); outline-offset: 2px; }
-      .auth-card .btn-capsule[aria-disabled="true"], .auth-card .capsule-submit[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
-      .auth-card-brandline { font-size: 14px; color: var(--ink); font-weight: 600; margin: 30px 0 0; text-align: center; }
-      .auth-card-foot { font-size: 14px; color: var(--ink-2); margin: 8px 0 0; text-align: center; }
-      .auth-card-foot a { color: var(--accent-deep); font-weight: 600; }
-      @media (prefers-color-scheme: light) {
-        .auth-card-foot a { color: rgb(168, 48, 0); }
-        .auth-card .btn-capsule { color: #25221a; }
-        .auth-card .capsule-field input::placeholder { color: #5d574e; }
-        .auth-card-terms label a { color: rgb(168, 48, 0); }
-      }
-      @media (prefers-color-scheme: dark) {
-        .auth-card .capsule-field input { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .14); }
-        .auth-card .capsule-field input:-webkit-autofill,
-        .auth-card .capsule-field input:-webkit-autofill:hover,
-        .auth-card .capsule-field input:-webkit-autofill:focus {
-          -webkit-box-shadow: 0 0 0 100px rgb(50, 50, 55) inset;
-          box-shadow: 0 0 0 100px rgb(50, 50, 55) inset;
-        }
-        .auth-card .capsule-chip { background: rgba(255, 255, 255, .10); }
-      }
-      .auth-card-demo-toast { position: fixed; left: 50%; bottom: 28px; z-index: 300; transform: translateX(-50%);
-        max-width: calc(100vw - 48px); padding: 12px 18px; border-radius: 999px;
-        background: var(--ink); color: var(--bg-raise); font-size: 14px; font-weight: 600; text-align: center;
-        opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility 0s linear .2s; pointer-events: none; }
-      .auth-card-demo-toast.show { opacity: 1; visibility: visible; transition: opacity .2s ease; }
-      @media (prefers-reduced-motion: reduce) {
-        .auth-card-overlay { transition: opacity .15s ease, visibility 0s linear .15s !important; }
-        .auth-card-overlay.open .auth-card, .auth-card-overlay.closing .auth-card { animation: none !important; }
-        .auth-card-demo-toast { transition: opacity .15s ease, visibility 0s linear .15s !important; }
-      }
-      @media (max-width: 360px) {
-        /* Single topbar Log in stays visible at 320 (base rule hides all .topbar-in .btn).
-           Kept with the login surface: without it there is no card entry at 320/360. */
-        .topbar-in button.topbar-auth { display: inline-flex; }
-      }
-
-    </style>
-      <style>
-      /* ---------- payment success page (scoped to .page-success) ---------- */
-      .page-success { display: flex; flex-direction: column; min-height: 100vh; }
-      .page-success .success-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
-      .page-success .success-wrap { width: 100%; max-width: 560px; }
-      .page-success .success-card { background: var(--bg-raise); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 40px 36px 36px; text-align: center; }
-      .page-success .success-mark { margin: 0 0 20px; line-height: 0; }
-      .page-success .success-card h1 { font-size: 32px; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 6px; }
-      .page-success .success-card .success-sub { font-size: 14.5px; line-height: 20px; color: var(--ink-2); margin: 0 0 14px; }
-      .page-success .success-card p { margin: 0 0 12px; color: var(--ink-2); }
-      .page-success .success-ref { font-size: 13px; overflow-wrap: anywhere; }
-      .page-success .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 26px 0 0; }
-      .page-success .sticky-cta { display: none; }
-      @media (max-width: 560px) {
-        .page-success .success-main { padding: 32px 16px; }
-        .page-success .success-card { padding: 32px 22px 28px; }
-        .page-success .success-card h1 { font-size: 28px; }
-      }
-    </style>
-<style>
-/* Topbar account (sealed final form, transplanted from the homepage v2 line):
-   logged-in topbar shows only the avatar; the drawer mirrors the dashboard
-   Account drawer plus one Dashboard entry. */
-.tb-acct { display: none; position: relative; }
-body.is-authed .tb-acct { display: inline-flex; }
-.id-avatar-btn { border: 0; background: transparent; padding: 2px; border-radius: 50%; cursor: pointer; line-height: 0; color: var(--muted); }
-.id-avatar { display: inline-flex; width: 32px; height: 32px; flex: none; }
-.id-avatar svg { width: 100%; height: 100%; display: block; }
-.acct-head .id-avatar { color: var(--muted); }
-.acct-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 260px; max-height: calc(100vh - 180px); overflow-y: auto; background: var(--bg-raise); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 8px; z-index: 70; }
-.acct-menu.open { display: block; }
-.acct-head { display: flex; gap: 12px; align-items: center; padding: 10px 4px 12px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
-.acct-item { display: flex; width: 100%; align-items: center; min-height: 44px; padding: 13px 4px; font-size: 15px; font-weight: 600; line-height: 1; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid #eee; border-radius: 0; cursor: pointer; text-decoration: none; text-align: left; font-family: inherit; box-sizing: border-box; }
-.acct-sep { height: 1px; background: var(--line); margin: 8px 0; }
-.acct-name { font-weight: 700; font-size: 15px; word-break: break-all; }
-.acct-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
-.id-badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 4px 10px; border-radius: 999px; background: #ff5a1f; color: #fff; }
-body.is-authed .topbar-in [data-open-auth-card] { display: none; }
-.sess-toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(8px); background: var(--ink); color: #fff; font-size: 14px; padding: 10px 16px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; z-index: 400; max-width: calc(100vw - 32px); text-align: center; }
-.sess-toast.show { opacity: 1; transform: translateX(-50%) none; }
-</style>
-<style>
-/* P1-3 footer navigation (scoped to footer; aligned with the live homepage footer) */
-footer .foot-in { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 28px 40px; align-items: start; }
-footer .foot-brand p { margin-top: 10px; }
-footer .foot-nav { display: flex; flex-direction: column; gap: 9px; }
-footer .foot-h { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 2px 0 4px; }
-footer .foot-nav a { font-size: 14.5px; }
-footer .fineprint { grid-column: 1 / -1; }
-@media (max-width: 760px) {
-  footer .foot-in { grid-template-columns: 1fr 1fr; }
-  footer .foot-brand { grid-column: 1 / -1; }
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Thank you — CitMark</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><link rel="canonical" href="https://citmark.com/success/">
+<link rel="stylesheet" href="/assets/citmark.css">
+<style id="shell-v2">
+/* shell-v2: site-v1 package shell (citmark.css SS1-4/18/19 + SS21 shell lines), production wiring marked [prod] */
+:root{
+  /* color */
+  --bg:#F4F1EA;        /* page base, off-white */
+  --paper:#FBF9F4;     /* raised surface / alternate section */
+  --line:#E2DBCD;      /* hairlines on light */
+  --ink:#141311;       /* primary text, strong rules */
+  --ink-2:#4B463C;     /* body text */
+  --ink-3:#6F685C;     /* secondary text (AA on bg) */
+  --mute:#9A9385;      /* placeholder / decorative only, never body */
+  --or:#E8541E;        /* accent: YOU, primary action, key number */
+  --or-ink:#C2410C;    /* orange for small text on light (AA) */
+  --or-2:#FF7A45;      /* accent on dark */
+  --or-wash:rgba(232,84,30,.10);
+  --dark:#12110F;      /* report band + final CTA only */
+  --dark-2:#1C1A17;    /* surface on dark */
+  --dark-line:#2C2925;
+  --on-dark:#F4F1EA;
+  --on-dark-2:#B8B3A7;
+  /* type */
+  --f-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --f-num:"Bricolage Grotesque","Plus Jakarta Sans",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --f-serif:"Instrument Serif",Georgia,serif;  /* italic accent: at most one phrase per heading, never in body copy */
+     
+     
+  --t-score-xl:112px; --t-score-l:72px;
+  /* space (4-base) */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  /* layout */
+  --page:1440px; --gutter:120px; --content:1200px; --col-gap:24px;
+  --nav-h:76px;
+  /* shape */
+  --r-pill:999px; --r-card:4px;
+  --shadow-ink:5px 5px 0 var(--ink);
+  --shadow-or:10px 10px 0 var(--or);
 }
+:root{--sans:var(--f-sans);--mono:var(--f-mono);--accent:var(--or);--accent-deep:var(--or-ink);--bg-raise:var(--paper);--card:#fff;--line-soft:#EDE8DC}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:var(--t-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:var(--page);margin:0 auto;padding:0 var(--gutter)}
+.mono{font-family:var(--f-mono)}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.or{color:var(--or)} .dim{color:#A39C8E}
+.label{font-family:var(--f-mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:500}
+.label.ink{color:var(--ink-3)}
+.band-dark .label,.final .label{color:var(--or-2)}
+.nav{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:24px;letter-spacing:-.035em;color:var(--ink)} .logo i{color:var(--or);font-style:normal}
+.nav-links{display:flex;gap:36px;font-size:15px;font-weight:500;color:var(--ink-2)}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a.on{color:var(--ink);font-weight:650}
+.nav-links a.on:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--or)}
+.nav-r{display:flex;gap:24px;align-items:center;font-size:15px;font-weight:600}
+.nav-menu{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 22px;border-radius:var(--r-pill);font-weight:700;font-size:15px;white-space:nowrap;background:var(--or);color:#fff}
+.btn.ink{background:var(--ink);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.lg{min-height:52px;font-size:16px;padding:0 26px}
+.link{font-weight:650;border-bottom:1.5px solid var(--or);padding-bottom:1px}
+.field-cta{display:flex;align-items:center;background:#fff;border:1.5px solid var(--ink);border-radius:var(--r-pill);padding:6px;box-shadow:var(--shadow-ink);max-width:480px}
+.field-cta .ph{flex:1;padding:0 18px;color:var(--mute);font-size:16px}
+.field-cta .btn{min-height:50px;font-size:16px}
+.fine{margin-top:14px;font-size:var(--t-small);color:var(--ink-3)}
+.final{background:var(--dark);color:var(--on-dark);position:relative;overflow:hidden;text-align:center;padding:96px 0}
+.final .rings{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.final .in{position:relative}
+.final h2{font-size:58px;line-height:1.03;letter-spacing:-.045em;font-weight:800;max-width:880px;margin:16px auto 0}
+.final h2 .serif{color:var(--or-2)}
+.final .field-cta{margin:36px auto 0;background:var(--dark-2);border-color:var(--on-dark);box-shadow:5px 5px 0 var(--or)}
+.final .field-cta .ph{color:#77726A}
+.final .fine{color:#8C877C}
+.foot{padding-top:64px;padding-bottom:40px;border-top:2px solid var(--ink)}
+.foot-g{display:grid;grid-template-columns:1fr 160px 160px 160px;gap:var(--s6)}
+.foot .tag{font-size:15px;color:var(--ink-2);margin-top:12px;max-width:320px}
+.foot h5{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink-3);font-weight:500;margin-bottom:14px}
+.foot li{list-style:none;font-size:15px;margin-bottom:10px;color:var(--ink)}
+.foot-b{display:flex;justify-content:space-between;margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+/* [prod] sticky header w/ barsfix legibility (package nav is static in the mock) */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.88);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
+/* [prod] mobile menu panel (package shows the button; panel is production) */
+.nav-menu{background:none;border:none;cursor:pointer;color:var(--ink)}
+.mmenu{display:none;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 14px;position:sticky;top:var(--nav-h);z-index:59}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 2px;font-weight:600;font-size:16px;color:var(--ink);border-bottom:1px solid var(--line)}
+.nav-menu path{transition:transform .24s cubic-bezier(.2,.7,.2,1),opacity .24s cubic-bezier(.2,.7,.2,1);transform-box:fill-box;transform-origin:center}
+.nav-menu[aria-expanded="true"] .mb1{transform:translateY(5px) rotate(45deg)}
+.nav-menu[aria-expanded="true"] .mb2{opacity:0}
+.nav-menu[aria-expanded="true"] .mb3{transform:translateY(-5px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.nav-menu path{transition:none}}
+@media (max-width:860px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
+.mmenu a:last-child{border-bottom:none}
+.mmenu a.cur{color:var(--or-ink)}
+/* [prod] neutralize legacy dead .final card rules in page CSS (radius survives cascade) */
+.final{border-radius:0}
+/* [prod] real form inside .field-cta + closing extras */
+.field-cta input.ph{flex:1;background:transparent;border:none;outline:none;font:inherit;color:var(--ink);padding:0 18px;min-width:0}
+.field-cta input.ph::placeholder{color:var(--mute)}
+.final .field-cta input.ph{color:var(--on-dark)}
+.final .field-cta input.ph::placeholder{color:#77726A}
+.final .fsub{color:var(--on-dark-2);font-size:17px;line-height:1.6;max-width:560px;margin:18px auto 0}
+.final .form-msg{min-height:20px;font-size:14px;margin-top:12px;color:var(--on-dark-2)}
+.final .form-msg.err{color:#ffb59d}
+.fcta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn.ghostd{background:transparent;color:var(--on-dark);box-shadow:inset 0 0 0 1.5px rgba(244,241,234,.55)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nowrap{white-space:nowrap}
+.fineprint{margin-top:18px;font-size:12.5px;line-height:1.6;color:var(--ink-3);text-align:center}
+/* page geometry aligned to SPEC 3b3a410d (package type scale + .sec rhythm) */
+body{font-size:16px;line-height:1.6}
+h1{font-family:var(--f-sans);font-size:64px;line-height:1.02;font-weight:800;letter-spacing:-.045em;text-wrap:balance}
+h2{font-family:var(--f-sans);font-size:52px;line-height:1.04;font-weight:800;letter-spacing:-.042em;text-wrap:balance}
+.final h2{font-size:58px;line-height:1.03;letter-spacing:-.045em;max-width:880px}
+.it{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--or)}
+.final h2 .it{color:var(--or-2)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink)}
+.eyebrow::before{content:"\2014 "}
+section{padding:128px 0}
+#faq .faq{justify-self:start;float:none;margin:0}
+section.final{overflow:hidden}
+.foot .tag{display:block;font-family:var(--f-sans);font-size:15px;font-weight:400;letter-spacing:normal;color:var(--ink-2);margin-top:12px;line-height:1.55;max-width:320px;white-space:normal;padding:0;background:none;border:none;border-radius:0}
+@media (max-width:1024px){:root{--gutter:40px}}
+@media (max-width:860px){
+.nav-links{display:none}
+.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}
+.mmenu{top:64px}
+}
+@media (max-width:600px){
+:root{--gutter:20px}
+h1{font-size:42px}
+h2{font-size:34px}
+section{padding:72px 0}
+.nav{height:64px}
+.nav-r{gap:12px;font-size:14px}
+.nav-r .btn{min-height:38px;padding:0 14px;font-size:13.5px}
+.logo{font-size:22px}
+.field-cta{flex-direction:column;align-items:stretch;border-radius:14px;padding:6px;box-shadow:4px 4px 0 var(--ink)}
+.field-cta input.ph{padding:14px 12px}
+.field-cta .btn{border-radius:10px;min-height:50px}
+.final{padding:72px 0}
+.final h2{font-size:36px}
+.foot-g{grid-template-columns:1fr 1fr;gap:28px}
+.foot-g>:first-child{grid-column:1/-1}
+.foot-b{flex-direction:column;gap:8px}
+}
+@media (prefers-color-scheme:dark){
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--dark:#12110F;--dark-2:#1C1A17;--on-dark:#F4F1EA;--on-dark-2:#B8B3A7}
+body{background:var(--bg);color:var(--ink)}
+}
+</style><style>
+.ok-wrap{max-width:640px;margin:0 auto;padding:96px 0;text-align:center}
+.ok-mark{width:72px;height:72px;margin:0 auto 28px;border:2px solid var(--ink);border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center}
+.ok-wrap h1{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1.04}
+.ok-wrap .lead{margin:22px auto 0;max-width:480px}
+.ok-cta{margin-top:36px;display:flex;gap:18px;align-items:center;justify-content:center}
+.ok-note{margin-top:28px;color:var(--ink-3);font-size:14.5px}
+.ok-note a{color:var(--or-ink);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:600px){.ok-wrap{padding:64px 0}.ok-wrap h1{font-size:34px}.ok-cta{flex-direction:column;gap:14px}}
+</style></head><body>
+<header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/pricing/#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
+<nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/pricing/#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
+
+<main class="wrap">
+  <div class="ok-wrap">
+    <div class="ok-mark"><svg width="30" height="22" viewBox="0 0 30 22" fill="none"><path d="M2 12.5 11 20 28 2" stroke="#fff" stroke-width="4" stroke-linecap="square"/></svg></div>
+    <p class="label" style="justify-content:center">— Payment complete</p>
+    <h1 style="margin-top:16px">Thank <span class="serif" style="color:var(--or)">you.</span></h1>
+    <p class="lead">Your payment is complete. Your receipt is on its way to your inbox. Go to your dashboard to get started.</p>
+    <p class="success-ref" id="successRef" hidden></p>
+    <p class="success-processing" id="successProcessing" hidden>Processing…</p>
+    <dl class="success-values" id="successValues" hidden></dl>
+    <div class="ok-cta"><a class="btn" href="/dashboard/">Go to your dashboard</a><a class="textlink" href="mailto:support@citmark.com" style="font-weight:700;text-decoration:underline;text-underline-offset:4px">Contact support</a></div>
+    <p class="ok-note">Didn't get the receipt? Check your spam folder, or <a href="mailto:support@citmark.com">contact support</a>.</p>
+  </div>
+</main>
+
+<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/pricing/#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div></footer><style id="success-prod">
+/* [prod] live success-values wiring on the package token set (rules mirrored from live) */
+.success-ref{font-family:var(--f-mono);font-size:13px;color:var(--ink-3);overflow-wrap:anywhere;margin-top:18px}
+.success-processing{color:var(--ink-3);font-size:15px;margin-top:18px}
+.success-values{margin:18px auto 4px;max-width:340px;text-align:left}
+.success-values .sv-row{display:flex;justify-content:space-between;gap:16px;padding:7px 2px;border-top:1px solid var(--line)}
+.success-values dt{color:var(--ink-3);font-size:14px}
+.success-values dd{margin:0;font-weight:700;font-size:14px}
 </style>
-<style>
-/* sess-slot: topbar zero-shift (per-surface fixed slot + neutral placeholder) */
-.sess-slot { display: inline-flex; align-items: center; justify-content: flex-end; flex: none; width: 106px; min-height: 36px; }
-.topbar-in .sess-slot .tb-acct { margin-left: 0; }
-body:not(.session-ready) .sess-slot { background: var(--bg-sink); border-radius: 10px; }
-body:not(.session-ready) .sess-slot > * { visibility: hidden; }
-@media (max-width: 720px) { .sess-slot { width: 65px; margin-left: auto; } }
-</style>
-</head>
-  <body class="page-success">
-    <header class="topbar">
-      <div class="wrap topbar-in">
-        <a class="wordmark" href="#top">CitMark<span class="dot">.</span></a>
-        <nav class="topnav" aria-label="Page sections">
-          <a href="/#report">Sample report</a>
-          <a href="/#how">How it works</a>
-          <a href="/#pricing">Pricing</a>
-          <a href="/#faq">FAQ</a>
-        </nav>
-        <span class="sess-slot"><button class="btn small ghost topbar-auth" type="button" data-open-auth-card>Log in</button>
-        <span class="tb-acct"><button class="id-avatar-btn" id="idAvatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span></button><div class="acct-menu" id="acctMenu" role="menu" aria-label="Account"><div class="acct-head" role="none"><span class="id-avatar" role="img" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span><div><div class="acct-name"></div><div class="acct-meta"><span class="id-badge"></span></div></div></div><a class="acct-item" role="menuitem" href="/dashboard/">Dashboard</a><a class="acct-item" role="menuitem" href="/dashboard/?view=plan">My plan</a><a class="acct-item" role="menuitem" href="/help/">Help center</a><div class="acct-sep" role="separator"></div><button class="acct-item" role="menuitem" type="button" data-session-logout>Log out</button></div></span></span>
-        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-          <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-        </button>
-      </div>
-      <div class="mobile-menu" id="mobileMenu">
-        <nav aria-label="Page sections">
-          <a href="/#report">Sample report</a>
-          <a href="/#how">How it works</a>
-          <a href="/#pricing">Pricing</a>
-          <a href="/#faq">FAQ</a>
-        </nav>
-      </div>
-    </header>
+<script>
+(function () {
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function setMenu(open) {
+    mobileMenu.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
+  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
 
-    <main id="top" class="success-main">
-      <section class="success-wrap" aria-labelledby="successTitle">
-        <div class="success-card">
-          <p class="success-mark" aria-hidden="true"><svg viewBox="0 0 48 48" width="48" height="48" focusable="false"><circle cx="24" cy="24" r="24" fill="var(--accent)"/><path d="M14 24.5 21 31.5 34 17.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
-          <h1 id="successTitle">Thank you.</h1>
-          <p class="success-sub">Your payment is complete.</p>
-          <p>Your receipt is on its way to your inbox. Go to your dashboard to get started.</p>
-          <p>Didn't get the receipt? Check your spam folder, or contact support.</p>
-          <p class="success-ref" id="successRef" hidden></p>
-          <p class="success-processing" id="successProcessing" hidden>Processing…</p>
-          <dl class="success-values" id="successValues" hidden></dl>
-          <p class="success-actions">
-            <a class="btn" href="/dashboard/">Back to dashboard</a>
-            <a class="btn ghost" href="mailto:support@citmark.com">Contact support</a>
-          </p>
-        </div>
-      </section>
-    </main>
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    q.addEventListener("click", function () {
+      var open = item.classList.toggle("open");
+      q.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
 
-    <footer>
-      <div class="wrap foot-in">
-        <div class="foot-brand">
-          <a class="wordmark" href="#top" style="font-size: 18px;">CitMark<span class="dot">.</span></a>
-          <p>AI search visibility monitoring for small sites.</p>
-          <p>Contact: <a href="mailto:support@citmark.com">support@citmark.com</a></p>
-        </div>
-        <nav class="foot-nav" aria-label="Product">
-          <p class="foot-h">Product</p>
-          <a href="/#report">Sample report</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/#faq">FAQ</a>
-        </nav>
-        <nav class="foot-nav" aria-label="Company">
-          <p class="foot-h">Company</p>
-          <a href="/about/">About</a>
-          <a href="/methodology/">Methodology</a>
-          <a href="/contact/">Contact</a>
-        </nav>
-        <nav class="foot-nav" aria-label="Legal">
-          <p class="foot-h">Legal</p>
-          <a href="#privacy" class="privacy-link">Privacy Policy</a>
-          <a href="/terms/">Terms of Service</a>
-        </nav>
-        <p class="fineprint">Operated by Tao Yu.</p>
-      </div>
-    </footer>
-    <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-      <p><b>Founding pricing:</b> 50% off for 12 months — first 50 only.</p>
-      <a class="btn small" href="#join" tabindex="-1"><span class="cta-full">Create your free account</span><span class="cta-short">Free account</span></a>
-    </div>
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  }
 
-    <div class="privacy-overlay" id="privacyModal" hidden>
-      <div class="privacy-panel" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
-        <button class="privacy-close" type="button" id="privacyClose" aria-label="Close privacy policy">&times;</button>
-        <h2 id="privacyTitle">Privacy Policy</h2>
-        <p class="eff"><strong>Effective date:</strong> October 17, 2026</p>
-        <h3>1. Who we are</h3>
-        <p>CitMark ("we", "us") operates citmark.com. For any privacy question or request: <a href="mailto:support@citmark.com">support@citmark.com</a>.</p>
-        <h3>2. What we collect</h3>
-        <p>The only personal data we collect on this page is your <strong>email address</strong>, which you provide when joining the waitlist. We do not use cookies, analytics, fingerprinting, or any other tracking technology on this page.</p>
-        <h3>3. Why we collect it, and the lawful basis</h3>
-        <ul>
-          <li><strong>Purpose:</strong> to send you one notification when CitMark launches (including the founding-member pricing you signed up for), and to administer the waitlist (e.g., prevent duplicate signups).</li>
-          <li><strong>Lawful basis (GDPR Art. 6(1)(a)):</strong> your consent, given when you submit the waitlist form after reading the notice next to it.</li>
-        </ul>
-        <h3>4. How we store and protect it</h3>
-        <ul>
-          <li>Your email is stored in a private, access-restricted Google Sheet and in our mailbox (signup notifications only).</li>
-          <li>We never sell your data. We share it with no third party except the service providers strictly necessary to run this page (static web hosting, email delivery), each bound by their own data-protection terms.</li>
-        </ul>
-        <h3>5. International transfers</h3>
-        <p>Our team and some providers operate outside your country (including the United States and China). Where the GDPR applies, transfers are protected by appropriate safeguards, including the Standard Contractual Clauses with our providers.</p>
-        <h3>6. How long we keep it</h3>
-        <p>We keep waitlist emails until <strong>12 months after launch</strong>, or until you ask us to delete them — whichever comes first. Deleted on request within 30 days.</p>
-        <h3>7. Your rights</h3>
-        <p>You may at any time: access, correct, or delete your data; withdraw your consent; restrict or object to processing; request portability; and (in the EU/UK) lodge a complaint with your supervisory authority. Email <a href="mailto:support@citmark.com">support@citmark.com</a> for any of these — we respond within 30 days. Withdrawing consent does not affect processing already carried out.</p>
-        <h3>8. Children</h3>
-        <p>This page is not directed at children under 16, and we do not knowingly collect their data. If you believe a child provided us data, contact us and we will delete it.</p>
-        <h3>9. Changes</h3>
-        <p>We will post any updates here with a new effective date. Material changes will be notified to the waitlist by email.</p>
-      </div>
-    </div>
-
-    <script>
-      (function () {
-        "use strict";
-
-        /* ---------- Sample report: per-engine demo data ---------- */
-        var ENGINES = {
-          "ChatGPT": {
-            score: 58, delta: "▲ 6 pts vs. last week",
-            mention: 46, citation: 31, sov: 28,
-            prompts: [
-              { q: "best waterproof hiking boots for wide feet", status: "cited", page: "cited: /guides/waterproof-boots-wide-feet" },
-              { q: "most durable backpack for a daily commute", status: "mentioned", page: "named, but no page linked" },
-              { q: "best gifts for hikers under $50", status: "missed", page: "rival cited instead: trailheadsupply.co" },
-              { q: "is merino wool worth it for base layers?", status: "cited", page: "cited: /blog/merino-wool-guide" },
-              { q: "best online stores for trail running gear", status: "missed", page: "not in the answer at all" }
-            ]
-          },
-          "Perplexity": {
-            score: 71, delta: "▲ 3 pts vs. last week",
-            mention: 62, citation: 48, sov: 35,
-            prompts: [
-              { q: "best waterproof hiking boots for wide feet", status: "cited", page: "cited: /guides/waterproof-boots-wide-feet" },
-              { q: "most durable backpack for a daily commute", status: "cited", page: "cited: /collections/commuter-packs" },
-              { q: "best gifts for hikers under $50", status: "mentioned", page: "named, but no page linked" },
-              { q: "is merino wool worth it for base layers?", status: "cited", page: "cited: /blog/merino-wool-guide" },
-              { q: "best online stores for trail running gear", status: "missed", page: "rival cited instead: summitstride.com" }
-            ]
-          },
-          "Gemini": {
-            score: 64, delta: "▲ 9 pts vs. last week",
-            mention: 54, citation: 38, sov: 31,
-            prompts: [
-              { q: "best waterproof hiking boots for wide feet", status: "cited", page: "cited: /guides/waterproof-boots-wide-feet" },
-              { q: "most durable backpack for a daily commute", status: "missed", page: "rival cited instead: trailheadsupply.co" },
-              { q: "best gifts for hikers under $50", status: "cited", page: "cited: /gift-guide/hikers-under-50" },
-              { q: "is merino wool worth it for base layers?", status: "mentioned", page: "named, but no page linked" },
-              { q: "best online stores for trail running gear", status: "mentioned", page: "named, but no page linked" }
-            ]
-          }
-        };
-        var STATUS_LABEL = { cited: "CITED", mentioned: "MENTIONED", missed: "MISSED" };
-        var tabsEl = document.querySelector(".engine-tabs");
-        var listEl = document.getElementById("promptList");
-        var scoreEl = document.getElementById("scoreNum");
-        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        var countTimer = null;
-
-        function setMeter(fillId, valId, pct) {
-          document.getElementById(fillId).style.width = pct + "%";
-          document.getElementById(valId).textContent = pct + "%";
-        }
-        function animateScore(target) {
-          if (countTimer) { clearInterval(countTimer); countTimer = null; }
-          if (reduceMotion) { scoreEl.textContent = target; return; }
-          var cur = 0;
-          countTimer = setInterval(function () {
-            cur += Math.max(1, Math.round((target - cur) / 5));
-            if (cur >= target) { cur = target; clearInterval(countTimer); countTimer = null; }
-            scoreEl.textContent = cur;
-          }, 40);
-        }
-        function renderPrompts(prompts) {
-          listEl.innerHTML = "";
-          prompts.forEach(function (p, idx) {
-            var row = document.createElement("div");
-            row.className = "prompt-row" + (idx >= 2 ? " m-extra" : "");
-            var q = document.createElement("div");
-            q.className = "prompt-q";
-            q.textContent = "“" + p.q + "”";
-            var page = document.createElement("span");
-            page.className = "page";
-            page.textContent = p.page;
-            q.appendChild(page);
-            var st = document.createElement("span");
-            st.className = "status " + p.status;
-            st.textContent = STATUS_LABEL[p.status];
-            row.appendChild(q);
-            row.appendChild(st);
-            listEl.appendChild(row);
-          });
-        }
-        function selectEngine(name, btn) {
-          var d = ENGINES[name];
-          if (!d) return;
-          tabsEl.querySelectorAll(".engine-tab").forEach(function (b) {
-            b.setAttribute("aria-selected", b === btn ? "true" : "false");
-          });
-          document.getElementById("scoreEngine").textContent = name;
-          var delta = document.getElementById("scoreDelta");
-          delta.textContent = d.delta;
-          delta.style.color = d.delta.indexOf("▼") === 0 ? "var(--bad)" : "var(--good)";
-          animateScore(d.score);
-          setMeter("mentionFill", "mentionVal", d.mention);
-          setMeter("citationFill", "citationVal", d.citation);
-          setMeter("sovFill", "sovVal", d.sov);
-          renderPrompts(d.prompts);
-        }
-        if (tabsEl && listEl && scoreEl) {
-        Object.keys(ENGINES).forEach(function (name, i) {
-          var b = document.createElement("button");
-          b.type = "button";
-          b.className = "engine-tab";
-          b.setAttribute("role", "tab");
-          b.setAttribute("aria-selected", i === 0 ? "true" : "false");
-          b.textContent = name;
-          b.addEventListener("click", function () { selectEngine(name, b); });
-          tabsEl.appendChild(b);
-          if (i === 0) { setTimeout(function () { selectEngine(name, b); }, 60); }
-        });
-        }
-
-        /* ---------- FAQ accordion ---------- */
-        document.querySelectorAll(".faq-item").forEach(function (item) {
-          var btn = item.querySelector(".faq-q");
-          btn.addEventListener("click", function () {
-            var open = item.classList.toggle("open");
-            btn.setAttribute("aria-expanded", open ? "true" : "false");
-          });
-        });
-
-        /* ---------- Pricing founding toggle ---------- */
-        var toggle = document.getElementById("foundingToggle");
-        var plans = document.getElementById("plans");
-        function applyPricing() {
-          var founding = toggle.checked;
-          plans.classList.toggle("founding-on", founding);
-          plans.querySelectorAll(".amt").forEach(function (el) {
-            el.textContent = "$" + (founding ? el.getAttribute("data-founding") : el.getAttribute("data-regular"));
-          });
-          plans.querySelectorAll("[data-note]").forEach(function (el) {
-            el.textContent = founding ? "Founding price — locked for 12 months." : "Regular launch price.";
-          });
-        }
-        if (toggle && plans) {
-          toggle.addEventListener("change", applyPricing);
-          applyPricing();
-        }
-
-        /* ---------- Waitlist forms ----------
-           Primary channel: the owner's Google Apps Script endpoint, which
-           appends each signup to a Google Sheet (deduped, source-tagged).
-           Fallback: the original FormSubmit AJAX channel — if the sheet
-           endpoint errors, times out (12s), or returns ok:false, the signup
-           is re-sent through FormSubmit so no signup is ever lost. */
-        var CONTACT = "hello@citmark.com";
-        var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxdBYcFBwGF_M-5Sgpc3GxB84Bs6ZTNhDRA4LmsPMyG_5Kc3WN3gjJlgN7Cf7Z6equ6/exec";
-        var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-        var pendingSource = null; /* set to "sticky" when the sticky bar's button is tapped */
-
-        function postToSheet(payload) {
-          return new Promise(function (resolve, reject) {
-            var ctrl = ("AbortController" in window) ? new AbortController() : null;
-            var timer = setTimeout(function () {
-              if (ctrl) { ctrl.abort(); }
-              reject(new Error("sheet timeout"));
-            }, 12000);
-            fetch(SHEET_ENDPOINT, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-              signal: ctrl ? ctrl.signal : undefined
-            }).then(function (r) {
-              return r.json().catch(function () { return null; });
-            }).then(function (data) {
-              clearTimeout(timer);
-              if (data && data.ok) { resolve(data.result || "added"); }
-              else { reject(new Error("sheet rejected")); }
-            }).catch(function (err) {
-              clearTimeout(timer);
-              reject(err);
-            });
-          });
-        }
-
-        function postToFormSubmit(email) {
-          return fetch("https://formsubmit.co/ajax/" + CONTACT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify({ email: email, _subject: "New waitlist signup", _captcha: "false" })
-          }).then(function (r) {
-            if (!r.ok) { throw new Error("http " + r.status); }
-            return r.json().catch(function () { return {}; });
-          });
-        }
-
-        document.querySelectorAll("form[data-waitlist]").forEach(function (form) {
-          var input = form.querySelector('input[type="email"]');
-          var honeypot = form.querySelector('input[name="website"]');
-          var btn = form.querySelector('button[type="submit"]');
-          var msg = form.parentElement.querySelector(".form-msg") || form.nextElementSibling;
-          var sending = false;
-          form.addEventListener("submit", function (ev) {
-            ev.preventDefault();
-            if (sending) return;
-            var email = (input.value || "").trim();
-            msg.className = "form-msg";
-            msg.textContent = "";
-            if (!EMAIL_RE.test(email)) {
-              input.setAttribute("aria-invalid", "true");
-              msg.textContent = "That email doesn't look complete — check it and try again.";
-              msg.classList.add("show", "err");
-              input.focus();
-              return;
-            }
-            input.removeAttribute("aria-invalid");
-            sending = true;
-            btn.disabled = true;
-            var source = pendingSource || form.getAttribute("data-source") || "hero";
-            pendingSource = null;
-            function done(okText) {
-              sending = false;
-              btn.disabled = false;
-              msg.textContent = okText;
-              msg.classList.add("show", "ok");
-              input.value = "";
-            }
-            function failed() {
-              sending = false;
-              btn.disabled = false;
-              msg.textContent = "Something went wrong — please try again.";
-              msg.classList.add("show", "err");
-            }
-            postToSheet({
-              email: email,
-              source: source,
-              page: location.href,
-              website: honeypot ? honeypot.value : ""
-            }).then(function (result) {
-              if (result === "duplicate") {
-                done("You're already on the list — we'll be in touch.");
-              } else {
-                /* "added" and "ignored" (honeypot) both show the normal success state */
-                done("You're on the list! We'll email you at " + email + " when we launch.");
-              }
-            }).catch(function () {
-              postToFormSubmit(email).then(function () {
-                done("You're on the list! We'll email you at " + email + " when we launch.");
-              }).catch(failed);
-            });
-          });
-          input.addEventListener("input", function () {
-            input.removeAttribute("aria-invalid");
-            msg.className = "form-msg";
-            msg.textContent = "";
-          });
-        });
-
-        /* ---------- Mobile menu ---------- */
-        var navToggle = document.getElementById("navToggle");
-        var mobileMenu = document.getElementById("mobileMenu");
-        function setMenu(open) {
-          mobileMenu.classList.toggle("open", open);
-          navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-          navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-        }
-        navToggle.addEventListener("click", function () {
-          setMenu(!mobileMenu.classList.contains("open"));
-        });
-        mobileMenu.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", function () {
-            /* close only — no focus() here: returning focus to the toggle would
-               scroll the page back to the top and fight the anchor jump */
-            setMenu(false);
-          });
-        });
-        document.addEventListener("keydown", function (ev) {
-          if (ev.key === "Escape" && mobileMenu.classList.contains("open")) {
-            setMenu(false);
-            navToggle.focus();
-          }
-        });
-        document.addEventListener("click", function (ev) {
-          if (mobileMenu.classList.contains("open") && !ev.target.closest(".topbar")) {
-            setMenu(false);
-          }
-        });
-
-        /* ---------- Dashboard "show all" toggles (mobile collapse) ---------- */
-        document.querySelectorAll(".dash-more").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            var block = btn.closest(".dash-main, .dash-side");
-            if (!block) return;
-            var open = block.classList.toggle("show-all");
-            btn.setAttribute("aria-expanded", open ? "true" : "false");
-            btn.innerHTML = (open ? btn.getAttribute("data-hide") : btn.getAttribute("data-show")) + '<span class="chev" aria-hidden="true">+</span>';
-          });
-        });
-
-        /* ---------- Sticky mobile signup bar ---------- */
-        var stickyCta = document.getElementById("stickyCta");
-        var stickyLink = stickyCta.querySelector("a.btn");
-        /* the bar jumps to the final form — tag that signup as coming from here */
-        stickyLink.addEventListener("click", function () { pendingSource = "sticky"; });
-        var suppressBar = { join: false, footer: false };
-        function updateSticky() {
-          var show = window.scrollY > window.innerHeight * 0.75 && !suppressBar.join && !suppressBar.footer;
-          stickyCta.classList.toggle("visible", show);
-          stickyCta.setAttribute("aria-hidden", show ? "false" : "true");
-          if (show) { stickyLink.removeAttribute("tabindex"); }
-          else { stickyLink.setAttribute("tabindex", "-1"); }
-        }
-        if ("IntersectionObserver" in window) {
-          var barIO = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (e.target.id === "join") { suppressBar.join = e.isIntersecting; }
-              else { suppressBar.footer = e.isIntersecting; }
-            });
-            updateSticky();
-          }, { threshold: 0.04 });
-          var joinSection = document.getElementById("join");
-          if (joinSection) { barIO.observe(joinSection); }
-          barIO.observe(document.querySelector("footer"));
-        }
-        window.addEventListener("scroll", updateSticky, { passive: true });
-        window.addEventListener("resize", updateSticky);
-        updateSticky();
-
-        /* ---------- Live llms.txt checker (real fetch, client-side) ---------- */
-        var checkForm = document.getElementById("checkForm");
-        var checkInput = document.getElementById("checkDomain");
-        var checkBtn = document.getElementById("checkBtn");
-        var checkLabel = checkBtn ? checkBtn.querySelector(".btn-label") : null;
-        var checkMsg = document.getElementById("checkMsg");
-        var checkResult = document.getElementById("checkResult");
-        var checkBusy = false;
-        var lastOwn = null; /* { domain, score } of the most recent own-site grade */
-
-        var CHECKS = [
-          { key: "present", pts: 40, label: "llms.txt exists and isn't empty",
-            fix: "There's no llms.txt at yoursite.com/llms.txt (or it's empty). Create one — it's a small file that tells AI what your site is about. Start it with your name and one line about what you sell, then link your most important pages." },
-          { key: "h1", pts: 15, label: "Has a main heading (# …)",
-            fix: "Start the file with a line like “# Your Business Name”. That's the first thing AI engines read to know whose site this is." },
-          { key: "h2", pts: 15, label: "Organised into sections (## …)",
-            fix: "Group your links under ## section headings — for example “## Products” and “## Help”. Sections help AI engines find the right page for each question." },
-          { key: "mdlinks", pts: 15, label: "Links to pages with descriptions (.md links)",
-            fix: "List your key pages as markdown links, ideally pointing to .md versions where you have them, each with a short description of what's on the page. Bare URLs tell AI very little." },
-          { key: "keywords", pts: 15, label: "Covers the essentials (Products / Docs / API / Contact)",
-            fix: "Make sure the file points AI to your products or services, your help/docs pages, and a contact page — those are the pages buyers ask AI about most." }
-        ];
-
-        function normalizeDomain(raw) {
-          var d = (raw || "").trim().toLowerCase();
-          d = d.replace(/^https?:\/\//, "").replace(/^\/\//, "");
-          d = d.split("/")[0].split("?")[0].split("#")[0].split("@").pop();
-          d = d.replace(/:\d+$/, "").replace(/\.+$/, "");
-          return d;
-        }
-        function looksLikeDomain(d) {
-          return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(d) && /\.[a-z]{2,}$/.test(d);
-        }
-        function fetchText(url, ms) {
-          var ctrl = ("AbortController" in window) ? new AbortController() : null;
-          var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, ms) : null;
-          return fetch(url, ctrl ? { signal: ctrl.signal } : {}).then(function (r) {
-            if (timer) { clearTimeout(timer); }
-            if (!r.ok) { throw new Error("http " + r.status); }
-            return r.text();
-          }, function (e) { if (timer) { clearTimeout(timer); } throw e; });
-        }
-        function fetchLlms(domain) {
-          var target = "https://" + domain + "/llms.txt";
-          var primary = "https://api.allorigins.win/raw?url=" + encodeURIComponent(target);
-          var fallback = "https://r.jina.ai/" + target;
-          function usable(t) {
-            if (typeof t !== "string") return false;
-            var s = t.replace(/^\s+/, "");
-            if (s.length < 10) return false;                 /* empty or near-empty */
-            var head = s.slice(0, 300).toLowerCase();
-            if (head.indexOf("<!doctype") === 0 || head.indexOf("<html") === 0) return false; /* an HTML page, not the file */
-            if (/404|not found|page not found/.test(head.slice(0, 120))) return false; /* a proxy-wrapped 404 page */
-            if (/^title:\s/.test(head) && /\nurl source:/.test(head.slice(0, 400))) {
-              /* reader-proxy wrapper — its own metadata, not the file's content */
-              var cut = s.indexOf("\n\n");
-              if (cut > 0) { s = s.slice(cut + 2); }
-            }
-            return s;
-          }
-          return fetchText(primary, 12000).then(function (t) {
-            var u = usable(t);
-            if (u === false) { throw new Error("unusable"); }
-            return u;
-          }).catch(function () {
-            return fetchText(fallback, 12000).then(function (t) {
-              var u = usable(t);
-              if (u === false) { throw new Error("unusable"); }
-              return u;
-            });
-          });
-        }
-        function gradeLlms(text) {
-          var res = {};
-          res.present = text.replace(/\s+/g, "").length >= 10;
-          res.h1 = /(^|\n)#\s+\S/.test(text);
-          res.h2 = /(^|\n)##\s+\S/.test(text);
-          res.mdlinks = /\]\([^)\s]*\.md([)#?\s]|$)/i.test(text) || /\[[^\]]+\]:\s*\S+\.md/i.test(text);
-          res.keywords = /(products?|services?|docs|documentation|api|contact|pricing|about)/i.test(text);
-          var score = 0;
-          CHECKS.forEach(function (c) { if (res[c.key]) { score += c.pts; } });
-          return { res: res, score: score };
-        }
-        function showCheckError(msg) {
-          checkMsg.className = "form-msg";
-          checkMsg.removeAttribute("style");
-          checkMsg.textContent = "";
-          checkResult.hidden = false;
-          checkResult.innerHTML = "";
-          var box = document.createElement("div");
-          box.className = "checker-error";
-          var p = document.createElement("p");
-          var strong = document.createElement("strong");
-          strong.textContent = "We couldn't check that one. ";
-          p.appendChild(strong);
-          p.appendChild(document.createTextNode(msg));
-          box.appendChild(p);
-          var p2 = document.createElement("p");
-          p2.textContent = "Create a free account below and we'll run the full check for you — including what all four AI engines say about your site.";
-          box.appendChild(p2);
-          var a = document.createElement("a");
-          a.className = "retry-link";
-          a.href = "#join";
-          a.textContent = "Create your free account →";
-          box.appendChild(a);
-          checkResult.appendChild(box);
-        }
-        /* ---------- competitor comparison (same 5 checks, same grading) ---------- */
-        function scoreSummary(score) {
-          if (score >= 70) { return "AI engines can read this site clearly."; }
-          if (score >= 40) { return "Part-way there — pieces are missing."; }
-          return "AI is flying blind on this site.";
-        }
-        function buildMiniRing(score, label) {
-          var CIRC = 2 * Math.PI * 42;
-          var svgNS = "http://www.w3.org/2000/svg";
-          var wrapEl = document.createElement("div");
-          wrapEl.className = "score-ring-wrap mini";
-          wrapEl.setAttribute("role", "img");
-          wrapEl.setAttribute("aria-label", label);
-          var svg = document.createElementNS(svgNS, "svg");
-          svg.setAttribute("class", "score-ring");
-          svg.setAttribute("viewBox", "0 0 96 96");
-          svg.setAttribute("aria-hidden", "true");
-          var bg = document.createElementNS(svgNS, "circle");
-          bg.setAttribute("class", "ring-bg");
-          bg.setAttribute("cx", "48"); bg.setAttribute("cy", "48"); bg.setAttribute("r", "42");
-          bg.setAttribute("fill", "none"); bg.setAttribute("stroke-width", "9");
-          var fg = document.createElementNS(svgNS, "circle");
-          fg.setAttribute("class", "ring-fg");
-          fg.setAttribute("cx", "48"); fg.setAttribute("cy", "48"); fg.setAttribute("r", "42");
-          fg.setAttribute("fill", "none"); fg.setAttribute("stroke-width", "9");
-          fg.setAttribute("stroke-linecap", "round");
-          fg.setAttribute("stroke-dasharray", CIRC.toFixed(1));
-          fg.setAttribute("stroke-dashoffset", CIRC.toFixed(1));
-          svg.appendChild(bg); svg.appendChild(fg);
-          var num = document.createElement("div");
-          num.className = "score-num";
-          num.setAttribute("aria-hidden", "true");
-          var numVal = document.createElement("span");
-          numVal.textContent = score;
-          var numSmall = document.createElement("small");
-          numSmall.textContent = "/100";
-          num.appendChild(numVal);
-          num.appendChild(numSmall);
-          wrapEl.appendChild(svg); wrapEl.appendChild(num);
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              fg.setAttribute("stroke-dashoffset", (CIRC * (1 - score / 100)).toFixed(1));
-            });
-          });
-          return wrapEl;
-        }
-        function versusCard(entry, ahead) {
-          var card = document.createElement("div");
-          card.className = "versus-card";
-          if (ahead) {
-            var badge = document.createElement("span");
-            badge.className = "ahead-badge";
-            badge.textContent = "AHEAD";
-            card.appendChild(badge);
-          }
-          var d = document.createElement("p");
-          d.className = "v-domain";
-          d.textContent = entry.domain;
-          card.appendChild(d);
-          card.appendChild(buildMiniRing(entry.score, entry.domain + " scored " + entry.score + " out of 100"));
-          var sum = document.createElement("p");
-          sum.className = "v-sum";
-          sum.textContent = scoreSummary(entry.score);
-          card.appendChild(sum);
-          return card;
-        }
-        function renderCompare(container, own, rival) {
-          container.hidden = false;
-          container.innerHTML = "";
-          var grid = document.createElement("div");
-          grid.className = "versus-grid";
-          grid.appendChild(versusCard(own, own.score > rival.score));
-          grid.appendChild(versusCard(rival, rival.score > own.score));
-          container.appendChild(grid);
-          var delta = document.createElement("p");
-          delta.className = "compare-delta";
-          var diff = own.score - rival.score;
-          if (diff > 0) { delta.textContent = "You're ahead by " + diff + " points."; }
-          else if (diff < 0) { delta.textContent = "They're ahead by " + (-diff) + " points — see what they're doing right in your weekly report."; }
-          else { delta.textContent = "You're neck and neck."; }
-          container.appendChild(delta);
-          var cta = document.createElement("div");
-          cta.className = "checker-cta";
-          var cp = document.createElement("p");
-          cp.innerHTML = "<strong>One file, two sites.</strong> The full comparison tracks what all four AI engines say about you both — every week.";
-          var ca = document.createElement("a");
-          ca.className = "btn small";
-          ca.href = "#join";
-          ca.textContent = "Get the full 4-engine comparison — join the waitlist";
-          cta.appendChild(cp); cta.appendChild(ca);
-          container.appendChild(cta);
-        }
-        function renderGrade(domain, graded) {
-          checkResult.hidden = false;
-          checkResult.innerHTML = "";
-          var CIRC = 2 * Math.PI * 42;
-          var word, sub;
-          if (graded.score >= 70) { word = "Looking good"; sub = "AI engines can read your site clearly. The weekly report keeps it that way."; }
-          else if (graded.score >= 40) { word = "Part-way there"; sub = "The basics are in place, but AI engines are missing pieces of your story."; }
-          else { word = "AI is flying blind on your site"; sub = "There's little here for AI engines to work with — every fix below is quick."; }
-
-          var wrap = document.createElement("div");
-          /* score row */
-          var row = document.createElement("div");
-          row.className = "score-row";
-          var ringWrap = document.createElement("div");
-          ringWrap.className = "score-ring-wrap";
-          ringWrap.setAttribute("role", "img");
-          ringWrap.setAttribute("aria-label", "Your llms.txt score: " + graded.score + " out of 100");
-          var svgNS = "http://www.w3.org/2000/svg";
-          var svg = document.createElementNS(svgNS, "svg");
-          svg.setAttribute("class", "score-ring");
-          svg.setAttribute("viewBox", "0 0 96 96");
-          svg.setAttribute("aria-hidden", "true");
-          var bg = document.createElementNS(svgNS, "circle");
-          bg.setAttribute("class", "ring-bg");
-          bg.setAttribute("cx", "48"); bg.setAttribute("cy", "48"); bg.setAttribute("r", "42");
-          bg.setAttribute("fill", "none"); bg.setAttribute("stroke-width", "9");
-          var fg = document.createElementNS(svgNS, "circle");
-          fg.setAttribute("class", "ring-fg");
-          fg.setAttribute("cx", "48"); fg.setAttribute("cy", "48"); fg.setAttribute("r", "42");
-          fg.setAttribute("fill", "none"); fg.setAttribute("stroke-width", "9");
-          fg.setAttribute("stroke-linecap", "round");
-          fg.setAttribute("stroke-dasharray", CIRC.toFixed(1));
-          fg.setAttribute("stroke-dashoffset", CIRC.toFixed(1));
-          svg.appendChild(bg); svg.appendChild(fg);
-          var num = document.createElement("div");
-          num.className = "score-num";
-          num.setAttribute("aria-hidden", "true");
-          var numVal = document.createElement("span");
-          numVal.textContent = reduceMotion ? graded.score : 0;
-          var numSmall = document.createElement("small");
-          numSmall.textContent = "/100";
-          num.appendChild(numVal);
-          num.appendChild(numSmall);
-          ringWrap.appendChild(svg); ringWrap.appendChild(num);
-          var words = document.createElement("div");
-          var w = document.createElement("p");
-          w.className = "score-word";
-          w.textContent = word;
-          var s = document.createElement("p");
-          s.className = "score-sub";
-          s.textContent = "llms.txt grade for " + domain + " · " + sub;
-          var fine = document.createElement("p");
-          fine.className = "score-fine";
-          fine.textContent = "Scores your llms.txt file health — not your AI visibility. That's what the weekly report measures.";
-          words.appendChild(w); words.appendChild(s); words.appendChild(fine);
-          row.appendChild(ringWrap); row.appendChild(words);
-          wrap.appendChild(row);
-          /* checklist */
-          var list = document.createElement("div");
-          list.className = "check-list";
-          CHECKS.forEach(function (c) {
-            var pass = !!graded.res[c.key];
-            var item = document.createElement("div");
-            item.className = "check-item";
-            var head = document.createElement("div");
-            head.className = "check-item-head";
-            var ic = document.createElement("span");
-            ic.className = "check-ic " + (pass ? "ok" : "warn");
-            ic.textContent = pass ? "✓" : "!";
-            head.appendChild(ic);
-            head.appendChild(document.createTextNode(c.label));
-            var pts = document.createElement("span");
-            pts.className = "pts";
-            pts.textContent = (pass ? "+" : "0/") + c.pts + " pts";
-            head.appendChild(pts);
-            item.appendChild(head);
-            if (!pass) {
-              var fix = document.createElement("p");
-              fix.className = "fix";
-              fix.textContent = c.fix.replace(/yoursite\.com/g, domain);
-              item.appendChild(fix);
-            }
-            list.appendChild(item);
-          });
-          wrap.appendChild(list);
-          /* CTA */
-          var cta = document.createElement("div");
-          cta.className = "checker-cta";
-          var cp = document.createElement("p");
-          cp.innerHTML = "<strong>This is one file.</strong> The full report checks what ChatGPT, Perplexity and Gemini actually say about you — every week.";
-          var ca = document.createElement("a");
-          ca.className = "btn small";
-          ca.href = "#join";
-          ca.textContent = "Create your free account";
-          cta.appendChild(cp); cta.appendChild(ca);
-          wrap.appendChild(cta);
-          /* competitor comparison block — appears once your own grade is in */
-          lastOwn = { domain: domain, score: graded.score };
-          var cmp = document.createElement("div");
-          cmp.className = "compare";
-          var cmpTitle = document.createElement("h4");
-          cmpTitle.className = "compare-title";
-          cmpTitle.textContent = "How do you stack up?";
-          var cmpIntro = document.createElement("p");
-          cmpIntro.className = "compare-intro";
-          cmpIntro.textContent = "Curious how a rival's llms.txt compares? Run theirs through the same five checks.";
-          var cmpForm = document.createElement("form");
-          cmpForm.className = "check-form compare-form";
-          cmpForm.setAttribute("novalidate", "");
-          var cmpLabelEl = document.createElement("label");
-          cmpLabelEl.style.cssText = "position:absolute;left:-9999px";
-          cmpLabelEl.setAttribute("for", "compareDomain");
-          cmpLabelEl.textContent = "Competitor domain";
-          var cmpInput = document.createElement("input");
-          cmpInput.id = "compareDomain";
-          cmpInput.type = "text";
-          cmpInput.name = "competitor";
-          cmpInput.placeholder = "competitor.com";
-          cmpInput.setAttribute("autocomplete", "url");
-          cmpInput.setAttribute("autocapitalize", "off");
-          cmpInput.setAttribute("autocorrect", "off");
-          cmpInput.setAttribute("spellcheck", "false");
-          cmpInput.setAttribute("inputmode", "url");
-          var cmpBtn = document.createElement("button");
-          cmpBtn.className = "btn";
-          cmpBtn.type = "submit";
-          var cmpSpinner = document.createElement("span");
-          cmpSpinner.className = "spinner";
-          cmpSpinner.setAttribute("aria-hidden", "true");
-          var cmpBtnLabel = document.createElement("span");
-          cmpBtnLabel.className = "btn-label";
-          cmpBtnLabel.textContent = "Compare";
-          cmpBtn.appendChild(cmpSpinner); cmpBtn.appendChild(cmpBtnLabel);
-          cmpForm.appendChild(cmpLabelEl); cmpForm.appendChild(cmpInput); cmpForm.appendChild(cmpBtn);
-          var cmpMsg = document.createElement("p");
-          cmpMsg.className = "form-msg";
-          cmpMsg.setAttribute("role", "status");
-          cmpMsg.setAttribute("aria-live", "polite");
-          var cmpResult = document.createElement("div");
-          cmpResult.className = "compare-result";
-          cmpResult.hidden = true;
-          cmp.appendChild(cmpTitle); cmp.appendChild(cmpIntro); cmp.appendChild(cmpForm);
-          cmp.appendChild(cmpMsg); cmp.appendChild(cmpResult);
-          wrap.appendChild(cmp);
-          var cmpBusy = false;
-          function setCmpBusy(busy) {
-            cmpBusy = busy;
-            cmpBtn.disabled = busy;
-            cmpBtn.classList.toggle("loading", busy);
-            cmpInput.disabled = busy;
-            cmpBtnLabel.textContent = busy ? "Checking…" : "Compare";
-          }
-          cmpForm.addEventListener("submit", function (ev) {
-            ev.preventDefault();
-            if (cmpBusy || !lastOwn) return;
-            var cdomain = normalizeDomain(cmpInput.value);
-            cmpMsg.className = "form-msg";
-            cmpMsg.textContent = "";
-            if (!looksLikeDomain(cdomain)) {
-              cmpInput.setAttribute("aria-invalid", "true");
-              cmpMsg.textContent = "That doesn't look like a domain — try something like competitor.com (no spaces).";
-              cmpMsg.classList.add("show", "err");
-              cmpInput.focus();
-              return;
-            }
-            if (cdomain === lastOwn.domain) {
-              cmpInput.setAttribute("aria-invalid", "true");
-              cmpMsg.textContent = "That's your own site — enter a competitor's domain to compare.";
-              cmpMsg.classList.add("show", "err");
-              cmpInput.focus();
-              return;
-            }
-            cmpInput.removeAttribute("aria-invalid");
-            cmpInput.value = cdomain;
-            setCmpBusy(true);
-            fetchLlms(cdomain).then(function (text) {
-              var g2 = gradeLlms(text);
-              setCmpBusy(false);
-              renderCompare(cmpResult, lastOwn, { domain: cdomain, score: g2.score });
-            }).catch(function () {
-              setCmpBusy(false);
-              cmpResult.hidden = false;
-              cmpResult.innerHTML = "";
-              var box = document.createElement("div");
-              box.className = "checker-error";
-              var ep = document.createElement("p");
-              var es = document.createElement("strong");
-              es.textContent = "We couldn't check that one. ";
-              ep.appendChild(es);
-              ep.appendChild(document.createTextNode("We couldn't fetch " + cdomain + "'s llms.txt — it may not exist, it may block automated checks, or the request timed out. Try another competitor, or check the spelling."));
-              box.appendChild(ep);
-              cmpResult.appendChild(box);
-            });
-          });
-          cmpInput.addEventListener("input", function () {
-            cmpInput.removeAttribute("aria-invalid");
-            if (!cmpBusy) { cmpMsg.className = "form-msg"; cmpMsg.textContent = ""; }
-          });
-          checkResult.appendChild(wrap);
-          /* ring animation (respect reduced motion via CSS transition:none) */
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              fg.setAttribute("stroke-dashoffset", (CIRC * (1 - graded.score / 100)).toFixed(1));
-            });
-          });
-          /* number count-up, 0 → score over 800ms ease-out, in step with the ring */
-          if (!reduceMotion && graded.score > 0) {
-            var startTs = null;
-            var stepNum = function (ts) {
-              if (!startTs) { startTs = ts; }
-              var p = Math.min(1, (ts - startTs) / 800);
-              var eased = 1 - Math.pow(1 - p, 3);
-              numVal.textContent = Math.round(graded.score * eased);
-              if (p < 1) { requestAnimationFrame(stepNum); }
-            };
-            requestAnimationFrame(stepNum);
-          }
-          /* announce politely for screen readers (kept visually quiet) */
-          checkMsg.className = "form-msg show";
-          checkMsg.style.color = "var(--muted)";
-          checkMsg.style.fontSize = "14px";
-          checkMsg.textContent = "Check complete — " + domain + " scored " + graded.score + " out of 100. Details below.";
-        }
-        /* staged waiting labels — the wait is broken into named steps so a
-           slow fetch never feels like a frozen page */
-        var stageTimers = [];
-        function clearStages() {
-          stageTimers.forEach(function (t) { clearTimeout(t); });
-          stageTimers = [];
-        }
-        function setCheckBusy(busy) {
-          checkBusy = busy;
-          checkBtn.disabled = busy;
-          checkBtn.classList.toggle("loading", busy);
-          checkInput.disabled = busy;
-          clearStages();
-          if (busy) {
-            checkLabel.textContent = "Fetching your llms.txt…";
-            stageTimers.push(setTimeout(function () { checkLabel.textContent = "Checking file format…"; }, 2500));
-            stageTimers.push(setTimeout(function () { checkLabel.textContent = "Scoring…"; }, 6000));
-          } else {
-            checkLabel.textContent = "Check my site";
-          }
-        }
-        if (checkForm && checkBtn && checkInput) {
-        checkForm.addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          if (checkBusy) return;
-          var domain = normalizeDomain(checkInput.value);
-          checkMsg.className = "form-msg";
-          checkMsg.removeAttribute("style");
-          checkMsg.textContent = "";
-          if (!looksLikeDomain(domain)) {
-            checkInput.setAttribute("aria-invalid", "true");
-            checkMsg.textContent = "That doesn't look like a domain — try something like yoursite.com (no spaces).";
-            checkMsg.classList.add("show", "err");
-            checkInput.focus();
-            return;
-          }
-          checkInput.removeAttribute("aria-invalid");
-          checkInput.value = domain;
-          checkResult.hidden = true;
-          checkResult.innerHTML = "";
-          setCheckBusy(true);
-          fetchLlms(domain).then(function (text) {
-            clearStages();
-            checkLabel.textContent = "Scoring…";
-            var graded = gradeLlms(text);
-            setTimeout(function () {
-              setCheckBusy(false);
-              renderGrade(domain, graded);
-            }, 350);
-          }).catch(function () {
-            setCheckBusy(false);
-            showCheckError("We couldn't fetch your llms.txt — it may not exist, it may block automated checks, or the request timed out.");
-          });
-        });
-        checkInput.addEventListener("input", function () {
-          checkInput.removeAttribute("aria-invalid");
-          if (!checkBusy) { checkMsg.className = "form-msg"; checkMsg.textContent = ""; }
-        });
-        }
-
-        /* ---------- Privacy policy dialog ---------- */
-        var privacyModal = document.getElementById("privacyModal");
-        var privacyClose = document.getElementById("privacyClose");
-        var lastPrivacyTrigger = null;
-        function openPrivacy(trigger) {
-          lastPrivacyTrigger = trigger || null;
-          privacyModal.hidden = false;
-          document.body.classList.add("modal-open");
-          privacyClose.focus();
-        }
-        function closePrivacy() {
-          privacyModal.hidden = true;
-          document.body.classList.remove("modal-open");
-          if (lastPrivacyTrigger && lastPrivacyTrigger.focus) { lastPrivacyTrigger.focus(); }
-        }
-        document.querySelectorAll(".privacy-link").forEach(function (link) {
-          link.addEventListener("click", function (ev) {
-            ev.preventDefault();
-            openPrivacy(link);
-          });
-        });
-        privacyClose.addEventListener("click", closePrivacy);
-        privacyModal.addEventListener("click", function (ev) {
-          if (ev.target === privacyModal) { closePrivacy(); }
-        });
-        document.addEventListener("keydown", function (ev) {
-          if (ev.key === "Escape" && !privacyModal.hidden) { closePrivacy(); }
-        });
-        if (window.location.hash === "#privacy") { openPrivacy(null); }
-
-        /* ---------- Scroll reveal ---------- */
-        var revealEls = document.querySelectorAll(".reveal");
-        if ("IntersectionObserver" in window && !reduceMotion) {
-          var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-            });
-          }, { threshold: 0.12 });
-          revealEls.forEach(function (el) { io.observe(el); });
-        } else {
-          revealEls.forEach(function (el) { el.classList.add("in"); });
-        }
-      })();
-    </script>
-    <script>
-      // Homepage login entry state (spec 2026-10-26 S5).
-      // Reuses the dashboard same-origin session signal when one exists.
-      // No JS-readable signal is landed yet: the dashboard frontend reads no
-      // storage/cookie/session, and the backend session cookie
-      // ("citmark_session") is httpOnly, so this page cannot see it.
-      // Until a signal lands, keep the logged-out display (Log in + Join);
-      // never hide Join on an unknown signal.
-      (function () {
-        function readLoginSignal() { return false; }
-        if (!readLoginSignal()) return;
-        document.querySelectorAll(".js-login-link").forEach(function (a) { a.textContent = "Dashboard"; });
-        document.querySelectorAll('.topbar-in .btn[href="#join"], #mobileMenu .btn[href="#join"]').forEach(function (a) { a.style.display = "none"; });
-      })();
-    </script>
-    <!-- LOGIN-CARD-FROSTED-20261027: centered frosted-glass login card.
-         Single-overlay assumption: the privacy overlay (#privacyModal) and this
-         card never open at the same time. Both are full-viewport overlays, so
-         only one trigger is reachable at a time; openCard() defensively closes
-         the privacy overlay if it is open. Demo stage: the three buttons only
-         show an honest toast - no real OAuth, no routes/callbacks/error states
-         (all pending backend confirmation). Video background is a separate
-         case; this demo is verified against the static page backdrop. -->
-    <div class="auth-card-overlay" id="authCardOverlay" hidden>
-      <div class="auth-card mode-reset" id="authCard" role="dialog" aria-modal="true" aria-label="Log in" aria-hidden="true">
-        <div class="auth-card-top-row">
-          <p class="auth-card-logo"><span class="wordmark">CitMark<span class="dot">.</span></span></p>
-        </div>
-        <div class="auth-card-reset-head" aria-hidden="true">
-          <h3>Reset your password</h3>
-          <p>Enter the email you signed up with. If an account exists for it, we'll email you a reset link.</p>
-        </div>
-        <form id="authCardLoginForm" novalidate>
-          <div class="capsule-field">
-            <label class="sr-only" for="authCardLoginEmail">Email</label>
-            <span class="capsule-chip" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg></span>
-            <input type="email" id="authCardLoginEmail" name="email" autocomplete="email" placeholder="Email">
-          </div>
-          <div class="capsule-field pw-field">
-            <label class="sr-only" for="authCardLoginPassword">Password</label>
-            <span class="capsule-chip" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="10.5" width="19" height="10" rx="2"/><path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3"/></svg></span>
-            <input type="password" id="authCardLoginPassword" name="password" autocomplete="current-password" placeholder="Password">
-          </div>
-          <div class="auth-card-forgot-row"><button type="button" id="authCardForgotBtn" class="auth-card-forgot-link">Forgot password?</button></div>
-          <div class="auth-card-terms">
-            <input type="checkbox" id="authCardTermsCheck">
-            <label for="authCardTermsCheck">I agree to the <a href="/terms/">Terms of Service</a> and <a href="#privacy" class="privacy-link">Privacy Policy</a>.</label>
-          </div>
-          <div class="capsule-foot-row">
-            <div class="auth-card-consent-subs">
-              <p>CitMark shows how AI answers questions about your brand.</p>
-              <p>Sign in with Google, Shopify, or your email.</p>
-            </div>
-            <button class="capsule-submit" type="submit" id="authCardLoginSubmit" aria-disabled="false"><span class="btn-capsule-label">Send reset link</span> <span aria-hidden="true">&gt;</span></button>
-          </div>
-          <p class="auth-card-msg" id="authCardMsg" role="alert" hidden></p>
-        </form>
-        <p class="auth-card-back-row"><a href="#" id="authCardBackToLogin">Back to log in</a></p>
-        <p class="auth-card-brandline">Your brand, as AI sees it.</p>
-        <p class="auth-card-foot">New to CitMark? <a href="/#join" id="authCardWaitlist">Sign up</a></p>
-      </div>
-    </div>
-    <div class="auth-card-demo-toast" id="authCardDemoToast" role="status" aria-live="polite">Demo preview — login isn't connected yet.</div>
-        <script>
-      (function () {
-        var overlay = document.getElementById("authCardOverlay");
-        var card = document.getElementById("authCard");
-        var navToggle = document.getElementById("navToggle");
-        var mobileMenu = document.getElementById("mobileMenu");
-        var reducedMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
-        var reduced = reducedMQ.matches;
-        if (reducedMQ.addEventListener) reducedMQ.addEventListener("change", function (ev) { reduced = ev.matches; });
-        var lastTrigger = null;
-        var closeTimer = 0;
-        var toastTimer = 0;
-        function closeMenu() {
-          if (mobileMenu) mobileMenu.classList.remove("open");
-          if (navToggle) { navToggle.setAttribute("aria-expanded", "false"); navToggle.setAttribute("aria-label", "Open menu"); }
-        }
-        function isOpen() { return overlay.classList.contains("open"); }
-        function openCard(trigger) {
-          /* Single-overlay assumption: the privacy overlay and this card never
-             open at the same time. Close the privacy overlay first if it is
-             open, so the two scroll locks never stack. */
-          var privacyModal = document.getElementById("privacyModal");
-          if (privacyModal && !privacyModal.hidden) {
-            privacyModal.hidden = true;
-            document.body.classList.remove("modal-open");
-          }
-          lastTrigger = trigger || null;
-          window.clearTimeout(closeTimer);
-          overlay.classList.remove("closing");
-          closeMenu();
-          overlay.hidden = false;
-          card.setAttribute("aria-hidden", "false");
-          document.body.style.overflow = "hidden";
-          void overlay.offsetWidth;
-          overlay.classList.add("open");
-          setResetMode(true);
-        }
-        function closeCard(opts) {
-          if (overlay.hidden && !isOpen()) return;
-          window.clearTimeout(closeTimer);
-          overlay.classList.remove("open");
-          if (!(opts && opts.skipAnim)) overlay.classList.add("closing");
-          document.body.style.overflow = "";
-          var delay = reduced ? 0 : 200;
-          closeTimer = window.setTimeout(function () {
-            overlay.hidden = true;
-            overlay.classList.remove("closing");
-            card.style.transition = ""; card.style.transform = ""; card.style.opacity = "";
-            card.setAttribute("aria-hidden", "true");
-            if (!opts || opts.returnFocus !== false) {
-              if (lastTrigger && lastTrigger.focus) lastTrigger.focus({ preventScroll: true });
-            }
-            lastTrigger = null;
-          }, delay);
-        }
-        document.querySelectorAll("[data-open-auth-card]").forEach(function (b) {
-          b.addEventListener("click", function () { openCard(b); });
-        });
-        overlay.addEventListener("click", function (ev) {
-          if (ev.target === overlay) { closeCard(); }
-        });
-        /* Demo stage honesty gate: the login backend is not live, so no POST,
-           no account, no success state, no real OAuth redirect. Demo clicks
-           only show an honest toast. All real OAuth routes, callbacks, and
-           error states are pending backend confirmation. */
-        var demoToast = document.getElementById("authCardDemoToast");
-        var demoToastDefault = demoToast ? demoToast.textContent : "";
-        function showDemoToast(message) {
-          if (!demoToast) return;
-          demoToast.textContent = message || demoToastDefault;
-          demoToast.classList.add("show");
-          window.clearTimeout(toastTimer);
-          toastTimer = window.setTimeout(function () { demoToast.classList.remove("show"); }, 2600);
-        }
-        var termsCheck = document.getElementById("authCardTermsCheck");
-        var gatedIds = ["authCardGoogleBtn", "authCardShopifyBtn", "authCardLoginSubmit"];
-        function termsAgreed() { return !!(termsCheck && termsCheck.checked); }
-        function syncTermsGate() {
-          gatedIds.forEach(function (id) {
-            var el = document.getElementById(id);
-            if (el) el.setAttribute("aria-disabled", "false");
-          });
-        }
-        function gatedDemoToast() {
-          showDemoToast();
-        }
-        if (termsCheck) termsCheck.addEventListener("change", syncTermsGate);
-        syncTermsGate();
-        ["authCardGoogleBtn", "authCardShopifyBtn"].forEach(function (id) {
-          var btn = document.getElementById(id);
-          if (btn) btn.addEventListener("click", gatedDemoToast);
-        });
-        var forgotBtn = document.getElementById("authCardForgotBtn");
-        var msgEl = document.getElementById("authCardMsg");
-        var submitBtn = document.getElementById("authCardLoginSubmit");
-        var submitLabel = submitBtn ? submitBtn.querySelector(".btn-capsule-label") : null;
-        var resetSent = false;
-        function showCardMsg(text, isError) {
-          if (!msgEl) return;
-          msgEl.textContent = text;
-          msgEl.hidden = !text;
-          msgEl.style.color = isError ? "var(--accent-deep)" : "";
-        }
-        function setResetMode(on) {
-          card.classList.toggle("mode-reset", on);
-          resetSent = false;
-          showCardMsg("", false);
-          if (submitLabel) submitLabel.textContent = on ? "Send reset link" : "Log in";
-          if (on) {
-            if (submitBtn) submitBtn.setAttribute("aria-disabled", "false");
-            var em = document.getElementById("authCardLoginEmail");
-            if (em) em.focus();
-          } else if (typeof syncTermsGate === "function") { syncTermsGate(); }
-        }
-        if (forgotBtn) forgotBtn.addEventListener("click", function () { setResetMode(true); });
-        var backLink = document.getElementById("authCardBackToLogin");
-        if (backLink) backLink.addEventListener("click", function (ev) { ev.preventDefault(); setResetMode(false); });
-        function submitResetRequest() {
-          if (resetSent) return;
-          var email = (document.getElementById("authCardLoginEmail").value || "").trim();
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showCardMsg("That email address doesn't look right.", true); return; }
-          if (submitBtn) submitBtn.setAttribute("aria-disabled", "true");
-          fetch("https://citmark.com/auth/forgot-password", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email })
-          }).then(function (resp) {
-            if (resp.ok) {
-              resetSent = true;
-              showCardMsg("Check your email — if an account exists for that address, a reset link is on its way. Links expire in 1 hour.", false);
-            } else if (resp.status === 400) {
-              showCardMsg("That email address doesn't look right.", true);
-              if (submitBtn) submitBtn.setAttribute("aria-disabled", "false");
-            } else {
-              showCardMsg("Something went wrong. Please try again.", true);
-              if (submitBtn) submitBtn.setAttribute("aria-disabled", "false");
-            }
-          }).catch(function () {
-            showCardMsg("Something went wrong. Please try again.", true);
-            if (submitBtn) submitBtn.setAttribute("aria-disabled", "false");
-          });
-        }
-        document.getElementById("authCardLoginForm").addEventListener("submit", function (ev) { ev.preventDefault(); if (card.classList.contains("mode-reset")) { submitResetRequest(); } else { gatedDemoToast(); } });
-        /* Join waitlist: close the card first, then let the anchor jump to
-           #join. Focus is not returned to the topbar trigger on this path,
-           because the user intentionally navigated away. */
-        document.getElementById("authCardWaitlist").addEventListener("click", function () { closeCard({ returnFocus: false }); });
-        /* Terms-row Privacy link: the page-level .privacy-link binding runs
-           before this card's markup is parsed, so bind the card's own link here. */
-        card.querySelectorAll(".privacy-link").forEach(function (link) {
-          link.addEventListener("click", function (ev) {
-            ev.preventDefault();
-            var privacyModal = document.getElementById("privacyModal");
-            var privacyClose = document.getElementById("privacyClose");
-            if (!privacyModal || privacyModal.hidden === false) return;
-            privacyModal.hidden = false;
-            document.body.classList.add("modal-open");
-            if (privacyClose) {
-              privacyClose.focus();
-              privacyClose.addEventListener("click", function () { link.focus({ preventScroll: true }); }, { once: true });
-            }
-          });
-        });
-        /* Swipe-down-to-close (touch only, mobile): pull the card down from a
-           non-interactive card area to dismiss. Threshold 90px, 1:1 follow capped
-           at 160px, spring-back below threshold, mutually exclusive with taps
-           (a drag never activates a control). Native scroll wins while the card
-           is scrolled; reduced motion closes instantly with no follow. Backdrop
-           tap and Escape still close; final gate is real-device touch.
-           Touch events (not pointer events): the browser claims a touch drag
-           for scrolling after the first move (pointercancel) while touchmove
-           keeps firing, so the gesture tracks touchmove and calls
-           preventDefault (non-passive) only while a downward drag from a
-           non-interactive area is tracked. */
-        var gesture = { id: null, startX: 0, startY: 0, dy: 0, moved: false, tracking: false };
-        var GESTURE_CLOSE_DY = 90;
-        function gestureReset() {
-          gesture.id = null; gesture.dy = 0; gesture.moved = false; gesture.tracking = false;
-          card.style.transition = ""; card.style.transform = ""; card.style.opacity = "";
-        }
-        function gestureTouch(ev) {
-          for (var i = 0; i < ev.changedTouches.length; i++) {
-            if (ev.changedTouches[i].identifier === gesture.id) return ev.changedTouches[i];
-          }
-          return null;
-        }
-        function gestureStart(ev) {
-          if (gesture.tracking || !isOpen()) return;
-          if (!ev.target || !ev.target.closest) return;
-          if (ev.target.closest("button, input, a, label, select, textarea")) return;
-          if (!card.contains(ev.target)) return;
-          var t = ev.changedTouches[0];
-          if (!t) return;
-          card.style.transition = "";
-          gesture.id = t.identifier; gesture.startX = t.clientX; gesture.startY = t.clientY;
-          gesture.dy = 0; gesture.moved = false; gesture.tracking = true;
-        }
-        function gestureMove(ev) {
-          if (!gesture.tracking) return;
-          var t = gestureTouch(ev);
-          if (!t) return;
-          if (!isOpen()) { gestureReset(); return; }
-          var dy = t.clientY - gesture.startY;
-          var dx = t.clientX - gesture.startX;
-          if (Math.abs(dx) > Math.abs(dy) + 8) { gestureReset(); return; }
-          if (card.scrollTop > 0) { gestureReset(); return; }
-          if (dy <= 0) { gesture.dy = 0; if (gesture.moved) card.style.transform = ""; return; }
-          if (dy > 8) gesture.moved = true;
-          gesture.dy = dy;
-          ev.preventDefault();
-          if (reduced) return;
-          card.style.transition = "";
-          card.style.transform = "translateY(" + Math.min(dy, 160) + "px)";
-        }
-        function gestureEnd(ev) {
-          if (!gesture.tracking || !gestureTouch(ev)) return;
-          var dy = gesture.dy;
-          var wasMoved = gesture.moved;
-          gesture.tracking = false; gesture.id = null;
-          if (!isOpen() || !wasMoved) { gestureReset(); return; }
-          if (dy >= GESTURE_CLOSE_DY) {
-            if (reduced) { gestureReset(); closeCard(); return; }
-            card.style.transition = "transform .2s ease-in, opacity .2s ease-in";
-            card.style.transform = "translateY(100%)";
-            card.style.opacity = "0";
-            gesture.dy = 0; gesture.moved = false;
-            closeCard({ skipAnim: true });
-            return;
-          }
-          if (reduced) { gestureReset(); return; }
-          card.style.transition = "transform .25s ease-out";
-          card.style.transform = "";
-          window.setTimeout(function () { card.style.transition = ""; gestureReset(); }, 260);
-        }
-        function gestureCancel(ev) {
-          if (!gestureTouch(ev)) return;
-          gestureReset();
-        }
-        card.addEventListener("touchstart", gestureStart, { passive: true });
-        card.addEventListener("touchmove", gestureMove, { passive: false });
-        card.addEventListener("touchend", gestureEnd);
-        card.addEventListener("touchcancel", gestureCancel);
-        document.addEventListener("keydown", function (ev) {
-          if (!isOpen()) return;
-          if (ev.key === "Escape") { closeCard(); return; }
-          if (ev.key !== "Tab") return;
-          var items = Array.prototype.slice.call(card.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(function (el) { return el.offsetParent !== null; });
-          if (!items.length) return;
-          var first = items[0], last = items[items.length - 1];
-          if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
-          else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
-        });
-      })();
-    </script>
+  /* Final-CTA form: same shape as the homepage hero form. Validates the
+     email, then hands off to the real signup page to finish registering. */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  document.querySelectorAll("form.waitlist").forEach(function (form) {
+    var input = form.querySelector('input[type="email"]');
+    var msg = form.parentElement.querySelector(".form-msg");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var email = (input.value || "").trim();
+      msg.className = "form-msg"; msg.textContent = "";
+      if (!EMAIL_RE.test(email)) {
+        input.setAttribute("aria-invalid", "true");
+        msg.textContent = "That email doesn't look complete — check it and try again.";
+        msg.classList.add("show", "err"); input.focus(); return;
+      }
+      input.removeAttribute("aria-invalid");
+      window.location.href = "/signup/";
+    });
+  });
+})();
+</script>
 <script>
   /* Payment success page: echo a neutral order reference from the return URL.
      Echo only — nothing is verified here, and no tier or amount is ever read or shown. */
@@ -2131,103 +253,6 @@ body:not(.session-ready) .sess-slot > * { visibility: hidden; }
     el.hidden = false;
   })();
 </script>
-
-<script>
-(function () {
-  "use strict";
-  /* Topbar Account drawer (dashboard idiom): the avatar toggles the drawer;
-     session state itself stays with the session layer below. */
-  var btn = document.getElementById("idAvatarBtn");
-  var menu = document.getElementById("acctMenu");
-  if (!btn || !menu) return;
-  function setOpen(open) {
-    menu.classList.toggle("open", open);
-    btn.setAttribute("aria-expanded", open ? "true" : "false");
-  }
-  btn.addEventListener("click", function (e) {
-    e.stopPropagation();
-    setOpen(!menu.classList.contains("open"));
-  });
-  document.addEventListener("click", function (e) {
-    if (menu.classList.contains("open") && !menu.contains(e.target) && !btn.contains(e.target)) setOpen(false);
-  });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
-  menu.addEventListener("click", function (e) { if (e.target.closest("a, button")) setOpen(false); });
-})();
-</script>
-<script>
-(function () {
-  "use strict";
-  var DASH = "/dashboard/";
-  var authed = false;
-  function fillIdentity(me) {
-    if (!me) return;
-    var nameEl = document.querySelector("#acctMenu .acct-name");
-    if (nameEl && me.email) nameEl.textContent = me.email;
-    var badge = document.querySelector("#acctMenu .id-badge");
-    if (badge) {
-      if (me.tier) { badge.textContent = String(me.tier).toUpperCase(); badge.style.display = ""; }
-      else { badge.style.display = "none"; }
-    }
-  }
-  function apply(state) { document.body.classList.add("session-ready");
-    authed = state;
-    document.body.classList.toggle("is-authed", state);
-    document.querySelectorAll("[data-open-auth-card]").forEach(function (b) {
-      b.textContent = state ? "Dashboard" : "Log in";
-    });
-  }
-  document.addEventListener("click", function (e) {
-    if (!authed) return;
-    var t = e.target && e.target.closest ? e.target.closest("[data-open-auth-card]") : null;
-    if (t) { e.preventDefault(); e.stopPropagation(); window.location.href = DASH; }
-  }, true);
-  var toastTimer = null;
-  function toast(msg) {
-    var el = document.querySelector(".sess-toast");
-    if (!el) { el = document.createElement("div"); el.className = "sess-toast"; document.body.appendChild(el); }
-    el.textContent = msg;
-    el.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2600);
-  }
-  document.querySelectorAll("[data-session-logout]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      fetch("/auth/logout", { method: "POST", credentials: "same-origin" }).then(function (r) {
-        if (r.ok) {
-          apply(false);
-          var nt = document.getElementById("navToggle");
-          if (nt && nt.getAttribute("aria-expanded") === "true") nt.click();
-        } else { toast("Couldn't log out. Please try again."); }
-      }).catch(function () { toast("Couldn't log out. Check your connection and try again."); });
-    });
-  });
-  function check() {
-    var ctrl = ("AbortController" in window) ? new AbortController() : null;
-    var to = ctrl ? setTimeout(function () { ctrl.abort(); }, 4000) : null;
-    fetch("/auth/me", { credentials: "same-origin", signal: ctrl ? ctrl.signal : undefined }).then(function (r) {
-      if (to) clearTimeout(to);
-      if (r.ok) { r.json().then(function (me) { fillIdentity(me); apply(true); }).catch(function () { apply(true); }); }
-      else if (r.status === 401) { apply(false); }
-    }).catch(function () { if (to) clearTimeout(to); });
-  }
-  check();
-  window.addEventListener("pageshow", check);
-})();
-</script>
-<script>
-/* Paid-landing flag (family window segment 3, lane-1 2026-11-15): this face is
-   the payment-complete landing; it marks the session so the dashboard's
-   post-purchase guide can apply its first-purchase gates on entry. */
-try { sessionStorage.setItem("citmark_paid_return", "1"); } catch (e) {}
-</script>
-<style id="success-values-css">
-.success-processing{color:var(--muted,#62666e);font-size:15px}
-.success-values{margin:14px auto 4px;max-width:340px;text-align:left}
-.success-values .sv-row{display:flex;justify-content:space-between;gap:16px;padding:7px 2px;border-top:1px solid var(--line,#e5e7eb)}
-.success-values dt{color:var(--muted,#62666e);font-size:14px}
-.success-values dd{margin:0;font-weight:700;font-size:14px}
-</style>
 <script>
 (function () {
   "use strict";
@@ -2298,8 +323,4 @@ try { sessionStorage.setItem("citmark_paid_return", "1"); } catch (e) {}
   attempt();
 })();
 </script>
-<script>
-setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
-</script>
-</body>
-</html>
+</body></html>
