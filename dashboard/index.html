@@ -4805,7 +4805,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
       if (slot && !slot.getAttribute("data-bn-done")) {
         if (window.__ovSlotOrig === undefined) window.__ovSlotOrig = slot.innerHTML;
         slot.setAttribute("data-bn-done", "1");
-        slot.innerHTML = '<div class="big">\u25CE</div><p><b>No brand.</b><br/>Add your brand to run your first snapshot and see how AI describes it.</p><p style="margin-top:12px"><button class="btn" type="button" id="ovAddBrand">Add your brand</button></p>';
+        slot.innerHTML = '<div class="empty-in"><svg class="rg" viewBox="0 0 56 56" fill="none"><circle cx="28.0" cy="28.0" r="27.0" stroke="#141311" stroke-opacity="0.3"/><circle cx="28.0" cy="28.0" r="17.5" stroke="#141311" stroke-opacity="0.15"/><circle cx="28.0" cy="28.0" r="8.2" stroke="#141311" stroke-opacity="0.15"/><circle cx="28.0" cy="28.0" r="3.5" fill="#E8541E"/></svg><div><h4>No brand.</h4><p>Add your brand to run your first snapshot and see how AI describes it.</p><p style="margin-top:12px"><button class="btn" type="button" id="ovAddBrand">Add your brand</button></p></div></div>';
         var ob = document.getElementById("ovAddBrand");
         if (ob) ob.addEventListener("click", function () { if (typeof window.go === "function") window.go("brands-new"); });
       }
