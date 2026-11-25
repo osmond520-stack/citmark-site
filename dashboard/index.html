@@ -1610,6 +1610,12 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
 <p class="desc">Snapshot, score, report and alert updates for your brand.</p>
 </div>
 
+<div class="card" id="notifLiveCard" hidden>
+<p class="muted" id="notifUnreadLine" hidden style="margin:0 0 6px"></p>
+<div id="notifLiveList"></div>
+<p id="notifLiveErr" hidden>Couldn't load your notifications. <button class="btn small ghost" type="button" id="notifLiveRetry">Retry</button></p>
+<button class="btn small ghost" type="button" id="notifLoadMore" hidden>Load more</button>
+</div>
 <div class="card" data-sample-layer>
 <button class="notif-item unread" type="button" data-cat="snapshot"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Snapshot finished for Bombas</span><span class="notif-meta">Snapshot · Today, 09:12</span></span></button>
 <button class="notif-item unread" type="button" data-cat="score"><span class="notif-dot"></span><span class="notif-main"><span class="notif-title">Visibility score is 18.2 in the latest snapshot</span><span class="notif-meta">Score · Today, 09:12</span></span></button>
@@ -6799,6 +6805,110 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
 })();
 </script>
 
+<style>#notifLoadMore[hidden]{display:none!important}</style>
+<script>
+/* Notifications wiring (lane-1, 2026-11-15) per BILLING-VIEW-SHAPE-FREEZE
+   c0dfb7a0 section 2: GET /notifications?limit=50 on view entry (http
+   mode only), cursor pagination via next_cursor. Rows render title +
+   kind label + date; read_at null -> unread dot. The freeze carries no
+   read-marking write face, so rows are display-only (no click action,
+   no cursor pointer). Empty live set -> the view's own empty state;
+   failure -> failure line + Retry, empty state suppressed. */
+(function () {
+  "use strict";
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmtWhen(iso) {
+    if (!iso) return "";
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) + ", " + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  }
+  function cap(x) { x = String(x == null ? "" : x); return x ? x.charAt(0).toUpperCase() + x.slice(1) : ""; }
+  var view = document.getElementById("view-notifications");
+  var card = document.getElementById("notifLiveCard");
+  var list = document.getElementById("notifLiveList");
+  var errLine = document.getElementById("notifLiveErr");
+  var retryBtn = document.getElementById("notifLiveRetry");
+  var moreBtn = document.getElementById("notifLoadMore");
+  var unreadLine = document.getElementById("notifUnreadLine");
+  if (!view || !card || !list) return;
+  var emptySlot = view.querySelector("[data-empty-slot]");
+  var sampleCard = view.querySelector("[data-sample-layer]");
+  var cursor = null, loaded = false;
+  function row(n) {
+    var item = el("div", "notif-item" + (n.read_at ? "" : " unread"));
+    item.style.cursor = "default";
+    item.appendChild(el("span", "notif-dot"));
+    var main = el("span", "notif-main");
+    main.appendChild(el("span", "notif-title", n.title || ""));
+    var label = cap(n.kind) || cap(n.event_type) || "Update";
+    var when = fmtWhen(n.created_at);
+    main.appendChild(el("span", "notif-meta", when ? label + " \u00b7 " + when : label));
+    if (n.body) main.appendChild(el("span", "notif-meta", n.body));
+    item.appendChild(main);
+    return item;
+  }
+  function fail() {
+    card.hidden = false;
+    if (sampleCard) sampleCard.style.display = "none";
+    if (emptySlot) emptySlot.style.setProperty("display", "none", "important");
+    if (errLine) errLine.hidden = false;
+    if (moreBtn) moreBtn.hidden = true;
+  }
+  function render(data, append) {
+    if (errLine) errLine.hidden = true;
+    var rows = (data && data.notifications) || [];
+    if (!append && rows.length === 0) {
+      if (sampleCard) sampleCard.style.display = "none";
+      if (emptySlot) {
+        emptySlot.style.removeProperty("display");
+        if (getComputedStyle(emptySlot).display === "none") {
+          card.hidden = false;
+          list.textContent = "";
+          list.appendChild(el("p", "notif-meta", (emptySlot.textContent || "").trim().replace(/\s+/g, " ") || "No notifications yet."));
+          if (unreadLine) unreadLine.hidden = true;
+          if (moreBtn) moreBtn.hidden = true;
+          return;
+        }
+      }
+      card.hidden = true;
+      return;
+    }
+    card.hidden = false;
+    if (sampleCard) sampleCard.style.display = "none";
+    if (emptySlot) emptySlot.style.setProperty("display", "none", "important");
+    if (!append) list.textContent = "";
+    rows.forEach(function (n) { list.appendChild(row(n)); });
+    if (unreadLine) {
+      var u = data && typeof data.unread_count === "number" ? data.unread_count : 0;
+      unreadLine.hidden = !(u > 0);
+      if (u > 0) unreadLine.textContent = u === 1 ? "1 unread" : u + " unread";
+    }
+    cursor = (data && data.next_cursor) || null;
+    if (moreBtn) moreBtn.hidden = !cursor;
+    loaded = true;
+  }
+  function load(append) {
+    var url = "/notifications?limit=50" + (append && cursor ? "&cursor=" + encodeURIComponent(cursor) : "");
+    fetch(url, { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("notifications"); return r.json(); })
+      .then(function (d) { render(d, !!append); })
+      .catch(fail);
+  }
+  if (retryBtn) retryBtn.addEventListener("click", function () { load(false); });
+  if (moreBtn) moreBtn.addEventListener("click", function () { load(true); });
+  var _go = window.go;
+  if (typeof _go === "function") {
+    window.go = function (view) {
+      var r = _go.apply(this, arguments);
+      try {
+        if (view === "notifications" && document.documentElement.getAttribute("data-state") !== "demo") load(false);
+      } catch (e) {}
+      return r;
+    };
+  }
+})();
+</script>
 <style id="dash-pkg">
 /* Dashboard package system (extraction table 2026-11-24): tokens, shell, type, components.
    Dashboard family only; values per package dashboard.css. */
