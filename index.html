@@ -626,6 +626,12 @@ section#faq h2{font-size:52px;line-height:1.04;letter-spacing:-.042em;font-weigh
 section#faq .faq-q .chev{font-family:var(--f-mono)}
 @media (max-width:600px){section#faq h2{font-size:34px}}
 @media (max-width:600px){section#faq{padding-top:52px;padding-bottom:20px}}
+#report{padding:104px 0 24px}
+@media (max-width:720px){#report{padding:52px 0 20px}}
+.inline-sec{padding:0 0 24px}
+@media (max-width:720px){.inline-sec{padding:0 0 20px}}
+#sample-report .vs .of{transform:translateY(-29px)}
+@media (max-width:600px){#sample-report .vs .of{transform:translateY(-17px)}}
 @media (min-width:601px) and (max-width:800px){.vs{gap:20px}.vs .score.xl{font-size:64px}.vs .cap{font-size:13.5px}.sector{max-width:100%}.sector svg{max-width:100%;height:auto}}
 @media (max-width:860px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
 @media (min-width:1401px){.rows .row:nth-child(2)>div{transform:translateY(4px)}.rows .row:nth-child(3)>div{transform:translateY(2px)}.rows .row:nth-child(4)>div{transform:translateY(4px)}}
@@ -640,220 +646,6 @@ section#faq .faq-q .chev{font-family:var(--f-mono)}
 .form-msg{font-size:15px;margin-top:12px;max-width:560px;display:none}
 .form-msg.show{display:block}
 .form-msg.err{color:#B3261E}
-</style>
-<style id="livedata-css">
-/* [prod] live data sections (rolled back verbatim): hero-mini + sample band rules, live-extracted */
-
-      .dash-bar .site { font-weight: 600; font-size: 15.5px; }
-
-      .dash-bar .site span { color: var(--muted); font-weight: 400; }
-
-      .checker-head .ttl { font-weight: 600; font-size: 15.5px; }
-
-      .live-badge {
-        margin-left: auto; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600;
-        letter-spacing: .06em; color: var(--good); background: var(--good-soft);
-        border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
-        padding: 3px 10px; border-radius: 999px; white-space: nowrap;
-      }
-
-      .method-item .mono-tag {
-        display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600;
-        letter-spacing: .08em; color: var(--accent-deep); background: var(--accent-soft);
-        border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-        padding: 3px 9px; border-radius: 999px; margin-bottom: 10px;
-      }
-
-      .auth-card .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-/* A1 formal sample (2026-10-28): real-run mini card + sample run table. Additions only; base styles untouched. */
-.hero-mini { display: none; }
-
-.hero-mini-caption { display: none; }
-@media (min-width: 1024px){
-        .hero-mini { display: block; background: var(--bg-raise); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 22px 24px 18px; box-shadow: 0 1px 2px rgba(20, 21, 25, .05); }
-
-        .hero-mini-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-
-        .hero-mini-title { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-
-        .hero-mini-sample { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 999px; padding: 3px 9px; }
-
-        .hero-mini-score { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.02em; }
-
-        .hero-mini-score small { font-size: 20px; color: var(--muted); font-weight: 500; margin-left: 2px; }
-
-        .hero-mini-label { font-size: 14px; color: var(--muted); margin: 6px 0 18px; }
-
-        .hero-mini-delta { color: var(--good); font-weight: 600; }
-
-        .hero-mini-rows { border-top: 1px solid var(--line); }
-
-        .hero-mini-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
-
-        .hero-mini-row:last-child { border-bottom: none; }
-
-        .hero-mini-eng { flex: none; width: 86px; font-size: 14px; font-weight: 600; }
-
-        .hero-mini-track { flex: 1; height: 8px; border-radius: 99px; background: var(--bg-sink); overflow: hidden; }
-
-        .hero-mini-track > span { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
-
-        .hero-mini-row b { flex: none; width: 28px; text-align: right; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; }
-
-.hero-mini-sub { flex: none; font-size: 12px; color: var(--muted); white-space: nowrap; }
-
-        .hero-mini-note { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; }}
-
-.hero-mini-brand { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 8px; font-size: 15px; }
-
-.hero-mini-brand b { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; }
-
-.hero-mini-brand span { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-
-button.hero-mini-eng { background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; color: inherit; text-align: left; }
-
-button.hero-mini-eng:hover { color: var(--accent-deep); }
-
-.hero-mini-summary { display: flex; align-items: center; padding: 10px 0 2px; font-size: 13.5px; }
-
-.hero-mini-summary a { color: var(--accent-deep); font-weight: 600; text-decoration: none; }
-
-.hero-mini-summary a:hover { text-decoration: underline; }
-
-.hero-mini-dots { display: flex; gap: 8px; margin: 14px 0 0; }
-
-.hero-mini-dot { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: var(--line-strong); cursor: pointer; }
-
-.hero-mini-dot.on { background: var(--accent); }
-
-.hero-mini-meta { font-size: 12px; color: var(--muted); margin: 4px 0 0; line-height: 1.5; }
-
-.hero-mini-label { margin: 6px 0 12px; }
-
-.hero-mini-note { margin: 10px 0 0; }
-@media (prefers-reduced-motion: reduce){ .hero-mini-track > span { transition: none; }}
-@media (min-width: 1024px){ .hero-mini-caption { display: block; }}
-
-/* sample run table */
-.sample-run { background: var(--bg-raise); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 22px 24px; }
-
-.sample-run-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
-
-.sample-run-head .site { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; }
-
-.real-badge { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .08em; color: var(--accent-deep); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 999px; padding: 3px 9px; }
-
-.sr-scroll { overflow-x: auto; margin: 0 -24px; padding: 0 24px; }
-
-.sr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 14px; }
-
-.sr-table th, .sr-table td { padding: 10px 10px; text-align: center; border-bottom: 1px solid var(--line); white-space: nowrap; }
-
-.sr-table thead th { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); position: sticky; top: 0; background: var(--bg-raise); z-index: 2; }
-
-.sr-table tbody th { text-align: left; font-weight: 600; position: sticky; left: 0; background: var(--bg-raise); z-index: 1; }
-
-.sr-table thead th:first-child { position: sticky; left: 0; z-index: 3; text-align: left; }
-
-.sr-table tbody th, .sr-table thead th:first-child { border-right: 1px solid var(--line-strong); }
-
-.sr-table tbody th small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
-
-.sr-table td.sr-score { text-align: right; }
-
-.sr-table thead th:last-child { text-align: right; }
- /* preview16: score column header aligned right with its values */
-.sr-table td.sr-score b { font-family: "Plus Jakarta Sans", sans-serif; font-size: 17px; }
-
-.sr-table td.sr-score small { display: block; color: var(--muted); font-size: 11.5px; }
-
-.sr-table td.zero { color: var(--muted); }
-
-.sample-notes { margin-top: 16px; font-size: 13.5px; color: var(--ink-2); }
-
-.sample-notes p { margin: 0 0 8px; }
-
-.sample-notes .sr-main { font-weight: 600; color: var(--ink); }
-@media (max-width: 560px){ .sample-run { padding: 18px; }
- .sr-scroll { margin: 0 -18px; padding: 0 18px; }}
-
-.fold-btn{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font:inherit;font-weight:600;font-size:15.5px;color:var(--accent,#e8490f);padding:14px 4px 2px}
-
-.fold-btn .fx{display:inline-block;font-size:19px;font-weight:400;line-height:1;transition:transform .25s ease}
-
-.fold-btn[aria-expanded="true"] .fx{transform:rotate(45deg)}
-
-tr.sr-dots{display:none}
-
-.fold-on tr.sr-dots{display:table-row}
-
-.sr-table tr.sr-dots td{color:var(--muted,#6d6d66);font-size:19px!important;line-height:1.15!important;letter-spacing:.45em;padding-top:5px!important;padding-bottom:7px!important;text-align:left!important}
-
-
-.hero-mini .hm-rowline{ border-top: 1px dashed var(--line-strong); border-bottom: 1px solid var(--line); margin: 0; padding: 8px 0; }
-
-.hero-mini .hero-mini-rows{ border-bottom: 0; }
-@media (min-width:1024px){
-.hero-mini .hm-rowline{ font-size: 11px; letter-spacing: -.03em; white-space: nowrap; }}
-
-.hero-mini-caption .cap-l{ display: block; }
-
-.sample-run-note{ font-size: 11px; line-height: 1.45; color: var(--muted); margin: 10px 4px 0; max-width: 860px; }
-
-.hero-mini-head{ display: flex; justify-content: space-between; align-items: baseline; }
-
-.hero-mini .hm-tag{ font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 9.5px; border: 1px solid currentColor; border-radius: 999px; padding: 1px 6px; vertical-align: 1px; }
-
-.hero-mini .hm-cnote{ opacity: .85; }
-
-.hero-mini-head .hm-date{ font-size: 12px; color: var(--muted); }
-@media (max-width:860px){
-.topnav a[href="#report"],.topnav a[href="#how"],.topnav a[href="#faq"]{display:none}}
-
-.plan, .sample-run, .checker, .faq-support { border-radius: 16px; }
-@media (min-width: 1024px) and (prefers-color-scheme: light){
-  .hero-mini { background: var(--bg); border-color: transparent; box-shadow: none; }}
-
-/* Sample table rest-state fix (his real-device find 2026-10-30): at widths where
-   the table scrolls, rests land on column boundaries (no half-cut glyphs,
-   including under the sticky Brand column), the start position is a true zero
-   (scroll-padding mirrors the scroller padding so the first snap point is 0),
-   and the scrollable state is perceptible (right-edge fade). Paired with the
-   sr-scroll-zero script below. */
-@media (max-width: 1023px) {
-  .sr-scroll { scroll-snap-type: x mandatory; scroll-padding-left: 141px;
-    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
-    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%); }
-  .sr-table { scroll-snap-align: start; }
-  .sr-table thead th:first-child, .sr-table tbody th { left: -24px; }
-  .sr-table th, .sr-table td { scroll-snap-align: start; }
-  /* The sticky first column must never be a snap target (his phone find
-     2026-10-30): a snapped sticky cell can rest half-off the left edge,
-     half-cutting its glyphs. Rests still land on column boundaries via the
-     remaining cells. */
-  .sr-table thead th:first-child, .sr-table tbody th { scroll-snap-align: none; }
-}
-@media (max-width: 560px){ .sr-scroll { scroll-padding-left: 141px; }
- .sr-table thead th:first-child, .sr-table tbody th { left: -18px; }}
-
-/* INTENSITY C: drawn accents (visual additions, declared) */
-.sr-score{position:relative}
-
-#report{padding:38px 0 36px}
-@media (max-width:720px){
-#report{padding:29px 0 27px}}
-
-.tcov-tier { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); margin: 0 0 6px; }
-
-.hm-extra { font-size: 12px; line-height: 1.45; color: var(--muted); margin: 10px 0 0; padding-top: 9px; border-top: 1px dashed var(--line-strong); }
-
-.hm-synth { font-size: 12px; line-height: 1.45; color: var(--muted); margin: 10px 0 0; padding-top: 9px; border-top: 1px dashed var(--line-strong); }
-
-.hm-synth b { color: var(--ink); font-family: "IBM Plex Mono", monospace; font-weight: 600; }
-@media (max-width:480px){.hm-extra,.hm-synth{font-size:11px;letter-spacing:-.02em}}
-@media (min-width:1024px){.hero-mini{background:transparent;border:0;box-shadow:none;padding:0}}
-@media (max-width:1023px){.hero-mini{display:block;background:transparent;border:0;box-shadow:none;padding:0}}
 </style>
 <style id="checker-css">@media (max-width: 860px) {
         .score-big { font-size: 52px; }
@@ -1089,29 +881,59 @@ tr.sr-dots{display:none}
  <div class="copy">
   <span class="label">— AI visibility radar</span>
   <h1 class="display">When buyers ask AI, it names your competitors <span class="serif dim">— not you.</span></h1>
-  <p class="lead">CitMark measures how close you sit to the center of <b>ChatGPT, Perplexity and Gemini</b> answers, shows who gets cited instead — and <b>drafts the corrections</b> for you to approve. Founding price from <b>$12.50/mo</b>.</p>
+  <p class="lead">CitMark measures <b>ChatGPT, Perplexity and Gemini</b> answers, shows where the brands in this scan sit and who gets cited instead — and <b>drafts the corrections</b> for you to approve. Founding price from <b>$12.50/mo</b>.</p>
   <!-- LANDING WIRING 1/2: hero form -> real signup flow (design marks the point; wiring is a landing action) -->
    <form class="field-cta waitlist" data-register data-source="hero" novalidate><label style="position:absolute;left:-9999px" for="email-hero">Work email</label><input id="email-hero" class="ph" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required><input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Create your free account →</button></form><div class="form-msg" aria-live="polite"></div>
   <div class="fine">No card required · 0 code to install</div>
  </div>
- <div class="hero-mini-wrap"><aside class="hero-mini" aria-label="Sample visibility report for Good Molecules">
-            <div class="hero-mini-head"><span class="hero-mini-title">Visibility score</span></div>
-<p class="hero-mini-brand"><b>Good Molecules</b></p>
-<div class="hero-mini-score"><span id="miniScore">41.7</span><small>/100</small></div>
-<p class="hero-mini-label">measured on ChatGPT · Perplexity · Gemini · Grok</p>
-<p class="tcov-tier" id="miniTier">Starter — 3 engines</p>
-<div class="hero-mini-rows" id="miniRows">
-<div class="hero-mini-row"><span class="hero-mini-eng">ChatGPT</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
-<div class="hero-mini-row"><span class="hero-mini-eng">Perplexity</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
-<div class="hero-mini-row"><span class="hero-mini-eng">Gemini</span><span class="hero-mini-track"><span style="width:33%"></span></span><b>33</b></div>
-<div class="hero-mini-row"><span class="hero-mini-eng">Grok</span><span class="hero-mini-track"><span style="width:67%"></span></span><b>67</b></div>
-<p class="hm-synth hm-rowline">DeepSeek <b>33</b> <span class="hm-tag">synthetic</span> <span class="hm-cnote">(search-injected; not engine-grounded)</span></p>
-</div>
-<p class="hero-mini-note" id="miniCov">1 site · 30 questions · last 4 weeks</p>
-<div class="hero-mini-summary"><a href="#sample-table">Full sample below</a></div>
-<div class="hero-mini-dots" id="miniDots"></div>
-</aside>
-            <p class="hero-mini-caption" style="font-size:10.5px;line-height:1.4;color:var(--muted);margin:8px 4px 0">A real CitMark run · Nov 15, 2026 (DeepSeek synthetic)</p></div>
+ <!-- DATA: production re-run snap-b517e2d1 (2026-11-25, robot vacuums, 3 questions x 3 engines, n=9): Roborock 77.8 / Dreame 66.7 / iRobot Roomba 33.3 / Eufy 33.3 / Ecovacs 22.2 / Narwal 22.2 / MOVA 11.1 - design freeze v90 -->
+  <div class="radar"><div class="dsk"><svg viewBox="0 0 760 760" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans">
+<defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E8541E" stop-opacity=".20"/><stop offset="1" stop-color="#E8541E" stop-opacity="0"/></radialGradient></defs>
+<circle cx="380" cy="380" r="142.8" fill="url(#glow)"/>
+<circle class="mring outer" cx="380" cy="380" r="340.0" fill="none" stroke="#141311" stroke-opacity="0.28" stroke-width="1.2"/>
+<circle class="mring" pathLength="100" cx="380" cy="380" r="255.0" fill="none" stroke="#141311" stroke-opacity="0.13" stroke-width="1.2"/>
+<circle class="mring" pathLength="100" cx="380" cy="380" r="170.0" fill="none" stroke="#141311" stroke-opacity="0.13" stroke-width="1.2"/>
+<circle class="mring" pathLength="100" cx="380" cy="380" r="85.0" fill="none" stroke="#141311" stroke-opacity="0.13" stroke-width="1.2"/>
+<rect x="366" y="32.0" width="28" height="16" fill="#F4F1EA"/><text x="380" y="44.0" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#6F685C">0</text>
+<rect x="366" y="117.0" width="28" height="16" fill="#F4F1EA"/><text x="380" y="129.0" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#6F685C">25</text>
+<rect x="366" y="202.0" width="28" height="16" fill="#F4F1EA"/><text x="380" y="214.0" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#6F685C">50</text>
+<rect x="366" y="287.0" width="28" height="16" fill="#F4F1EA"/><text x="380" y="299.0" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#6F685C">75</text>
+<circle class="mcenter" cx="380" cy="380" r="7" fill="#E8541E"/>
+<text x="380" y="408" text-anchor="middle" font-family="JetBrains Mono" font-size="12" letter-spacing="2" fill="#E8541E">AI'S ANSWER</text>
+<circle class="mdot" cx="332.2" cy="277.4" r="9.2" fill="#141311"/>
+<text x="306.2" y="283.4" font-size="18" font-weight="650" fill="#141311" text-anchor="end">Dreame<tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#6F685C" dx="7.6">66.7</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#6F685C" fill-opacity=".75">/100</tspan></text>
+<circle class="mdot" cx="158.2" cy="427.2" r="9.2" fill="#141311"/>
+<text x="184.2" y="433.2" font-size="18" font-weight="650" fill="#141311" text-anchor="start">iRobot Roomba<tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#6F685C" dx="7.6">33.3</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#6F685C" fill-opacity=".75">/100</tspan></text>
+<circle class="mdot" cx="356.3" cy="605.5" r="9.2" fill="#141311"/>
+<text x="382.3" y="611.5" font-size="18" font-weight="650" fill="#141311" text-anchor="start">Eufy<tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#6F685C" dx="7.6">33.3</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#6F685C" fill-opacity=".75">/100</tspan></text>
+<circle class="mdot" cx="177.4" cy="210.0" r="9.2" fill="#141311"/>
+<text x="203.4" y="216.0" font-size="18" font-weight="650" fill="#141311" text-anchor="start">Ecovacs<tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#6F685C" dx="7.6">22.2</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#6F685C" fill-opacity=".75">/100</tspan></text>
+<circle class="mdot" cx="625.3" cy="479.1" r="9.2" fill="#141311"/>
+<text x="599.3" y="485.1" font-size="18" font-weight="650" fill="#141311" text-anchor="end">Narwal<tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#6F685C" dx="7.6">22.2</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#6F685C" fill-opacity=".75">/100</tspan></text>
+<circle class="mdot" cx="553.4" cy="627.7" r="9.2" fill="#141311"/>
+<text x="527.4" y="633.7" font-size="18" font-weight="650" fill="#141311" text-anchor="end">MOVA<tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#6F685C" dx="7.6">11.1</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#6F685C" fill-opacity=".75">/100</tspan></text>
+<circle class="mhalo" cx="444.0" cy="340.0" r="20.7" fill="none" stroke="#E8541E" stroke-width="1.6" stroke-dasharray="3 3"/>
+<circle class="mfocal" cx="444.0" cy="340.0" r="8.6" fill="#E8541E"/>
+<text x="470.0" y="346.0" font-size="18" font-weight="750" fill="#E8541E" text-anchor="start">Roborock<text x="470.0" y="370.0" font-family="JetBrains Mono" font-size="11" letter-spacing="1.5" fill="#E8541E">MOST NAMED</text><tspan font-family="JetBrains Mono" font-size="13.3" font-weight="500" fill="#E8541E" dx="7.6">77.8</tspan><tspan font-family="JetBrains Mono" font-size="11.2" font-weight="400" fill="#E8541E" fill-opacity=".75">/100</tspan></text>
+<g class="sweep" style="--ox:380px;--oy:380px"><circle cx="380" cy="40" r="18.7" fill="#E8541E" opacity=".16"/><circle cx="380" cy="40" r="8.84" fill="#E8541E"/></g></svg></div><div class="mob"><svg viewBox="0 30 400 340" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans">
+<defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E8541E" stop-opacity=".20"/><stop offset="1" stop-color="#E8541E" stop-opacity="0"/></radialGradient></defs>
+<circle cx="200" cy="200" r="63.0" fill="url(#glow)"/>
+<circle class="mring outer" cx="200" cy="200" r="150.0" fill="none" stroke="#141311" stroke-opacity="0.28" stroke-width="1.2"/>
+<circle class="mring" pathLength="100" cx="200" cy="200" r="112.5" fill="none" stroke="#141311" stroke-opacity="0.13" stroke-width="1.2"/>
+<circle class="mring" pathLength="100" cx="200" cy="200" r="75.0" fill="none" stroke="#141311" stroke-opacity="0.13" stroke-width="1.2"/>
+<circle class="mring" pathLength="100" cx="200" cy="200" r="37.5" fill="none" stroke="#141311" stroke-opacity="0.13" stroke-width="1.2"/>
+<circle class="mcenter" cx="200" cy="200" r="7" fill="#E8541E"/>
+<circle class="mdot" cx="178.9" cy="154.7" r="8.2" fill="#141311"/>
+<text x="153.9" y="150.7" font-size="19" font-weight="650" fill="#141311" text-anchor="end">Dreame</text><text x="153.9" y="170.7" font-family="JetBrains Mono" font-size="14.8" font-weight="500" fill="#6F685C" text-anchor="end">66.7<tspan font-size="12.2" fill-opacity=".75">/100</tspan></text>
+<circle class="mdot" cx="102.0" cy="220.8" r="8.2" fill="#141311"/>
+<circle class="mdot" cx="189.5" cy="299.6" r="8.2" fill="#141311"/>
+<circle class="mdot" cx="85.1" cy="179.7" r="8.2" fill="#141311"/>
+<circle class="mdot" cx="308.2" cy="243.7" r="8.2" fill="#141311"/>
+<circle class="mdot" cx="276.5" cy="309.3" r="8.2" fill="#141311"/>
+<circle class="mhalo" cx="228.7" cy="182.0" r="15" fill="none" stroke="#E8541E" stroke-width="1.6" stroke-dasharray="3 3"/><circle class="mfocal" cx="228.7" cy="182.0" r="7" fill="#E8541E"/>
+<text x="254.7" y="188.0" font-size="19" font-weight="750" fill="#E8541E" text-anchor="start">Roborock</text><text x="254.7" y="208.0" font-family="JetBrains Mono" font-size="14.8" font-weight="500" fill="#E8541E" text-anchor="start">77.8<tspan font-size="12.2" fill-opacity=".75">/100</tspan></text>
+<g class="sweep" style="--ox:200px;--oy:200px"><circle cx="200" cy="50" r="8.25" fill="#E8541E" opacity=".16"/><circle cx="200" cy="50" r="3.9" fill="#E8541E"/></g></svg></div>
+  <div class="radar-cap"><span class="pill">Closer to the center = named more often by AI</span><span class="stamp"><i></i><b>Public scan</b> · Nov 25, 2026 · snap-b517e2d1</span><span class="cap-cta">Run a free snapshot to see where yours sits.</span></div></div>
 </section>
 <section class="sec paper"><div class="wrap">
  <div class="sec-head reveal"><div><span class="label">— Why CitMark</span><h2 class="h2">A score is the start of the work. <span class="or">CitMark does the rest.</span></h2></div></div>
@@ -1148,54 +970,62 @@ tr.sr-dots{display:none}
             </div>
           </div>
 
-          <div class="sec-head reveal" style="margin-top: 40px;">
-            <p class="sec-kicker">Sample report</p>
-            <h2>…and this is what a full report looks like</h2>
-            <p>We ran CitMark for real on Nov 13, 2026 — all three engines, the same 3 buyer questions as the free check, for one brand: Good Molecules. The table lists every brand the engines named in those 9 answers. Every score below is the actual result, low ones included.</p>
-          </div>
-
-          <p class="sample-run-note" style="margin: 0 4px 12px;">Two different runs: the card above is Nov 15, 2026, across four engines; the sample below is Nov 13, 2026, across three engines.</p>
-            <div class="sample-run" id="sample-table" data-foldscope>
-            <div class="sample-run-head">
-              <span class="site">Sample run · Nov 13, 2026 · Good Molecules · 3 engines · 9 answers</span>
-              <span class="real-badge">REAL RUN — REAL DATA</span>
-            </div>
-            <div class="sr-scroll">
-            <table class="sr-table">
-              <thead><tr><th>Brand</th><th>ChatGPT</th><th>Perplexity</th><th>Gemini</th><th>Score</th></tr></thead>
-              <tbody>
-              <tr><th>The Ordinary</th><td>3/3</td><td>3/3</td><td>2/3</td><td class="sr-score"><b>88.9</b><small>95% CI 56.5–98.0</small></td></tr>
-              <tr><th>CeraVe</th><td>2/3</td><td>2/3</td><td>2/3</td><td class="sr-score"><b>66.7</b><small>95% CI 35.4–87.9</small></td></tr>
-              <tr><th>The Inkey List</th><td>1/3</td><td>2/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
-              <tr><th>Vanicream</th><td>2/3</td><td>1/3</td><td>2/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
-              <tr><th>Cetaphil</th><td>2/3</td><td>2/3</td><td>1/3</td><td class="sr-score"><b>55.6</b><small>95% CI 26.7–81.1</small></td></tr>
-              <tr><th>Naturium</th><td class="zero">0/3</td><td>1/3</td><td>3/3</td><td class="sr-score"><b>44.4</b><small>95% CI 18.9–73.3</small></td></tr>
-              <tr><th>Good Molecules<small>goodmolecules.com</small></th><td>1/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
-              <tr data-fold="x"><th>La Roche-Posay</th><td class="zero">0/3</td><td>1/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
-              <tr data-fold="x"><th>Neutrogena</th><td>1/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
-              <tr data-fold="x"><th>Eucerin</th><td>1/3</td><td>1/3</td><td class="zero">0/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
-              <tr data-fold="x"><th>Geek & Gorgeous</th><td>1/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>22.2</b><small>95% CI 6.3–54.7</small></td></tr>
-              <tr data-fold="x"><th>Beauty of Joseon</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Cosrx</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Differin</th><td>1/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Melano CC</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Timeless</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Byoma</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Hada Labo</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Skin Aqua</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>Jumiso</th><td class="zero">0/3</td><td class="zero">0/3</td><td>1/3</td><td class="sr-score"><b>11.1</b><small>95% CI 2.0–43.5</small></td></tr>
-              <tr data-fold="x"><th>CitMark<small>citmark.com</small></th><td class="zero">0/3</td><td class="zero">0/3</td><td class="zero">0/3</td><td class="sr-score"><b>0.0</b><small>95% CI 0.0–29.9</small></td></tr>
-              </tbody>
-            </table>
-            </div>
-            <button type="button" class="fold-btn" hidden data-more="Show all 21 brands" data-less="Show less" aria-expanded="false"><span class="fold-btn-txt">Show all 21 brands</span><span class="fx" aria-hidden="true">+</span></button>
-            <div class="sample-notes"><p>Sample run — Nov 13, 2026 · ChatGPT, Perplexity and Gemini · 3 buyer questions per engine, 9 answers scored. <a href="#how-we-score">How we score</a></p>
-          <p>Independent sample. CitMark is not affiliated with or endorsed by the brands shown.</p>
-          <p>Scores change week to week and vary by brand.</p></div>
-          </div>
-<p class="sample-run-note">From the score-card run above (Good Molecules, Nov 15, 2026): Engines as run: ChatGPT gpt-6-luna · Perplexity perplexity/sonar · Gemini gemini-3.8-flash · Grok grok-4.20-0309-non-reasoning · DeepSeek deepseek-chat (synthetic, search-injected). Questions: set v2 — the free check's 3 buyer questions.</p>
-
-          <div class="inline-cta">
+          
+</div>
+</section>
+<section class="band-dark" id="sample-report"><div class="wrap">
+ <div class="report-top reveal"><div>
+  <span class="label">— Sample report</span>
+  <h2 class="h2" style="margin-top:18px">Roborock was named in <span class="serif">7 of 9</span> answers. Dreame, in 6.</h2>
+  <div class="vs"><div><span class="score xl">77.8<span class="of">/100</span></span><div class="cap"><b>Roborock</b> · most named</div></div>
+   <div><span class="score xl">66.7<span class="of">/100</span></span><div class="cap"><b>Dreame</b></div></div></div>
+  <div style="margin-top:36px"></div>
+ </div>
+ <div class="sector"><svg viewBox="0 0 560 560" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans">
+<path class="msec-w" d="M280,280 L80.8,165.0 A230,230 0 0 1 479.2,165.0 Z" fill="#F4F1EA" fill-opacity="0.05" stroke="#F4F1EA" stroke-opacity=".22" stroke-width="1"/>
+<text x="280.0" y="29.0" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="1.5" fill="#B8B3A7">CHATGPT</text>
+<path class="msec-w" d="M280,280 L479.2,165.0 A230,230 0 0 1 280.0,510.0 Z" fill="#F4F1EA" fill-opacity="0.03" stroke="#F4F1EA" stroke-opacity=".22" stroke-width="1"/>
+<text x="501.7" y="413.0" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="1.5" fill="#B8B3A7">PERPLEXITY</text>
+<path class="msec-w" d="M280,280 L280.0,510.0 A230,230 0 0 1 80.8,165.0 Z" fill="#F4F1EA" fill-opacity="0.045" stroke="#F4F1EA" stroke-opacity=".22" stroke-width="1"/>
+<text x="58.3" y="413.0" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="1.5" fill="#B8B3A7">GEMINI</text>
+<circle cx="280" cy="280" r="230.0" fill="none" stroke="#F4F1EA" stroke-opacity=".16" stroke-dasharray="2 4"/>
+<circle cx="280" cy="280" r="153.3" fill="none" stroke="#F4F1EA" stroke-opacity=".16" stroke-dasharray="2 4"/>
+<circle cx="280" cy="280" r="76.7" fill="none" stroke="#F4F1EA" stroke-opacity=".16" stroke-dasharray="2 4"/>
+<circle class="mdot2" cx="312.2" cy="128.4" r="10" fill="#FF7A45"/>
+<circle class="mhalo2" cx="312.2" cy="128.4" r="17" fill="none" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="332.2" y="133.4" font-family="JetBrains Mono" font-size="13" fill="#FF7A45">1/3</text>
+<circle class="mdot2" cx="297.7" cy="283.1" r="10" fill="#FF7A45"/>
+<circle class="mhalo2" cx="297.7" cy="283.1" r="17" fill="none" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="317.7" y="288.1" font-family="JetBrains Mono" font-size="13" fill="#FF7A45">3/3</text>
+<circle class="mdot2" cx="262.6" cy="284.7" r="10" fill="#FF7A45"/>
+<circle class="mhalo2" cx="262.6" cy="284.7" r="17" fill="none" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="242.6" y="289.7" text-anchor="end" font-family="JetBrains Mono" font-size="13" fill="#FF7A45">3/3</text>
+<circle class="mdot2" cx="253.7" cy="199.2" r="8.5" fill="#F4F1EA"/>
+<text x="273.7" y="204.2" font-family="JetBrains Mono" font-size="13" fill="#F4F1EA">2/3</text>
+<circle class="mdot2" cx="391.6" cy="387.7" r="8.5" fill="#F4F1EA"/>
+<text x="411.6" y="392.7" font-family="JetBrains Mono" font-size="13" fill="#F4F1EA">1/3</text>
+<circle class="mdot2" cx="251.7" cy="316.3" r="8.5" fill="#F4F1EA"/>
+<text x="231.7" y="321.3" text-anchor="end" font-family="JetBrains Mono" font-size="13" fill="#F4F1EA">3/3</text>
+<circle class="mdot2" cx="312.0" cy="52.3" r="8.5" fill="#8C877C"/>
+<text x="332.0" y="57.3" font-family="JetBrains Mono" font-size="13" fill="#8C877C">0/3</text>
+<circle class="mdot2" cx="430.4" cy="317.5" r="8.5" fill="#8C877C"/>
+<text x="450.4" y="322.5" font-family="JetBrains Mono" font-size="13" fill="#8C877C">1/3</text>
+<circle class="mdot2" cx="197.5" cy="300.6" r="8.5" fill="#8C877C"/>
+<text x="177.5" y="305.6" text-anchor="end" font-family="JetBrains Mono" font-size="13" fill="#8C877C">2/3</text>
+<circle class="mdot2" cx="280" cy="280" r="5" fill="#FF7A45"/>
+</svg>
+  <div class="sector-note">Each slice is one engine. Closer to the center = named in more of its answers. Top three brands shown — the table below lists all seven.</div>
+  <div class="sector-legend"><span><i style="background:#FF7A45"></i>Roborock</span><span><i style="background:#F4F1EA"></i>Dreame</span><span><i style="background:#8C877C"></i>iRobot Roomba</span></div></div>
+ </div>
+ <table class="tbl d-only"><thead><tr><th>Brand</th><th>ChatGPT</th><th>Perplexity</th><th>Gemini</th><th class="r">Score</th></tr></thead><tbody><tr class=""><td>Roborock</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span>3/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span>3/3</td><td class="r sc">77.8<small>/100</small></td></tr><tr class=""><td>Dreame</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span>3/3</td><td class="r sc">66.7<small>/100</small></td></tr><tr class=""><td>iRobot Roomba</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="r sc">33.3<small>/100</small></td></tr><tr class=""><td>Eufy</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="r sc">33.3<small>/100</small></td></tr><tr class=""><td>Ecovacs</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="r sc">22.2<small>/100</small></td></tr><tr class=""><td>Narwal</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class="f"></i><i class="f"></i><i class=""></i></span>2/3</td><td class="r sc">22.2<small>/100</small></td></tr><tr class=""><td>MOVA</td><td class="k"><span class="dots"><i class="f"></i><i class=""></i><i class=""></i></span>1/3</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="k"><span class="dots"><i class=""></i><i class=""></i><i class=""></i></span>0/3</td><td class="r sc">11.1<small>/100</small></td></tr></tbody></table>
+ <div class="mlist"><div class="mi "><div><span class="nm">Roborock</span><span class="ct">7 of 9 answers</span></div><span class="sc">77.8<small>/100</small></span></div><div class="mi "><div><span class="nm">Dreame</span><span class="ct">6 of 9 answers</span></div><span class="sc">66.7<small>/100</small></span></div><div class="mi "><div><span class="nm">iRobot Roomba</span><span class="ct">3 of 9 answers</span></div><span class="sc">33.3<small>/100</small></span></div><div class="mi "><div><span class="nm">Eufy</span><span class="ct">3 of 9 answers</span></div><span class="sc">33.3<small>/100</small></span></div><div class="mi "><div><span class="nm">Ecovacs</span><span class="ct">2 of 9 answers</span></div><span class="sc">22.2<small>/100</small></span></div><div class="mi "><div><span class="nm">Narwal</span><span class="ct">2 of 9 answers</span></div><span class="sc">22.2<small>/100</small></span></div><div class="mi "><div><span class="nm">MOVA</span><span class="ct">1 of 9 answers</span></div><span class="sc">11.1<small>/100</small></span></div></div>
+ <div class="tbl-foot"><p>A CitMark public scan of robot vacuums · 3 buyer questions × 3 engines = 9 answers · Run snap-b517e2d1 · Nov 25, 2026 · Small sample (n = 9), shown as an example report — not a verdict on any brand.</p>
+<p>Independent sample. CitMark is not affiliated with or endorsed by the brands shown. Scores change week to week and vary by brand.</p></div>
+<!-- J6 closed by design freeze v90: the table above lists all seven brands named in the run - no expansion control -->
+</div></section>
+<section class="inline-sec">
+<div class="wrap">
+<div class="inline-cta">
             <div class="inline-cta-copy">
               <h3>Want this report for your own site?</h3>
               <p>Create a free account — every score comes with its confidence interval, and the answers behind it stay readable, question by question. <a href="/methodology/">See how we score</a>.</p>
@@ -1380,178 +1210,6 @@ tr.sr-dots{display:none}
         <p>We will post any updates here with a new effective date. Material changes get an email notice before they take effect.</p>
       </div>
     </div>
-<script>
-/* Tier carousel B v3 (measured anchor, fixed height): the measured layer —
-   41.7 overall plus the four measured engine bars — is identical on every
-   plan page and is the only animated layer (one same-clock rAF loop drives
-   the number and the bars together). Plan differences are static small text:
-   a tier line, ONE compact extra-engines line (no bar, no number, so an
-   engine that was not in the sample run can never read as a 0 score), and a
-   coverage line. Card height is the same on all four pages. */
-(function () {
-  var SCORE = 41.7;
-  var BARS = [33, 33, 33, 67];
-  var STATES = [
-    { tier: "Starter — 3 engines", cov: "1 site · 30 questions · last 4 weeks" },
-    { tier: "Growth — 4 engines", cov: "1 site · 100 questions · last 3 months" },
-    { tier: "Pro — 5 engines", cov: "1 site · 300 questions · full history" }
-  ];
-  var card = document.querySelector(".hero-mini");
-  if (!card) return;
-  var scoreEl = document.getElementById("miniScore");
-  var tierEl = document.getElementById("miniTier");
-  var covEl = document.getElementById("miniCov");
-  var dotsWrap = document.getElementById("miniDots");
-  var bars = card.querySelectorAll("#miniRows .hero-mini-track > span");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var wide = window.matchMedia("(min-width: 1024px)");
-  var idx = 0, timer = null;
-  var resumeTimer = null, pausedUntil = 0, inView = true;
-  STATES.forEach(function (d, i) {
-    var dot = document.createElement("button");
-    dot.type = "button"; dot.className = "hero-mini-dot" + (i === 0 ? " on" : "");
-    dot.setAttribute("aria-label", "Show " + d.tier.split(" — ")[0] + " plan");
-    if (i === 0) dot.setAttribute("aria-current", "true");
-    dot.addEventListener("click", function () { manualPause(); render(i); });
-    dotsWrap.appendChild(dot);
-  });
-  var dots = dotsWrap.querySelectorAll(".hero-mini-dot");
-  var curScore = 0, curBar = [0, 0, 0, 0], rafId = null;
-  function fmt(v) { return (Math.round(v * 10) / 10).toFixed(1); }
-  function paint() {
-    scoreEl.textContent = fmt(curScore);
-    bars.forEach(function (el, i) { el.style.width = curBar[i] + "%"; });
-  }
-  function snap() {
-    curScore = SCORE; curBar = BARS.slice();
-    scoreEl.textContent = "41.7";
-    bars.forEach(function (el, i) { el.style.width = BARS[i] + "%"; });
-  }
-  function animate() {
-    if (rafId) cancelAnimationFrame(rafId);
-    if (reduce) { snap(); return; }
-    var fromS = curScore, fromB = curBar.slice(), t0 = null, DUR = 600;
-    function step(ts) {
-      if (!t0) t0 = ts;
-      var p = Math.min(1, (ts - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
-      curScore = fromS + (SCORE - fromS) * e;
-      curBar = fromB.map(function (v, i) { return v + (BARS[i] - v) * e; });
-      if (p >= 1) { snap(); rafId = null; return; }
-      paint();
-      rafId = requestAnimationFrame(step);
-    }
-    rafId = requestAnimationFrame(step);
-  }
-  function render(next) {
-    var d = STATES[next];
-    tierEl.textContent = d.tier;
-    covEl.textContent = d.cov;
-    dots.forEach(function (dot, i) {
-      dot.classList.toggle("on", i === next);
-      if (i === next) { dot.setAttribute("aria-current", "true"); } else { dot.removeAttribute("aria-current"); }
-    });
-    idx = next;
-    animate();
-  }
-  function clearTimer() { if (timer) { clearInterval(timer); timer = null; } }
-  function startAuto() {
-    if (reduce || !wide.matches || timer || document.hidden || !inView) return;
-    if (Date.now() < pausedUntil) return;
-    timer = setInterval(function () { render((idx + 1) % STATES.length); }, 4000);
-  }
-  function manualPause() {
-    clearTimer();
-    pausedUntil = Date.now() + 8000;
-    if (resumeTimer) clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(function () { resumeTimer = null; startAuto(); }, 8000);
-  }
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) { clearTimer(); } else { startAuto(); }
-  });
-  if (wide.addEventListener) wide.addEventListener("change", function () { if (wide.matches) { startAuto(); } else { clearTimer(); } });
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) {
-      inView = entries[0].isIntersecting;
-      if (inView) { startAuto(); } else { clearTimer(); }
-    }, { threshold: 0.2 }).observe(card);
-  }
-  card.style.touchAction = "pan-y";
-  var dragX = null, dragY = null, dragged = false;
-  function swapFx(dir) {
-    if (reduce) return;
-    card.style.transition = "none";
-    card.style.transform = "translateX(" + (dir > 0 ? 14 : -14) + "px)";
-    card.style.opacity = "0.55";
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        card.style.transition = "transform 600ms cubic-bezier(0.33, 1, 0.68, 1), opacity 600ms cubic-bezier(0.33, 1, 0.68, 1)";
-        card.style.transform = "";
-        card.style.opacity = "";
-      });
-    });
-  }
-  card.addEventListener("pointerdown", function (e) {
-    if (e.button !== undefined && e.button !== 0) return;
-    dragX = e.clientX; dragY = e.clientY; dragged = false;
-  });
-  card.addEventListener("pointermove", function (e) {
-    if (dragX === null) return;
-    var dx = e.clientX - dragX, dy = e.clientY - dragY;
-    if (!dragged && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.2) dragged = true;
-    if (dragged && !reduce) {
-      card.style.transition = "none";
-      card.style.transform = "translateX(" + Math.max(-24, Math.min(24, dx * 0.35)) + "px)";
-    }
-  });
-  function endDrag(e) {
-    if (dragX === null) return;
-    var dx = e.clientX - dragX;
-    var wasDrag = dragged;
-    dragX = null; dragY = null; dragged = false;
-    card.style.transition = "transform 600ms cubic-bezier(0.33, 1, 0.68, 1)";
-    card.style.transform = "";
-    if (wasDrag && Math.abs(dx) >= 40) {
-      var dir = dx < 0 ? 1 : -1;
-      manualPause();
-      render((idx + dir + STATES.length) % STATES.length);
-      swapFx(dir);
-      var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
-      card.addEventListener("click", kill, { capture: true, once: true });
-      setTimeout(function () { card.removeEventListener("click", kill, { capture: true }); }, 350);
-    }
-  }
-  card.addEventListener("pointerup", endDrag);
-  card.addEventListener("pointercancel", function () {
-    dragX = null; dragY = null; dragged = false;
-    card.style.transform = "";
-  });
-  render(0);
-  startAuto();
-})();
-</script>
-<script id="fold-demo-js">
-(function () {
-  document.querySelectorAll('[data-foldscope]').forEach(function (scope) {
-    var btn = scope.querySelector('.fold-btn');
-    if (!btn) return;
-    scope.classList.add('fold-on');
-    btn.hidden = false;
-    btn.setAttribute('aria-expanded', 'false');
-    var nRows = scope.querySelectorAll('.sr-table tbody tr').length;
-    var nTools = scope.querySelectorAll('.tkrow').length;
-    if (nRows) btn.setAttribute('data-more', 'Show all ' + nRows + ' brands');
-    if (nTools) btn.setAttribute('data-more', 'Show all ' + nTools + ' tools');
-    var t0 = btn.querySelector('.fold-btn-txt');
-    if (t0) t0.textContent = btn.getAttribute('data-more');
-    btn.addEventListener('click', function () {
-      var folded = scope.classList.toggle('fold-on');
-      btn.setAttribute('aria-expanded', String(!folded));
-      var t = btn.querySelector('.fold-btn-txt');
-      if (t) t.textContent = folded ? btn.getAttribute('data-more') : btn.getAttribute('data-less');
-    });
-  });
-})();
-</script>
 <script>
 var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* ---------- Live llms.txt checker (real fetch, client-side) ---------- */
