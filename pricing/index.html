@@ -66,8 +66,14 @@
 @keyframes centerpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 }
 </style>
+<style id="pricing-ink-fix">
+/* §11 ink-center optical alignment for the rung price /mo (pixel-centroid method):
+   number ink center sits 12.6px (52px size) / 9.5px (40px size, <=600px) above the /mo ink center on the shared baseline. */
+.rung .pp .now small{display:inline-block;transform:translateY(-12.6px)}
+@media (max-width:600px){ .rung .pp .now small{transform:translateY(-9.5px)} }
+</style>
 <link rel="stylesheet" href="/assets/motion.css"></head><body><header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/" class="">Product</a><a href="/#report" class="">Sample report</a><a href="/pricing/" class="on">Pricing</a><a href="/about/" class="">About</a><a href="#faq" class="">FAQ</a></nav><div class="nav-r"><a href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="burger" aria-label="Menu" aria-expanded="false"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M0 1h16M0 6h16M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
-<nav class="mmenu" id="mmenu"><a href="/product/">Product</a><a href="/#report">Sample report</a><a href="/pricing/" class="on">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav>
+<nav class="mmenu" id="mmenu"><a href="/product/">Product</a><a href="/#report">Sample report</a><a href="/pricing/" class="on">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
 <section class="wrap hero sub pb0" style="grid-template-columns:600px 1fr">
  <div class="copy">
   <span class="label">— Pricing</span>
