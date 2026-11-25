@@ -438,3 +438,19 @@ a{color:inherit;text-decoration:none}
 .mlist .mi .ct{font-family:var(--f-mono);font-size:12.5px;color:var(--on-dark-2);margin-top:2px;display:block}
 .mlist .mi.you .nm,.mlist .mi.you .sc{color:var(--or-2)}
 .mlist .sc{font-family:var(--f-num);font-weight:800;font-size:24px;letter-spacing:-.03em}.mlist .sc small{font-family:var(--f-mono);font-size:12px;font-weight:400;color:#8C877C;margin-left:3px}
+
+/* ===== Production shell carry-over (from PR #24 citmark.css lines 442-455; canon v1r implementation gap fill, 2026-11-25) ===== */
+/* ---------- Production shell (landing additions, package tokens only) ---------- */
+.mmenu{display:none}
+@media (max-width:600px){
+  .mmenu{border-bottom:1.5px solid var(--ink);background:var(--bg);padding:10px 20px 18px}
+  .mmenu.open{display:block}
+  .mmenu a{display:block;padding:11px 0;font-size:16.5px;font-weight:600;color:var(--ink)}
+  .mmenu a.on{color:var(--or-ink)}
+}
+.field-cta input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:var(--ink);padding:0 18px;outline:none}
+.field-cta input::placeholder{color:var(--mute)}
+.final .field-cta input{color:var(--on-dark)}
+.final .field-cta input::placeholder{color:#77726A}
+@media (max-width:600px){ .field-cta input{padding:14px 12px} }
+.faq .q:not(.open) p{display:none}
