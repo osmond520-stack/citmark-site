@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Claim this page — CitMark</title>
+<meta name="description" content="Claim a CitMark brand page: verify you act for the brand, then tell us which facts to correct.">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/assets/citmark.css">
+<style id="shell-v2">
+/* shell-v2: site-v1 package shell (citmark.css SS1-4/18/19 + SS21 shell lines), production wiring marked [prod] */
+:root{
+  /* color */
+  --bg:#F4F1EA;        /* page base, off-white */
+  --paper:#FBF9F4;     /* raised surface / alternate section */
+  --line:#E2DBCD;      /* hairlines on light */
+  --ink:#141311;       /* primary text, strong rules */
+  --ink-2:#4B463C;     /* body text */
+  --ink-3:#6F685C;     /* secondary text (AA on bg) */
+  --mute:#9A9385;      /* placeholder / decorative only, never body */
+  --or:#E8541E;        /* accent: YOU, primary action, key number */
+  --or-ink:#C2410C;    /* orange for small text on light (AA) */
+  --or-2:#FF7A45;      /* accent on dark */
+  --or-wash:rgba(232,84,30,.10);
+  --dark:#12110F;      /* report band + final CTA only */
+  --dark-2:#1C1A17;    /* surface on dark */
+  --dark-line:#2C2925;
+  --on-dark:#F4F1EA;
+  --on-dark-2:#B8B3A7;
+  /* type */
+  --f-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --f-num:"Bricolage Grotesque","Plus Jakarta Sans",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --f-serif:"Instrument Serif",Georgia,serif;  /* italic accent: at most one phrase per heading, never in body copy */
+     
+     
+  --t-score-xl:112px; --t-score-l:72px;
+  /* space (4-base) */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  /* layout */
+  --page:1440px; --gutter:120px; --content:1200px; --col-gap:24px;
+  --nav-h:76px;
+  /* shape */
+  --r-pill:999px; --r-card:4px;
+  --shadow-ink:5px 5px 0 var(--ink);
+  --shadow-or:10px 10px 0 var(--or);
+}
+:root{--sans:var(--f-sans);--mono:var(--f-mono);--accent:var(--or);--accent-deep:var(--or-ink);--bg-raise:var(--paper);--card:#fff;--line-soft:#EDE8DC}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:var(--t-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:var(--page);margin:0 auto;padding:0 var(--gutter)}
+.mono{font-family:var(--f-mono)}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.or{color:var(--or)} .dim{color:#A39C8E}
+.label{font-family:var(--f-mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:500}
+.label.ink{color:var(--ink-3)}
+.band-dark .label,.final .label{color:var(--or-2)}
+.nav{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:24px;letter-spacing:-.035em;color:var(--ink)} .logo i{color:var(--or);font-style:normal}
+.nav-links{display:flex;gap:36px;font-size:15px;font-weight:500;color:var(--ink-2)}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a.on{color:var(--ink);font-weight:650}
+.nav-links a.on:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--or)}
+.nav-r{display:flex;gap:24px;align-items:center;font-size:15px;font-weight:600}
+.nav-menu{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 22px;border-radius:var(--r-pill);font-weight:700;font-size:15px;white-space:nowrap;background:var(--or);color:#fff}
+.btn.ink{background:var(--ink);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.lg{min-height:52px;font-size:16px;padding:0 26px}
+.link{font-weight:650;border-bottom:1.5px solid var(--or);padding-bottom:1px}
+.field-cta{display:flex;align-items:center;background:#fff;border:1.5px solid var(--ink);border-radius:var(--r-pill);padding:6px;box-shadow:var(--shadow-ink);max-width:480px}
+.field-cta .ph{flex:1;padding:0 18px;color:var(--mute);font-size:16px}
+.field-cta .btn{min-height:50px;font-size:16px}
+.fine{margin-top:14px;font-size:var(--t-small);color:var(--ink-3)}
+.final{background:var(--dark);color:var(--on-dark);position:relative;overflow:hidden;text-align:center;padding:96px 0}
+.final .rings{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.final .in{position:relative}
+.final h2{font-size:58px;line-height:1.03;letter-spacing:-.045em;font-weight:800;max-width:880px;margin:16px auto 0}
+.final h2 .serif{color:var(--or-2)}
+.final .field-cta{margin:36px auto 0;background:var(--dark-2);border-color:var(--on-dark);box-shadow:5px 5px 0 var(--or)}
+.final .field-cta .ph{color:#77726A}
+.final .fine{color:#8C877C}
+.foot{padding-top:64px;padding-bottom:40px;border-top:2px solid var(--ink)}
+.foot-g{display:grid;grid-template-columns:1fr 160px 160px 160px;gap:var(--s6)}
+.foot .tag{font-size:15px;color:var(--ink-2);margin-top:12px;max-width:320px}
+.foot h5{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink-3);font-weight:500;margin-bottom:14px}
+.foot li{list-style:none;font-size:15px;margin-bottom:10px;color:var(--ink)}
+.foot-b{display:flex;justify-content:space-between;margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+/* [prod] sticky header w/ barsfix legibility (package nav is static in the mock) */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.88);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
+/* [prod] mobile menu panel (package shows the button; panel is production) */
+.nav-menu{background:none;border:none;cursor:pointer;color:var(--ink)}
+.mmenu{display:none;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 14px;position:sticky;top:var(--nav-h);z-index:59}
+.mmenu.open{display:block}
+.mmenu a{display:block;padding:11px 2px;font-weight:600;font-size:16px;color:var(--ink);border-bottom:1px solid var(--line)}
+.nav-menu path{transition:transform .24s cubic-bezier(.2,.7,.2,1),opacity .24s cubic-bezier(.2,.7,.2,1);transform-box:fill-box;transform-origin:center}
+.nav-menu[aria-expanded="true"] .mb1{transform:translateY(5px) rotate(45deg)}
+.nav-menu[aria-expanded="true"] .mb2{opacity:0}
+.nav-menu[aria-expanded="true"] .mb3{transform:translateY(-5px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.nav-menu path{transition:none}}
+.mmenu a:last-child{border-bottom:none}
+.mmenu a.cur{color:var(--or-ink)}
+/* [prod] neutralize legacy dead .final card rules in page CSS (radius survives cascade) */
+.final{border-radius:0}
+/* [prod] real form inside .field-cta + closing extras */
+.field-cta input.ph{flex:1;background:transparent;border:none;outline:none;font:inherit;color:var(--ink);padding:0 18px;min-width:0}
+.field-cta input.ph::placeholder{color:var(--mute)}
+.final .field-cta input.ph{color:var(--on-dark)}
+.final .field-cta input.ph::placeholder{color:#77726A}
+.final .fsub{color:var(--on-dark-2);font-size:17px;line-height:1.6;max-width:560px;margin:18px auto 0}
+.final .form-msg{min-height:20px;font-size:14px;margin-top:12px;color:var(--on-dark-2)}
+.final .form-msg.err{color:#ffb59d}
+.fcta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn.ghostd{background:transparent;color:var(--on-dark);box-shadow:inset 0 0 0 1.5px rgba(244,241,234,.55)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nowrap{white-space:nowrap}
+.fineprint{margin-top:18px;font-size:12.5px;line-height:1.6;color:var(--ink-3);text-align:center}
+/* page geometry aligned to SPEC 3b3a410d (package type scale + .sec rhythm) */
+body{font-size:16px;line-height:1.6}
+h1{font-family:var(--f-sans);font-size:64px;line-height:1.02;font-weight:800;letter-spacing:-.045em;text-wrap:balance}
+h2{font-family:var(--f-sans);font-size:52px;line-height:1.04;font-weight:800;letter-spacing:-.042em;text-wrap:balance}
+.final h2{font-size:58px;line-height:1.03;letter-spacing:-.045em;max-width:880px}
+.it{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--or)}
+.final h2 .it{color:var(--or-2)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink)}
+.eyebrow::before{content:"4 "}
+section{padding:128px 0}
+#faq .faq{justify-self:start;float:none;margin:0}
+section.final{overflow:hidden}
+.foot .tag{display:block;font-family:var(--f-sans);font-size:15px;font-weight:400;letter-spacing:normal;color:var(--ink-2);margin-top:12px;line-height:1.55;max-width:320px;white-space:normal;padding:0;background:none;border:none;border-radius:0}
+@media (max-width:1024px){:root{--gutter:40px}}
+@media (max-width:860px){
+.nav-links{display:none}
+.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}
+.mmenu{top:64px}
+}
+@media (max-width:600px){
+:root{--gutter:20px}
+h1{font-size:42px}
+h2{font-size:34px}
+section{padding:72px 0}
+.nav{height:64px}
+.nav-r{gap:12px;font-size:14px}
+.nav-r .btn{min-height:38px;padding:0 14px;font-size:13.5px}
+.logo{font-size:22px}
+.field-cta{flex-direction:column;align-items:stretch;border-radius:14px;padding:6px;box-shadow:4px 4px 0 var(--ink)}
+.field-cta input.ph{padding:14px 12px}
+.field-cta .btn{border-radius:10px;min-height:50px}
+.final{padding:72px 0}
+.final h2{font-size:36px}
+.foot-g{grid-template-columns:1fr 1fr;gap:28px}
+.foot-g>:first-child{grid-column:1/-1}
+.foot-b{flex-direction:column;gap:8px}
+}
+@media (prefers-color-scheme:dark){
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--dark:#12110F;--dark-2:#1C1A17;--on-dark:#F4F1EA;--on-dark-2:#B8B3A7}
+body{background:var(--bg);color:var(--ink)}
+}
+@media (max-width:600px){.final h2 .nowrap{font-size:25px}}
+@media (max-width:340px){.final h2 .nowrap{font-size:22px}}
+@media (max-width:860px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
+/* [prod] brand domain line (assembly) */
+.rd-t .bd{display:block;font-size:13px;color:var(--ink-3);margin-top:2px}
+.rd-t a.bn{text-decoration:none}
+.rd-t a.bn:hover{text-decoration:underline}
+</style>
+<style id="claim">
+.pagehead{padding-top:56px}
+.pagehead h1{font-family:var(--f-sans);font-weight:800;font-size:52px;line-height:1.04;letter-spacing:-.03em}
+.pagehead .lead{margin-top:16px;max-width:640px}
+.scope{margin-top:12px;max-width:640px;font-size:14px;line-height:1.6;color:var(--ink-3)}
+.claiming{margin-top:18px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.claiming b{color:var(--or-ink)}
+.fl{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:20px 0 8px}
+.fl:first-child{margin-top:0}
+.claim-c input[type=text],.claim-c input[type=email],.claim-c input[type=url],.claim-c textarea{width:100%;border:1.5px solid var(--ink);border-radius:4px;background:#fff;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink)}
+.claim-c textarea{min-height:110px;resize:vertical}
+.fnote{margin-top:8px;font-size:14px;line-height:1.6;color:var(--ink-3)}
+.btnrow{margin-top:28px}
+.vstrip{display:flex;gap:10px;align-items:center;background:var(--or-wash);border:1.5px solid var(--or);padding:12px 16px;font-weight:700;font-size:15px;margin-bottom:22px}
+.radio{display:flex;gap:10px;align-items:flex-start;padding:9px 0;font-size:15.5px}
+.radio input{margin-top:3px}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:22px;font-size:15.5px}
+.check input{margin-top:3px}
+@media(max-width:600px){.pagehead{padding-top:36px}.pagehead h1{font-size:34px}}
+.cband{border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin-top:32px}
+.cband .in{display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:center;padding:20px 0}
+.cbstep{display:flex;gap:14px;align-items:center}
+.cbstep .no{width:34px;height:34px;flex:0 0 34px;border-radius:50%;border:2px solid var(--mute);color:var(--mute);font-family:"JetBrains Mono",monospace;font-weight:700;display:flex;align-items:center;justify-content:center}
+.cbstep.on .no{background:var(--or);border-color:var(--or);color:#fff}
+.cbstep.done .no{background:var(--ink);border-color:var(--ink);color:#fff}
+.cbstep h3{font-size:17.5px;font-weight:750}
+.cbstep p{font-size:13.5px;color:var(--ink-3)}
+.cbstep.off h3{color:var(--mute)}
+.cbarr{font-family:"JetBrains Mono",monospace;color:var(--mute);font-size:18px}
+.claim-c{display:grid;grid-template-columns:7fr 5fr;gap:40px;padding:44px 0 96px;align-items:start}
+.ccard{background:#fff;border:2px solid var(--ink);padding:30px 32px}
+.xcard{background:var(--paper);border:1px solid var(--line);padding:26px 28px}
+.xcard h4{font-size:16.5px;font-weight:750}
+.xcard ul{margin:12px 0 0;padding:0;list-style:none}
+.xcard li{font-size:14.5px;line-height:1.55;color:var(--ink-2);padding:7px 0 7px 22px;position:relative;border-top:1px solid var(--line)}
+.xcard li:first-child{border-top:none}
+.xcard li:before{content:"—";position:absolute;left:0;color:var(--or-ink)}
+@media(max-width:900px){.claim-c{grid-template-columns:1fr;gap:24px;padding:36px 0 72px}
+.cband .in{grid-template-columns:1fr;gap:12px}.cbarr{display:none}.ccard{padding:24px 20px}}
+.claim-s{padding:44px 0 96px}
+.scard{background:#fff;border:2px solid var(--ink);padding:30px 32px;max-width:680px}
+.scard .big{font-size:21px;font-weight:750;line-height:1.4}
+.scard .body{margin-top:12px;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.scard .claimed{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:15px;line-height:1.6;color:var(--ink-2)}
+.errstrip{background:#FDECEA;border:1.5px solid #C62F1D;color:#8F1D10;padding:12px 16px;font-weight:700;font-size:15px;margin-bottom:22px}
+@media(max-width:600px){.claim-s{padding:36px 0 72px}.scard{padding:24px 20px}}
+</style>
+</head>
+<body>
+<header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav><div class="nav-r"><a class="topbar-auth" href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
+<nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="/results/">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
+<section class="wrap pagehead"><div>
+<h1>Claim this page</h1>
+<p class="lead">Two steps: first we verify you act for the brand, then you tell us what to correct.</p>
+<p class="scope">A claim corrects facts about the brand — a domain, a category, company details; mentions, citations and rankings are measured, never edited.</p>
+<p class="claiming" id="claimingLine" hidden>Claiming: <b><span id="clBrand"></span></b></p>
+</div></section>
+<div class="cband"><div class="wrap"><div class="in"><div class="cbstep on" id="cbStep1"><span class="no">1</span><div><h3>Verify identity</h3><p id="cbStep1Sub">Verification email to the brand&rsquo;s domain</p></div></div><span class="cbarr">→</span><div class="cbstep off" id="cbStep2"><span class="no">2</span><div><h3>Correct the facts</h3><p id="cbStep2Sub">Opens after verification</p></div></div></div></div></div>
+<section class="wrap" id="vStep1"><div class="claim-c"><div class="ccard"><form id="claimForm1" novalidate>
+<label class="fl" for="bn">Brand name</label>
+<input id="bn" type="text" autocomplete="organization">
+<label class="fl" for="bd">Brand domain</label>
+<input id="bd" type="text" autocomplete="url">
+<label class="fl" for="we">Work email</label>
+<input id="we" type="email" placeholder="you@anker.com" autocomplete="email">
+<p class="fnote">Use an email at the brand's domain — it verifies in one step. Other addresses go through a manual check.</p>
+<label class="fl" for="yn">Your name</label>
+<input id="yn" type="text" autocomplete="name">
+<div class="btnrow"><button class="btn lg" type="submit">Send verification email</button></div>
+</form></div><aside class="xcard"><h4>What you&rsquo;ll need</h4><ul><li>The fact that&rsquo;s wrong, ready for step 2.</li><li>A link that shows the correct fact, if you have one.</li></ul></aside></div></section>
+<section class="wrap" id="vStep2" hidden><div class="claim-c"><div class="ccard"><div class="errstrip" id="errStrip" hidden>Couldn&rsquo;t send your corrections. Please try again.</div><div class="vstrip"><span>✓</span> <span>Identity verified for <span class="js-brand">your brand</span>.</span></div>
+<form id="claimForm2" novalidate>
+<span class="fl">Your role</span>
+<label class="radio"><input type="radio" name="role" value="owner"> Owner / founder</label>
+<label class="radio"><input type="radio" name="role" value="marketing"> Marketing</label>
+<label class="radio"><input type="radio" name="role" value="agency"> Agency acting for the brand</label>
+<label class="radio"><input type="radio" name="role" value="other"> Other</label>
+<label class="fl" for="wc">What needs correcting</label>
+<textarea id="wc"></textarea>
+<p class="fnote">Facts only — a wrong domain, category or company detail. Measured numbers aren't corrected here; if a run looks wrong, say so and we'll re-check the run.</p>
+<label class="fl" for="lk">Link that shows the correct fact <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+<input id="lk" type="url" placeholder="https://">
+<label class="check"><input type="checkbox" id="authz"> I'm authorized to act for this brand.</label>
+<div class="btnrow"><button class="btn lg" type="submit">Send corrections</button></div>
+</form></div><aside class="xcard"><h4>What happens next</h4><ul><li>We apply the factual changes you send.</li><li>Each change is logged on the brand page.</li><li>We email you when the changes are live.</li></ul></aside></div></section>
+<section class="wrap" id="vSent" hidden><div class="claim-s"><div class="scard"><p class="big">Check your inbox — we sent a verification link to <span class="js-email"></span>.</p><p class="body">Opening it confirms you control a mailbox at <span class="js-domain"></span> and takes you to step 2. The link works once and expires in 7 days.</p></div></div></section>
+<section class="wrap" id="vManual" hidden><div class="claim-s"><div class="scard"><p class="big">Your email isn&rsquo;t at <span class="js-domain"></span>, so this claim needs a manual check first.</p><p class="body">We&rsquo;ll email you at <span class="js-email"></span> with the outcome — if we can confirm you act for <span class="js-brand"></span>, the same email takes you to step 2.</p><p class="claimed" id="claimedLine" hidden>This page has already been claimed. If you believe that&rsquo;s wrong, continue — we&rsquo;ll re-check.</p></div></div></section>
+<section class="wrap" id="vExpired" hidden><div class="claim-s"><div class="scard"><p class="big">This verification link has expired.</p><div class="btnrow"><a class="btn lg js-again" href="#">Start again</a></div></div></div></section>
+<section class="wrap" id="vInvalid" hidden><div class="claim-s"><div class="scard"><p class="big">This verification link isn&rsquo;t valid any more.</p><div class="btnrow"><a class="btn lg js-again" href="#">Start again</a></div></div></div></section>
+<section class="wrap" id="vDone" hidden><div class="claim-s"><div class="scard"><p class="big">Corrections received.</p><p class="body">We&rsquo;ll apply the factual changes and log each one on the page, and email you when they&rsquo;re live.</p></div></div></section>
+<footer class="wrap foot"><div class="foot-g"><div><a class="logo" href="/">CitMark<i>.</i></a><p class="tag">AI visibility measurement for small, independent brands.</p></div><div><h5>PRODUCT</h5><ul><li><a href="/product/">Product</a></li><li><a href="/results/">Sample report</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/#faq">FAQ</a></li></ul></div><div><h5>COMPANY</h5><ul><li><a href="/about/">About</a></li><li><a href="/methodology/">Methodology</a></li><li><a href="/contact/">Contact</a></li></ul></div><div><h5>LEGAL</h5><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div></div><div class="foot-b"><span>Payments are processed by Creem, our merchant of record. We never see or store your card details.</span><span><a href="mailto:support@citmark.com">support@citmark.com</a></span></div>
+</footer>
+<script>
+(function () {
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function setMenu(open) {
+    mobileMenu.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  navToggle.addEventListener("click", function () { setMenu(!mobileMenu.classList.contains("open")); });
+  mobileMenu.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && mobileMenu.classList.contains("open")) { setMenu(false); navToggle.focus(); } });
+  document.addEventListener("click", function (ev) { if (mobileMenu.classList.contains("open") && !ev.target.closest("header.nav")) setMenu(false); });
+
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    q.addEventListener("click", function () {
+      var open = item.classList.toggle("open");
+      q.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* Final-CTA form: same shape as the homepage hero form. Validates the
+     email, then hands off to the real signup page to finish registering. */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  document.querySelectorAll("form.waitlist").forEach(function (form) {
+    var input = form.querySelector('input[type="email"]');
+    var msg = form.parentElement.querySelector(".form-msg");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var email = (input.value || "").trim();
+      msg.className = "form-msg"; msg.textContent = "";
+      if (!EMAIL_RE.test(email)) {
+        input.setAttribute("aria-invalid", "true");
+        msg.textContent = "That email doesn't look complete — check it and try again.";
+        msg.classList.add("show", "err"); input.focus(); return;
+      }
+      input.removeAttribute("aria-invalid");
+      window.location.href = "/signup/";
+    });
+  });
+})();
+</script>
+<script>
+"use strict";
+/* Claim flow wiring. Endpoint paths + payload keys are set from the backend contract
+   (pending: TD -> BE1). Until CLAIM_API is filled the forms stay inert by design -
+   no demo data, no fake transitions. */
+var CLAIM_API = { start: "", verify: "", submit: "" };
+var BAND = {
+  step1:   { s1: ["on", "1", "Verification email to the brand\u2019s domain"], s2: ["off", "2", "Opens after verification"] },
+  pending: { s1: ["done", "\u2713", "Verification email sent"], s2: ["off", "2", "Opens from the link in the email"] },
+  step2:   { s1: ["done", "\u2713", ""], s2: ["on", "2", "Facts only \u2014 measured numbers are never edited"] },
+  done:    { s1: ["done", "\u2713", ""], s2: ["done", "\u2713", "Received"] }
+};
+var ctx = { brand: "", domain: "", email: "", token: "" };
+function $(id) { return document.getElementById(id); }
+function setBand(name) {
+  var b = BAND[name]; if (!b) return;
+  [["cbStep1", b.s1], ["cbStep2", b.s2]].forEach(function (pair) {
+    var el = $(pair[0]), v = pair[1];
+    el.className = "cbstep " + v[0];
+    el.querySelector(".no").textContent = v[1];
+    var sub = v[2] || (name === "step2" || name === "done" ? "Verified for " + ctx.brand : "");
+    el.querySelector("p").textContent = sub;
+  });
+}
+function show(view, band) {
+  ["vStep1", "vStep2", "vSent", "vManual", "vExpired", "vInvalid", "vDone"].forEach(function (id) { $(id).hidden = id !== view; });
+  setBand(band);
+  window.scrollTo(0, 0);
+}
+function fillCtx() {
+  document.querySelectorAll(".js-brand").forEach(function (e) { e.textContent = ctx.brand; });
+  document.querySelectorAll(".js-domain").forEach(function (e) { e.textContent = ctx.domain; });
+  document.querySelectorAll(".js-email").forEach(function (e) { e.textContent = ctx.email; });
+}
+function post(url, payload) {
+  return fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); });
+}
+function markInvalid(el, bad) { el.style.borderColor = bad ? "#C62F1D" : ""; return !bad; }
+function init() {
+  var q = new URLSearchParams(location.search);
+  ctx.brand = q.get("name") || ""; ctx.domain = q.get("domain") || ""; ctx.token = q.get("t") || "";
+  if (ctx.brand) { $("clBrand").textContent = ctx.brand + (ctx.domain ? " \u2014 " + ctx.domain : ""); $("claimingLine").hidden = false; }
+  if (ctx.brand) $("bn").value = ctx.brand;
+  if (ctx.domain) $("bd").value = ctx.domain;
+  var again = location.pathname + (ctx.brand ? "?brand=" + encodeURIComponent(q.get("brand") || "") + "&name=" + encodeURIComponent(ctx.brand) + "&domain=" + encodeURIComponent(ctx.domain) : "");
+  document.querySelectorAll(".js-again").forEach(function (a) { a.href = again; });
+  if (ctx.token && CLAIM_API.verify) {
+    post(CLAIM_API.verify, { token: ctx.token }).then(function (res) {
+      if (res.ok) { ctx.brand = res.body.brand || ctx.brand; ctx.domain = res.body.domain || ctx.domain; fillCtx(); show("vStep2", "step2"); }
+      else if (res.status === 410) { show("vExpired", "step1"); }
+      else { show("vInvalid", "step1"); }
+    }).catch(function () { show("vInvalid", "step1"); });
+    return;
+  }
+  if (ctx.token) { show("vInvalid", "step1"); return; }
+  show("vStep1", "step1");
+  $("claimForm1").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var ok = true;
+    ok = markInvalid($("bn"), !$("bn").value.trim()) && ok;
+    ok = markInvalid($("bd"), !$("bd").value.trim()) && ok;
+    ok = markInvalid($("we"), !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("we").value.trim())) && ok;
+    ok = markInvalid($("yn"), !$("yn").value.trim()) && ok;
+    if (!ok || !CLAIM_API.start) return;
+    ctx.brand = $("bn").value.trim(); ctx.domain = $("bd").value.trim().toLowerCase(); ctx.email = $("we").value.trim();
+    post(CLAIM_API.start, { brand_name: ctx.brand, brand_domain: ctx.domain, email: ctx.email, name: $("yn").value.trim(), brand_slug: q.get("brand") || "" })
+      .then(function (res) {
+        if (!res.ok) return; /* step-1 failure copy not in the dingban set - pending PD wording */
+        fillCtx();
+        if (res.body && res.body.mode === "manual") { $("claimedLine").hidden = !(res.body && res.body.already_claimed); show("vManual", "pending"); }
+        else { show("vSent", "pending"); }
+      }).catch(function () { /* same pending-copy note as above */ });
+  });
+  $("claimForm2").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var role = document.querySelector('input[name="role"]:checked');
+    var ok = true;
+    ok = markInvalid($("wc"), !$("wc").value.trim()) && ok;
+    if (!role || !$("authz").checked) ok = false;
+    if (!ok || !CLAIM_API.submit) return;
+    $("errStrip").hidden = true;
+    post(CLAIM_API.submit, { token: ctx.token, role: role.value, correction: $("wc").value.trim(), link: $("lk").value.trim(), authorized: true })
+      .then(function (res) { if (res.ok) { show("vDone", "done"); } else { $("errStrip").hidden = false; } })
+      .catch(function () { $("errStrip").hidden = false; });
+  });
+}
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
