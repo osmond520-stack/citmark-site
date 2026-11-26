@@ -239,7 +239,7 @@ body{background:var(--bg);color:var(--ink)}
 <section class="wrap" id="vStep2" hidden><div class="claim-c"><div class="ccard"><div class="errstrip" id="errStrip" hidden>Couldn&rsquo;t send your corrections. Please try again.</div><div class="vstrip"><span>✓</span> <span>Identity verified for <span class="js-brand">your brand</span>.</span></div>
 <form id="claimForm2" novalidate>
 <span class="fl">Your role</span>
-<label class="radio"><input type="radio" name="role" value="owner"> Owner / founder</label>
+<label class="radio"><input type="radio" name="role" value="owner_founder"> Owner / founder</label>
 <label class="radio"><input type="radio" name="role" value="marketing"> Marketing</label>
 <label class="radio"><input type="radio" name="role" value="agency"> Agency acting for the brand</label>
 <label class="radio"><input type="radio" name="role" value="other"> Other</label>
@@ -312,17 +312,18 @@ body{background:var(--bg);color:var(--ink)}
 </script>
 <script>
 "use strict";
-/* Claim flow wiring. Endpoint paths + payload keys are set from the backend contract
-   (pending: TD -> BE1). Until CLAIM_API is filled the forms stay inert by design -
-   no demo data, no fake transitions. */
-var CLAIM_API = { start: "", verify: "", submit: "" };
+/* Claim flow wiring per frozen backend contract CONTRACT.md 94944133 (BE1, TD-approved):
+   POST /public/claims -> {ok, path: verify_link|manual_review, already_claimed}
+   POST /public/claims/verify {token} -> {state: ok|expired|invalid, brand_name, brand_domain, step2_token}
+   POST /public/claims/corrections {step2_token, role, corrections, link, authorized} -> {ok} */
+var CLAIM_API = { start: "/public/claims", verify: "/public/claims/verify", submit: "/public/claims/corrections" };
 var BAND = {
   step1:   { s1: ["on", "1", "Verification email to the brand\u2019s domain"], s2: ["off", "2", "Opens after verification"] },
   pending: { s1: ["done", "\u2713", "Verification email sent"], s2: ["off", "2", "Opens from the link in the email"] },
   step2:   { s1: ["done", "\u2713", ""], s2: ["on", "2", "Facts only \u2014 measured numbers are never edited"] },
   done:    { s1: ["done", "\u2713", ""], s2: ["done", "\u2713", "Received"] }
 };
-var ctx = { brand: "", domain: "", email: "", token: "" };
+var ctx = { brand: "", domain: "", email: "", token: "", step2: "" };
 function $(id) { return document.getElementById(id); }
 function setBand(name) {
   var b = BAND[name]; if (!b) return;
@@ -351,22 +352,12 @@ function post(url, payload) {
 function markInvalid(el, bad) { el.style.borderColor = bad ? "#C62F1D" : ""; return !bad; }
 function init() {
   var q = new URLSearchParams(location.search);
-  ctx.brand = q.get("name") || ""; ctx.domain = q.get("domain") || ""; ctx.token = q.get("t") || "";
+  ctx.brand = q.get("name") || ""; ctx.domain = q.get("domain") || ""; ctx.token = q.get("token") || "";
   if (ctx.brand) { $("clBrand").textContent = ctx.brand + (ctx.domain ? " \u2014 " + ctx.domain : ""); $("claimingLine").hidden = false; }
   if (ctx.brand) $("bn").value = ctx.brand;
   if (ctx.domain) $("bd").value = ctx.domain;
   var again = location.pathname + (ctx.brand ? "?brand=" + encodeURIComponent(q.get("brand") || "") + "&name=" + encodeURIComponent(ctx.brand) + "&domain=" + encodeURIComponent(ctx.domain) : "");
   document.querySelectorAll(".js-again").forEach(function (a) { a.href = again; });
-  if (ctx.token && CLAIM_API.verify) {
-    post(CLAIM_API.verify, { token: ctx.token }).then(function (res) {
-      if (res.ok) { ctx.brand = res.body.brand || ctx.brand; ctx.domain = res.body.domain || ctx.domain; fillCtx(); show("vStep2", "step2"); }
-      else if (res.status === 410) { show("vExpired", "step1"); }
-      else { show("vInvalid", "step1"); }
-    }).catch(function () { show("vInvalid", "step1"); });
-    return;
-  }
-  if (ctx.token) { show("vInvalid", "step1"); return; }
-  show("vStep1", "step1");
   $("claimForm1").addEventListener("submit", function (ev) {
     ev.preventDefault();
     var ok = true;
@@ -376,11 +367,11 @@ function init() {
     ok = markInvalid($("yn"), !$("yn").value.trim()) && ok;
     if (!ok || !CLAIM_API.start) return;
     ctx.brand = $("bn").value.trim(); ctx.domain = $("bd").value.trim().toLowerCase(); ctx.email = $("we").value.trim();
-    post(CLAIM_API.start, { brand_name: ctx.brand, brand_domain: ctx.domain, email: ctx.email, name: $("yn").value.trim(), brand_slug: q.get("brand") || "" })
+    post(CLAIM_API.start, { brand_name: ctx.brand, brand_domain: ctx.domain, email: ctx.email, your_name: $("yn").value.trim(), slug: q.get("brand") || "" })
       .then(function (res) {
         if (!res.ok) return; /* step-1 failure copy not in the dingban set - pending PD wording */
         fillCtx();
-        if (res.body && res.body.mode === "manual") { $("claimedLine").hidden = !(res.body && res.body.already_claimed); show("vManual", "pending"); }
+        if (res.body && res.body.path === "manual_review") { $("claimedLine").hidden = !res.body.already_claimed; show("vManual", "pending"); }
         else { show("vSent", "pending"); }
       }).catch(function () { /* same pending-copy note as above */ });
   });
@@ -392,10 +383,20 @@ function init() {
     if (!role || !$("authz").checked) ok = false;
     if (!ok || !CLAIM_API.submit) return;
     $("errStrip").hidden = true;
-    post(CLAIM_API.submit, { token: ctx.token, role: role.value, correction: $("wc").value.trim(), link: $("lk").value.trim(), authorized: true })
+    post(CLAIM_API.submit, { step2_token: ctx.step2, role: role.value, corrections: $("wc").value.trim(), link: $("lk").value.trim(), authorized: true })
       .then(function (res) { if (res.ok) { show("vDone", "done"); } else { $("errStrip").hidden = false; } })
       .catch(function () { $("errStrip").hidden = false; });
   });
+  if (ctx.token) {
+    post(CLAIM_API.verify, { token: ctx.token }).then(function (res) {
+      var st = res.body && res.body.state;
+      if (st === "ok") { ctx.brand = res.body.brand_name || ""; ctx.domain = res.body.brand_domain || ""; ctx.step2 = res.body.step2_token || ""; fillCtx(); show("vStep2", "step2"); }
+      else if (st === "expired") { show("vExpired", "step1"); }
+      else { show("vInvalid", "step1"); }
+    }).catch(function () { show("vInvalid", "step1"); });
+    return;
+  }
+  show("vStep1", "step1");
 }
 document.addEventListener("DOMContentLoaded", init);
 </script>
