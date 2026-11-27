@@ -1,0 +1,94 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>P2 账单与 cohort · CitMark 运营台（设计帧）</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><style>
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--wash:rgba(232,84,30,.10);--dark:#12110F;--panel:#fff;--crit:#9A3412}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:700}
+.topbar{height:56px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:17px;letter-spacing:-.02em}.logo i{color:var(--or);font-style:normal}
+.int-badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;background:var(--ink);color:var(--bg);padding:4px 8px;border-radius:3px}
+.topbar .sp{flex:1}
+.rolechip{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.rolechip .avatar{width:26px;height:26px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.shell{display:grid;grid-template-columns:224px 1fr;min-height:calc(100vh - 56px)}
+.side{border-right:1px solid var(--line);background:var(--paper);padding:18px 12px}
+.side .label{display:block;padding:12px 10px 6px;color:var(--mute)}
+.nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;color:var(--ink-2);font-weight:550;font-size:13.5px}
+.nav a.on{background:var(--ink);color:var(--bg);font-weight:650}
+.nav a .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--wash);color:var(--or-ink);padding:1px 6px;border-radius:99px}
+.nav a.on .cnt{background:var(--or);color:#fff}
+.main{padding:26px 30px 40px;max-width:1240px}
+.phead{display:flex;align-items:flex-end;gap:16px;margin-bottom:18px}
+.phead h1{font-size:26px;font-weight:750;letter-spacing:-.02em;line-height:1.15}
+.phead .sub{color:var(--ink-3);font-size:13.5px;margin-top:4px;max-width:640px}
+.phead .sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 14px;border-radius:999px;border:1.5px solid var(--ink);font-weight:650;font-size:13px;background:transparent;cursor:pointer}
+.btn.pri{background:var(--or);border-color:var(--or);color:#fff}
+.btn.sm{min-height:28px;padding:0 10px;font-size:12px}
+.btn.ghost{border-color:var(--line);color:var(--ink-2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g32{grid-template-columns:2fr 1fr}.g23{grid-template-columns:1fr 2fr}
+.pn{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.pn h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.pn .cap{color:var(--ink-3);font-size:12.5px}
+.pn.key{border:2px solid var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:650;padding:2.5px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.ok{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.warn{background:var(--wash);color:var(--or-ink);border-color:var(--or)}
+.chip.crit{background:var(--crit);color:#fff;border-color:var(--crit)}
+.chip.dim{color:var(--mute)}
+.num{font-family:'JetBrains Mono',monospace;font-size:13px}
+.big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+.bar{height:7px;background:var(--bg);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--or);border-radius:99px}
+.bar.ink i{background:var(--ink)}
+.search{display:flex;gap:10px;margin-bottom:16px}
+.search .field{flex:1;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 16px;min-height:40px;color:var(--mute);font-size:13.5px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:7px 14px;font-size:13.5px}
+.kv dt{color:var(--ink-3)}.kv dd{font-weight:550}
+.tl{position:relative;padding-left:20px}
+.tl:before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:var(--line)}
+.tl .ev{position:relative;padding:7px 0}
+.tl .ev:before{content:'';position:absolute;left:-19px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--or)}
+.tl .ev .src{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--or-ink)}
+.spec{margin:26px 30px 0;max-width:1240px;border:1.5px dashed var(--mute);border-radius:6px;padding:16px 20px;background:rgba(251,249,244,.6)}
+.spec .label{color:var(--ink-3)}
+.spec p{font-size:13px;color:var(--ink-2);margin-top:6px;max-width:900px}
+.spec b{color:var(--ink)}
+.stat .big{font-size:30px}.stat .cap{margin-top:2px}
+input.code{width:44px;height:52px;border:1.5px solid var(--ink);border-radius:6px;background:#fff;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px}
+.login-wrap{min-height:calc(100vh - 56px);display:flex;align-items:flex-start;justify-content:center;padding:56px 20px}
+.login-card{width:400px;background:#fff;border:2px solid var(--ink);border-radius:6px;padding:30px 32px}
+.f-field{margin-top:14px}.f-field label{display:block;font-size:12.5px;font-weight:650;margin-bottom:6px}
+.f-field .in{border:1px solid var(--line);border-radius:4px;background:var(--paper);padding:10px 12px;color:var(--mute);font-size:13.5px}
+.note{font-size:12.5px;color:var(--ink-3)}
+.mt{margin-top:16px}.mb{margin-bottom:16px}
+</style></head>
+<body>
+<header class="topbar"><a class="logo" href="index.html">CitMark<i>.</i></a><span class="int-badge">INTERNAL · 运营台</span><span class="sp"></span>
+<span class="rolechip">生效角色 <b class="mono" style="font-size:12px">product_director</b><span class="avatar">PD</span></span></header>
+<div class="shell"><aside class="side"><nav class="nav"><span class="label">客户</span><a href="p1.html">P1 用户与团队</a><a href="p2.html" class="on">P2 账单与 cohort</a><a href="p3.html">P3 争议处理</a><a href="case.html">案卷</a><a href="inbox.html">待拍板箱<span class="cnt">3</span></a><span class="label">工单</span><a href="p7.html">P7 工单关联</a><span class="label">运行</span><a href="p4.html">P4 快照管线</a><a href="p5.html">P5 引擎健康</a><a href="p6.html">P6 帽与候补</a><a href="p8.html">P8 告警流<span class="cnt">5</span></a><span class="label">系统</span><a href="p9.html">P9 系统与审计</a><a href="p10.html">P10 内部账号</a><a href="config.html">配置面</a><a href="m10.html">M10 对账</a></nav>
+<p class="note" style="padding:14px 10px 0">无权页不渲染入口（非置灰）。红线动作（key_manage／card_manage／publish／decide_money）仅 boss 本人。</p></aside>
+<div><main class="main"><div class="phead"><div><span class="label">运营台 · 设计帧</span><h1>P2 账单与 cohort</h1><p class="sub">订阅面、cohort 序位与进度、webhook 事件流、退款登记与改档 intent。台面格在落库前显「未落库」。</p></div><span class="sp"></span></div>
+
+<div class="grid g3 mb">
+ <div class="pn stat"><span class="label">创始 cohort · 50 席</span><div class="big" style="margin-top:6px">41<span style="font-size:17px;color:var(--mute)">/50</span></div><div class="bar ink"><i style="width:82%"></i></div><p class="cap">序位按 cohort_ledger 落库数计</p></div>
+ <div class="pn stat"><span class="label">创始 cohort · 100 席</span><div class="big" style="margin-top:6px">17<span style="font-size:17px;color:var(--mute)">/100</span></div><div class="bar ink"><i style="width:17%"></i></div><p class="cap">未落库的格显「未落库」，不许假数</p></div>
+ <div class="pn stat"><span class="label">本月 webhook</span><div class="big" style="margin-top:6px">312</div><p class="cap">失败 3 · 全部可回记追溯</p></div>
+</div>
+<div class="grid g32">
+ <div class="pn"><h3 style="margin-bottom:6px">订阅面</h3><table><tr><th>用户</th><th>档位</th><th>状态</th><th>周期至</th><th>券</th></tr><tr><td class="mono" style="font-size:12.5px">mara@northwind.example</td><td>Growth</td><td><span class="chip ok">active</span></td><td class="num">2026-12-19</td><td>创始锁价</td></tr><tr><td class="mono" style="font-size:12.5px">ops@brightcart.example</td><td>Pro</td><td><span class="chip crit">past_due</span></td><td class="num">2026-11-30</td><td>EQV 券</td></tr><tr><td class="mono" style="font-size:12.5px">ken@atelier-sora.example</td><td>Starter</td><td><span class="chip ok">active</span></td><td class="num">2027-01-04</td><td>—</td></tr><tr><td class="mono" style="font-size:12.5px">lina@casalume.example</td><td>Growth</td><td><span class="chip dim">canceled</span></td><td class="num">2026-11-12</td><td>—</td></tr></table>
+ <p class="note" style="margin-top:10px">PD 可备退款建议额（判定矩阵）并提交待拍板箱；终审在 boss。finance 仅账单域＋退款复核标记；券码原文对 support 不可见。</p></div>
+ <div class="pn"><h3 style="margin-bottom:6px">Webhook 事件流</h3><table><tr><th>时间</th><th>事件</th><th>状态</th></tr><tr><td class="num">14:02</td><td class="mono" style="font-size:12.5px">invoice.paid</td><td><span class="chip ">已回记</span></td></tr><tr><td class="num">13:47</td><td class="mono" style="font-size:12.5px">subscription.updated</td><td><span class="chip ">已回记</span></td></tr><tr><td class="num">11:20</td><td class="mono" style="font-size:12.5px">payment.failed</td><td><span class="chip warn">待处理</span></td></tr><tr><td class="num">09:03</td><td class="mono" style="font-size:12.5px">coupon.redeemed</td><td><span class="chip ">已回记</span></td></tr></table>
+ <h3 style="margin:16px 0 6px">人工改档 intent</h3><p class="cap">记录查看与受理标记在此；intent 须落库（现内存版为已知风险，落库先行段处置）。</p></div>
+</div></main>
+<div class="spec"><span class="label">本帧规格注 · 定版前不施工</span>
+<p><b>所用 token：</b>统计卡 .big Bricolage 34／进度条 .bar 墨轨橙条；状态 chip：active 墨、past_due 砖红、canceled 灰。</p><p><b>与 live 对位：</b>live 无账单端点（规格 §五.2）；计费链落库＋021 cohort 落库为落库先行件，页面归第三波——本帧为目标态，落库未成前不得以假数上台。</p>
+<p><b>数据：</b>帧内全部为示例数据（example.com 域、虚构品牌），只示结构与状态，不代表真实客户与账目。</p></div>
+<div style="height:34px"></div></div></div></body></html>
