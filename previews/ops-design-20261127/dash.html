@@ -1,0 +1,131 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>总览 · 数据看台 · CitMark 运营台（设计帧）</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><style>
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--wash:rgba(232,84,30,.10);--dark:#12110F;--panel:#fff;--crit:#9A3412}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:700}
+.topbar{height:56px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:17px;letter-spacing:-.02em}.logo i{color:var(--or);font-style:normal}
+.int-badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;background:var(--ink);color:var(--bg);padding:4px 8px;border-radius:3px}
+.topbar .sp{flex:1}
+.rolechip{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.rolechip .avatar{width:26px;height:26px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.shell{display:grid;grid-template-columns:224px 1fr;min-height:calc(100vh - 56px)}
+.side{border-right:1px solid var(--line);background:var(--paper);padding:18px 12px}
+.side .label{display:block;padding:12px 10px 6px;color:var(--mute)}
+.nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;color:var(--ink-2);font-weight:550;font-size:13.5px}
+.nav a.on{background:var(--ink);color:var(--bg);font-weight:650}
+.nav a .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--wash);color:var(--or-ink);padding:1px 6px;border-radius:99px}
+.nav a.on .cnt{background:var(--or);color:#fff}
+.main{padding:26px 30px 40px;max-width:1240px}
+.phead{display:flex;align-items:flex-end;gap:16px;margin-bottom:18px}
+.phead h1{font-size:26px;font-weight:750;letter-spacing:-.02em;line-height:1.15}
+.phead .sub{color:var(--ink-3);font-size:13.5px;margin-top:4px;max-width:640px}
+.phead .sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 14px;border-radius:999px;border:1.5px solid var(--ink);font-weight:650;font-size:13px;background:transparent;cursor:pointer}
+.btn.pri{background:var(--or);border-color:var(--or);color:#fff}
+.btn.sm{min-height:28px;padding:0 10px;font-size:12px}
+.btn.ghost{border-color:var(--line);color:var(--ink-2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g32{grid-template-columns:2fr 1fr}.g23{grid-template-columns:1fr 2fr}
+.pn{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.pn h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.pn .cap{color:var(--ink-3);font-size:12.5px}
+.pn.key{border:2px solid var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:650;padding:2.5px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.ok{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.warn{background:var(--wash);color:var(--or-ink);border-color:var(--or)}
+.chip.crit{background:var(--crit);color:#fff;border-color:var(--crit)}
+.chip.dim{color:var(--mute)}
+.num{font-family:'JetBrains Mono',monospace;font-size:13px}
+.big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+.bar{height:7px;background:var(--bg);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--or);border-radius:99px}
+.bar.ink i{background:var(--ink)}
+.search{display:flex;gap:10px;margin-bottom:16px}
+.search .field{flex:1;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 16px;min-height:40px;color:var(--mute);font-size:13.5px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:7px 14px;font-size:13.5px}
+.kv dt{color:var(--ink-3)}.kv dd{font-weight:550}
+.tl{position:relative;padding-left:20px}
+.tl:before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:var(--line)}
+.tl .ev{position:relative;padding:7px 0}
+.tl .ev:before{content:'';position:absolute;left:-19px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--or)}
+.tl .ev .src{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--or-ink)}
+.spec{margin:26px 30px 0;max-width:1240px;border:1.5px dashed var(--mute);border-radius:6px;padding:16px 20px;background:rgba(251,249,244,.6)}
+.spec .label{color:var(--ink-3)}
+.spec p{font-size:13px;color:var(--ink-2);margin-top:6px;max-width:900px}
+.spec b{color:var(--ink)}
+.stat .big{font-size:30px}.stat .cap{margin-top:2px}
+input.code{width:44px;height:52px;border:1.5px solid var(--ink);border-radius:6px;background:#fff;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px}
+.login-wrap{min-height:calc(100vh - 56px);display:flex;align-items:flex-start;justify-content:center;padding:56px 20px}
+.login-card{width:400px;background:#fff;border:2px solid var(--ink);border-radius:6px;padding:30px 32px}
+.f-field{margin-top:14px}.f-field label{display:block;font-size:12.5px;font-weight:650;margin-bottom:6px}
+.f-field .in{border:1px solid var(--line);border-radius:4px;background:var(--paper);padding:10px 12px;color:var(--mute);font-size:13.5px}
+.note{font-size:12.5px;color:var(--ink-3)}
+.mt{margin-top:16px}.mb{margin-bottom:16px}
+</style></head>
+<body>
+<header class="topbar"><a class="logo" href="index.html">CitMark<i>.</i></a><span class="int-badge">INTERNAL · 运营台</span><span class="sp"></span>
+<span class="rolechip">生效角色 <b class="mono" style="font-size:12px">boss</b><span class="avatar">TY</span></span></header>
+<div class="shell"><aside class="side"><nav class="nav"><span class="label">概览</span><a href="dash.html" class="on">总览 · 数据看台</a><span class="label">客户</span><a href="p1.html">P1 用户与团队</a><a href="p2.html">P2 账单与 cohort</a><a href="p3.html">P3 争议处理</a><a href="case.html">案卷</a><a href="inbox.html">待拍板箱<span class="cnt">3</span></a><span class="label">工单</span><a href="p7.html">P7 工单关联</a><span class="label">运行</span><a href="p4.html">P4 快照管线</a><a href="p5.html">P5 引擎健康</a><a href="p6.html">P6 帽与候补</a><a href="p8.html">P8 告警流<span class="cnt">5</span></a><span class="label">系统</span><a href="p9.html">P9 系统与审计</a><a href="p10.html">P10 内部账号</a><a href="config.html">配置面</a><a href="m10.html">M10 对账</a></nav>
+<p class="note" style="padding:14px 10px 0">无权页不渲染入口（非置灰）。红线动作（key_manage／card_manage／publish／decide_money）仅 boss 本人。</p></aside>
+<div><main class="main"><div class="phead"><div><span class="label">运营台 · 设计帧</span><h1>总览 · 数据看台</h1><p class="sub">boss 视角一屏看全盘：经营大数、30 天趋势、管线与引擎状态、待处置计数直达。本帧为他点名补帧，列全册首帧。</p></div><span class="sp"></span></div>
+
+<div class="grid" style="grid-template-columns:repeat(4,1fr)"><div class="pn stat"><span class="label">累计注册</span><div class="big" style="margin-top:6px">1,284</div><p class="cap">今日 ＋23</p></div><div class="pn stat"><span class="label">实付订阅（active）</span><div class="big" style="margin-top:6px">96</div><p class="cap">本月 ＋14</p></div><div class="pn stat"><span class="label">本月收入</span><div class="big" style="margin-top:6px">$6,214</div><p class="cap">对账面同源（M10）</p></div><div class="pn stat"><span class="label">今日跑批</span><div class="big" style="margin-top:6px">2 批</div><p class="cap">4,122 attempts · 重试 1.5%</p></div></div>
+<div class="grid g32 mt">
+ <div class="pn"><h3 style="margin-bottom:4px">近 30 天 · 注册与收入</h3><svg viewBox="0 0 760 250" width="100%" role="img" aria-label="近 30 天注册与收入趋势">
+<line x1="6" y1="44" x2="754" y2="44" stroke="#E2DBCD" stroke-width="1"/><line x1="6" y1="104" x2="754" y2="104" stroke="#E2DBCD" stroke-width="1"/><line x1="6" y1="164" x2="754" y2="164" stroke="#E2DBCD" stroke-width="1"/><rect x="8.0" y="194.0" width="20.9" height="42.0" fill="#141311" fill-opacity="0.85"/><rect x="32.9" y="183.5" width="20.9" height="52.5" fill="#141311" fill-opacity="0.85"/><rect x="57.9" y="197.5" width="20.9" height="38.5" fill="#141311" fill-opacity="0.85"/><rect x="82.8" y="173.0" width="20.9" height="63.0" fill="#141311" fill-opacity="0.85"/><rect x="107.7" y="159.0" width="20.9" height="77.0" fill="#141311" fill-opacity="0.85"/><rect x="132.7" y="169.5" width="20.9" height="66.5" fill="#141311" fill-opacity="0.85"/><rect x="157.6" y="148.5" width="20.9" height="87.5" fill="#141311" fill-opacity="0.85"/><rect x="182.5" y="162.5" width="20.9" height="73.5" fill="#141311" fill-opacity="0.85"/><rect x="207.5" y="141.5" width="20.9" height="94.5" fill="#141311" fill-opacity="0.85"/><rect x="232.4" y="152.0" width="20.9" height="84.0" fill="#141311" fill-opacity="0.85"/><rect x="257.3" y="131.0" width="20.9" height="105.0" fill="#141311" fill-opacity="0.85"/><rect x="282.3" y="138.0" width="20.9" height="98.0" fill="#141311" fill-opacity="0.85"/><rect x="307.2" y="145.0" width="20.9" height="91.0" fill="#141311" fill-opacity="0.85"/><rect x="332.1" y="120.5" width="20.9" height="115.5" fill="#141311" fill-opacity="0.85"/><rect x="357.1" y="127.5" width="20.9" height="108.5" fill="#141311" fill-opacity="0.85"/><rect x="382.0" y="134.5" width="20.9" height="101.5" fill="#141311" fill-opacity="0.85"/><rect x="406.9" y="110.0" width="20.9" height="126.0" fill="#141311" fill-opacity="0.85"/><rect x="431.9" y="117.0" width="20.9" height="119.0" fill="#141311" fill-opacity="0.85"/><rect x="456.8" y="103.0" width="20.9" height="133.0" fill="#141311" fill-opacity="0.85"/><rect x="481.7" y="113.5" width="20.9" height="122.5" fill="#141311" fill-opacity="0.85"/><rect x="506.7" y="92.5" width="20.9" height="143.5" fill="#141311" fill-opacity="0.85"/><rect x="531.6" y="99.5" width="20.9" height="136.5" fill="#141311" fill-opacity="0.85"/><rect x="556.5" y="82.0" width="20.9" height="154.0" fill="#141311" fill-opacity="0.85"/><rect x="581.5" y="89.0" width="20.9" height="147.0" fill="#141311" fill-opacity="0.85"/><rect x="606.4" y="71.5" width="20.9" height="164.5" fill="#141311" fill-opacity="0.85"/><rect x="631.3" y="78.5" width="20.9" height="157.5" fill="#141311" fill-opacity="0.85"/><rect x="656.3" y="61.0" width="20.9" height="175.0" fill="#141311" fill-opacity="0.85"/><rect x="681.2" y="68.0" width="20.9" height="168.0" fill="#141311" fill-opacity="0.85"/><rect x="706.1" y="54.0" width="20.9" height="182.0" fill="#141311" fill-opacity="0.85"/><rect x="731.1" y="43.5" width="20.9" height="192.5" fill="#141311" fill-opacity="0.85"/><polyline points="6.0,182.6 31.8,174.7 57.6,178.6 83.4,161.5 109.2,149.6 135.0,156.2 160.8,140.4 186.6,147.0 212.3,129.9 238.1,137.8 263.9,119.3 289.7,125.9 315.5,122.0 341.3,106.1 367.1,112.7 392.9,116.7 418.7,96.9 444.5,103.5 470.3,87.7 496.1,94.3 521.9,77.2 547.7,82.4 573.4,65.3 599.2,71.9 625.0,54.8 650.8,61.3 676.6,45.5 702.4,50.8 728.2,36.3 754.0,27.1" fill="none" stroke="#E8541E" stroke-width="2.5"/>
+<text x="6" y="14" font-family="JetBrains Mono" font-size="11" fill="#6F685C">注册（柱 · 日）</text>
+<text x="754" y="14" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#C2410C">收入（线 · $/日）</text>
+<text x="6" y="249" font-family="JetBrains Mono" font-size="10" fill="#9A9385">30 天前</text>
+<text x="754" y="249" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#9A9385">今天</text></svg></div>
+ <div>
+  <a href="inbox.html" style="display:block"><div class="pn" style="border:2px solid var(--ink)"><span class="label">待拍板（直达待拍板箱）</span><div class="big" style="margin-top:4px">3 <span style="font-size:15px;color:var(--or-ink)">含 1 件超 $50 升级</span></div></div></a>
+  <a href="p8.html" style="display:block;margin-top:16px"><div class="pn"><span class="label">未处置告警（直达告警流）</span><div class="big" style="margin-top:4px">5 <span style="font-size:15px;color:var(--or-ink)">1 件举证 &lt;72h</span></div></div></a>
+  <div class="pn mt"><span class="label">创始 cohort 进度</span>
+  <div style="display:flex;justify-content:space-between;margin-top:10px"><span>50 席</span><b class="num">41/50</b></div><div class="bar ink"><i style="width:82%"></i></div>
+  <div style="display:flex;justify-content:space-between;margin-top:10px"><span>100 席</span><b class="num">17/100</b></div><div class="bar ink"><i style="width:17%"></i></div></div>
+ </div>
+</div>
+<div class="grid g2 mt">
+ <div class="pn"><h3 style="margin-bottom:4px">管线量 · 近 30 天 attempts</h3><svg viewBox="0 0 760 190" width="100%" role="img" aria-label="近 30 天每日 attempts">
+<path d="M6,176 L6.0,93.4 L31.8,85.5 L57.6,89.3 L83.4,77.8 L109.2,72.1 L135.0,75.6 L160.8,66.7 L186.6,70.2 L212.3,62.6 L238.1,66.1 L263.9,58.4 L289.7,60.7 L315.5,56.2 L341.3,52.1 L367.1,57.5 L392.9,50.2 L418.7,45.4 L444.5,49.2 L470.3,41.3 L496.1,44.8 L521.9,37.2 L547.7,40.6 L573.4,33.7 L599.2,36.2 L625.0,28.6 L650.8,32.7 L676.6,25.7 L702.4,29.2 L728.2,23.5 L754.0,21.3 L754,176 Z" fill="rgba(232,84,30,.12)"/><polyline points="6.0,93.4 31.8,85.5 57.6,89.3 83.4,77.8 109.2,72.1 135.0,75.6 160.8,66.7 186.6,70.2 212.3,62.6 238.1,66.1 263.9,58.4 289.7,60.7 315.5,56.2 341.3,52.1 367.1,57.5 392.9,50.2 418.7,45.4 444.5,49.2 470.3,41.3 496.1,44.8 521.9,37.2 547.7,40.6 573.4,33.7 599.2,36.2 625.0,28.6 650.8,32.7 676.6,25.7 702.4,29.2 728.2,23.5 754.0,21.3" fill="none" stroke="#E8541E" stroke-width="2"/>
+<text x="6" y="14" font-family="JetBrains Mono" font-size="11" fill="#6F685C">ATTEMPTS / 日</text></svg></div>
+ <div class="pn"><h3 style="margin-bottom:4px">引擎状态（错误率 · 详见 P5）</h3><div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">
+<span style="width:9px;height:9px;border-radius:50%;background:#141311;flex:none"></span>
+<span style="font-weight:650;width:110px">ChatGPT</span>
+<div class="bar" style="flex:1"><i style="width:17.6%"></i></div>
+<span class="num" style="width:52px;text-align:right">0.8%</span>
+<span class="note" style="width:36px">正常</span></div><div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">
+<span style="width:9px;height:9px;border-radius:50%;background:#141311;flex:none"></span>
+<span style="font-weight:650;width:110px">Perplexity</span>
+<div class="bar" style="flex:1"><i style="width:26.4%"></i></div>
+<span class="num" style="width:52px;text-align:right">1.2%</span>
+<span class="note" style="width:36px">正常</span></div><div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">
+<span style="width:9px;height:9px;border-radius:50%;background:#E8541E;flex:none"></span>
+<span style="font-weight:650;width:110px">Gemini</span>
+<div class="bar" style="flex:1"><i style="width:46.2%"></i></div>
+<span class="num" style="width:52px;text-align:right">2.1%</span>
+<span class="note" style="width:36px">观察</span></div><div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">
+<span style="width:9px;height:9px;border-radius:50%;background:#E8541E;flex:none"></span>
+<span style="font-weight:650;width:110px">DeepSeek</span>
+<div class="bar" style="flex:1"><i style="width:74.8%"></i></div>
+<span class="num" style="width:52px;text-align:right">3.4%</span>
+<span class="note" style="width:36px">观察</span></div><div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">
+<span style="width:9px;height:9px;border-radius:50%;background:#9A9385;flex:none"></span>
+<span style="font-weight:650;width:110px">AI Mode</span>
+<div class="bar" style="flex:1"><i style="width:0%"></i></div>
+<span class="num" style="width:52px;text-align:right">未知</span>
+<span class="note" style="width:36px">未知</span></div>
+ <p class="note" style="margin-top:8px">管线：今日批跑 2（完成 1／运行中 1）；报告发送失败 1 件已入案卷。未知＝数据未回填，不记零。</p></div>
+</div></main>
+<div class="spec"><span class="label">本帧规格注 · 定版前不施工</span>
+<p><b>所用 token：</b>图表色：墨柱／橙线／橙洗面积（wash .12）；大数 Bricolage；计数卡可点直达对应帧（整卡链接）。全图表化，本帧无数据表。</p><p><b>与 live 对位：</b>live 无总览看台：数据源为 P1／P2／P4／P5／P8 各面端点的聚合呈现（经营数与 M10 对账同源）——各面端点未成前本帧不上线，不许以假数拼盘。落点是否由 P8 改为本帧，候定版时一并点。</p>
+<p><b>数据：</b>帧内全部为示例数据（example.com 域、虚构品牌），只示结构与状态，不代表真实客户与账目。</p></div>
+<div style="height:34px"></div></div></div></body></html>
