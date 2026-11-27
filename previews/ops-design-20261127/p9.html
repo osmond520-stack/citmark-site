@@ -1,0 +1,93 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>P9 系统与审计 · CitMark 运营台（设计帧）</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><style>
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--wash:rgba(232,84,30,.10);--dark:#12110F;--panel:#fff;--crit:#9A3412}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:700}
+.topbar{height:56px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:17px;letter-spacing:-.02em}.logo i{color:var(--or);font-style:normal}
+.int-badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;background:var(--ink);color:var(--bg);padding:4px 8px;border-radius:3px}
+.topbar .sp{flex:1}
+.rolechip{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.rolechip .avatar{width:26px;height:26px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.shell{display:grid;grid-template-columns:224px 1fr;min-height:calc(100vh - 56px)}
+.side{border-right:1px solid var(--line);background:var(--paper);padding:18px 12px}
+.side .label{display:block;padding:12px 10px 6px;color:var(--mute)}
+.nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;color:var(--ink-2);font-weight:550;font-size:13.5px}
+.nav a.on{background:var(--ink);color:var(--bg);font-weight:650}
+.nav a .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--wash);color:var(--or-ink);padding:1px 6px;border-radius:99px}
+.nav a.on .cnt{background:var(--or);color:#fff}
+.main{padding:26px 30px 40px;max-width:1240px}
+.phead{display:flex;align-items:flex-end;gap:16px;margin-bottom:18px}
+.phead h1{font-size:26px;font-weight:750;letter-spacing:-.02em;line-height:1.15}
+.phead .sub{color:var(--ink-3);font-size:13.5px;margin-top:4px;max-width:640px}
+.phead .sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 14px;border-radius:999px;border:1.5px solid var(--ink);font-weight:650;font-size:13px;background:transparent;cursor:pointer}
+.btn.pri{background:var(--or);border-color:var(--or);color:#fff}
+.btn.sm{min-height:28px;padding:0 10px;font-size:12px}
+.btn.ghost{border-color:var(--line);color:var(--ink-2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g32{grid-template-columns:2fr 1fr}.g23{grid-template-columns:1fr 2fr}
+.pn{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.pn h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.pn .cap{color:var(--ink-3);font-size:12.5px}
+.pn.key{border:2px solid var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:650;padding:2.5px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.ok{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.warn{background:var(--wash);color:var(--or-ink);border-color:var(--or)}
+.chip.crit{background:var(--crit);color:#fff;border-color:var(--crit)}
+.chip.dim{color:var(--mute)}
+.num{font-family:'JetBrains Mono',monospace;font-size:13px}
+.big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+.bar{height:7px;background:var(--bg);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--or);border-radius:99px}
+.bar.ink i{background:var(--ink)}
+.search{display:flex;gap:10px;margin-bottom:16px}
+.search .field{flex:1;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 16px;min-height:40px;color:var(--mute);font-size:13.5px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:7px 14px;font-size:13.5px}
+.kv dt{color:var(--ink-3)}.kv dd{font-weight:550}
+.tl{position:relative;padding-left:20px}
+.tl:before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:var(--line)}
+.tl .ev{position:relative;padding:7px 0}
+.tl .ev:before{content:'';position:absolute;left:-19px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--or)}
+.tl .ev .src{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--or-ink)}
+.spec{margin:26px 30px 0;max-width:1240px;border:1.5px dashed var(--mute);border-radius:6px;padding:16px 20px;background:rgba(251,249,244,.6)}
+.spec .label{color:var(--ink-3)}
+.spec p{font-size:13px;color:var(--ink-2);margin-top:6px;max-width:900px}
+.spec b{color:var(--ink)}
+.stat .big{font-size:30px}.stat .cap{margin-top:2px}
+input.code{width:44px;height:52px;border:1.5px solid var(--ink);border-radius:6px;background:#fff;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px}
+.login-wrap{min-height:calc(100vh - 56px);display:flex;align-items:flex-start;justify-content:center;padding:56px 20px}
+.login-card{width:400px;background:#fff;border:2px solid var(--ink);border-radius:6px;padding:30px 32px}
+.f-field{margin-top:14px}.f-field label{display:block;font-size:12.5px;font-weight:650;margin-bottom:6px}
+.f-field .in{border:1px solid var(--line);border-radius:4px;background:var(--paper);padding:10px 12px;color:var(--mute);font-size:13.5px}
+.note{font-size:12.5px;color:var(--ink-3)}
+.mt{margin-top:16px}.mb{margin-bottom:16px}
+</style></head>
+<body>
+<header class="topbar"><a class="logo" href="index.html">CitMark<i>.</i></a><span class="int-badge">INTERNAL · 运营台</span><span class="sp"></span>
+<span class="rolechip">生效角色 <b class="mono" style="font-size:12px">product_director</b><span class="avatar">PD</span></span></header>
+<div class="shell"><aside class="side"><nav class="nav"><span class="label">客户</span><a href="p1.html">P1 用户与团队</a><a href="p2.html">P2 账单与 cohort</a><a href="p3.html">P3 争议处理</a><a href="case.html">案卷</a><a href="inbox.html">待拍板箱<span class="cnt">3</span></a><span class="label">工单</span><a href="p7.html">P7 工单关联</a><span class="label">运行</span><a href="p4.html">P4 快照管线</a><a href="p5.html">P5 引擎健康</a><a href="p6.html">P6 帽与候补</a><a href="p8.html">P8 告警流<span class="cnt">5</span></a><span class="label">系统</span><a href="p9.html" class="on">P9 系统与审计</a><a href="p10.html">P10 内部账号</a><a href="config.html">配置面</a><a href="m10.html">M10 对账</a></nav>
+<p class="note" style="padding:14px 10px 0">无权页不渲染入口（非置灰）。红线动作（key_manage／card_manage／publish／decide_money）仅 boss 本人。</p></aside>
+<div><main class="main"><div class="phead"><div><span class="label">运营台 · 设计帧</span><h1>P9 系统与审计</h1><p class="sub">审计哈希链查看、季度访问复核、MFA 登记状态。账号建停不在此页（在 P10）。</p></div><span class="sp"></span></div>
+
+<div class="grid g32">
+ <div class="pn"><h3 style="margin-bottom:6px">审计查看（哈希链 · 查看亦留痕）</h3>
+ <table><tr><th>时间</th><th>操作者</th><th>生效角色</th><th>动作</th><th>链哈希</th></tr><tr><td class="num">11-27 14:02</td><td class="mono" style="font-size:12.5px">pd@citmark.com</td><td class="mono" style="font-size:12px">product_director</td><td>查看 P2 账单面（用户 #041）</td><td class="mono" style="font-size:12px">a91f…c204</td></tr><tr><td class="num">11-27 11:48</td><td class="mono" style="font-size:12.5px">td@citmark.com</td><td class="mono" style="font-size:12px">tech_director</td><td>ack 告警（引擎错误率）</td><td class="mono" style="font-size:12px">77b2…9e10</td></tr><tr><td class="num">11-26 17:20</td><td class="mono" style="font-size:12.5px">pd@citmark.com</td><td class="mono" style="font-size:12px">product_director</td><td>提交待拍板（CASE-0231）</td><td class="mono" style="font-size:12px">3dd0…51aa</td></tr></table>
+ <p class="note" style="margin-top:10px">审计记 effective role＋当时分配全集，事后可追「以何身份看的」。审计写失败即拒绝执行（代码既定）。</p></div>
+ <div>
+ <div class="pn"><h3 style="margin-bottom:6px">访问复核</h3>
+ <dl class="kv"><dt>季度复核</dt><dd>下次 2027-01-01 · 待确认 2 项</dd><dt>45 天未登录</dt><dd>1 个账号已标提醒</dd><dt>MFA 登记</dt><dd>2/2 已登记（TOTP 二波后强制）</dd></dl></div>
+ <div class="pn mt"><h3>可见性</h3><p class="cap">boss 全量；PD 见审计与复核清单（不见 secrets）；TD 见审计与技术配置面；support／finance／analyst 不入此页（导航不渲染）。</p></div>
+ </div>
+</div></main>
+<div class="spec"><span class="label">本帧规格注 · 定版前不施工</span>
+<p><b>所用 token：</b>哈希 mono 截断呈现；复核清单 .kv 定义表；本面无主行动钮（只读面）。</p><p><b>与 live 对位：</b>live 已建骨架（wave-1：会话与审计链）；审计查看端点为二波新建——本帧为查看面定格。</p>
+<p><b>数据：</b>帧内全部为示例数据（example.com 域、虚构品牌），只示结构与状态，不代表真实客户与账目。</p></div>
+<div style="height:34px"></div></div></div></body></html>
