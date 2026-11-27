@@ -2257,7 +2257,7 @@ const api = {
         let det = null;
         try { const j = await r.json(); if (j && typeof j.detail === "string") det = j.detail; } catch (e) {}
         if (det) { const er = new Error(det); er.detail = det; throw er; }
-        throw new Error("HTTP " + r.status);
+        throw new Error("The request could not be completed.");
       }
       return r.json();
     }
@@ -2268,7 +2268,7 @@ const api = {
   async getScore(id) {
     if (this.mode === "http") {
       const r = await fetch(this.baseUrl + "/snapshots/" + id);
-      if (!r.ok) throw new Error("HTTP " + r.status);
+      if (!r.ok) throw new Error("The request could not be completed.");
       return r.json();
     }
     await this._delay(300);
@@ -2278,7 +2278,7 @@ const api = {
   async getAnswers(id) {
     if (this.mode === "http") {
       const r = await fetch(this.baseUrl + "/snapshots/" + id + "/answers");
-      if (!r.ok) throw new Error("HTTP " + r.status);
+      if (!r.ok) throw new Error("The request could not be completed.");
       return r.json();
     }
     await this._delay(300);
@@ -2632,7 +2632,7 @@ async function runSnapshot() {
     document.getElementById("runConfirm").style.display = "block";
     errBox.className = "state-err";
     errBox.style.marginBottom = "12px";
-    errBox.textContent = err.detail || ("Snapshot failed: " + err.message + ". Please retry.");
+    errBox.textContent = err.detail || "Snapshot failed. Please retry.";
   } finally {
     state.running = false;
     btn.disabled = false; btn.textContent = "▶  Run snapshot";
@@ -2684,7 +2684,7 @@ async function runSnapshot() {
     document.getElementById("runConfirm").style.display = "block";
     errBox.className = "state-err";
     errBox.style.marginBottom = "12px";
-    errBox.textContent = err.detail || ("Snapshot failed: " + err.message + ". Please retry.");
+    errBox.textContent = err.detail || "Snapshot failed. Please retry.";
   } finally {
     if (window.__runWait) window.__runWait.stop();
     state.running = false;
@@ -3491,7 +3491,7 @@ document.querySelectorAll("[data-view]").forEach(function (b) {
       if (goBtn) goBtn.disabled = true;
       fetch('/connections/shopify', { method: 'DELETE', credentials: 'same-origin' })
         .then(function (r) {
-          if (!r.ok) throw new Error('http ' + r.status);
+          if (!r.ok) throw new Error('The request could not be completed.');
           secBindRow('unbindShopifyRow', 'Bind Shopify');
           showToast('Shopify disconnected.');
         })
@@ -3512,7 +3512,7 @@ document.querySelectorAll('.notif-toggle[data-pref]').forEach(function(btn){
     var body = {}; body[key] = on;
     fetch('/notifications/prefs', { method: 'PUT', credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error('The request could not be completed.'); return r.json(); })
       .then(function (prefs) {
         var v = !!prefs[key];
         btn.classList.toggle('on', v);
@@ -3948,7 +3948,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     fetch('/connections/' + encodeURIComponent(key), { method: 'DELETE', credentials: 'same-origin' })
       .then(function (r) {
         if (r.status === 401) { showGate(); return; }
-        if (!r.ok) throw new Error('http ' + r.status);
+        if (!r.ok) throw new Error('The request could not be completed.');
         loadConns(true);
       })
       .catch(function () {
@@ -3964,7 +3964,7 @@ fetch('/notifications/prefs', { credentials: 'same-origin' })
     fetch('/connections', { credentials: 'same-origin' })
       .then(function (r) {
         if (r.status === 401) { showGate(); throw new Error('unauthorized'); }
-        if (!r.ok) throw new Error('http ' + r.status);
+        if (!r.ok) throw new Error('The request could not be completed.');
         return r.json();
       })
       .then(function (list) { renderConns(Array.isArray(list) ? list : []); })
@@ -4242,7 +4242,7 @@ var EVIDENCE = {
 var HTTP = (typeof api !== "undefined" && api.mode === "http");
 function fetchJSON(path){
   return fetch(path, { credentials: "same-origin" }).then(function(r){
-    if(!r.ok){ var e = new Error("http " + r.status); e.status = r.status; throw e; }
+    if(!r.ok){ var e = new Error("The request could not be completed."); e.status = r.status; throw e; }
     return r.json();
   });
 }
@@ -5078,7 +5078,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
           empty.style.display = "";
           return null;
         }
-        if (!r.ok) { throw new Error("http " + r.status); }
+        if (!r.ok) { throw new Error("The request could not be completed."); }
         return r.json();
       })
       .then(function (data) {
@@ -5151,7 +5151,7 @@ window.T7History = { _setRunsForTest: function(r){ RUNS = r; renderRuns(); rende
     var url = "/auth/login-history?limit=50";
     if (append && cursor) url += "&cursor=" + encodeURIComponent(cursor);
     fetch(url, { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) { throw new Error("http " + r.status); } return r.json(); })
+      .then(function (r) { if (!r.ok) { throw new Error("The request could not be completed."); } return r.json(); })
       .then(function (data) {
         loading = false;
         var rows = (data && data.rows) || [];
@@ -5252,13 +5252,13 @@ window.$crisp.push(["set", "session:event", [[["page:dashboard", {}, 0]]]]);
   }
   function getJSON(url) {
     return fetch(url, { credentials: "same-origin" }).then(function (r) {
-      if (!r.ok) throw new Error("http " + r.status);
+      if (!r.ok) throw new Error("The request could not be completed.");
       return r.json();
     });
   }
   function postJSON(url, body) {
     return fetch(url, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(function (r) {
-      if (!r.ok) throw new Error("http " + r.status);
+      if (!r.ok) throw new Error("The request could not be completed.");
       return r.json().catch(function () { return {}; });
     });
   }
@@ -5461,7 +5461,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
   var WITHHELD_KEY = "withheld_count"; /* backend dictionary 2026-11-15: series.py tail key, counts evidence_sufficient=false points */
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function fmtDate(iso) { var d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
-  function getJSON(url) { return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); }); }
+  function getJSON(url) { return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("The request could not be completed."); return r.json(); }); }
   function brandDomain() { try { return (state.snapshot && state.snapshot.brand && state.snapshot.brand.domain) || null; } catch (e) { return null; } }
   function badge(text, cls) { var b = el("span", cls, text); b.style.marginLeft = "8px"; return b; }
   function retestLine(v) { if (!v) return null; var t = RETEST_DICT[v]; if (!t) return null; return el("div", "tk-s", t); }
@@ -5514,7 +5514,7 @@ TOOL_INFO.s_team = { name: "Team", q: "",
     if (dates.some(function (d) { return !/^\d{4}-\d{2}-\d{2}$/.test(d); })) return;
     var sorted = dates.slice().sort(); var from = sorted[0], to = sorted[sorted.length - 1];
     fetch("/public/breakpoints?from=" + from + "&to=" + to, { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error("The request could not be completed."); return r.json(); })
       .then(function (d) {
         var list = (d && d.breakpoints) || (Array.isArray(d) ? d : null);
         if (!list) return;
@@ -5888,7 +5888,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   };
   function getJ(url) {
     return fetch(url, { credentials: "same-origin" }).then(function (r) {
-      if (!r.ok) throw new Error("http " + r.status); return r.json();
+      if (!r.ok) throw new Error("The request could not be completed."); return r.json();
     });
   }
   function postJ(url, body) {
@@ -6168,7 +6168,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   if (window.__bmWire) return; window.__bmWire = true;
   function $(id) { return document.getElementById(id); }
   function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; }
-  function getJ(url) { return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); }); }
+  function getJ(url) { return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("The request could not be completed."); return r.json(); }); }
   function postJ(url, body) { return fetch(url, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { status: r.status, data: d }; }); }); }
   function hideWalls() { var sec = $("view-tools-p4"); if (!sec) return; sec.querySelectorAll(":scope > .card:not([data-live-layer])").forEach(function (c) { c.style.display = "none"; }); }
   var P = null;         // presentation dict from the latest payload
@@ -6415,7 +6415,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; }
   function fmtDate(iso) { var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
   function live() { return document.documentElement.getAttribute("data-state") !== "demo" && location.pathname.indexOf("/dashboard") === 0; }
-  function getJ(u) { return fetch(u, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); }); }
+  function getJ(u) { return fetch(u, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("The request could not be completed."); return r.json(); }); }
   function postJ(u, body) { return fetch(u, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { status: r.status, data: d }; }); }); }
   var PURPOSE = { "TPL-T5-B": "Contact the source", "TPL-T5-C": "Publish a correction" };
   var CHIP = { waiting: ["Waiting", "tk-badge-note"], used: ["Used", "badge-ok"], discarded: ["Discarded", "tk-badge-notconn"] };
@@ -6631,7 +6631,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   function load() {
     var b = brand(); if (!live() || !b) return;
     req("GET", "/brands/" + encodeURIComponent(b.id) + "/facts").then(function (res) {
-      if (res.status !== 200) throw new Error("http " + res.status);
+      if (res.status !== 200) throw new Error("The request could not be completed.");
       facts = res.data.facts || []; baseline = res.data.baseline || null; hasUnconfirmed = res.data.has_unconfirmed === true; respBrand = res.data.brand || null; setDirty = false;
       render();
     }).catch(function () {
@@ -6758,7 +6758,7 @@ html[data-brand-failed] .state-strip, html[data-brand-failed] .state-foot { disp
   function load() {
     if (inflight) return; inflight = true;
     fetch("/billing/points", { credentials: "same-origin" })
-      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error("The request could not be completed."); return r.json(); })
       .then(function (d) { cache = d; render(d); })
       .catch(function () {})
       .finally(function () { inflight = false; });
