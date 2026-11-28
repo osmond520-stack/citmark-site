@@ -1390,5 +1390,10 @@ h1,h2{text-wrap:balance}
 .trust{background:transparent;border:none;border-radius:0;padding:0;color:var(--muted)}
 .method-grid .mcard{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:20px 0 0}
 </style>
+<style id="fix-167-sweep">
+/* #167 15-24 · 18: footer folds at 900 (was 600) · 22: topnav fits 910-970 (was wrapping) */
+@media (max-width:900px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
+@media (max-width:1024px){.topnav{gap:12px}.topnav a{font-size:14px}}
+</style>
 </body>
 </html>

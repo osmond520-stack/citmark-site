@@ -1261,7 +1261,7 @@ section{padding:128px 0}
 section.final{overflow:hidden}
 .foot .tag{display:block;font-family:var(--f-sans);font-size:15px;font-weight:400;letter-spacing:normal;color:var(--ink-2);margin-top:12px;line-height:1.55;max-width:320px;white-space:normal;padding:0;background:none;border:none;border-radius:0}
 @media (max-width:1024px){:root{--gutter:40px}}
-@media (max-width:860px){
+@media (max-width:900px){
 .nav-links{display:none}
 .nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}
 .mmenu{top:64px}
@@ -1533,6 +1533,12 @@ body{background:var(--bg);color:var(--ink)}
 <style id="sec-single-side">
 /* Section boundaries, single-side rule (his ruling 2026-11-24): upper section bottom = 0, lower keeps its top. */
 section.sec, section.sec.tight, section.hero, section.hero.guide { padding-bottom: 0; }
+</style>
+<style id="fix-167-sweep">
+/* #167 15-24 · 20: hero stacks below 1260 (visual card was cut 910-1200) */
+@media (max-width:1260px){.hero.guide{grid-template-columns:1fr}.guide-visual{max-width:620px;justify-self:start;margin-top:40px}}
+/* · 20: loop diagram scales to its split column (was overflowing it 860-910) */
+@media (max-width:1260px){.split>*{min-width:0}.guide-loop{max-width:100%}}
 </style>
 </head>
 <body class="session-ready">
