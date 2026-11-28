@@ -1808,6 +1808,8 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
   </div>
 </div>
 
+<style id="run-nocfg-fix">#runBtn[hidden]{display:none!important}</style>
+<style id="cfg-nav-fix">.cfg-nav .btn[hidden]{display:none!important}</style>
 <!-- run drawer -->
 <div class="drawer" id="runDrawer">
   <div class="scrim" id="runScrim"></div>
@@ -1839,7 +1841,7 @@ html[data-state="empty"]:not([data-brand-none]) .ov-fresh{display:none!important
       <div class="cfg-nav">
         <button class="btn ghost" id="cfgBack">← Back</button>
         <button class="btn" id="cfgNext">Next →</button>
-        <button class="btn" id="cfgDone" style="display:none;">Done</button>
+        <button class="btn" id="cfgDone" hidden>Done</button>
       </div>
     </div>
     <div id="runProgress" style="display:none;">
@@ -2488,6 +2490,10 @@ function renderRunSummary() {
   if (typeof api !== "undefined" && api.mode === "http" && !cfg.brand.name) {
     if (note) note.textContent = "Set up your first snapshot \u2014 it takes a minute.";
     document.getElementById("runSummary").innerHTML = "No configuration yet. Your first snapshot starts from a blank setup.";
+    var rb0 = document.getElementById("runBtn");
+    var rc0 = document.getElementById("runConfigBtn");
+    if (rb0) rb0.hidden = true;
+    if (rc0) { rc0.classList.remove("ghost"); rc0.textContent = "Set up configuration"; }
     return;
   }
   if (note) note.textContent = "Runs with your last configuration. Change it any time.";
@@ -2495,6 +2501,10 @@ function renderRunSummary() {
     "<b>Brand:</b> " + escapeHtml(cfg.brand.name) + " (" + escapeHtml(cfg.brand.domain) + ")<br>" +
     "<b>Competitors:</b> " + cfg.competitors.size + " tracked<br>" +
     "<b>Questions:</b> " + cfg.questions.size + " questions";
+  var rb1 = document.getElementById("runBtn");
+  var rc1 = document.getElementById("runConfigBtn");
+  if (rb1) rb1.hidden = false;
+  if (rc1) { rc1.classList.add("ghost"); rc1.textContent = "Change configuration"; }
 }
 function buildCfgLists() {
   const src = (typeof api !== "undefined" && api.mode === "http") ? (window.__cfgOptions || { competitors: [], questions: [] }) : MOCK.snapshot;
@@ -2515,9 +2525,9 @@ let cfgStep = 1;
 function showCfgStep(n) {
   cfgStep = n;
   [1, 2, 3].forEach(k => { document.getElementById("cfgStep" + k).style.display = k === n ? "block" : "none"; });
-  document.getElementById("cfgBack").style.visibility = n === 1 ? "hidden" : "visible";
-  document.getElementById("cfgNext").style.display = n === 3 ? "none" : "block";
-  document.getElementById("cfgDone").style.display = n === 3 ? "block" : "none";
+  document.getElementById("cfgBack").hidden = n === 1;
+  document.getElementById("cfgNext").hidden = n === 3;
+  document.getElementById("cfgDone").hidden = n !== 3;
 }
 function openRunDrawer() {
   if (state.running) return;
@@ -2568,6 +2578,23 @@ async function resolveRunBrand() {
 }
 function runRowMeta(e) { return ENGINE_META[e] || { short: String(e).slice(0, 3).toUpperCase(), name: String(e) }; }
 
+function detailForUser(d) {
+  if (!d || typeof d !== "string") return null;
+  if (d.indexOf("capability denied:") === 0) {
+    var m = /^capability denied:\s*([a-z_]+)\s*\((\w+)\)/.exec(d);
+    var action = m ? m[1] : "", reason = m ? m[2] : "";
+    if (reason === "tier_locked") {
+      if (action === "run_snapshot") return "Snapshots need a plan. Choose a plan to run one.";
+      return "That action needs a plan. Choose a plan to continue.";
+    }
+    if (reason === "role_insufficient" || reason === "no_membership" || reason === "not_member" || reason === "forbidden") {
+      if (action === "run_snapshot") return "You don't have permission to run snapshots \u2014 ask the workspace owner or an admin.";
+      return "You don't have permission to do that \u2014 ask the workspace owner or an admin.";
+    }
+    return "You don't have access to that action.";
+  }
+  return d;
+}
 async function runSnapshot() {
   if (state.running) return;
   state.running = true;
@@ -2632,7 +2659,7 @@ async function runSnapshot() {
     document.getElementById("runConfirm").style.display = "block";
     errBox.className = "state-err";
     errBox.style.marginBottom = "12px";
-    errBox.textContent = err.detail || "Snapshot failed. Please retry.";
+    errBox.textContent = detailForUser(err.detail) || "Snapshot failed. Please retry.";
   } finally {
     state.running = false;
     btn.disabled = false; btn.textContent = "▶  Run snapshot";
@@ -2684,7 +2711,7 @@ async function runSnapshot() {
     document.getElementById("runConfirm").style.display = "block";
     errBox.className = "state-err";
     errBox.style.marginBottom = "12px";
-    errBox.textContent = err.detail || "Snapshot failed. Please retry.";
+    errBox.textContent = detailForUser(err.detail) || "Snapshot failed. Please retry.";
   } finally {
     if (window.__runWait) window.__runWait.stop();
     state.running = false;
