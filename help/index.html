@@ -202,7 +202,7 @@ h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spac
   .radar-box,.polar-box{margin:8px auto 0}
   .pcols{gap:26px}
 }
-@media (max-width:860px){
+@media (max-width:900px){
   .topnav{display:none}
   .burger{display:inline-flex}
   .wrap{padding:0 20px}
@@ -285,9 +285,14 @@ h2{font-size:clamp(30px,3.4vw,46px);font-weight:800;line-height:1.08;letter-spac
 .topbar .topbar-in{max-width:1180px;justify-content:space-between}
 .topbar .topbar-in a,.topbar .topbar-in .btn{white-space:nowrap}
 header h1{font-size:52px}
-@media (max-width:860px){.topbar .topbar-in{height:63px;padding:0 20px}}
+@media (max-width:900px){.topbar .topbar-in{height:63px;padding:0 20px}}
 @media (max-width:400px){.top-right{gap:10px}.top-right .btn{padding:11px 16px}}
 @media (max-width:700px){header h1{font-size:34px}}
+</style>
+<style id="fix-167-sweep">
+/* #167 15-24 · 23: topbar fits 360 (was +8px); footer links stay one line */
+@media (max-width:400px){.topbar-in{gap:12px;padding:0 16px}.top-right{gap:8px}.top-right .btn{padding:11px 12px}}
+.foot-grid a{white-space:nowrap}
 </style>
 </head>
 <body>

@@ -11,6 +11,12 @@
 /* Section boundaries, single-side rule (his ruling 2026-11-24): upper section bottom = 0, lower keeps its top. */
 section.sec, section.sec.tight, section.hero, section.hero.guide { padding-bottom: 0; }
 </style>
+<style id="fix-167-sweep">
+/* #167 15-24 · 15+18: topbar hamburger + footer fold at 900 (was 600) */
+@media (max-width:1024px){:root{--gutter:40px}}
+@media (max-width:900px){.nav-links{display:none}.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}.mmenu{border-bottom:1.5px solid var(--ink);background:var(--bg);padding:10px 20px 18px}.mmenu.open{display:block}.mmenu a{display:block;padding:11px 0;font-size:16.5px;font-weight:600;color:var(--ink)}.mmenu a.on{color:var(--or-ink)}.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}.hero{display:block;min-height:0;padding-top:16px;padding-bottom:48px}}
+@media (max-width:1024px){.nav-links{gap:20px}.nav-r{gap:12px}}
+</style>
 </head><body>
 <header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="/#report">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/" class="on">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="burger" type="button" aria-expanded="false" aria-controls="mmenu" aria-label="Menu"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M0 1h16M0 6h16M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
 <nav class="mmenu" id="mmenu"><a href="/product/">Product</a><a href="/#report">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/" class="on">About</a><a href="#faq">FAQ</a></nav>

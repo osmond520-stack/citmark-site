@@ -631,7 +631,7 @@ section#faq .faq-q .chev{font-family:var(--f-mono)}
 #sample-report .vs .of{transform:translateY(-29px)}
 @media (max-width:600px){#sample-report .vs .of{transform:translateY(-17px)}}
 @media (min-width:601px) and (max-width:800px){.vs{gap:20px}.vs .score.xl{font-size:64px}.vs .cap{font-size:13.5px}.sector{max-width:100%}.sector svg{max-width:100%;height:auto}}
-@media (max-width:860px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
+@media (max-width:900px){.foot-g{grid-template-columns:1fr 1fr;gap:28px}.foot-g>:first-child{grid-column:1/-1}}
 @media (min-width:1401px){.rows .row:nth-child(2)>div{transform:translateY(4px)}.rows .row:nth-child(3)>div{transform:translateY(2px)}.rows .row:nth-child(4)>div{transform:translateY(4px)}}
 @media (min-width:1024px) and (max-width:1400px){.rows .row:nth-child(2)>.n{transform:translateY(-1px)}}
 @media (min-width:1024px) and (max-width:1400px){.rows .row:nth-child(2)>div{transform:translateY(2px)}.rows .row:nth-child(3)>div{transform:translateY(15px)}.rows .row:nth-child(4)>div{transform:translateY(3px)}}
@@ -640,7 +640,7 @@ section#faq .faq-q .chev{font-family:var(--f-mono)}
 #faq .sec-head{display:block}
 @media (min-width:901px) and (max-width:1206px){.hero{display:block}.hero-mini-wrap{margin:48px auto 0}}
 @media (min-width:901px) and (max-width:1152px){.howsec .split{display:block}.howsec .split .ticket{max-width:560px;margin:48px auto 0}}
-@media (max-width:860px){.nav-links{display:none}.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}}
+@media (max-width:900px){.nav-links{display:none}.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}}
 .form-msg{font-size:15px;margin-top:12px;max-width:560px;display:none}
 .form-msg.show{display:block}
 .form-msg.err{color:#B3261E}
@@ -884,7 +884,11 @@ section#faq .faq-q .chev{font-family:var(--f-mono)}
 .score-ring .ring-fg{transition:stroke-dashoffset var(--m-l) var(--m-ease)!important}
 
 .inline-cta h3{text-wrap:balance}</style>
-<script>document.documentElement.classList.add('js-motion')</script></head><body><header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="#report">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
+<script>document.documentElement.classList.add('js-motion')</script><style id="fix-167-sweep">
+/* #167 15-24 · 19: price preview row stacks below 768 (was squeezed out 610-740) */
+@media (max-width:768px){.tiers{flex-direction:column;align-items:stretch;gap:0;margin-top:32px;border-top:2px solid var(--ink)}.tier{display:grid;grid-template-columns:1fr auto;align-items:end;padding:16px 0;border-bottom:1px solid var(--ink)}.tier .nm{grid-column:1/-1}.tier .pr{margin-top:4px;font-size:40px}.tier.main .pr{font-size:56px}.tier .df{margin:0 0 6px;text-align:right}}
+</style>
+</head><body><header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/">Product</a><a href="#report">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a></nav><div class="nav-r"><a href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path class="mb1" d="M0 1h16" stroke="#141311" stroke-width="1.8"/><path class="mb2" d="M0 6h16" stroke="#141311" stroke-width="1.8"/><path class="mb3" d="M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
 <nav class="mmenu" id="mobileMenu"><a href="/product/">Product</a><a href="#report">Sample report</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
 <section class="wrap hero">
  <div class="copy">
