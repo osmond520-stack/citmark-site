@@ -553,8 +553,6 @@ body.is-authed .topbar-in [data-open-auth-card] { display: none; }
 
 .final .field-cta input.ph::placeholder{color:#77726A}
 
-.nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}
-
 .mmenu{top:64px}
 
 .field-cta input.ph{padding:14px 12px}
@@ -646,6 +644,17 @@ section#faq .faq-q .chev{font-family:var(--f-mono)}
 .form-msg{font-size:15px;margin-top:12px;max-width:560px;display:none}
 .form-msg.show{display:block}
 .form-msg.err{color:#B3261E}
+</style>
+<style id="hero-670-fix">
+/* #167-12: at short desktop viewports the 824px hero min-height pushes the signup
+   form and radar caption below the fold (1280x670). Drop the min-height and tighten
+   the hero stack so the form + caption fit within 670px. No change at >=721px height. */
+@media (min-width:901px) and (max-height:720px){
+  .hero{min-height:0}
+  .hero .display{font-size:56px}
+  .hero .field-cta{margin-top:24px}
+  .hero .radar{max-width:420px}
+}
 </style>
 <style id="checker-css">@media (max-width: 860px) {
         .score-big { font-size: 52px; }
@@ -884,7 +893,7 @@ section#faq .faq-q .chev{font-family:var(--f-mono)}
   <p class="lead">CitMark measures <b>ChatGPT, Perplexity and Gemini</b> answers, shows where the brands in this scan sit and who gets cited instead — and <b>drafts the corrections</b> for you to approve. Founding price from <b>$12.50/mo</b>.</p>
   <!-- LANDING WIRING 1/2: hero form -> real signup flow (design marks the point; wiring is a landing action) -->
    <form class="field-cta waitlist" data-register data-source="hero" novalidate><label style="position:absolute;left:-9999px" for="email-hero">Work email</label><input id="email-hero" class="ph" type="email" name="email" placeholder="you@yoursite.com" autocomplete="email" required><input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Create your free account →</button></form><div class="form-msg" aria-live="polite"></div>
-  <div class="fine">No card required · 0 code to install</div>
+  <div class="fine">No card required · No code to install</div>
  </div>
  <!-- DATA: production re-run snap-b517e2d1 (2026-11-25, robot vacuums, 3 questions x 3 engines, n=9): Roborock 77.8 / Dreame 66.7 / iRobot Roomba 33.3 / Eufy 33.3 / Ecovacs 22.2 / Narwal 22.2 / MOVA 11.1 - design freeze v90 -->
   <div class="radar"><div class="dsk"><svg viewBox="0 0 760 760" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans">
@@ -2288,22 +2297,23 @@ setTimeout(function () { document.body.classList.add("session-ready"); }, 5000);
   window.$crisp = [];
   window.CRISP_WEBSITE_ID = "7fc49d53-a991-4a0f-9884-730d9fce1cdb";
   (function () {
-    var d = document;
-    var s = d.createElement("script");
-    s.src = "https://client.crisp.chat/l.js";
-    s.async = 1;
-    d.getElementsByTagName("head")[0].appendChild(s);
-  })();
-</script>
-<script type="text/javascript">
-  window.$crisp = [];
-  window.CRISP_WEBSITE_ID = "7fc49d53-a991-4a0f-9884-730d9fce1cdb";
-  (function () {
-    var d = document;
-    var s = d.createElement("script");
-    s.src = "https://client.crisp.chat/l.js";
-    s.async = 1;
-    d.getElementsByTagName("head")[0].appendChild(s);
+    var loaded = false;
+    function load() {
+      if (loaded) return; loaded = true;
+      var d = document;
+      var s = d.createElement("script");
+      s.src = "https://client.crisp.chat/l.js";
+      s.async = 1;
+      d.getElementsByTagName("head")[0].appendChild(s);
+    }
+    if (window.matchMedia("(max-width:600px)").matches) {
+      var fired = false;
+      function kick() { if (!fired && window.scrollY > 300) { fired = true; load(); } }
+      window.addEventListener("scroll", kick, {passive: true});
+      setTimeout(function () { if (!fired) { fired = true; load(); } }, 10000);
+    } else {
+      load();
+    }
   })();
 </script>
 <script>
