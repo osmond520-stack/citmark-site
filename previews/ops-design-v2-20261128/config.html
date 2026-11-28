@@ -89,6 +89,10 @@ input.code{width:44px;height:52px;border:1.5px solid var(--ink);border-radius:6p
 .minishell .label{display:block;padding:10px 8px 4px;color:var(--mute)}
 .minishell a{display:block;padding:5px 8px;border-radius:5px;color:var(--ink-2);font-size:13px;font-weight:550}
 .minishell a.on{background:var(--ink);color:var(--bg)}
+.cfgwrap>*{min-width:0}
+.cfgwrap table{table-layout:fixed;width:100%}
+.cfgwrap td.mono{overflow-wrap:anywhere;font-size:11.5px}
+.cfgwrap td:first-child{width:34%}
 </style></head>
 <body>
 <header class="topbar"><a class="logo" href="index.html">CitMark<i>.</i></a><span class="int-badge">INTERNAL · 运营台</span><span class="sp"></span>
@@ -97,7 +101,7 @@ input.code{width:44px;height:52px;border:1.5px solid var(--ink);border-radius:6p
 <p class="note" style="padding:14px 10px 0">没有权限的页面不出现在导航里（不是变灰）。</p></aside>
 <div><main class="main"><div class="phead"><div><span class="label">运营台 · 设计帧 v2</span><h1>配置</h1><p class="sub">只列已经枚举批准的真键（产品域 6＋技术域 7）；清单之外的键一律不可写。</p></div><span class="sp"></span></div>
 
-<div class="grid g2">
+<div class="grid g2 cfgwrap">
  <div class="pn"><h3 style="margin-bottom:6px">产品域（已枚举真键）</h3><table><tr><th>键</th><th>用途</th><th>当前值（摘要）</th><th>可改角色</th></tr><tr><td class="mono" style="font-size:12px">ops.decision_box.sla_hours</td><td>待拍板箱响应时限（超时升告警）</td><td>24 小时</td><td>product_director</td></tr><tr><td class="mono" style="font-size:12px">ops.alerts.routes</td><td>告警分类 → 认领角色与渠道</td><td>5 类已映射</td><td>product_director</td></tr><tr><td class="mono" style="font-size:12px">ops.templates.active_versions</td><td>客服模板库生效版本指针</td><td>指向已定稿版本</td><td>product_director</td></tr><tr><td class="mono" style="font-size:12px">ops.cases.reason_vocab_version</td><td>案卷原因词表生效版本</td><td>词表 v1</td><td>product_director</td></tr><tr><td class="mono" style="font-size:12px">product.cohort.watch_thresholds</td><td>cohort 预警关注点（须低于硬顶）</td><td>90 席预警</td><td>product_director</td></tr><tr><td class="mono" style="font-size:12px">ops.approval_digest.cadence</td><td>待拍板摘要推送节奏</td><td>每日</td><td>product_director</td></tr></table></div>
  <div class="pn"><h3 style="margin-bottom:6px">技术域（已枚举真键）</h3><table><tr><th>键</th><th>用途</th><th>当前值（摘要）</th><th>可改角色</th></tr><tr><td class="mono" style="font-size:12px">tech.engines.model.<engine></td><td>各引擎调用模型名（须命中已核验清单）</td><td>逐引擎在册</td><td>tech_director</td></tr><tr><td class="mono" style="font-size:12px">tech.engines.timeout_seconds</td><td>引擎单次调用超时</td><td>180 秒</td><td>tech_director</td></tr><tr><td class="mono" style="font-size:12px">tech.engines.retry.max_attempts</td><td>最大尝试次数（上限 3 是签数前提）</td><td>3</td><td>tech_director</td></tr><tr><td class="mono" style="font-size:12px">tech.resilience.breaker.threshold</td><td>引擎熔断触发（连续失败次数）</td><td>8 次</td><td>tech_director</td></tr><tr><td class="mono" style="font-size:12px">tech.snapshot.engine_mode</td><td>快照引擎急停开关</td><td>real</td><td>tech_director</td></tr><tr><td class="mono" style="font-size:12px">tech.internal.login_throttle</td><td>内部登录节流参数</td><td>10 次 / 15 分钟</td><td>tech_director</td></tr><tr><td class="mono" style="font-size:12px">tech.alerts.flush_secret_rotation</td><td>告警通道凭据轮换标记（台内永不见值）</td><td>none</td><td>tech_director</td></tr></table></div>
 </div>
