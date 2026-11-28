@@ -1,0 +1,108 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>运营台设计册 v2 · 五屏先行</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><style>
+:root{--bg:#F4F1EA;--paper:#FBF9F4;--line:#E2DBCD;--ink:#141311;--ink-2:#4B463C;--ink-3:#6F685C;--mute:#9A9385;--or:#E8541E;--or-ink:#C2410C;--or-2:#FF7A45;--wash:rgba(232,84,30,.10);--dark:#12110F;--panel:#fff;--crit:#9A3412}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--or-ink);font-weight:700}
+.topbar{height:56px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:17px;letter-spacing:-.02em}.logo i{color:var(--or);font-style:normal}
+.int-badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;background:var(--ink);color:var(--bg);padding:4px 8px;border-radius:3px}
+.topbar .sp{flex:1}
+.rolechip{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.rolechip .avatar{width:26px;height:26px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.shell{display:grid;grid-template-columns:224px 1fr;min-height:calc(100vh - 56px)}
+.side{border-right:1px solid var(--line);background:var(--paper);padding:18px 12px}
+.side .label{display:block;padding:12px 10px 6px;color:var(--mute)}
+.nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;color:var(--ink-2);font-weight:550;font-size:13.5px}
+.nav a.on{background:var(--ink);color:var(--bg);font-weight:650}
+.nav a .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--wash);color:var(--or-ink);padding:1px 6px;border-radius:99px}
+.nav a.on .cnt{background:var(--or);color:#fff}
+.main{padding:26px 30px 40px;max-width:1240px}
+.phead{display:flex;align-items:flex-end;gap:16px;margin-bottom:18px}
+.phead h1{font-size:26px;font-weight:750;letter-spacing:-.02em;line-height:1.15}
+.phead .sub{color:var(--ink-3);font-size:13.5px;margin-top:4px;max-width:640px}
+.phead .sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 14px;border-radius:999px;border:1.5px solid var(--ink);font-weight:650;font-size:13px;background:transparent;cursor:pointer}
+.btn.pri{background:var(--or);border-color:var(--or);color:#fff}
+.btn.sm{min-height:28px;padding:0 10px;font-size:12px}
+.btn.ghost{border-color:var(--line);color:var(--ink-2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g32{grid-template-columns:2fr 1fr}.g23{grid-template-columns:1fr 2fr}
+.pn{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.pn h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.pn .cap{color:var(--ink-3);font-size:12.5px}
+.pn.key{border:2px solid var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:650;padding:2.5px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.ok{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.warn{background:var(--wash);color:var(--or-ink);border-color:var(--or)}
+.chip.crit{background:var(--crit);color:#fff;border-color:var(--crit)}
+.chip.dim{color:var(--mute)}
+.num{font-family:'JetBrains Mono',monospace;font-size:13px}
+.big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+.bar{height:7px;background:var(--bg);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--or);border-radius:99px}
+.bar.ink i{background:var(--ink)}
+.search{display:flex;gap:10px;margin-bottom:16px}
+.search .field{flex:1;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 16px;min-height:40px;color:var(--mute);font-size:13.5px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:7px 14px;font-size:13.5px}
+.kv dt{color:var(--ink-3)}.kv dd{font-weight:550}
+.tl{position:relative;padding-left:20px}
+.tl:before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:var(--line)}
+.tl .ev{position:relative;padding:7px 0}
+.tl .ev:before{content:'';position:absolute;left:-19px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--or)}
+.tl .ev .src{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--or-ink)}
+.spec{margin:26px 30px 0;max-width:1240px;border:1.5px dashed var(--mute);border-radius:6px;padding:16px 20px;background:rgba(251,249,244,.6)}
+.spec .label{color:var(--ink-3)}
+.spec p{font-size:13px;color:var(--ink-2);margin-top:6px;max-width:900px}
+.spec b{color:var(--ink)}
+.stat .big{font-size:30px}.stat .cap{margin-top:2px}
+input.code{width:44px;height:52px;border:1.5px solid var(--ink);border-radius:6px;background:#fff;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px}
+.login-wrap{min-height:calc(100vh - 56px);display:flex;align-items:flex-start;justify-content:center;padding:56px 20px}
+.login-card{width:400px;background:#fff;border:2px solid var(--ink);border-radius:6px;padding:30px 32px}
+.f-field{margin-top:14px}.f-field label{display:block;font-size:12.5px;font-weight:650;margin-bottom:6px}
+.f-field .in{border:1px solid var(--line);border-radius:4px;background:var(--paper);padding:10px 12px;color:var(--mute);font-size:13.5px}
+.note{font-size:12.5px;color:var(--ink-3)}
+.mt{margin-top:16px}.mb{margin-bottom:16px}
+
+.ghead{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.ghead .label{font-size:12px}
+.ghead .cnt{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--ink);color:var(--bg);padding:1px 7px;border-radius:99px}
+.ghead.crit .label{color:var(--crit)}
+.brief{display:block;transition:transform .12s}
+.brief:hover{transform:translateY(-1px)}
+.brief .fresh{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mute);display:flex;justify-content:space-between}
+.brief .nums{display:flex;gap:20px;margin-top:8px;flex-wrap:wrap}
+.brief .n .v{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;line-height:1.05}
+.brief .n .k{font-size:12px;color:var(--ink-3)}
+.decide{border:2px solid var(--ink);border-radius:6px;background:#fff;padding:24px 26px}
+.decide .amt{display:flex;gap:34px;align-items:flex-end;flex-wrap:wrap}
+.notebox{border:1px solid var(--line);border-radius:4px;background:var(--paper);padding:10px 12px;color:var(--mute);font-size:13px;min-height:56px}
+.empty{border:1.5px dashed var(--mute);border-radius:6px;padding:22px;text-align:center;color:var(--ink-3);background:rgba(251,249,244,.55)}
+.empty .t{font-weight:700;color:var(--ink-2);font-size:15px}
+.minishell{border:1px solid var(--line);border-radius:6px;background:var(--paper);padding:14px 12px}
+.minishell .label{display:block;padding:10px 8px 4px;color:var(--mute)}
+.minishell a{display:block;padding:5px 8px;border-radius:5px;color:var(--ink-2);font-size:13px;font-weight:550}
+.minishell a.on{background:var(--ink);color:var(--bg)}
+</style></head>
+<body><header class="topbar"><a class="logo" href="index.html">CitMark<i>.</i></a><span class="int-badge">INTERNAL · 设计册 v2</span></header>
+<main class="main" style="margin:0 auto">
+<span class="label">CitMark 运营台 · 设计方案 v2（按 Issue #163 改道）</span>
+<h1 style="font-size:34px;font-weight:800;letter-spacing:-.02em;margin:10px 0 8px">五屏先行，定版后才施工</h1>
+<p class="sub" style="color:var(--ink-3);max-width:760px;font-size:15px">11-27 那套 18 帧<b>不能定版、已作废</b>（他点定）。本册按小马对齐评审（Issue #163，他已点头）先重画五屏＋导航与配置两帧，整套呈定版；五屏过后才铺别的页。准据＝冻结规格现行指纹 <b class="mono">fae369de</b>（旧指纹 ef82f42d 已作废，不再引用）。帧内数据全为示例。</p>
+<div class="pn mt"><h3 style="margin-bottom:8px">本册帧目</h3>
+<table><tr><th>帧</th><th>面</th><th>状态</th></tr><tr><td class="num">01</td><td style="font-weight:600"><a href="overview.html" style="text-decoration:underline">总览（早晨简报 · 七组数）</a></td><td>本轮重画 · boss 落点</td></tr><tr><td class="num">02</td><td style="font-weight:600"><a href="login.html" style="text-decoration:underline">登录（只留密码）</a></td><td>本轮重画 · 一波</td></tr><tr><td class="num">03</td><td style="font-weight:600"><a href="inbox.html" style="text-decoration:underline">待拍板箱（唯一点定入口）</a></td><td>本轮重画</td></tr><tr><td class="num">04</td><td style="font-weight:600"><a href="case.html" style="text-decoration:underline">案卷（双金额为中心）</a></td><td>本轮重画</td></tr><tr><td class="num">05</td><td style="font-weight:600"><a href="alerts.html" style="text-decoration:underline">告警（按紧急分组）</a></td><td>本轮重画 · 一波</td></tr><tr><td class="num">06</td><td style="font-weight:600"><a href="nav.html" style="text-decoration:underline">三套角色导航</a></td><td>本轮补帧</td></tr><tr><td class="num">07</td><td style="font-weight:600"><a href="config.html" style="text-decoration:underline">配置（已枚举真键）</a></td><td>本轮修正</td></tr><tr><td class="num">—</td><td style="font-weight:600">其余各面（用户与团队／账单／争议／管线／引擎健康／帽与候补／工单／审计／内部账号／对账）</td><td>五屏定版后按同口径续画</td></tr></table></div>
+<div class="grid g2 mt">
+ <div class="pn"><h3 style="margin-bottom:6px">与 11-11 批一的范围关系</h3>
+ <table><tr><th>批一项</th><th>去向</th></tr><tr><td>首付对表</td><td>账单面（下一批续画时落位）</td></tr><tr><td>发信记录</td><td>案卷时间线已含邮件线；发信台账落账单面（下一批）</td></tr><tr><td>工单分级 T1–T3</td><td>工单关联面（下一批）</td></tr><tr><td>credit 发放</td><td>案卷调整动作已含形态（本册 04 帧）</td></tr><tr><td>工单入流</td><td>工单关联面（下一批）</td></tr></table>
+ <p class="note" style="margin-top:8px">本册定版范围是「冻结页面集」还是「批一开工稿」，#163 列为待点——上表先把五项去向写明，范围请他在定版时一并点。</p></div>
+ <div class="pn"><h3 style="margin-bottom:6px">待点清单（不猜着改）</h3>
+ <p class="cap">① 登录落点：<b>已点定＝总览</b>（2026-11-28）。② Passkey 与二波动态码如何分工、要不要补帧——待点，本册登录只画密码。③ 内部界面语言：本册用中文，如改英文全册统一换——待点。④ P3／P6／P7 波次以方案三阶还是 10-30 排期为准——待点。⑤ 正式入口只留 ops.citmark.com 一个域名；根路径现挂的公开 mock 演示页须撤或加锁——运维项，点名给技术线。</p></div>
+</div>
+<div class="pn mt"><h3>施工波次（一波，他已点定）</h3><p class="cap">一波只覆盖已有 live 壳：登录（只密码）、总览（落点）、用户与团队基础面、告警、审计骨架。动态码、内部账号、配置可写、案卷与待拍板箱走二波；账单／争议全量、管线实时、帽与候补跟既定前置。本册定版前不动工。</p></div>
+</main></body></html>
