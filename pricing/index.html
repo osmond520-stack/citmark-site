@@ -72,16 +72,37 @@
 .rung .pp .now small{display:inline-block;transform:translateY(-12.6px)}
 @media (max-width:600px){ .rung .pp .now small{transform:translateY(-9.5px)} }
 </style>
+<style id="pricing-768-fix">
+/* #167-11: at 601-900px the 600px hero column + 500px radar + full topbar nav
+   overflowed the viewport by ~492px (scrollWidth 1260 at 768). Below 900px the
+   hero stacks to one column with the narrow radar, and the topbar collapses to
+   the burger (same behaviour the sheet already gives below 600px). Desktop
+   values are unchanged. Prices untouched. */
+.hero.sub{grid-template-columns:600px 1fr}
+.radar{width:500px}
+@media (max-width:900px){
+  .hero.sub{grid-template-columns:1fr}
+  .radar{width:100%;max-width:500px;margin:0 auto}
+  .radar .dsk{display:none}
+  .radar .mob{display:block}
+  .rung{grid-template-columns:1fr 172px}
+  .rung.hl{padding-left:16px}
+  .foot-g{grid-template-columns:1fr 1fr;gap:28px}
+  .foot-g>:first-child{grid-column:1/-1}
+  .nav-links{display:none}
+  .nav-menu{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:50%}
+}
+</style>
 <link rel="stylesheet" href="/assets/motion.css"></head><body><header class="wrap nav"><a class="logo" href="/">CitMark<i>.</i></a><nav class="nav-links"><a href="/product/" class="">Product</a><a href="/#report" class="">Sample report</a><a href="/pricing/" class="on">Pricing</a><a href="/about/" class="">About</a><a href="#faq" class="">FAQ</a></nav><div class="nav-r"><a href="/?auth=login">Log in</a><a class="btn" href="/signup/">Get started</a><button class="nav-menu" id="burger" aria-label="Menu" aria-expanded="false"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M0 1h16M0 6h16M0 11h16" stroke="#141311" stroke-width="1.8"/></svg></button></div></header>
 <nav class="mmenu" id="mmenu"><a href="/product/">Product</a><a href="/#report">Sample report</a><a href="/pricing/" class="on">Pricing</a><a href="/about/">About</a><a href="#faq">FAQ</a><a href="/?auth=login">Log in</a></nav>
-<section class="wrap hero sub pb0" style="grid-template-columns:600px 1fr">
+<section class="wrap hero sub pb0">
  <div class="copy">
   <span class="label">— Pricing</span>
   <h1 class="display">One loop. Plans differ only in <span class="serif or">reach.</span></h1>
   <p class="lead">Higher plans add sites, questions and history — and Pro adds a fourth engine.</p>
   <div class="proofs"><span>Checks on demand</span><span>Cancel anytime</span><span>No card to start</span></div>
  </div>
- <div class="radar" style="width:500px"><div class="dsk"><svg class="radar-svg" viewBox="0 0 620 620" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans" data-sel="starter">
+ <div class="radar"><div class="dsk"><svg class="radar-svg" viewBox="0 0 620 620" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible" font-family="Plus Jakarta Sans" data-sel="starter">
 <defs><radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E8541E" stop-opacity=".22"/><stop offset="1" stop-color="#E8541E" stop-opacity="0"/></radialGradient></defs>
 <circle class="filldisc" cx="310" cy="310" r="105" fill="url(#g2)"/>
 <circle class="ringline" data-tier="starter" cx="310" cy="310" r="105" fill="none" stroke="#E8541E" stroke-opacity="0.9" stroke-width="2" pathLength="100"/>
